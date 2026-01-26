@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Learn the 3 times table with our interactive multiplication game. Perfect for elementary students ages 7-10.">
+    <meta name="keywords" content="3 times table, multiplication game, math game, elementary math, multiplication practice">
+    <meta name="author" content="NDED">
+    <title>3 Times Table Game | NDED - Building Mathematical Confidence</title>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts for NDED styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- 样式文件 -->
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <!-- 调整游戏在模板中的显示 -->
+    <style>
+        /* 重置body样式，让模板接管 */
+        body {
+            background-color: #f9f9f9 !important;
+            justify-content: flex-start !important;
+            align-items: flex-start !important;
+            padding: 0 !important;
+        }
+        
+        /* 游戏容器在模板中的样式调整 */
+        .main-content .multiplication-game {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), rgba(255, 255, 255, 0.95));
+            border: none;
+            box-shadow: none;
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 调整标题行 */
+        .title-row {
+            margin-top: 0;
+        }
+        
+        /* 调整答案和算式容器在模板中的间距 */
+        .answers-container {
+            margin: 1rem 0;
+        }
+        
+        .equations-container {
+            margin: 1rem 0;
+        }
+        
+        /* 确保动态内容容器能够容纳游戏和文章 */
+        .dynamic-content-container {
+            padding: 1rem;
+            min-height: auto;
+        }
+    </style>
+</head>
+<body class="theme-3">
+    <!-- 页眉部分 -->
+    <header>
+        <div class="container">
+            <h1 class="main-title">
+                <span class="nded-text">NDED</span>
+                <span class="subtitle">building mathematical confidence for life.</span>
+            </h1>
+        </div>
+    </header>
+    
+    <!-- 主内容区域 -->
+    <div class="main-row-container">
+        <div class="wide-container">
+            <div class="main-row">
+                <!-- 左侧边栏 -->
+                <div class="left-sidebar">
+                    <h3 class="nav-title">Navigation</h3>
+                    <div class="nav-buttons">
+                        <a href="../index.html" class="nav-button">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                        <a href="#about-us" class="nav-button">
+                            <i class="fas fa-info-circle"></i> About us
+                        </a>
+                        <a href="../index.html" class="nav-button">
+                            <i class="fas fa-gamepad"></i> Math Games
+                        </a>
+                        <a href="https://matrixcalcu.com/" target="_blank" class="nav-button external">
+                            <i class="fas fa-calculator"></i> Matrix Calculator
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 主内容区域 -->
+                <div class="main-content">
+                    <div class="dynamic-content-container">
+                        <!-- 游戏部分 -->
+                        <div class="multiplication-game" data-multiplier="3">
+                            <div class="title-row">
+                                <div class="title-with-button">
+                                    <!-- 小首页按钮 -->
+                                    <a href="../index.html" class="home-btn-small" aria-label="Return to home">
+                                        <i class="fas fa-home"></i>
+                                    </a>
+                                    
+                                    <h1>Multiplication Table (×3)</h1>
+                                </div>
+                            </div>
+                            
+                            <div class="completion-counter" id="completion-counter">
+                                Complete 2 times to unlock next level (0/2)
+                            </div>
+                            
+                            <div class="answers-container" id="answers-container">
+                                <!-- Answers will be populated by JavaScript -->
+                            </div>
+                            
+                            <div class="equations-container" id="equations-container">
+                                <!-- Equations will be populated by JavaScript -->
+                            </div>
+                            
+                            <div class="buttons-container">
+                                <button class="game-btn" id="restart-btn">Practice Again</button>
+                                <button class="game-btn" id="next-btn" disabled>Next Level</button>
+                            </div>
+                        </div>
+                        
+                        <!-- SEO文章区域（新增部分） -->
+                        <div class="seo-articles-section">
+                            
+                            <article class="digit-specific-article">
+                                <section class="digit-logic">
+                                    <h2>Mastering the 3s: Finding the Rhythm</h2>
+                                    <p>The 3s introduce a fun new rhythm to your counting. In this stage, we focus on the first three facts to ensure a rock-solid foundation.</p>
+                                    <ul>
+                                        <li><strong>3 × 1 = 3</strong></li>
+                                        <li><strong>3 × 2 = 6</strong></li>
+                                        <li><strong>3 × 3 = 9</strong> (A perfect square!)</li>
+                                    </ul>
+                                    <p>Pro Tip: Notice how each answer jumps by exactly 3. It's like skip-counting at the park!</p>
+                                </section>
+
+                                <hr>
+
+                                <section class="how-to-play">
+                                    <h3>🎮 How to Play</h3>
+                                    <p class="intro-sentence"><strong>Feel the rhythm! Now, try to solidify your number memory in the 3s level through our two-step drag-and-drop challenge.</strong></p>
+                                    
+                                    <div class="step-box">
+                                        <h4>Round 1: Order Up!</h4>
+                                        <p>Drag the answers (3, 6, 9) from the top bar into the correct equations. This round helps your eyes and hands get used to the pattern of 3s.</p>
+                                    </div>
+                                    
+                                    <div class="step-box">
+                                        <h4>Round 2: Random Master</h4>
+                                        <p>Can you find the right spot when the numbers are mixed up? Drag the shuffled answers to their equations. If you can do this, you truly know your 3s!</p>
+                                    </div>
+                                </section>
+
+                                <hr>
+
+                                <section class="about-game">
+                                    <h3>Why Choose Our Method?</h3>
+                                    <p>This <strong>interactive memory tool</strong> replaces stressful drills with engaging play. By focusing only on $n \times 1$ through $n \times n$, we ensure students never feel "behind." It's the perfect supplemental tool for both classroom learning and homeschooling across North America.</p>
+                                </section>
+                            </article>
+
+                            <article class="times-table-article">
+                                <h2>Learn the 3 Times Table</h2>
+                                
+                                <div class="learning-path-intro">
+                                    <p>Learning the 3 times table prepares students for more advanced multiplication, including the 
+                                    <a href="/pages/multiplication-by-6-game.html" class="seo-logic-link">6 times table</a> 
+                                    and the 
+                                    <a href="/pages/multiplication-by-9-game.html" class="seo-logic-link">9 times table</a>.</p>
+                                </div>
+                                
+                                <p>The 3 times table is an important step after learning the basics of multiplication.
+                                It helps students move beyond simple patterns and start thinking more flexibly.</p>
+                                
+                                <p>With regular practice, the 3 times table becomes easier and more natural to recall.</p>
+                                
+                                <h3>What Is the 3 Times Table?</h3>
+                                <p>The 3 times table shows the results of multiplying numbers by 3.</p>
+                                
+                                <div class="example-box">
+                                    <p>For example:</p>
+                                    <p>3 × 1 = 3</p>
+                                    <p>3 × 2 = 6</p>
+                                    <p>3 × 3 = 9</p>
+                                </div>
+                                
+                                <p>Unlike the 2 times table, the pattern is less obvious, which makes practice especially important.</p>
+                                
+                                <h3>Why Learning the 3 Times Table Matters</h3>
+                                <p>Knowing the 3 times table helps students:</p>
+                                <ul>
+                                    <li>Strengthen multiplication skills</li>
+                                    <li>Prepare for harder tables like 6, 7, and 9</li>
+                                    <li>Improve overall number sense</li>
+                                </ul>
+                                <p>It also supports problem-solving and faster calculation in everyday math.</p>
+                                
+                                <h3>Learning Through Interactive Play</h3>
+                                <p>This game allows students to practice the 3 times table through repetition and active thinking.</p>
+                                <p>Interactive learning helps students:</p>
+                                <ul>
+                                    <li>Stay focused longer</li>
+                                    <li>Learn from mistakes without pressure</li>
+                                    <li>Build confidence step by step</li>
+                                </ul>
+                                <p>Practice becomes more effective when students are engaged.</p>
+                                
+                                <h3>Helpful Practice Tips</h3>
+                                <ul>
+                                    <li>Practice a few questions each day</li>
+                                    <li>Mix easy and harder problems</li>
+                                    <li>Encourage guessing and learning from errors</li>
+                                </ul>
+                                <p>Consistency is more important than speed when learning the 3 times table.</p>
+                                
+                                <div class="next-steps">
+                                    <p>After practicing the 3 times table, many students feel more confident moving on to the 
+                                    <a href="/pages/multiplication-by-6-game.html" class="user-action-link">6 times table</a>.
+                                    Alternatively, you can reinforce previous learning by reviewing the 
+                                    <a href="/pages/multiplication-by-2-game.html" class="user-action-link">2 times table</a> 
+                                    or challenge yourself with the 
+                                    <a href="/pages/multiplication-by-4-game.html" class="user-action-link">4 times table</a>.</p>
+                                </div>
+                            </article>
+
+                            <article class="faq-section">
+                                <h2>Frequently Asked Questions</h2>
+                                
+                                <div class="faq-item">
+                                    <h3>What age is this multiplication game for?</h3>
+                                    <p>This game is designed for elementary school students, typically ages 7 to 10.
+                                    It works well for beginners as well as students who need extra practice.</p>
+                                </div>
+                                
+                                <div class="faq-item">
+                                    <h3>How long should a child practice each day?</h3>
+                                    <p>Short and regular practice is more effective than long sessions.
+                                    5 to 10 minutes a day is usually enough to build strong recall without causing frustration.</p>
+                                </div>
+                                
+                                <div class="faq-item">
+                                    <h3>Is this game suitable for beginners?</h3>
+                                    <p>Yes. The game is designed to support learners at different levels.
+                                    Students can take their time, learn from mistakes, and improve through repetition.</p>
+                                </div>
+                                
+                                <div class="faq-item">
+                                    <h3>Do students need to memorize the answers before playing?</h3>
+                                    <p>No. Memorization happens naturally through practice.
+                                    The game encourages learning by doing rather than forcing memorization first.</p>
+                                </div>
+                                
+                                <div class="faq-item">
+                                    <h3>Can this game be used at home and at school?</h3>
+                                    <p>Yes. This game works well for independent practice at home and as a classroom activity.
+                                    Teachers and parents can both use it to support learning.</p>
+                                </div>
+                                
+                                <div class="faq-item">
+                                    <h3>What if a student makes mistakes?</h3>
+                                    <p>Making mistakes is part of the learning process.
+                                    The game is designed to provide a low-pressure environment where students can try again and improve.</p>
+                                </div>
+                                
+                                <div class="faq-item">
+                                    <h3>Does this game replace worksheets or classroom teaching?</h3>
+                                    <p>No. This game is best used as a supplement to traditional instruction.
+                                    It reinforces what students learn in class and helps build confidence.</p>
+                                </div>
+                                
+                                <div class="faq-item">
+                                    <h3>Why is learning multiplication tables important?</h3>
+                                    <p>Multiplication tables are the foundation for many math skills, including division, fractions, and problem-solving.
+                                    Strong multiplication skills make future math learning easier and less stressful.</p>
+                                </div>
+                            </article>
+
+                            <article class="for-teachers-section">
+                                <h2>For Teachers</h2>
+                                <p>This multiplication game is designed to support both classroom instruction and independent practice.</p>
+                                
+                                <h3>How Teachers Can Use This Game</h3>
+                                <ul>
+                                    <li>Use it as a warm-up activity before introducing a new multiplication table</li>
+                                    <li>Assign short practice sessions for individual or small-group learning</li>
+                                    <li>Encourage students to play multiple rounds to build automatic recall</li>
+                                </ul>
+                                
+                                <h3>Classroom Benefits</h3>
+                                <ul>
+                                    <li>Reduces math anxiety through low-pressure practice</li>
+                                    <li>Supports different learning speeds</li>
+                                    <li>Reinforces multiplication facts through repetition and play</li>
+                                </ul>
+                                
+                                <h3>Suggested Use</h3>
+                                <ul>
+                                    <li>Ideal for grades 2-4</li>
+                                    <li>Works well for 5-10 minute practice sessions</li>
+                                    <li>Can be used alongside worksheets or direct instruction</li>
+                                </ul>
+                                
+                                <p>This game helps students build confidence while allowing teachers to focus on instruction rather than drilling.</p>
+                            </article>
+                        </div>
+                        <!-- SEO文章区域结束 -->
+                    </div>
+                </div>
+                
+                <!-- 右侧边栏 -->
+                <div class="right-sidebar">
+                    <div class="question-box">
+                        <h2>Do you enjoy learning math?</h2>
+                        <button class="btn yes">Yes, I love math!</button>
+                        <button class="btn no">Math is challenging for me</button>
+                        <div class="response" id="response"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页脚部分 -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 NDED - Building Mathematical Confidence for Life. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 游戏逻辑 -->
+    <script src="../js/multiplication-game.js"></script>
+    
+    <!-- 模板的JavaScript代码 -->
+    <script>
+        // 问答栏功能
+        function initPoll() {
+            const yesBtn = document.querySelector('.question-box .yes');
+            const noBtn = document.querySelector('.question-box .no');
+            const response = document.getElementById('response');
+
+            yesBtn.addEventListener('click', () => {
+                response.textContent = "That's great! Math is an amazing tool for understanding the world! 🧮";
+                response.classList.add('show');
+            });
+
+            noBtn.addEventListener('click', () => {
+                response.textContent = "We're here to help! Our resources are designed to make math easier and more fun. 👍";
+                response.classList.add('show');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化问答栏
+            initPoll();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NDED - Building mathematical confidence for life">
+    <meta name="keywords" content="mathematics, math games, matrix calculator, math education, fraction game">
+    <meta name="author" content="NDED">
+    <title>NDED - Building Mathematical Confidence</title>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts for NDED styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #8a2be2;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 主行布局容器 */
+        .main-row-container {
+            width: 100%;
+            background-color: #f9f9f9;
+            padding: 0 0 2rem 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 更宽的容器，用于容纳三个并排的部分 */
+        .wide-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 主行布局 */
+        .main-row {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .left-sidebar, .right-sidebar {
+            flex: 0 0 250px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .main-content {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 动态内容容器样式 */
+        .dynamic-content-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dynamic-content-container h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .dynamic-content-container p {
+            color: var(--dark-color);
+            text-align: center;
+            max-width: 600px;
+            margin-bottom: 1.5rem;
+        }
+
+        .placeholder-content {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            padding: 2rem;
+        }
+
+        /* 左侧导航栏样式 */
+        .nav-title {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-color);
+            text-align: center;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .nav-button {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 2px solid var(--secondary-color);
+            padding: 0.45rem 1rem;
+            font-size: 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-weight: 500;
+        }
+
+        .nav-button:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-color: var(--secondary-color);
+        }
+
+        .nav-button:active {
+            transform: translateY(0);
+        }
+
+        /* 为外部链接按钮添加外链标志 */
+        .nav-button.external {
+            position: relative;
+            padding-right: 2.5rem;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 2px solid var(--secondary-color);
+        }
+
+        .nav-button.external::after {
+            content: "↗";
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-button.external:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        .nav-button.external:hover::after {
+            transform: translateY(-50%) translateX(2px) translateY(-2px);
+        }
+
+        /* 头部样式 - 已修改，整体缩小10% */
+        header {
+            background: linear-gradient(135deg, #00447F 0%, #0066AA 100%);
+            color: white;
+            padding: 0.2rem 0; /* 从0.25rem减小到0.2rem */
+            text-align: center;
+            margin-bottom: 0.45rem; /* 从0.5rem减小到0.45rem */
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            min-height: 81px; /* 从90px减小到81px，缩小10% */
+            z-index: 1000;
+            transform: scaleY(0.9); /* 垂直方向整体缩小10% */
+            transform-origin: top; /* 从顶部开始缩放 */
+        }
+
+        /* 添加微妙的纹理效果 */
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        /* 新的标题样式 - 缩小10% */
+        .main-title {
+            font-size: 2.52rem; /* 从2.8rem减小到2.52rem，缩小10% */
+            margin-bottom: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            line-height: 1.2;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 500;
+            display: flex;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            justify-content: center;
+            transform: scale(0.9); /* 内部元素再缩小10%以保持整体比例 */
+            transform-origin: center;
+        }
+        
+        /* NDED特殊样式 - 修改为向内凹的圆角，缩小10% */
+        .nded-text {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 900;
+            font-size: 2.88rem; /* 从3.2rem减小到2.88rem，缩小10% */
+            color: #2c3e50;
+            letter-spacing: 0.45px; /* 从0.5px减小到0.45px */
+            display: inline-block;
+            position: relative;
+            padding: 0 10.8px; /* 从12px减小到10.8px，缩小10% */
+            margin-right: 7.2px; /* 从8px减小到7.2px，缩小10% */
+            background-color: rgba(255, 255, 255, 0.9);
+            
+            /* 修改为向内凹的圆角效果 */
+            border-radius: 10.8px; /* 从12px减小到10.8px，缩小10% */
+            box-shadow: 
+                inset 2.7px 2.7px 4.5px rgba(0, 0, 0, 0.2), /* 缩小10% */
+                inset -2.7px -2.7px 4.5px rgba(255, 255, 255, 0.8), /* 缩小10% */
+                0 1.8px 3.6px rgba(0, 0, 0, 0.1); /* 缩小10% */
+            
+            /* 创建向内凹陷的效果 */
+            border: 0.9px solid rgba(0, 0, 0, 0.1); /* 从1px减小到0.9px，缩小10% */
+            
+            /* 确保有明确的高度，便于对齐 */
+            line-height: 1.1;
+            height: 57.6px; /* 从64px减小到57.6px，缩小10% */
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        /* 副标题样式 - 添加新的样式，缩小10% */
+        .subtitle {
+            font-size: 1.71rem; /* 从1.9rem减小到1.71rem，缩小10% */
+            font-style: italic;
+            color: #f0f0f0;
+            text-shadow: 0.9px 0.9px 1.8px rgba(0, 0, 0, 0.3); /* 缩小10% */
+            font-weight: 400;
+            margin-left: 7.2px; /* 从8px减小到7.2px，缩小10% */
+            letter-spacing: 0.45px; /* 从0.5px减小到0.45px，缩小10% */
+            
+            /* 向下移动，使底边与NDED外框底边对齐 */
+            line-height: 1.1;
+            display: inline-flex;
+            align-items: flex-end;
+            height: 57.6px; /* 从64px减小到57.6px，缩小10% */
+            
+            /* 添加一个微妙的底部边框，帮助视觉对齐 */
+            position: relative;
+        }
+        
+        /* 给NDED添加装饰性边框效果 - 更新为适应新设计 */
+        .nded-text::before {
+            content: "";
+            position: absolute;
+            top: -2.7px; /* 从-3px减小到-2.7px，缩小10% */
+            left: -2.7px; /* 从-3px减小到-2.7px，缩小10% */
+            right: -2.7px; /* 从-3px减小到-2.7px，缩小10% */
+            bottom: -2.7px; /* 从-3px减小到-2.7px，缩小10% */
+            border: 0.9px solid rgba(255, 215, 0, 0.2); /* 从1px减小到0.9px，缩小10% */
+            border-radius: 12.6px; /* 从14px减小到12.6px，缩小10% */
+            z-index: -1;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 0.45rem 0; /* 从0.5rem减小到0.45rem，缩小10% */
+            margin-top: 2.7rem; /* 从3rem减小到2.7rem，缩小10% */
+        }
+
+        /* 右侧边栏样式 */
+        .right-sidebar {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: 200px;
+            padding: 1.5rem;
+        }
+
+        .right-sidebar-placeholder {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        /* 问答栏样式 */
+        .question-box {
+            background: white;
+            border-radius: 18px; /* 从20px减小到18px，缩小10% */
+            box-shadow: 0 9px 22.5px rgba(0,0,0,0.1); /* 缩小10% */
+            text-align: center;
+            padding: 1.35em; /* 从1.5em减小到1.35em，缩小10% */
+            width: 100%;
+            transition: all 0.3s ease;
+            font-family: "Poppins", "Nunito", sans-serif;
+        }
+
+        .question-box h2 {
+            font-size: 0.99rem; /* 从1.1rem减小到0.99rem，缩小10% */
+            margin-bottom: 1.35em; /* 从1.5em减小到1.35em，缩小10% */
+            color: #333;
+        }
+
+        .question-box .btn {
+            display: block;
+            width: 100%;
+            padding: 0.72em 0.9em; /* 从0.8em 1em减小到0.72em 0.9em，缩小10% */
+            margin-bottom: 0.72em; /* 从0.8em减小到0.72em，缩小10% */
+            border-radius: 10.8px; /* 从12px减小到10.8px，缩小10% */
+            font-size: 0.855rem; /* 从0.95rem减小到0.855rem，缩小10% */
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .question-box .yes {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+        }
+
+        .question-box .yes:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3.6px 9px rgba(120,100,255,0.3); /* 缩小10% */
+        }
+
+        .question-box .no {
+            background: #ffe7e7;
+            color: #ff4b4b;
+        }
+
+        .question-box .no:hover {
+            transform: rotate(-2deg) scale(1.05);
+            box-shadow: 0 3.6px 9px rgba(255,75,75,0.2); /* 缩小10% */
+        }
+
+        .question-box .response {
+            margin-top: 1.35em; /* 从1.5em减小到1.35em，缩小10% */
+            font-size: 0.9rem; /* 从1rem减小到0.9rem，缩小10% */
+            color: #555;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .question-box .response.show {
+            opacity: 1;
+        }
+        
+        /* =========================================== */
+        /* 新增样式：游戏容器布局 */
+        /* =========================================== */
+        
+        .games-section {
+            margin-bottom: 2rem;
+        }
+        
+        .games-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        
+        .game-wrapper {
+            flex: 1;
+            min-width: 300px;
+            max-width: 550px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .game-content {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+        
+        /* 第一个游戏特定样式 */
+        #multiplication-game .game-container {
+            width: 100%;
+            max-width: 450px;
+            background: #f0f4f8;
+            padding: 27px 18px; /* 从30px 20px减小到27px 18px，缩小10% */
+            border-radius: 27px; /* 从30px减小到27px，缩小10% */
+            box-shadow: 18px 18px 54px #d1d9e6, -18px -18px 54px #ffffff; /* 缩小10% */
+            text-align: center;
+            margin: 0 auto;
+        }
+        
+        #multiplication-game .header {
+            background: #ffffff;
+            padding: 9px; /* 从10px减小到9px，缩小10% */
+            border-radius: 13.5px; /* 从15px减小到13.5px，缩小10% */
+            box-shadow: inset 3.6px 3.6px 9px #d1d9e6, inset -3.6px -3.6px 9px #ffffff; /* 缩小10% */
+            margin-bottom: 13.5px; /* 从15px减小到13.5px，缩小10% */
+        }
+        
+        /* 增大第一个游戏的标题字体 */
+        #multiplication-game h1 {
+            color: #2d3748;
+            margin: 9px 0 1.8px 0; /* 上边距10px减小到9px，其他缩小10% */
+            font-size: 34.2px; /* 从38px减小到34.2px，缩小10% */
+            letter-spacing: 0.9px; /* 从1px减小到0.9px，缩小10% */
+            line-height: 1.2;
+        }
+        
+        /* 缩短标题与副标题之间的间距 */
+        #multiplication-game .subtitle {
+            color: #718096;
+            margin-top: -32.4px; /* 从-36px减小到-32.4px，缩小10% */
+            font-size: 12.6px; /* 从14px减小到12.6px，缩小10% */
+            line-height: 1.3;
+            padding-top: 3.6px; /* 从4px减小到3.6px，缩小10% */
+        }
+        
+        #multiplication-game .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 13.5px; /* 从15px减小到13.5px，缩小10% */
+            margin-top: 22.5px; /* 从25px减小到22.5px，缩小10% */
+        }
+        
+        #multiplication-game .level-btn {
+            background: #f0f4f8;
+            border: none;
+            padding: 18px; /* 从20px减小到18px，缩小10% */
+            border-radius: 18px; /* 从20px减小到18px，缩小10% */
+            font-size: 21.6px; /* 从24px减小到21.6px，缩小10% */
+            font-weight: bold;
+            color: #5d87ff;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 7.2px 7.2px 14.4px #d1d9e6, -7.2px -7.2px 14.4px #ffffff; /* 缩小10% */
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        #multiplication-game .level-btn span {
+            font-size: 9.9px; /* 从11px减小到9.9px，缩小10% */
+            color: #a0aec0;
+            margin-bottom: 4.5px; /* 从5px减小到4.5px，缩小10% */
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        
+        #multiplication-game .level-btn.active-style, #multiplication-game .level-btn:hover {
+            transform: translateY(-4.5px); /* 从-5px减小到-4.5px，缩小10% */
+            color: white !important;
+            box-shadow: 10.8px 10.8px 18px #d1d9e6, -10.8px -10.8px 18px #ffffff; /* 缩小10% */
+        }
+        
+        #multiplication-game .level-btn.active-style span, #multiplication-game .level-btn:hover span { 
+            color: rgba(255,255,255,0.8); 
+        }
+        
+        #multiplication-game .btn-2.active-style, #multiplication-game .btn-2:hover { background-color: #87CEEB; }
+        #multiplication-game .btn-3.active-style, #multiplication-game .btn-3:hover { background-color: #FFD93D; }
+        #multiplication-game .btn-4.active-style, #multiplication-game .btn-4:hover { background-color: #D1D1FF; }
+        #multiplication-game .btn-5.active-style, #multiplication-game .btn-5:hover { background-color: #80DED9; }
+        #multiplication-game .btn-6.active-style, #multiplication-game .btn-6:hover { background-color: #FFB6C1; }
+        #multiplication-game .btn-7.active-style, #multiplication-game .btn-7:hover { background-color: #A8E063; }
+        #multiplication-game .btn-8.active-style, #multiplication-game .btn-8:hover { background-color: #FFCBA4; }
+        #multiplication-game .btn-9.active-style, #multiplication-game .btn-9:hover { background-color: #FFE066; }
+        
+        #multiplication-game .footer {
+            margin-top: 27px; /* 从30px减小到27px，缩小10% */
+            font-size: 10.8px; /* 从12px减小到10.8px，缩小10% */
+            color: #cbd5e0;
+        }
+        
+        /* 第二个游戏特定样式 */
+        #matrix-game .container {
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            margin-top: 41.4px; /* 从46px减小到41.4px，缩小10% */ 
+       }
+        
+        #matrix-game h1 {
+            color: #2D3748;
+            font-size: 1.98rem; /* 从2.2rem减小到1.98rem，缩小10% */
+            margin-bottom: 27px; /* 从30px减小到27px，缩小10% */
+            text-shadow: 0 1.8px 3.6px rgba(0,0,0,0.1); /* 缩小10% */
+        }
+        
+        #matrix-game .matrices {
+            display: flex;
+            flex-direction: column;
+            gap: 22.5px; /* 从25px减小到22.5px，缩小10% */
+            align-items: center;
+        }
+        
+        #matrix-game .matrix-button {
+            display: inline-block;
+            text-decoration: none;
+            background: white;
+            border-radius: 16.2px; /* 从18px减小到16.2px，缩小10% */
+            padding: 16.2px; /* 从18px减小到16.2px，缩小10% */
+            box-shadow: 0 7.2px 18px rgba(0, 0, 0, 0.08), 0 3.6px 9px rgba(0, 0, 0, 0.05), inset 0 1.8px 3.6px rgba(255, 255, 255, 0.8); /* 缩小10% */
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1.8px solid rgba(255, 255, 255, 0.8); /* 从2px减小到1.8px，缩小10% */
+        }
+        
+        #matrix-game .matrix-button:hover {
+            transform: translateY(-3.6px); /* 从-4px减小到-3.6px，缩小10% */
+            box-shadow: 0 10.8px 22.5px rgba(0, 0, 0, 0.12), 0 5.4px 13.5px rgba(0, 0, 0, 0.08), inset 0 1.8px 3.6px rgba(255, 255, 255, 0.9); /* 缩小10% */
+        }
+        
+        #matrix-game .matrix-button:active {
+            transform: translateY(-1.8px) scale(0.98); /* 从-2px减小到-1.8px，缩小10% */
+            box-shadow: 0 5.4px 13.5px rgba(0, 0, 0, 0.08), 0 2.7px 7.2px rgba(0, 0, 0, 0.05), inset 0 1.8px 3.6px rgba(255, 255, 255, 0.9); /* 缩小10% */
+        }
+        
+        #matrix-game .matrix-preview {
+            display: grid;
+            gap: 7.2px; /* 从8px减小到7.2px，缩小10% */
+            margin-bottom: 7.2px; /* 从8px减小到7.2px，缩小10% */
+            transition: all 0.2s ease;
+        }
+        
+        #matrix-game .matrix-2x2 {
+            grid-template-columns: repeat(2, 63px); /* 从70px减小到63px，缩小10% */
+            grid-template-rows: repeat(2, 63px); /* 从70px减小到63px，缩小10% */
+        }
+        
+        #matrix-game .matrix-3x3 {
+            grid-template-columns: repeat(3, 54px); /* 从60px减小到54px，缩小10% */
+            grid-template-rows: repeat(3, 54px); /* 从60px减小到54px，缩小10% */
+        }
+        
+        #matrix-game .matrix-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 7.2px; /* 从8px减小到7.2px，缩小10% */
+            font-size: 1.26rem; /* 从1.4rem减小到1.26rem，缩小10% */
+            font-weight: 700;
+            transition: all 0.2s ease;
+            box-shadow: 0 2.7px 5.4px rgba(0, 0, 0, 0.1), inset 0 1.8px 3.6px rgba(255, 255, 255, 0.8); /* 缩小10% */
+        }
+        
+        #matrix-game .matrix-2x2 .matrix-cell {
+            background: linear-gradient(135deg, #6B94FF 0%, #5A82FF 100%);
+            color: white;
+        }
+        
+        #matrix-game .matrix-3x3 .matrix-cell {
+            background: linear-gradient(135deg, #FFD152 0%, #FFC430 100%);
+            color: #2D3748;
+        }
+        
+        #matrix-game .matrix-button:hover .matrix-cell {
+            transform: scale(1.05);
+        }
+        
+        #matrix-game .matrix-label {
+            font-size: 1.26rem; /* 从1.4rem减小到1.26rem，缩小10% */
+            font-weight: 600;
+            color: #4A5568;
+            margin-top: 4.5px; /* 从5px减小到4.5px，缩小10% */
+        }
+        
+        /* =========================================== */
+        /* 新增样式：第三个游戏入口（分数匹配游戏） */
+        /* =========================================== */
+        
+        #fraction-game .container {
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        #fraction-game h1 {
+            color: #2D3748;
+            font-size: 1.98rem; /* 从2.2rem减小到1.98rem，缩小10% */
+            margin-bottom: 27px; /* 从30px减小到27px，缩小10% */
+            text-shadow: 0 1.8px 3.6px rgba(0,0,0,0.1); /* 缩小10% */
+        }
+        
+        #fraction-game .fraction-button {
+            display: inline-block;
+            text-decoration: none;
+            background: linear-gradient(135deg, #6BC1FF 0%, #3FA7FF 100%);
+            border-radius: 16.2px; /* 从18px减小到16.2px，缩小10% */
+            padding: 10px 22px; /* 从25px 40px减小到22.5px 36px，缩小10% */
+            box-shadow: 0 7.2px 18px rgba(255, 107, 107, 0.2), 0 3.6px 9px rgba(255, 107, 107, 0.1), inset 0 1.8px 3.6px rgba(255, 255, 255, 0.8); /* 缩小10% */
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1.8px solid rgba(255, 255, 255, 0.8); /* 从2px减小到1.8px，缩小10% */
+            margin-bottom: 15px; /* 从20px减小到18px，缩小10% */
+        }
+        
+        #fraction-game .fraction-button:hover {
+            transform: translateY(-3.6px); /* 从-4px减小到-3.6px，缩小10% */
+            box-shadow: 0 10.8px 22.5px rgba(255, 107, 107, 0.3), 0 5.4px 13.5px rgba(255, 107, 107, 0.15), inset 0 1.8px 3.6px rgba(255, 255, 255, 0.9); /* 缩小10% */
+            background: linear-gradient(135deg, #3FA7FF 0%, #6BC1FF 100%);
+        }
+        
+        #fraction-game .fraction-button:active {
+            transform: translateY(-1.8px) scale(0.98); /* 从-2px减小到-1.8px，缩小10% */
+            box-shadow: 0 5.4px 13.5px rgba(255, 107, 107, 0.2), 0 2.7px 7.2px rgba(255, 107, 107, 0.1), inset 0 1.8px 3.6px rgba(255, 255, 255, 0.9); /* 缩小10% */
+        }
+        
+        #fraction-game .fraction-button-text {
+            font-size: 2.16rem; /* 从2.4rem减小到2.16rem，缩小10% */
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 1.8px 3.6px rgba(0, 0, 0, 0.2); /* 缩小10% */
+            letter-spacing: 0.9px; /* 从1px减小到0.9px，缩小10% */
+        }
+        
+        #fraction-game .fraction-description {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 9px 0; /* 从10px减小到9px，缩小10% */
+        }
+        
+        #fraction-game .description-text {
+            font-size: 0.9rem; /* 从1rem减小到0.9rem，缩小10% */
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 5.4px; /* 从6px减小到5.4px，缩小10% */
+            font-style: italic;
+        }
+        
+        #fraction-game .description-text:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* 新增：游戏入口下方容器 */
+        .additional-game-container {
+            width: 100%;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .additional-game-wrapper {
+            max-width: 800px;
+            width: 100%;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        /* =========================================== */
+        /* 新增样式：文章内容样式 */
+        /* =========================================== */
+        
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+            padding: 1rem 0;
+        }
+        
+        .article-content h3 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-content h4 {
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+        
+        .article-content p {
+            text-align: left;
+            max-width: none;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        
+        .article-content .highlight-box {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.5rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            margin: 1.5rem 0;
+        }
+        
+        .article-content .game-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .article-content .game-item {
+            background-color: #f8f9fa;
+            padding: 1.25rem;
+            border-radius: var(--border-radius);
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .article-content .game-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .article-content .game-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+        
+        .article-content .game-item h4 a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-block;
+            padding: 2px 0;
+            position: relative;
+        }
+        
+        .article-content .game-item h4 a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .article-content .game-item h4 a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .article-content .game-item h4 a:hover::after {
+            width: 100%;
+        }
+        
+        .article-content .target-audience {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .article-content .audience-item {
+            background-color: #f0f8ff;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            border: 1px solid #d1e7ff;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .main-row {
+                flex-direction: column;
+            }
+            
+            .left-sidebar, .right-sidebar {
+                flex: 1;
+            }
+            
+            .main-title {
+                font-size: 1.8rem; /* 从2rem减小到1.8rem，缩小10% */
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nded-text {
+                font-size: 1.98rem; /* 从2.2rem减小到1.98rem，缩小10% */
+                margin-right: 0;
+                margin-bottom: 4.5px; /* 从5px减小到4.5px，缩小10% */
+                height: 45px; /* 从50px减小到45px，缩小10% */
+            }
+            
+            .subtitle {
+                font-size: 1.26rem; /* 从1.4rem减小到1.26rem，缩小10% */
+                margin-left: 0;
+                text-align: center;
+                height: auto;
+                line-height: 1.3;
+                display: block;
+                margin-top: 4.5px; /* 从5px减小到4.5px，缩小10% */
+            }
+            
+            header {
+                flex-direction: column;
+                padding: 0.45rem 0; /* 从0.5rem减小到0.45rem，缩小10% */
+                min-height: 108px; /* 从120px减小到108px，缩小10% */
+            }
+            
+            .games-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .game-wrapper {
+                min-width: 100%;
+            }
+            
+            #multiplication-game .game-container {
+                padding: 22.5px 13.5px; /* 从25px 15px减小到22.5px 13.5px，缩小10% */
+            }
+            
+            /* 移动端调整标题大小 */
+            #multiplication-game h1 {
+                font-size: 28.8px; /* 从32px减小到28.8px，缩小10% */
+            }
+            
+            #multiplication-game .subtitle {
+                margin-top: 0;
+                font-size: 14.4px; /* 从16px减小到14.4px，缩小10% */
+            }
+            
+            #multiplication-game .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10.8px; /* 从12px减小到10.8px，缩小10% */
+            }
+            
+            #multiplication-game .level-btn {
+                padding: 16.2px; /* 从18px减小到16.2px，缩小10% */
+                font-size: 19.8px; /* 从22px减小到19.8px，缩小10% */
+            }
+            
+            #matrix-game h1 {
+                font-size: 1.62rem; /* 从1.8rem减小到1.62rem，缩小10% */
+                margin-bottom: 22.5px; /* 从25px减小到22.5px，缩小10% */
+            }
+            
+            #matrix-game .matrix-2x2 {
+                grid-template-columns: repeat(2, 54px); /* 从60px减小到54px，缩小10% */
+                grid-template-rows: repeat(2, 54px); /* 从60px减小到54px，缩小10% */
+            }
+            
+            #matrix-game .matrix-3x3 {
+                grid-template-columns: repeat(3, 45px); /* 从50px减小到45px，缩小10% */
+                grid-template-rows: repeat(3, 45px); /* 从50px减小到45px，缩小10% */
+            }
+            
+            #matrix-game .matrix-cell {
+                font-size: 1.08rem; /* 从1.2rem减小到1.08rem，缩小10% */
+            }
+            
+            #matrix-game .matrix-label {
+                font-size: 1.08rem; /* 从1.2rem减小到1.08rem，缩小10% */
+            }
+            
+            /* 第三个游戏在移动端的调整 */
+            #fraction-game h1 {
+                font-size: 1.62rem; /* 从1.8rem减小到1.62rem，缩小10% */
+                margin-bottom: 22.5px; /* 从25px减小到22.5px，缩小10% */
+            }
+            
+            #fraction-game .fraction-button {
+                padding: 15px 22px;; /* 从20px 30px减小到18px 27px，缩小10% */
+            }
+            
+            #fraction-game .fraction-button-text {
+                font-size: 1.8rem; /* 从2rem减小到1.8rem，缩小10% */
+            }
+            
+            #fraction-game .description-text {
+                font-size: 0.81rem; /* 从0.9rem减小到0.81rem，缩小10% */
+            }
+            
+            /* 导航按钮在移动端改为每行2个 */
+            .nav-buttons {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.675rem; /* 从0.75rem减小到0.675rem，缩小10% */
+            }
+            
+            .nav-button {
+                font-size: 0.855rem; /* 从0.95rem减小到0.855rem，缩小10% */
+                padding: 0.675rem 0.45rem; /* 从0.75rem 0.5rem减小到0.675rem 0.45rem，缩小10% */
+            }
+            
+            .additional-game-wrapper {
+                max-width: 100%;
+            }
+            
+            /* 文章内容在移动端的调整 */
+            .article-content {
+                padding: 0.5rem;
+            }
+            
+            .article-content h3 {
+                font-size: 1.3rem;
+            }
+            
+            .article-content h4 {
+                font-size: 1.1rem;
+            }
+            
+            .article-content .game-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .article-content .target-audience {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #multiplication-game .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            #multiplication-game h1 {
+                font-size: 25.2px; /* 从28px减小到25.2px，缩小10% */
+            }
+            
+            #multiplication-game .subtitle {
+                font-size: 12.6px; /* 从14px减小到12.6px，缩小10% */
+            }
+            
+            #multiplication-game .level-btn {
+                padding: 13.5px; /* 从15px减小到13.5px，缩小10% */
+                font-size: 18px; /* 从20px减小到18px，缩小10% */
+            }
+            
+            #multiplication-game .level-btn span {
+                font-size: 9px; /* 从10px减小到9px，缩小10% */
+            }
+            
+            #matrix-game h1 {
+                font-size: 1.44rem; /* 从1.6rem减小到1.44rem，缩小10% */
+                margin-bottom: 18px; /* 从20px减小到18px，缩小10% */
+            }
+            
+            #matrix-game .matrix-2x2 {
+                grid-template-columns: repeat(2, 45px); /* 从50px减小到45px，缩小10% */
+                grid-template-rows: repeat(2, 45px); /* 从50px减小到45px，缩小10% */
+            }
+            
+            #matrix-game .matrix-3x3 {
+                grid-template-columns: repeat(3, 36px); /* 从40px减小到36px，缩小10% */
+                grid-template-rows: repeat(3, 36px); /* 从40px减小到36px，缩小10% */
+            }
+            
+            #matrix-game .matrix-cell {
+                font-size: 0.9rem; /* 从1rem减小到0.9rem，缩小10% */
+            }
+            
+            #matrix-game .matrix-label {
+                font-size: 0.99rem; /* 从1.1rem减小到0.99rem，缩小10% */
+            }
+            
+            /* 第三个游戏在小屏幕设备上的调整 */
+            #fraction-game h1 {
+                font-size: 1.44rem; /* 从1.6rem减小到1.44rem，缩小10% */
+                margin-bottom: 18px; /* 从20px减小到18px，缩小10% */
+            }
+            
+            #fraction-game .fraction-button {
+                padding: 12px 16px; /* 从15px 20px减小到13.5px 18px，缩小10% */
+                margin-bottom: 12px; /* 从15px减小到13.5px，缩小10% */
+            }
+            
+            #fraction-game .fraction-button-text {
+                font-size: 1.62rem; /* 从1.8rem减小到1.62rem，缩小10% */
+            }
+            
+            #fraction-game .description-text {
+                font-size: 0.72rem; /* 从0.8rem减小到0.72rem，缩小10% */
+            }
+            
+            /* 导航按钮在小屏幕设备上的调整 */
+            .nav-buttons {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.54rem; /* 从0.6rem减小到0.54rem，缩小10% */
+            }
+            
+            .nav-button {
+                font-size: 0.81rem; /* 从0.9rem减小到0.81rem，缩小10% */
+                padding: 0.585rem 0.36rem; /* 从0.65rem 0.4rem减小到0.585rem 0.36rem，缩小10% */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 页眉部分 -->
+    <header>
+        <div class="container">
+            <h1 class="main-title">
+                <span class="nded-text">NDED</span>
+                <span class="subtitle">building mathematical confidence for life.</span>
+            </h1>
+        </div>
+    </header>
+    
+    <!-- 主内容区域 -->
+    <div class="main-row-container">
+        <div class="wide-container">
+            <div class="main-row">
+                <!-- 左侧边栏 -->
+                <div class="left-sidebar">
+                    <h3 class="nav-title">Navigation</h3>
+                    <div class="nav-buttons">
+                        <a href="index.html" class="nav-button">Home</a>
+                        <a href="about-us.html" class="nav-button">About us</a>
+                        <a href="#math-games-section" class="nav-button">Math Games</a>
+                        <a href="https://matrixcalcu.com/" target="_blank" class="nav-button external">Matrix Calculator</a>
+                    </div>
+                </div>
+                
+                <!-- 主内容区域 - 包含两个游戏 -->
+                <div class="main-content">
+                    <div id="math-games-section" class="dynamic-content-container">
+                        <!-- 移除了Math Games标题 -->
+                        
+                        <div class="games-container">
+                            <!-- 第一个游戏：乘法表记忆 -->
+                            <div class="game-wrapper" id="multiplication-game">
+                                <!-- 移除了.game-header部分 -->
+                                <div class="game-content">
+                                    <div class="game-container">
+                                        <div class="header">
+                                            <h1>Multiplication Table</h1>
+                                            <p class="subtitle">Select a number to start training!</p>
+                                        </div>
+
+                                        <div class="menu-grid">
+                                            <a href="pages/multiplication-by-2-game.html" class="level-btn btn-2" onclick="handleMultiplicationJump(event, this)">
+                                                <span>Table</span>2
+                                            </a>
+                                            <a href="pages/multiplication-by-3-game.html" class="level-btn btn-3" onclick="handleMultiplicationJump(event, this)">
+                                                <span>Table</span>3
+                                            </a>
+                                            <a href="pages/multiplication-by-4-game.html" class="level-btn btn-4" onclick="handleMultiplicationJump(event, this)">
+                                                <span>Table</span>4
+                                            </a>
+                                            <a href="pages/multiplication-by-5-game.html" class="level-btn btn-5" onclick="handleMultiplicationJump(event, this)">
+                                                <span>Table</span>5
+                                            </a>
+                                            <a href="pages/multiplication-by-6-game.html" class="level-btn btn-6" onclick="handleMultiplicationJump(event, this)">
+                                                <span>Table</span>6
+                                            </a>
+                                            <a href="pages/multiplication-by-7-game.html" class="level-btn btn-7" onclick="handleMultiplicationJump(event, this)">
+                                                <span>Table</span>7
+                                            </a>
+                                            <a href="pages/multiplication-by-8-game.html" class="level-btn btn-8" onclick="handleMultiplicationJump(event, this)">
+                                                <span>Table</span>8
+                                            </a>
+                                            <a href="pages/multiplication-by-9-game.html" class="level-btn btn-9" onclick="handleMultiplicationJump(event, this)">
+                                                <span>Table</span>9
+                                            </a>
+                                        </div>
+
+                                        <div class="footer">Ready to become a math master?</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 第二个游戏：矩阵乘法规则 -->
+                            <div class="game-wrapper" id="matrix-game">
+                                <!-- 移除了.game-header部分 -->
+                                <div class="game-content">
+                                    <div class="container">
+                                        <h1>Matrix Multiplication</h1>
+                                        
+                                        <div class="matrices">
+                                            <!-- 2x2矩阵按钮 -->
+                                            <a href="matrix-multiplication-by-2-game.html" class="matrix-button">
+                                                <div class="matrix-preview matrix-2x2">
+                                                    <div class="matrix-cell">a</div>
+                                                    <div class="matrix-cell">b</div>
+                                                    <div class="matrix-cell">c</div>
+                                                    <div class="matrix-cell">d</div>
+                                                </div>
+                                                <div class="matrix-label">2×2 Matrix</div>
+                                            </a>
+                                            
+                                            <!-- 3x3矩阵按钮 -->
+                                            <a href="matrix-multiplication-by-3-game.html" class="matrix-button">
+                                                <div class="matrix-preview matrix-3x3">
+                                                    <div class="matrix-cell">a</div>
+                                                    <div class="matrix-cell">b</div>
+                                                    <div class="matrix-cell">c</div>
+                                                    <div class="matrix-cell">d</div>
+                                                    <div class="matrix-cell">e</div>
+                                                    <div class="matrix-cell">f</div>
+                                                    <div class="matrix-cell">g</div>
+                                                    <div class="matrix-cell">h</div>
+                                                    <div class="matrix-cell">i</div>
+                                                </div>
+                                                <div class="matrix-label">3×3 Matrix</div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 新增的第三个游戏入口：分数匹配游戏 -->
+                        <div class="additional-game-container">
+                            <div class="additional-game-wrapper" id="fraction-game">
+                                <div class="game-content">
+                                    <div class="container">
+                                        <h1>Fraction, Decimal & Percent Memory Game</h1>
+                                        
+                                        <a href="pages/fraction-match-game.html" class="fraction-button">
+                                            <div class="fraction-button-text">Fraction Match Game</div>
+                                        </a>
+                                        
+                                        <div class="fraction-description">
+                                            <p class="description-text">Practice fractions, decimals, and percentages through matching.</p>
+                                            <p class="description-text">Build number sense with instant feedback and no time pressure.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 关于NDED的部分 - 已更新为完整的文章内容 -->
+                    <div class="dynamic-content-container">
+                        <h2>About NDED</h2>
+                        <div class="article-content">
+                            <h3>Why This Site Exists</h3>
+                            <p>This site was created for people who find math difficult, stressful, or discouraging.</p>
+                            <p>Many students and adults struggle not because math is inherently hard, but because the foundations were never truly mastered. Basic operations, multiplication patterns, fractions, and formulas are often memorized under pressure and quickly forgotten.</p>
+                            
+                            <div class="highlight-box">
+                                <p><strong>Our goal is simple:</strong><br>to help learners build solid mathematical foundations through calm, repeatable, and low-pressure games — so math becomes something usable, not something to fear.</p>
+                            </div>
+                            
+                            <h3>How We Design Our Games</h3>
+                            <p>We design our games around one core idea:<br>memory improves when understanding, structure, and repetition work together.</p>
+                            
+                            <p>Instead of fast-paced competition or heavy time pressure, our games focus on:</p>
+                            <ul>
+                                <li><strong>visual patterns and structural recognition</strong></li>
+                                <li><strong>small, repeatable practice sessions</strong></li>
+                                <li><strong>clear rules that reduce cognitive overload</strong></li>
+                            </ul>
+                            <p>By turning abstract rules into visual and interactive experiences, learners can internalize mathematical relationships more naturally and with less stress.</p>
+                            
+                            <h3>Game Series Overview</h3>
+                            <p>This site currently includes three playable math game series, each focused on a specific foundational skill.</p>
+                            
+                            <div class="game-list">
+                                <div class="game-item">
+                                    <h4><a href="#multiplication-game">Multiplication Table Memory Game</a></h4>
+                                    <p>A structured way to practice and internalize multiplication tables through repetition and pattern recognition, rather than rote drilling.</p>
+                                </div>
+                                <div class="game-item">
+                                    <h4><a href="#matrix-game">Matrix Multiplication Rule Memory Game</a></h4>
+                                    <p>Designed to help learners remember matrix multiplication rules by practicing structure and order, not just final results.</p>
+                                </div>
+                                <div class="game-item">
+                                    <h4><a href="#fraction-game">Fraction Memory Game</a></h4>
+                                    <p>A game focused on understanding and remembering fractions, decimals, and percentages, helping learners see the relationships between different representations of the same value.</p>
+                                </div>
+                            </div>
+                            
+                            <p>Each game is designed to be played independently, in short sessions, and revisited as needed.</p>
+                            
+                            <h3>Who These Games Are For</h3>
+                            <p>These games are designed for anyone who wants to strengthen their math foundations, including:</p>
+                            
+                            <div class="target-audience">
+                                <div class="audience-item">
+                                    <strong>students</strong><br>who feel behind or uncertain in math
+                                </div>
+                                <div class="audience-item">
+                                    <strong>adults</strong><br>revisiting basic math skills
+                                </div>
+                                <div class="audience-item">
+                                    <strong>parents</strong><br>supporting their children's learning
+                                </div>
+                                <div class="audience-item">
+                                    <strong>teachers</strong><br>looking for simple classroom or demonstration tools
+                                </div>
+                            </div>
+                            
+                            <p>No prior expertise is required. The games are meant to be accessible, calm, and easy to start.</p>
+                            
+                            <h3>A Small Closing Thought</h3>
+                            <p>Math can feel difficult, but it is one of the core tools that supports science, technology, and everyday reasoning.</p>
+                            <p>By strengthening basic mathematical understanding, learners gain not only skills, but confidence — confidence that supports learning far beyond math itself.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 右侧边栏 -->
+                <div class="right-sidebar">
+                    <div class="question-box">
+                        <h2>Do you enjoy learning math?</h2>
+                        <button class="btn yes">Yes, I love math!</button>
+                        <button class="btn no">Math is challenging for me</button>
+                        <div class="response" id="response"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页脚部分 -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 NDED - Building Mathematical Confidence for Life. All rights reserved.</p>
+        </div>
+</footer>
+
+    <!-- JavaScript代码 -->
+    <script>
+        // 问答栏功能
+        function initPoll() {
+            const yesBtn = document.querySelector('.question-box .yes');
+            const noBtn = document.querySelector('.question-box .no');
+            const response = document.getElementById('response');
+
+            yesBtn.addEventListener('click', () => {
+                response.textContent = "That's great! Math is an amazing tool for understanding the world! 🧮";
+                response.classList.add('show');
+            });
+
+            noBtn.addEventListener('click', () => {
+                response.textContent = "We're here to help! Our resources are designed to make math easier and more fun. 👍";
+                response.classList.add('show');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化问答栏
+            initPoll();
+
+        });
+        
+        // 第一个游戏：乘法表记忆的跳转处理函数
+        function handleMultiplicationJump(event, element) {
+            event.preventDefault();
+            element.classList.add('active-style');
+            const targetUrl = element.getAttribute('href');
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 300);
+        }
+        
+        // 第二个游戏：矩阵乘法规则的按钮点击动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const matrixButtons = document.querySelectorAll('#matrix-game .matrix-button');
+            matrixButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const cells = this.querySelectorAll('.matrix-cell');
+                    cells.forEach(cell => {
+                        cell.style.transform = 'scale(0.95)';
+                    });
+                    
+                    setTimeout(() => {
+                        cells.forEach(cell => {
+                            cell.style.transform = 'scale(1)';
+                        });
+                    }, 150);
+                });
+            });
+            
+            // 第三个游戏：分数匹配游戏的按钮点击动画
+            const fractionButton = document.querySelector('#fraction-game .fraction-button');
+            if (fractionButton) {
+                fractionButton.addEventListener('click', function(e) {
+                    this.style.transform = 'translateY(-1.8px) scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-3.6px)';
+                    }, 150);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

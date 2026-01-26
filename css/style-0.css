@@ -1,0 +1,1037 @@
+/* 
+粘土风格乘法游戏CSS
+基于粘土风格模板改造，颜色与首页完全一致
+*/
+
+:root {
+    /* 基础背景色 */
+    --clay-bg: #f0f4f8;
+    
+    /* 主题颜色 - 与首页完全一致 */
+    --theme-2-color: #87CEEB;          /* 2的乘法 - 天空蓝 */
+    --theme-3-color: #FFD93D;         /* 3的乘法 - 黄色 */
+    --theme-4-color: #D1D1FF;         /* 4的乘法 - 淡蓝色 */
+    --theme-5-color: #80DED9;         /* 5的乘法 - 青绿色 */
+    --theme-6-color: #FFB6C1;         /* 6的乘法 - 粉红色 */
+    --theme-7-color: #A8E063;         /* 7的乘法 - 浅绿色 */
+    --theme-8-color: #FFCBA4;         /* 8的乘法 - 浅橙色 */
+    --theme-9-color: #FFE066;         /* 9的乘法 - 淡黄色 */
+    
+    /* 拖拽高亮颜色变量 */
+    --drag-highlight-bg: rgba(135, 206, 235, 0.2);
+    --drag-highlight-border: rgba(135, 206, 235, 0.8);
+    
+    /* 通用颜色 */
+    --clay-success: #10B981;           /* 成功色 */
+    --clay-gray: #94A3B8;              /* 灰色 */
+    --clay-dark: #0A1931;              /* 深色背景 */
+    --clay-light: #F8FAFC;             /* 浅色背景 */
+
+    /* 3D粘土效果 */
+    --clay-shadow: 
+        8px 8px 16px rgba(0, 0, 0, 0.1),
+        -4px -4px 12px rgba(255, 255, 255, 0.8),
+        inset 4px 4px 8px rgba(255, 255, 255, 0.4),
+        inset -4px -4px 8px rgba(0, 0, 0, 0.05);
+
+    --clay-shadow-hover: 
+        12px 12px 24px rgba(0, 0, 0, 0.12),
+        -6px -6px 16px rgba(255, 255, 255, 0.9),
+        inset 4px 4px 8px rgba(255, 255, 255, 0.6),
+        inset -4px -4px 8px rgba(0, 0, 0, 0.05);
+
+    --clay-shadow-active: 
+        4px 4px 8px rgba(0, 0, 0, 0.1),
+        -2px -2px 6px rgba(255, 255, 255, 0.8),
+        inset 6px 6px 10px rgba(255, 255, 255, 0.3),
+        inset -6px -6px 10px rgba(0, 0, 0, 0.08);
+
+    /* 圆角定义 */
+    --clay-radius-lg: 30px;
+    --clay-radius-md: 16px;
+    --clay-radius-sm: 12px;
+    --clay-radius-xs: 8px;
+    --clay-radius-circle: 50%;
+
+    /* 文本颜色 */
+    --text-dark: #2D3748;
+    --text-medium: #4A5568;
+    --text-light: #718096;
+    --text-white: #FFFFFF;
+    
+    /* 透明度背景 */
+    --bg-white-90: rgba(255, 255, 255, 0.9);
+    --bg-white-80: rgba(255, 255, 255, 0.8);
+    --bg-white-70: rgba(255, 255, 255, 0.7);
+    --bg-white-60: rgba(255, 255, 255, 0.6);
+    
+    /* 边框颜色 */
+    --border-white: rgba(255, 255, 255, 0.5);
+    
+    /* 过渡动画 */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.25s ease;
+    --transition-slow: 0.35s ease;
+}
+
+/* ====== 基础重置 ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--clay-bg);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    color: var(--text-dark);
+}
+
+/* ====== 游戏容器 - 粘土效果 ====== */
+.multiplication-game {
+    width: 100%;
+    max-width: 700px;
+    margin: 40px auto 20px;
+    padding: 2rem;
+    border-radius: var(--clay-radius-lg);
+    box-shadow: var(--clay-shadow);
+    border: 2px solid var(--border-white);
+    backdrop-filter: blur(5px);
+    background: var(--bg-white-80);
+    transition: var(--transition-normal);
+}
+
+/* ====== 主题2-9的游戏容器背景 ====== */
+.theme-2 .multiplication-game {
+    background: linear-gradient(135deg, rgba(135, 206, 235, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.theme-3 .multiplication-game {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.theme-4 .multiplication-game {
+    background: linear-gradient(135deg, rgba(209, 209, 255, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.theme-5 .multiplication-game {
+    background: linear-gradient(135deg, rgba(128, 222, 217, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.theme-6 .multiplication-game {
+    background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.theme-7 .multiplication-game {
+    background: linear-gradient(135deg, rgba(168, 224, 99, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.theme-8 .multiplication-game {
+    background: linear-gradient(135deg, rgba(255, 203, 164, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.theme-9 .multiplication-game {
+    background: linear-gradient(135deg, rgba(255, 224, 102, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+/* ====== 标题行样式 ====== */
+.title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
+
+/* 标题容器样式 */
+.title-with-button {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.title-with-button h1 {
+    margin: 0;
+    flex: 1;
+    text-align: center;
+    color: var(--text-dark);
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    border-radius: var(--clay-radius-md);
+    background: var(--bg-white-90);
+    box-shadow: var(--clay-shadow);
+}
+
+/* ====== 小首页按钮 - 图标按钮 ====== */
+.home-btn-small {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--clay-radius-circle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--clay-shadow);
+    border: 2px solid var(--border-white);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    flex-shrink: 0;
+    font-size: 1.8rem;
+}
+
+.home-btn-small::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+}
+
+.home-btn-small:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: var(--clay-shadow-hover);
+}
+
+.home-btn-small:hover::before {
+    left: 100%;
+}
+
+.home-btn-small:active {
+    transform: translateY(0) scale(1);
+    box-shadow: var(--clay-shadow-active);
+}
+
+/* ====== 主题2-9的小首页按钮颜色 ====== */
+.theme-2 .home-btn-small {
+    background: linear-gradient(145deg, #87CEEB, #5DB8EB);
+    color: white;
+}
+
+.theme-3 .home-btn-small {
+    background: linear-gradient(145deg, #FFD93D, #FFC107);
+    color: white;
+}
+
+.theme-4 .home-btn-small {
+    background: linear-gradient(145deg, #D1D1FF, #A5A5FF);
+    color: white;
+}
+
+.theme-5 .home-btn-small {
+    background: linear-gradient(145deg, #80DED9, #5DC9C3);
+    color: white;
+}
+
+.theme-6 .home-btn-small {
+    background: linear-gradient(145deg, #FFB6C1, #FF8FA3);
+    color: white;
+}
+
+.theme-7 .home-btn-small {
+    background: linear-gradient(145deg, #A8E063, #8CC63F);
+    color: white;
+}
+
+.theme-8 .home-btn-small {
+    background: linear-gradient(145deg, #FFCBA4, #FFB07C);
+    color: white;
+}
+
+.theme-9 .home-btn-small {
+    background: linear-gradient(145deg, #FFE066, #FFD233);
+    color: white;
+}
+
+/* ====== 完成计数器 ====== */
+.completion-counter {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    color: var(--text-medium);
+    font-size: 1.1rem;
+    padding: 0.75rem;
+    border-radius: var(--clay-radius-sm);
+    background: var(--bg-white-90);
+    box-shadow: var(--clay-shadow);
+    border: 1px solid var(--border-white);
+}
+
+/* ====== 答案容器 - 粘土效果 ====== */
+.answers-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-radius: var(--clay-radius-md);
+    box-shadow: var(--clay-shadow);
+    border: 2px solid var(--border-white);
+    background: var(--bg-white-90);
+}
+
+/* ====== 答案方块 - 粘土效果 ====== */
+.answer {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--clay-radius-circle);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-white);
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: grab;
+    user-select: none;
+    transition: all var(--transition-normal);
+    box-shadow: var(--clay-shadow);
+    border: 2px solid var(--border-white);
+    position: relative;
+    overflow: hidden;
+    touch-action: none;
+    -webkit-touch-callout: none;
+    will-change: transform;
+}
+
+.answer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+}
+
+.answer:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: var(--clay-shadow-hover);
+}
+
+.answer:hover::before {
+    left: 100%;
+}
+
+.answer.dragging {
+    opacity: 0.8;
+    transform: scale(0.95);
+    transition: none;
+    animation: clay-pulse 1s infinite;
+}
+
+.answer.dragging-original {
+    opacity: 0.3 !important;
+    transform: scale(0.9);
+}
+
+.answer.used {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: scale(0.9);
+}
+
+/* ====== 主题2-9的答案按钮 ====== */
+.theme-2 .answer {
+    background: linear-gradient(145deg, #87CEEB, #5DB8EB);
+}
+
+.theme-3 .answer {
+    background: linear-gradient(145deg, #FFD93D, #FFC107);
+}
+
+.theme-4 .answer {
+    background: linear-gradient(145deg, #D1D1FF, #A5A5FF);
+}
+
+.theme-5 .answer {
+    background: linear-gradient(145deg, #80DED9, #5DC9C3);
+}
+
+.theme-6 .answer {
+    background: linear-gradient(145deg, #FFB6C1, #FF8FA3);
+}
+
+.theme-7 .answer {
+    background: linear-gradient(145deg, #A8E063, #8CC63F);
+}
+
+.theme-8 .answer {
+    background: linear-gradient(145deg, #FFCBA4, #FFB07C);
+}
+
+.theme-9 .answer {
+    background: linear-gradient(145deg, #FFE066, #FFD233);
+}
+
+/* ====== 算式容器 - 粘土网格 ====== */
+.equations-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* ====== 算式框 - 粘土卡片效果 ====== */
+.equation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    padding: 1.5rem;
+    border-radius: var(--clay-radius-md);
+    box-shadow: var(--clay-shadow);
+    border: 2px solid var(--border-white);
+    background: var(--bg-white-90);
+    transition: var(--transition-normal);
+}
+
+.equation:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--clay-shadow-hover);
+}
+
+/* ====== 数字框 - 粘土效果 ====== */
+.equation-number {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--clay-radius-circle);
+    font-weight: bold;
+    font-size: 1.8rem;
+    box-shadow: var(--clay-shadow);
+    border: 2px solid var(--border-white);
+    touch-action: none;
+}
+
+/* ====== 主题2-9的算式数字框 ====== */
+.theme-2 .equation-number {
+    background: linear-gradient(145deg, rgba(135, 206, 235, 0.2), rgba(255, 255, 255, 0.9));
+    color: #2E8B57;
+}
+
+.theme-3 .equation-number {
+    background: linear-gradient(145deg, rgba(255, 217, 61, 0.2), rgba(255, 255, 255, 0.9));
+    color: #D4A017;
+}
+
+.theme-4 .equation-number {
+    background: linear-gradient(145deg, rgba(209, 209, 255, 0.2), rgba(255, 255, 255, 0.9));
+    color: #6A5ACD;
+}
+
+.theme-5 .equation-number {
+    background: linear-gradient(145deg, rgba(128, 222, 217, 0.2), rgba(255, 255, 255, 0.9));
+    color: #20B2AA;
+}
+
+.theme-6 .equation-number {
+    background: linear-gradient(145deg, rgba(255, 182, 193, 0.2), rgba(255, 255, 255, 0.9));
+    color: #DB7093;
+}
+
+.theme-7 .equation-number {
+    background: linear-gradient(145deg, rgba(168, 224, 99, 0.2), rgba(255, 255, 255, 0.9));
+    color: #32CD32;
+}
+
+.theme-8 .equation-number {
+    background: linear-gradient(145deg, rgba(255, 203, 164, 0.2), rgba(255, 255, 255, 0.9));
+    color: #FF8C00;
+}
+
+.theme-9 .equation-number {
+    background: linear-gradient(145deg, rgba(255, 224, 102, 0.2), rgba(255, 255, 255, 0.9));
+    color: #FFA500;
+}
+
+/* ====== 算式结果框 - 填充后的样式 ====== */
+.equation-result.filled {
+    border: 2px solid transparent !important;
+    color: var(--text-white) !important;
+    box-shadow: var(--clay-shadow) !important;
+    font-size: 2rem !important;
+    font-weight: bold !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.equation-result.filled::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+}
+
+.equation-result.filled:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: var(--clay-shadow-hover) !important;
+}
+
+.equation-result.filled:hover::before {
+    left: 100%;
+}
+
+/* ====== 主题2-9的填充结果框 ====== */
+.theme-2 .equation-result.filled {
+    background: linear-gradient(145deg, #87CEEB, #5DB8EB) !important;
+}
+
+.theme-3 .equation-result.filled {
+    background: linear-gradient(145deg, #FFD93D, #FFC107) !important;
+}
+
+.theme-4 .equation-result.filled {
+    background: linear-gradient(145deg, #D1D1FF, #A5A5FF) !important;
+}
+
+.theme-5 .equation-result.filled {
+    background: linear-gradient(145deg, #80DED9, #5DC9C3) !important;
+}
+
+.theme-6 .equation-result.filled {
+    background: linear-gradient(145deg, #FFB6C1, #FF8FA3) !important;
+}
+
+.theme-7 .equation-result.filled {
+    background: linear-gradient(145deg, #A8E063, #8CC63F) !important;
+}
+
+.theme-8 .equation-result.filled {
+    background: linear-gradient(145deg, #FFCBA4, #FFB07C) !important;
+}
+
+.theme-9 .equation-result.filled {
+    background: linear-gradient(145deg, #FFE066, #FFD233) !important;
+}
+
+/* ====== 结果框 - 粘土效果 ====== */
+.equation-result {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--clay-radius-circle);
+    box-shadow: var(--clay-shadow);
+    border: 2px dashed var(--border-white);
+    background: var(--bg-white-80);
+    transition: all var(--transition-normal);
+    font-weight: bold;
+    font-size: 1.5rem;
+    touch-action: none;
+    cursor: pointer;
+}
+
+.equation-result.drag-over {
+    background: var(--bg-white-60);
+    box-shadow: inset 4px 4px 8px rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+}
+
+/* ====== 主题2-9的拖拽高亮颜色 ====== */
+.theme-2 {
+    --drag-highlight-bg: rgba(135, 206, 235, 0.2);
+    --drag-highlight-border: rgba(135, 206, 235, 0.8);
+}
+
+.theme-3 {
+    --drag-highlight-bg: rgba(255, 217, 61, 0.2);
+    --drag-highlight-border: rgba(255, 217, 61, 0.8);
+}
+
+.theme-4 {
+    --drag-highlight-bg: rgba(209, 209, 255, 0.2);
+    --drag-highlight-border: rgba(209, 209, 255, 0.8);
+}
+
+.theme-5 {
+    --drag-highlight-bg: rgba(128, 222, 217, 0.2);
+    --drag-highlight-border: rgba(128, 222, 217, 0.8);
+}
+
+.theme-6 {
+    --drag-highlight-bg: rgba(255, 182, 193, 0.2);
+    --drag-highlight-border: rgba(255, 182, 193, 0.8);
+}
+
+.theme-7 {
+    --drag-highlight-bg: rgba(168, 224, 99, 0.2);
+    --drag-highlight-border: rgba(168, 224, 99, 0.8);
+}
+
+.theme-8 {
+    --drag-highlight-bg: rgba(255, 203, 164, 0.2);
+    --drag-highlight-border: rgba(255, 203, 164, 0.8);
+}
+
+.theme-9 {
+    --drag-highlight-bg: rgba(255, 224, 102, 0.2);
+    --drag-highlight-border: rgba(255, 224, 102, 0.8);
+}
+
+/* 移动端拖放区域高亮 */
+.equation-result.drag-over-highlight {
+    background: var(--drag-highlight-bg, rgba(135, 206, 235, 0.2)) !important;
+    border: 2px solid var(--drag-highlight-border, rgba(135, 206, 235, 0.8)) !important;
+    transform: scale(1.08);
+    transition: transform 0.1s ease;
+}
+
+/* ====== 空白框 ====== */
+.empty-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    border-radius: var(--clay-radius-md);
+    box-shadow: var(--clay-shadow);
+    border: 2px dashed var(--border-white);
+    background: var(--bg-white-60);
+    opacity: 0.6;
+}
+
+/* ====== 按钮容器 ====== */
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+/* ====== 游戏按钮 - 粘土效果 ====== */
+.game-btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--clay-radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    color: var(--text-white);
+    box-shadow: var(--clay-shadow);
+    border: 2px solid var(--border-white);
+    position: relative;
+    overflow: hidden;
+    min-width: 160px;
+    touch-action: manipulation;
+}
+
+.game-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+}
+
+.game-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: var(--clay-shadow-hover);
+}
+
+.game-btn:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.game-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--clay-shadow-active);
+}
+
+/* ====== 主题2-9的练习按钮 ====== */
+.theme-2 #restart-btn {
+    background: linear-gradient(145deg, #87CEEB, #5DB8EB);
+}
+
+.theme-3 #restart-btn {
+    background: linear-gradient(145deg, #FFD93D, #FFC107);
+}
+
+.theme-4 #restart-btn {
+    background: linear-gradient(145deg, #D1D1FF, #A5A5FF);
+}
+
+.theme-5 #restart-btn {
+    background: linear-gradient(145deg, #80DED9, #5DC9C3);
+}
+
+.theme-6 #restart-btn {
+    background: linear-gradient(145deg, #FFB6C1, #FF8FA3);
+}
+
+.theme-7 #restart-btn {
+    background: linear-gradient(145deg, #A8E063, #8CC63F);
+}
+
+.theme-8 #restart-btn {
+    background: linear-gradient(145deg, #FFCBA4, #FFB07C);
+}
+
+.theme-9 #restart-btn {
+    background: linear-gradient(145deg, #FFE066, #FFD233);
+}
+
+/* 下一关按钮 */
+#next-btn {
+    background: linear-gradient(145deg, #94A3B8, #6B7280);
+    cursor: not-allowed;
+}
+
+/* 可点击状态的Next按钮 */
+#next-btn.enabled {
+    background: linear-gradient(145deg, #6B7280, #4B5563);
+    cursor: pointer;
+}
+
+.game-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: var(--clay-shadow) !important;
+}
+
+/* ====== 拖拽克隆元素 - 高性能优化 ====== */
+.drag-ghost {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    margin: 0 !important;
+    pointer-events: none !important;
+    z-index: 9999 !important;
+    opacity: 0.9 !important;
+    transition: none !important;
+    transform-origin: center !important;
+    will-change: transform;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.drag-ghost,
+.drag-ghost * {
+    -webkit-user-select: none !important;
+    user-select: none !important;
+}
+
+/* ====== 响应式设计 ====== */
+@media (max-width: 768px) {
+    :root {
+        --clay-radius-lg: 20px;
+        --clay-radius-md: 14px;
+        --clay-radius-sm: 10px;
+    }
+    
+    body {
+        padding: 10px;
+        align-items: flex-start;
+    }
+    
+    .multiplication-game {
+        padding: 1.5rem;
+        margin: 10px auto;
+    }
+    
+    .title-row {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .title-with-button {
+        flex-direction: row;
+        gap: 0.75rem;
+    }
+    
+    .title-with-button h1 {
+        font-size: 1.8rem;
+        padding: 0.75rem;
+        text-align: center;
+        flex: 1;
+    }
+    
+    .home-btn-small {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        margin: 0;
+    }
+    
+    .answer {
+        width: 70px;
+        height: 70px;
+        font-size: 1.8rem;
+    }
+    
+    .equation-number,
+    .equation-result {
+        width: 60px;
+        height: 60px;
+        font-size: 1.6rem;
+    }
+    
+    .equation {
+        font-size: 1.4rem;
+        padding: 1.25rem;
+    }
+    
+    .equation-result.filled {
+        font-size: 1.8rem !important;
+    }
+    
+    .answer {
+        min-width: 60px;
+        min-height: 60px;
+    }
+    
+    .equation-result {
+        min-width: 50px;
+        min-height: 50px;
+    }
+
+    .empty-box {
+        display: none;
+    }
+
+    .equations-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .multiplication-game {
+        padding: 1rem;
+        margin: 5px auto;
+    }
+    
+    .title-with-button h1 {
+        font-size: 1.5rem;
+        padding: 0.5rem;
+    }
+    
+    .home-btn-small {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+    
+    .answer {
+        width: 60px;
+        height: 60px;
+        font-size: 1.6rem;
+    }
+    
+    .equation-number,
+    .equation-result {
+        width: 50px;
+        height: 50px;
+        font-size: 1.4rem;
+    }
+    
+    .equation-result.filled {
+        font-size: 1.6rem !important;
+    }
+    
+    .equation {
+        font-size: 1.3rem;
+        padding: 1rem;
+        gap: 0.5rem;
+    }
+    
+    .buttons-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .game-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+@media (min-width: 769px) {
+    .multiplication-game {
+        margin-top: 40px;
+    }
+}
+
+/* ====== 动画效果 ====== */
+@keyframes clay-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.clay-bounce {
+    animation: clay-bounce 0.5s ease infinite;
+}
+
+@keyframes clay-pulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.6; }
+}
+
+.answer.dragging {
+    animation: clay-pulse 1s infinite;
+}
+
+@keyframes success-pop {
+    0% { transform: scale(0.8); opacity: 0; }
+    70% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.equation-result.filled {
+    animation: success-pop 0.3s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    10%, 30%, 50%, 70%, 90% { transform: translate3d(-2px, 0, 0); }
+    20%, 40%, 60%, 80% { transform: translate3d(2px, 0, 0); }
+}
+
+/* ====== 性能优化类 ====== */
+.performance-optimized {
+    contain: layout style paint;
+    transform: translateZ(0);
+}
+
+/* ====== 首页样式 ====== */
+.home-container {
+    background: var(--bg-white-80);
+    border-radius: var(--clay-radius-lg);
+    box-shadow: var(--clay-shadow);
+    border: 2px solid var(--border-white);
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    backdrop-filter: blur(5px);
+}
+
+.number-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.number-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    border-radius: var(--clay-radius-md);
+    text-decoration: none;
+    color: var(--text-white);
+    font-size: 2rem;
+    font-weight: bold;
+    transition: all var(--transition-normal);
+    box-shadow: var(--clay-shadow);
+    border: 2px solid var(--border-white);
+    position: relative;
+    overflow: hidden;
+}
+
+.number-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+}
+
+.number-card:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: var(--clay-shadow-hover);
+}
+
+.number-card:hover::before {
+    left: 100%;
+}
+
+/* ====== 首页卡片颜色 - 与主题颜色一致 ====== */
+.number-card[href*="2"] {
+    background: linear-gradient(145deg, #87CEEB, #5DB8EB);
+}
+
+.number-card[href*="3"] {
+    background: linear-gradient(145deg, #FFD93D, #FFC107);
+}
+
+.number-card[href*="4"] {
+    background: linear-gradient(145deg, #D1D1FF, #A5A5FF);
+}
+
+.number-card[href*="5"] {
+    background: linear-gradient(145deg, #80DED9, #5DC9C3);
+}
+
+.number-card[href*="6"] {
+    background: linear-gradient(145deg, #FFB6C1, #FF8FA3);
+}
+
+.number-card[href*="7"] {
+    background: linear-gradient(145deg, #A8E063, #8CC63F);
+}
+
+.number-card[href*="8"] {
+    background: linear-gradient(145deg, #FFCBA4, #FFB07C);
+}
+
+.number-card[href*="9"] {
+    background: linear-gradient(145deg, #FFE066, #FFD233);
+}
+
+/* 未完成的卡片 */
+.number-card:not([href*="2"]):not([href*="3"]):not([href*="4"]):not([href*="5"]):not([href*="6"]):not([href*="7"]):not([href*="8"]):not([href*="9"]) {
+    background: linear-gradient(145deg, #94A3B8, #64748B);
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.number-card:not([href*="2"]):not([href*="3"]):not([href*="4"]):not([href*="5"]):not([href*="6"]):not([href*="7"]):not([href*="8"]):not([href*="9"]):hover {
+    transform: none;
+    box-shadow: var(--clay-shadow);
+}
+
+@media (max-width: 768px) {
+    .number-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .number-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

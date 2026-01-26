@@ -1,0 +1,457 @@
+/* 
+模板样式 - 已缩小10%
+基于您提供的模板代码提取和优化
+*/
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #8a2be2;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --success-color: #2ecc71;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 模板全局样式 */
+body {
+    background-color: #f9f9f9;
+    color: var(--dark-color);
+    line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 主行布局容器 */
+.main-row-container {
+    width: 100%;
+    background-color: #f9f9f9;
+    padding: 0 0 2rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* 更宽的容器，用于容纳三个并排的部分 */
+.wide-container {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 主行布局 */
+.main-row {
+    display: flex;
+    gap: 2rem;
+    min-height: calc(100vh - 200px);
+}
+
+.left-sidebar, .right-sidebar {
+    flex: 0 0 250px;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.main-content {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+/* 动态内容容器样式 */
+.dynamic-content-container {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 1.8rem; /* 从2rem减小到1.8rem，缩小10% */
+    margin-bottom: 1.8rem; /* 从2rem减小到1.8rem，缩小10% */
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+}
+
+.dynamic-content-container h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.35rem; /* 从1.5rem减小到1.35rem，缩小10% */
+    text-align: center;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.dynamic-content-container p {
+    color: var(--dark-color);
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: 1.35rem; /* 从1.5rem减小到1.35rem，缩小10% */
+}
+
+.placeholder-content {
+    text-align: center;
+    color: #7f8c8d;
+    font-style: italic;
+    padding: 1.8rem; /* 从2rem减小到1.8rem，缩小10% */
+    border: 2px dashed #ddd;
+    border-radius: var(--border-radius);
+    margin-top: 0.9rem; /* 从1rem减小到0.9rem，缩小10% */
+}
+
+/* 左侧导航栏样式 */
+.nav-title {
+    color: var(--primary-color);
+    margin-bottom: 1.35rem; /* 从1.5rem减小到1.35rem，缩小10% */
+    padding-bottom: 0.45rem; /* 从0.5rem减小到0.45rem，缩小10% */
+    border-bottom: 2px solid var(--light-color);
+    text-align: center;
+}
+
+.nav-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.nav-button {
+    background-color: var(--light-color);
+    color: var(--primary-color);
+    border: 2px solid var(--secondary-color);
+    padding: 0.45rem 1rem;
+    font-size: 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-weight: 500;
+}
+
+.nav-button:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-color: var(--secondary-color);
+}
+
+.nav-button:active {
+    transform: translateY(0);
+}
+
+/* 为外部链接按钮添加外链标志 */
+.nav-button.external {
+    position: relative;
+    padding-right: 2.5rem;
+    background-color: var(--light-color);
+    color: var(--primary-color);
+    border: 2px solid var(--secondary-color);
+}
+
+.nav-button.external::after {
+    content: "↗";
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+}
+
+.nav-button.external:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+.nav-button.external:hover::after {
+    transform: translateY(-50%) translateX(2px) translateY(-2px);
+}
+
+/* 确保导航按钮中的图标正确显示 */
+.nav-button i {
+    margin-right: 8px;
+    font-size: 1.1em;
+    width: 20px;
+    text-align: center;
+}
+
+/* 为外部链接图标调整位置 */
+.nav-button.external i {
+    margin-right: 6px;
+}
+
+/* 头部样式 - 已修改，整体缩小10% */
+header {
+    background: linear-gradient(135deg, #00447F 0%, #0066AA 100%);
+    color: white;
+    padding: 0.2rem 0; /* 从0.25rem减小到0.2rem */
+    text-align: center;
+    margin-bottom: 0.45rem; /* 从0.5rem减小到0.45rem */
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: var(--box-shadow);
+    position: relative;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    min-height: 81px; /* 从90px减小到81px，缩小10% */
+    z-index: 1000;
+    transform: scaleY(0.9); /* 垂直方向整体缩小10% */
+    transform-origin: top; /* 从顶部开始缩放 */
+}
+
+/* 添加微妙的纹理效果 */
+header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+    background-size: cover;
+}
+
+/* 新的标题样式 - 缩小10% */
+.main-title {
+    font-size: 2.52rem; /* 从2.8rem减小到2.52rem，缩小10% */
+    margin-bottom: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    line-height: 1.2;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    justify-content: center;
+    transform: scale(0.9); /* 内部元素再缩小10%以保持整体比例 */
+    transform-origin: center;
+}
+
+/* NDED特殊样式 - 修改为向内凹的圆角，缩小10% */
+.nded-text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 900;
+    font-size: 2.88rem; /* 从3.2rem减小到2.88rem，缩小10% */
+    color: #2c3e50;
+    letter-spacing: 0.45px; /* 从0.5px减小到0.45px */
+    display: inline-block;
+    position: relative;
+    padding: 0 10.8px; /* 从12px减小到10.8px，缩小10% */
+    margin-right: 7.2px; /* 从8px减小到7.2px，缩小10% */
+    background-color: rgba(255, 255, 255, 0.9);
+    
+    /* 修改为向内凹的圆角效果 */
+    border-radius: 10.8px; /* 从12px减小到10.8px，缩小10% */
+    box-shadow: 
+        inset 2.7px 2.7px 4.5px rgba(0, 0, 0, 0.2), /* 缩小10% */
+        inset -2.7px -2.7px 4.5px rgba(255, 255, 255, 0.8), /* 缩小10% */
+        0 1.8px 3.6px rgba(0, 0, 0, 0.1); /* 缩小10% */
+    
+    /* 创建向内凹陷的效果 */
+    border: 0.9px solid rgba(0, 0, 0, 0.1); /* 从1px减小到0.9px，缩小10% */
+    
+    /* 确保有明确的高度，便于对齐 */
+    line-height: 1.1;
+    height: 57.6px; /* 从64px减小到57.6px，缩小10% */
+    display: inline-flex;
+    align-items: center;
+}
+
+/* 给NDED添加装饰性边框效果 - 更新为适应新设计 */
+.nded-text::before {
+    content: "";
+    position: absolute;
+    top: -2.7px; /* 从-3px减小到-2.7px，缩小10% */
+    left: -2.7px; /* 从-3px减小到-2.7px，缩小10% */
+    right: -2.7px; /* 从-3px减小到-2.7px，缩小10% */
+    bottom: -2.7px; /* 从-3px减小到-2.7px，缩小10% */
+    border: 0.9px solid rgba(255, 215, 0, 0.2); /* 从1px减小到0.9px，缩小10% */
+    border-radius: 12.6px; /* 从14px减小到12.6px，缩小10% */
+    z-index: -1;
+}
+
+/* 副标题样式 - 添加新的样式，缩小10% */
+.subtitle {
+    font-size: 1.71rem; /* 从1.9rem减小到1.71rem，缩小10% */
+    font-style: italic;
+    color: #f0f0f0;
+    text-shadow: 0.9px 0.9px 1.8px rgba(0, 0, 0, 0.3); /* 缩小10% */
+    font-weight: 400;
+    margin-left: 7.2px; /* 从8px减小到7.2px，缩小10% */
+    letter-spacing: 0.45px; /* 从0.5px减小到0.45px，缩小10% */
+    
+    /* 向下移动，使底边与NDED外框底边对齐 */
+    line-height: 1.1;
+    display: inline-flex;
+    align-items: flex-end;
+    height: 57.6px; /* 从64px减小到57.6px，缩小10% */
+    
+    /* 添加一个微妙的底部边框，帮助视觉对齐 */
+    position: relative;
+}
+
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 0.45rem 0; /* 从0.5rem减小到0.45rem，缩小10% */
+    margin-top: 2.7rem; /* 从3rem减小到2.7rem，缩小10% */
+}
+
+/* 右侧边栏样式 */
+.right-sidebar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 200px;
+    padding: 1.5rem;
+}
+
+.right-sidebar-placeholder {
+    text-align: center;
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+/* 问答栏样式 */
+.question-box {
+    background: white;
+    border-radius: 18px; /* 从20px减小到18px，缩小10% */
+    box-shadow: 0 9px 22.5px rgba(0,0,0,0.1); /* 缩小10% */
+    text-align: center;
+    padding: 1.35em; /* 从1.5em减小到1.35em，缩小10% */
+    width: 100%;
+    transition: all 0.3s ease;
+    font-family: "Poppins", "Nunito", sans-serif;
+}
+
+.question-box h2 {
+    font-size: 0.99rem; /* 从1.1rem减小到0.99rem，缩小10% */
+    margin-bottom: 1.35em; /* 从1.5em减小到1.35em，缩小10% */
+    color: #333;
+}
+
+.question-box .btn {
+    display: block;
+    width: 100%;
+    padding: 0.72em 0.9em; /* 从0.8em 1em减小到0.72em 0.9em，缩小10% */
+    margin-bottom: 0.72em; /* 从0.8em减小到0.72em，缩小10% */
+    border-radius: 10.8px; /* 从12px减小到10.8px，缩小10% */
+    font-size: 0.855rem; /* 从0.95rem减小到0.855rem，缩小10% */
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.question-box .yes {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+}
+
+.question-box .yes:hover {
+    transform: scale(1.05);
+    box-shadow: 0 3.6px 9px rgba(120,100,255,0.3); /* 缩小10% */
+}
+
+.question-box .no {
+    background: #ffe7e7;
+    color: #ff4b4b;
+}
+
+.question-box .no:hover {
+    transform: rotate(-2deg) scale(1.05);
+    box-shadow: 0 3.6px 9px rgba(255,75,75,0.2); /* 缩小10% */
+}
+
+.question-box .response {
+    margin-top: 1.35em; /* 从1.5em减小到1.35em，缩小10% */
+    font-size: 0.9rem; /* 从1rem减小到0.9rem，缩小10% */
+    color: #555;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.question-box .response.show {
+    opacity: 1;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .main-row {
+        flex-direction: column;
+    }
+    
+    .left-sidebar, .right-sidebar {
+        flex: 1;
+        width: 100%;
+    }
+    
+    .main-title {
+        font-size: 1.8rem; /* 从2rem减小到1.8rem，缩小10% */
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nded-text {
+        font-size: 1.98rem; /* 从2.2rem减小到1.98rem，缩小10% */
+        margin-right: 0;
+        margin-bottom: 4.5px; /* 从5px减小到4.5px，缩小10% */
+        height: 45px; /* 从50px减小到45px，缩小10% */
+    }
+    
+    .subtitle {
+        font-size: 1.26rem; /* 从1.4rem减小到1.26rem，缩小10% */
+        margin-left: 0;
+        text-align: center;
+        height: auto;
+        line-height: 1.3;
+        display: block;
+        margin-top: 4.5px; /* 从5px减小到4.5px，缩小10% */
+    }
+    
+    header {
+        flex-direction: column;
+        padding: 0.45rem 0; /* 从0.5rem减小到0.45rem，缩小10% */
+        min-height: 108px; /* 从120px减小到108px，缩小10% */
+    }
+    
+    /* 导航按钮在移动端改为每行2个 */
+    .nav-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.675rem; /* 从0.75rem减小到0.675rem，缩小10% */
+    }
+    
+    .nav-button {
+        font-size: 0.855rem; /* 从0.95rem减小到0.855rem，缩小10% */
+        padding: 0.675rem 0.45rem; /* 从0.75rem 0.5rem减小到0.675rem 0.45rem，缩小10% */
+    }
+}
+
+@media (max-width: 480px) {
+    /* 导航按钮在小屏幕设备上的调整 */
+    .nav-buttons {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.54rem; /* 从0.6rem减小到0.54rem，缩小10% */
+    }
+    
+    .nav-button {
+        font-size: 0.81rem; /* 从0.9rem减小到0.81rem，缩小10% */
+        padding: 0.585rem 0.36rem; /* 从0.65rem 0.4rem减小到0.585rem 0.36rem，缩小10% */
+    }
+}
