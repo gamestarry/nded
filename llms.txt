@@ -1,0 +1,11 @@
+# ND-ED (nd-ed.org)
+An interactive educational platform focused on foundational mathematics through games.
+
+## Core Content
+- [Math Games](https://www.nd-ed.org/): Interactive tools for learning fractions and multiplication.
+- [Matrix Multiplication](https://www.nd-ed.org/matrix-multiplication-by-2-game.html): Visual and interactive matrix-based math learning.
+- [Fraction Games](https://www.nd-ed.org/pages/fraction-math-game.html): Practice and master fractions.
+- [Multiplication Drills](https://www.nd-ed.org/pages/multiplication-by-2-game.html): Step-by-step multiplication practice from 2 to 9.
+
+## About
+A non-profit educational resource dedicated to making math learning engaging and accessible.
