@@ -455,3 +455,212 @@ footer {
         padding: 0.585rem 0.36rem; /* 从0.65rem 0.4rem减小到0.585rem 0.36rem，缩小10% */
     }
 }
+
+/* ====== 针对乘法游戏移动端优化 ====== */
+
+/* 覆盖style.css中的移动端限制 */
+@media (max-width: 768px) {
+    /* 1. 移除所有限制性边距，扩大显示范围 */
+    body {
+        padding: 0 !important; /* 完全移除边距 */
+        margin: 0 !important;
+        width: 100vw;
+        min-height: 100vh;
+    }
+    
+    /* 2. 游戏容器最大化 */
+    .multiplication-game {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 10px !important; /* 只保留最小安全边距 */
+        border-radius: 0 !important; /* 移除圆角以获得更大空间 */
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+    
+    /* 3. 标题行紧凑处理 */
+    .title-row {
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .title-with-button h1 {
+        font-size: clamp(1.3rem, 5vw, 1.8rem) !important;
+        padding: 0.5rem 0.8rem !important;
+    }
+    
+    /* 4. 扩大答案容器，使用更多水平空间 */
+    .answers-container {
+        padding: 8px 4px !important;
+        margin-bottom: 0.8rem !important;
+        gap: 6px !important; /* 紧密排列但可触摸 */
+        justify-content: space-around; /* 均匀分布 */
+        flex-wrap: wrap;
+    }
+    
+    /* 5. 增大答案按钮，提高触摸友好性 */
+    .answer {
+        width: 46px !important; /* 从40px增加到46px */
+        height: 46px !important;
+        font-size: 1.2rem !important;
+        margin: 2px !important;
+        flex-shrink: 0;
+    }
+    
+    /* 6. 算式区域优化 */
+    .equations-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .equation {
+        padding: 0.7rem 0.5rem !important;
+        font-size: 1.1rem !important;
+    }
+    
+    .equation-number,
+    .equation-result {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 1.2rem !important;
+    }
+    
+    /* 7. 按钮容器优化 */
+    .buttons-container {
+        gap: 10px !important;
+        margin-top: 0.8rem !important;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .game-btn {
+        min-width: 45% !important; /* 使用百分比宽度 */
+        padding: 0.8rem 0.5rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* 8. 移除SEO文章在移动端，为游戏腾出空间 */
+    .seo-articles-section {
+        display: none !important;
+    }
+}
+
+/* 超小屏幕手机优化 (如iPhone SE) */
+@media (max-width: 375px) {
+    .multiplication-game {
+        padding: 8px 4px !important;
+    }
+    
+    .title-with-button h1 {
+        font-size: 1.2rem !important;
+        padding: 0.4rem !important;
+    }
+    
+    .home-btn-small {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 1rem !important;
+    }
+    
+    /* 进一步增大答案按钮 */
+    .answer {
+        width: 42px !important;
+        height: 42px !important;
+        font-size: 1.1rem !important;
+    }
+    
+    /* 在超小屏幕上改为单列算式 */
+    .equations-container {
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+    }
+    
+    /* 算式数字框适当缩小 */
+    .equation-number,
+    .equation-result {
+        width: 44px !important;
+        height: 44px !important;
+    }
+    
+    /* 按钮垂直排列 */
+    .buttons-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .game-btn {
+        width: 90% !important;
+        max-width: 250px !important;
+        margin: 2px 0;
+    }
+}
+
+/* 横屏优化 */
+@media (max-width: 768px) and (orientation: landscape) {
+    .multiplication-game {
+        min-height: auto;
+        max-height: 100vh;
+    }
+    
+    /* 横屏时使用更紧凑的布局 */
+    .title-row {
+        margin-bottom: 0.3rem !important;
+    }
+    
+    .title-with-button h1 {
+        font-size: 1.1rem !important;
+        padding: 0.3rem !important;
+    }
+    
+    /* 答案按钮可以稍微密集一些 */
+    .answers-container {
+        padding: 4px 2px !important;
+        margin-bottom: 0.5rem !important;
+        gap: 4px !important;
+    }
+    
+    .answer {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 1rem !important;
+    }
+    
+    /* 横屏时可以显示更多算式 */
+    .equations-container {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 6px !important;
+    }
+    
+    .equation {
+        padding: 0.5rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .equation-number,
+    .equation-result {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 1rem !important;
+    }
+}
+
+/* 防止键盘弹出时布局被压缩 */
+@media (max-height: 500px) {
+    .multiplication-game {
+        padding-top: 2px !important;
+    }
+    
+    .title-row {
+        margin-bottom: 0.2rem !important;
+    }
+    
+    .answers-container {
+        padding: 4px !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .equation {
+        padding: 0.4rem !important;
+    }
+}
