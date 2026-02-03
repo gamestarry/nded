@@ -67,41 +67,53 @@ body {
 :root {
     /* 基础背景色 */
     --clay-bg: #f0f4f8;
-    
+
     /* 主题颜色 - 与首页完全一致 */
-    --theme-2-color: #87CEEB;          /* 2的乘法 - 天空蓝 */
-    --theme-3-color: #FFD93D;         /* 3的乘法 - 黄色 */
-    --theme-4-color: #D1D1FF;         /* 4的乘法 - 淡蓝色 */
-    --theme-5-color: #80DED9;         /* 5的乘法 - 青绿色 */
-    --theme-6-color: #FFB6C1;         /* 6的乘法 - 粉红色 */
-    --theme-7-color: #A8E063;         /* 7的乘法 - 浅绿色 */
-    --theme-8-color: #FFCBA4;         /* 8的乘法 - 浅橙色 */
-    --theme-9-color: #FFE066;         /* 9的乘法 - 淡黄色 */
-    
+    --theme-2-color: #87CEEB;
+    /* 2的乘法 - 天空蓝 */
+    --theme-3-color: #FFD93D;
+    /* 3的乘法 - 黄色 */
+    --theme-4-color: #D1D1FF;
+    /* 4的乘法 - 淡蓝色 */
+    --theme-5-color: #80DED9;
+    /* 5的乘法 - 青绿色 */
+    --theme-6-color: #FFB6C1;
+    /* 6的乘法 - 粉红色 */
+    --theme-7-color: #A8E063;
+    /* 7的乘法 - 浅绿色 */
+    --theme-8-color: #FFCBA4;
+    /* 8的乘法 - 浅橙色 */
+    --theme-9-color: #FFE066;
+    /* 9的乘法 - 淡黄色 */
+
     /* 拖拽高亮颜色变量 */
     --drag-highlight-bg: rgba(135, 206, 235, 0.2);
     --drag-highlight-border: rgba(135, 206, 235, 0.8);
-    
+
     /* 通用颜色 */
-    --clay-success: #10B981;           /* 成功色 */
-    --clay-gray: #94A3B8;              /* 灰色 */
-    --clay-dark: #0A1931;              /* 深色背景 */
-    --clay-light: #F8FAFC;             /* 浅色背景 */
+    --clay-success: #10B981;
+    /* 成功色 */
+    --clay-gray: #94A3B8;
+    /* 灰色 */
+    --clay-dark: #0A1931;
+    /* 深色背景 */
+    --clay-light: #F8FAFC;
+    /* 浅色背景 */
 
     /* 3D粘土效果 - 进一步减弱 */
-    --clay-shadow: 
+    --clay-shadow:
         5px 5px 10px rgba(0, 0, 0, 0.07),
         -3px -3px 7px rgba(255, 255, 255, 0.8),
         inset 2px 2px 5px rgba(255, 255, 255, 0.3),
         inset -2px -2px 5px rgba(0, 0, 0, 0.03);
 
-    --clay-shadow-hover: 
+    --clay-shadow-hover:
         7px 7px 14px rgba(0, 0, 0, 0.09),
         -4px -4px 10px rgba(255, 255, 255, 0.9),
         inset 2px 2px 5px rgba(255, 255, 255, 0.4),
         inset -2px -2px 5px rgba(0, 0, 0, 0.03);
 
-    --clay-shadow-active: 
+    --clay-shadow-active:
         3px 3px 6px rgba(0, 0, 0, 0.07),
         -2px -2px 4px rgba(255, 255, 255, 0.8),
         inset 3px 3px 6px rgba(255, 255, 255, 0.2),
@@ -119,16 +131,16 @@ body {
     --text-medium: #4A5568;
     --text-light: #718096;
     --text-white: #FFFFFF;
-    
+
     /* 透明度背景 */
     --bg-white-90: rgba(255, 255, 255, 0.9);
     --bg-white-80: rgba(255, 255, 255, 0.8);
     --bg-white-70: rgba(255, 255, 255, 0.7);
     --bg-white-60: rgba(255, 255, 255, 0.6);
-    
+
     /* 边框颜色 */
     --border-white: rgba(255, 255, 255, 0.5);
-    
+
     /* 过渡动画 - 进一步加快 */
     --transition-fast: 0.1s ease;
     --transition-normal: 0.18s ease;
@@ -147,8 +159,10 @@ body {
 html {
     /* 防止移动端双击缩放导致的页面跳动 */
     touch-action: manipulation;
-    overflow-y: scroll; /* 增加这一行：强制显示垂直滚动条，防止内容变动时页面左右晃动 */
-    overflow-x: hidden; /* 增加这一行：确保水平方向不溢出 */
+    overflow-y: scroll;
+    /* 增加这一行：强制显示垂直滚动条，防止内容变动时页面左右晃动 */
+    overflow-x: hidden;
+    /* 增加这一行：确保水平方向不溢出 */
 }
 
 body {
@@ -345,26 +359,30 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.4rem; /* 进一步减少间隙 */
+    gap: 0.4rem;
+    /* 进一步减少间隙 */
     margin-bottom: 1.3rem;
     padding: 0.9rem;
     border-radius: var(--clay-radius-md);
     box-shadow: var(--clay-shadow);
     border: 2px solid var(--border-white);
     background: var(--bg-white-90);
-    overflow: hidden; /* 增加这一行：像一道围墙，把内部按钮点击时的微小震动关在里面 */
+    overflow: hidden;
+    /* 增加这一行：像一道围墙，把内部按钮点击时的微小震动关在里面 */
 }
 
 /* ====== 答案方块 - 进一步缩小 ====== */
 .answer {
-    width: 48px; /* PC端进一步缩小 */
+    width: 48px;
+    /* PC端进一步缩小 */
     height: 48px;
     border-radius: var(--clay-radius-circle);
     display: flex;
     justify-content: center;
     align-items: center;
     color: var(--text-white);
-    font-size: 1.25rem; /* 进一步缩小字体 */
+    font-size: 1.25rem;
+    /* 进一步缩小字体 */
     font-weight: bold;
     cursor: grab;
     user-select: none;
@@ -738,9 +756,11 @@ body {
     box-shadow: var(--clay-shadow-active);
 }
 
-.game-btn:focus, .answer:focus {
+.game-btn:focus,
+.answer:focus {
     outline: none !important;
-    box-shadow: var(--clay-shadow) !important; /* 强制按钮获得焦点时保持普通阴影，不再向外扩张 */
+    box-shadow: var(--clay-shadow) !important;
+    /* 强制按钮获得焦点时保持普通阴影，不再向外扩张 */
 }
 
 /* ====== 主题2-9的练习按钮 ====== */
@@ -825,86 +845,87 @@ body {
         --clay-radius-md: 11px;
         --clay-radius-sm: 7px;
     }
-    
+
     body {
         padding: 8px;
     }
-    
+
     .multiplication-game {
         padding: 1.1rem;
         margin: 8px auto;
     }
-    
+
     .title-row {
         gap: 0.5rem;
         margin-bottom: 0.9rem;
     }
-    
+
     .title-with-button {
         gap: 0.5rem;
     }
-    
+
     .title-with-button h1 {
         font-size: 1.5rem;
         padding: 0.6rem;
     }
-    
+
     .home-btn-small {
         width: 44px;
         height: 44px;
         font-size: 1.3rem;
     }
-    
+
     /* 移动端答案按钮进一步缩小 */
     .answer {
-        width: 40px; /* 移动端40px */
+        width: 40px;
+        /* 移动端40px */
         height: 40px;
         font-size: 1.1rem;
     }
-    
+
     .equation-number,
     .equation-result {
         width: 44px;
         height: 44px;
         font-size: 1.1rem;
     }
-    
+
     .equation {
         font-size: 1.2rem;
         padding: 0.8rem;
         gap: 0.4rem;
     }
-    
+
     .equation-result.filled {
         font-size: 1.1rem !important;
     }
-    
+
     /* 算式容器 */
     .equations-container {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.7rem;
     }
-    
+
     /* 答案容器 */
     .answers-container {
         padding: 0.7rem;
         gap: 0.35rem;
         margin-bottom: 1.1rem;
     }
-    
+
     .completion-counter {
         font-size: 0.9rem;
         padding: 0.45rem;
         margin-bottom: 0.9rem;
     }
-    
+
     /* 按钮容器 - 保持一行 */
     .buttons-container {
         flex-direction: row;
         align-items: center;
         gap: 0.7rem;
     }
-    
+
     .game-btn {
         width: auto;
         max-width: 180px;
@@ -919,51 +940,52 @@ body {
         padding: 1rem;
         margin: 5px auto;
     }
-    
+
     .title-with-button h1 {
         font-size: 1.3rem;
         padding: 0.5rem;
     }
-    
+
     .home-btn-small {
         width: 40px;
         height: 40px;
         font-size: 1.2rem;
     }
-    
+
     .answer {
-        width: 36px; /* 超小屏幕36px */
+        width: 36px;
+        /* 超小屏幕36px */
         height: 36px;
         font-size: 1rem;
     }
-    
+
     .equation-number,
     .equation-result {
         width: 40px;
         height: 40px;
         font-size: 1rem;
     }
-    
+
     .equation-result.filled {
         font-size: 1rem !important;
     }
-    
+
     .equation {
         font-size: 1.1rem;
         padding: 0.7rem;
         gap: 0.3rem;
     }
-    
+
     /* 超小屏幕：算式改为1列 */
     .equations-container {
         grid-template-columns: 1fr;
         gap: 0.6rem;
     }
-    
+
     .buttons-container {
         gap: 0.6rem;
     }
-    
+
     .game-btn {
         max-width: 160px;
         padding: 0.65rem 0.9rem;
@@ -980,8 +1002,15 @@ body {
 
 /* ====== 动画效果 ====== */
 @keyframes clay-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
 }
 
 .clay-bounce {
@@ -989,8 +1018,15 @@ body {
 }
 
 @keyframes clay-pulse {
-    0%, 100% { opacity: 0.8; }
-    50% { opacity: 0.6; }
+
+    0%,
+    100% {
+        opacity: 0.8;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
 }
 
 .answer.dragging {
@@ -998,9 +1034,19 @@ body {
 }
 
 @keyframes success-pop {
-    0% { transform: scale(0.8); opacity: 0; }
-    70% { transform: scale(1.03); }
-    100% { transform: scale(1); opacity: 1; }
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.03);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .equation-result.filled {
@@ -1008,9 +1054,26 @@ body {
 }
 
 @keyframes shake {
-    0%, 100% { transform: translate3d(0, 0, 0); }
-    10%, 30%, 50%, 70%, 90% { transform: translate3d(-1px, 0, 0); }
-    20%, 40%, 60%, 80% { transform: translate3d(1px, 0, 0); }
+
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translate3d(1px, 0, 0);
+    }
 }
 
 /* ====== 性能优化 ====== */
@@ -1182,7 +1245,8 @@ body {
 
 /* 弹窗标题 - 匹配9的乘法游戏颜色 */
 .completion-title {
-    color: #FFA500; /* 9的乘法游戏数字颜色 */
+    color: #FFA500;
+    /* 9的乘法游戏数字颜色 */
     font-size: 1.8rem;
     font-weight: 800;
     margin-bottom: 1.2rem;
@@ -1306,23 +1370,23 @@ body {
         padding: 1.4rem;
         max-width: 380px;
     }
-    
+
     .completion-title {
         font-size: 1.5rem;
         padding: 0.7rem;
     }
-    
+
     .completion-message {
         font-size: 1.1rem;
         padding: 0.7rem;
     }
-    
+
     .completion-buttons {
         flex-direction: column;
         align-items: center;
         gap: 0.7rem;
     }
-    
+
     #return-home-btn,
     #practice-again-btn {
         width: 100%;
@@ -1335,16 +1399,16 @@ body {
     .completion-overlay {
         padding: 10px;
     }
-    
+
     .completion-modal {
         padding: 1.2rem;
     }
-    
+
     .completion-title {
         font-size: 1.3rem;
         padding: 0.6rem;
     }
-    
+
     .completion-message {
         font-size: 1rem;
         padding: 0.6rem;
@@ -1365,7 +1429,7 @@ body {
     color: #2c3e50;
     background: #fff;
     border-radius: 20px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     border: 2px solid rgba(255, 255, 255, 0.8);
 }
 
@@ -1385,7 +1449,7 @@ body {
     margin: 2.2rem 0 1.5rem;
     font-size: 1.9rem;
     font-weight: 700;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .seo-articles-section h3 {
@@ -1411,7 +1475,7 @@ body {
     text-align: left;
 }
 
-.seo-articles-section ul, 
+.seo-articles-section ul,
 .seo-articles-section ol {
     padding-left: 1.8rem;
     margin: 1rem 0 1.5rem;
@@ -1449,7 +1513,7 @@ body {
     padding: 1.2rem;
     margin: 1.5rem 0;
     border-radius: 0 10px 10px 0;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease;
 }
 
@@ -1473,7 +1537,7 @@ body {
     padding: 1.3rem;
     margin: 1.8rem 0 2rem;
     border-radius: 0 10px 10px 0;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
 /* 示例框 */
@@ -1492,7 +1556,7 @@ body {
     padding: 1.3rem;
     margin: 2.5rem 0 1rem;
     border-radius: 0 10px 10px 0;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
 /* FAQ部分样式 */
@@ -1563,37 +1627,101 @@ body {
 }
 
 /* 主题颜色适配 - 确保每个数字页面的文章保持一致的风格 */
-.theme-2 .digit-specific-article .digit-logic h2 { border-bottom-color: #87CEEB; }
-.theme-2 .digit-specific-article h3 { border-left-color: #87CEEB; }
-.theme-2 .digit-specific-article .step-box { border-left-color: #87CEEB; }
+.theme-2 .digit-specific-article .digit-logic h2 {
+    border-bottom-color: #87CEEB;
+}
 
-.theme-3 .digit-specific-article .digit-logic h2 { border-bottom-color: #FFD93D; }
-.theme-3 .digit-specific-article h3 { border-left-color: #FFD93D; }
-.theme-3 .digit-specific-article .step-box { border-left-color: #FFD93D; }
+.theme-2 .digit-specific-article h3 {
+    border-left-color: #87CEEB;
+}
 
-.theme-4 .digit-specific-article .digit-logic h2 { border-bottom-color: #D1D1FF; }
-.theme-4 .digit-specific-article h3 { border-left-color: #D1D1FF; }
-.theme-4 .digit-specific-article .step-box { border-left-color: #D1D1FF; }
+.theme-2 .digit-specific-article .step-box {
+    border-left-color: #87CEEB;
+}
 
-.theme-5 .digit-specific-article .digit-logic h2 { border-bottom-color: #80DED9; }
-.theme-5 .digit-specific-article h3 { border-left-color: #80DED9; }
-.theme-5 .digit-specific-article .step-box { border-left-color: #80DED9; }
+.theme-3 .digit-specific-article .digit-logic h2 {
+    border-bottom-color: #FFD93D;
+}
 
-.theme-6 .digit-specific-article .digit-logic h2 { border-bottom-color: #FFB6C1; }
-.theme-6 .digit-specific-article h3 { border-left-color: #FFB6C1; }
-.theme-6 .digit-specific-article .step-box { border-left-color: #FFB6C1; }
+.theme-3 .digit-specific-article h3 {
+    border-left-color: #FFD93D;
+}
 
-.theme-7 .digit-specific-article .digit-logic h2 { border-bottom-color: #A8E063; }
-.theme-7 .digit-specific-article h3 { border-left-color: #A8E063; }
-.theme-7 .digit-specific-article .step-box { border-left-color: #A8E063; }
+.theme-3 .digit-specific-article .step-box {
+    border-left-color: #FFD93D;
+}
 
-.theme-8 .digit-specific-article .digit-logic h2 { border-bottom-color: #FFCBA4; }
-.theme-8 .digit-specific-article h3 { border-left-color: #FFCBA4; }
-.theme-8 .digit-specific-article .step-box { border-left-color: #FFCBA4; }
+.theme-4 .digit-specific-article .digit-logic h2 {
+    border-bottom-color: #D1D1FF;
+}
 
-.theme-9 .digit-specific-article .digit-logic h2 { border-bottom-color: #FFE066; }
-.theme-9 .digit-specific-article h3 { border-left-color: #FFE066; }
-.theme-9 .digit-specific-article .step-box { border-left-color: #FFE066; }
+.theme-4 .digit-specific-article h3 {
+    border-left-color: #D1D1FF;
+}
+
+.theme-4 .digit-specific-article .step-box {
+    border-left-color: #D1D1FF;
+}
+
+.theme-5 .digit-specific-article .digit-logic h2 {
+    border-bottom-color: #80DED9;
+}
+
+.theme-5 .digit-specific-article h3 {
+    border-left-color: #80DED9;
+}
+
+.theme-5 .digit-specific-article .step-box {
+    border-left-color: #80DED9;
+}
+
+.theme-6 .digit-specific-article .digit-logic h2 {
+    border-bottom-color: #FFB6C1;
+}
+
+.theme-6 .digit-specific-article h3 {
+    border-left-color: #FFB6C1;
+}
+
+.theme-6 .digit-specific-article .step-box {
+    border-left-color: #FFB6C1;
+}
+
+.theme-7 .digit-specific-article .digit-logic h2 {
+    border-bottom-color: #A8E063;
+}
+
+.theme-7 .digit-specific-article h3 {
+    border-left-color: #A8E063;
+}
+
+.theme-7 .digit-specific-article .step-box {
+    border-left-color: #A8E063;
+}
+
+.theme-8 .digit-specific-article .digit-logic h2 {
+    border-bottom-color: #FFCBA4;
+}
+
+.theme-8 .digit-specific-article h3 {
+    border-left-color: #FFCBA4;
+}
+
+.theme-8 .digit-specific-article .step-box {
+    border-left-color: #FFCBA4;
+}
+
+.theme-9 .digit-specific-article .digit-logic h2 {
+    border-bottom-color: #FFE066;
+}
+
+.theme-9 .digit-specific-article h3 {
+    border-left-color: #FFE066;
+}
+
+.theme-9 .digit-specific-article .step-box {
+    border-left-color: #FFE066;
+}
 
 /* 响应式设计 */
 @media (max-width: 768px) {
@@ -1602,30 +1730,30 @@ body {
         margin: 2rem auto 0;
         border-radius: 15px;
     }
-    
+
     .seo-articles-section h2 {
         font-size: 1.6rem;
         margin: 1.8rem 0 1.2rem;
         padding-bottom: 10px;
     }
-    
+
     .seo-articles-section h3 {
         font-size: 1.3rem;
         margin: 1.5rem 0 1rem;
     }
-    
+
     .digit-specific-article .step-box,
     .learning-path-intro,
     .next-steps {
         padding: 1rem;
         margin: 1.2rem 0;
     }
-    
+
     .faq-item {
         margin-bottom: 1.5rem;
         padding-bottom: 1.2rem;
     }
-    
+
     .seo-articles-section hr {
         margin: 2rem 0;
     }
@@ -1637,24 +1765,24 @@ body {
         margin: 1.5rem auto 0;
         border-radius: 12px;
     }
-    
+
     .seo-articles-section h2 {
         font-size: 1.4rem;
         margin: 1.5rem 0 1rem;
     }
-    
+
     .seo-articles-section h3 {
         font-size: 1.2rem;
         margin: 1.2rem 0 0.8rem;
         padding-left: 0.3rem;
         border-left-width: 3px;
     }
-    
+
     .seo-articles-section p {
         font-size: 0.95rem;
         line-height: 1.6;
     }
-    
+
     .seo-articles-section ul,
     .seo-articles-section ol {
         padding-left: 1.3rem;
