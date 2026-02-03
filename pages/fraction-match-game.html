@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,14 @@
     <meta name="keywords" content="mathematics, math games, matrix calculator, math education">
     <meta name="author" content="NDED">
     <title>NDED - Fraction, Decimal & Percent Memory Game</title>
-    
+
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Fonts for NDED styling -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="canonical" href="https://www.nd-ed.org/pages/fraction-math-game.html">
-    
+
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -25,14 +27,14 @@
             --border-radius: 8px;
             --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background-color: #f9f9f9;
             color: var(--dark-color);
@@ -40,7 +42,7 @@
             /* 防止拖拽时页面滚动 */
             overflow-x: hidden;
         }
-        
+
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -55,21 +57,22 @@
             position: relative;
             z-index: 1;
         }
-        
+
         /* 更宽的容器，用于容纳三个并排的部分 */
         .wide-container {
             max-width: 1800px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
+
         /* 主行布局 */
         .main-row {
             display: flex;
             gap: 2rem;
         }
-        
-        .left-sidebar, .right-sidebar {
+
+        .left-sidebar,
+        .right-sidebar {
             flex: 0 0 250px;
             background-color: white;
             border-radius: var(--border-radius);
@@ -78,12 +81,13 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .main-content {
             flex: 1;
             position: relative;
             z-index: 1;
-            min-width: 0; /* 防止内容溢出 */
+            min-width: 0;
+            /* 防止内容溢出 */
         }
 
         /* 动态内容容器样式 - 游戏容器将放在这里 */
@@ -96,7 +100,8 @@
             display: flex;
             flex-direction: column;
             width: 100%;
-            overflow: hidden; /* 防止内容溢出 */
+            overflow: hidden;
+            /* 防止内容溢出 */
         }
 
         .dynamic-content-container h2 {
@@ -190,19 +195,24 @@
         header {
             background: linear-gradient(135deg, #00447F 0%, #0066AA 100%);
             color: white;
-            padding: 0.2rem 0; /* 从0.25rem减小到0.2rem */
+            padding: 0.2rem 0;
+            /* 从0.25rem减小到0.2rem */
             text-align: center;
-            margin-bottom: 0.45rem; /* 从0.5rem减小到0.45rem */
+            margin-bottom: 0.45rem;
+            /* 从0.5rem减小到0.45rem */
             border-radius: 0 0 var(--border-radius) var(--border-radius);
             box-shadow: var(--box-shadow);
             position: relative;
             overflow: visible;
             display: flex;
             align-items: center;
-            min-height: 81px; /* 从90px减小到81px，缩小10% */
+            min-height: 81px;
+            /* 从90px减小到81px，缩小10% */
             z-index: 1000;
-            transform: scaleY(0.9); /* 垂直方向整体缩小10% */
-            transform-origin: top; /* 从顶部开始缩放 */
+            transform: scaleY(0.9);
+            /* 垂直方向整体缩小10% */
+            transform-origin: top;
+            /* 从顶部开始缩放 */
         }
 
         /* 添加微妙的纹理效果 */
@@ -219,7 +229,8 @@
 
         /* 新的标题样式 - 缩小10% */
         .main-title {
-            font-size: 2.52rem; /* 从2.8rem减小到2.52rem，缩小10% */
+            font-size: 2.52rem;
+            /* 从2.8rem减小到2.52rem，缩小10% */
             margin-bottom: 0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
             position: relative;
@@ -230,70 +241,92 @@
             align-items: flex-end;
             flex-wrap: wrap;
             justify-content: center;
-            transform: scale(0.9); /* 内部元素再缩小10%以保持整体比例 */
+            transform: scale(0.9);
+            /* 内部元素再缩小10%以保持整体比例 */
             transform-origin: center;
         }
-        
+
         /* NDED特殊样式 - 修改为向内凹的圆角，缩小10% */
         .nded-text {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-weight: 900;
-            font-size: 2.88rem; /* 从3.2rem减小到2.88rem，缩小10% */
+            font-size: 2.88rem;
+            /* 从3.2rem减小到2.88rem，缩小10% */
             color: #2c3e50;
-            letter-spacing: 0.45px; /* 从0.5px减小到0.45px */
+            letter-spacing: 0.45px;
+            /* 从0.5px减小到0.45px */
             display: inline-block;
             position: relative;
-            padding: 0 10.8px; /* 从12px减小到10.8px，缩小10% */
-            margin-right: 7.2px; /* 从8px减小到7.2px，缩小10% */
+            padding: 0 10.8px;
+            /* 从12px减小到10.8px，缩小10% */
+            margin-right: 7.2px;
+            /* 从8px减小到7.2px，缩小10% */
             background-color: rgba(255, 255, 255, 0.9);
-            
+
             /* 修改为向内凹的圆角效果 */
-            border-radius: 10.8px; /* 从12px减小到10.8px，缩小10% */
-            box-shadow: 
-                inset 2.7px 2.7px 4.5px rgba(0, 0, 0, 0.2), /* 缩小10% */
-                inset -2.7px -2.7px 4.5px rgba(255, 255, 255, 0.8), /* 缩小10% */
-                0 1.8px 3.6px rgba(0, 0, 0, 0.1); /* 缩小10% */
-            
+            border-radius: 10.8px;
+            /* 从12px减小到10.8px，缩小10% */
+            box-shadow:
+                inset 2.7px 2.7px 4.5px rgba(0, 0, 0, 0.2),
+                /* 缩小10% */
+                inset -2.7px -2.7px 4.5px rgba(255, 255, 255, 0.8),
+                /* 缩小10% */
+                0 1.8px 3.6px rgba(0, 0, 0, 0.1);
+            /* 缩小10% */
+
             /* 创建向内凹陷的效果 */
-            border: 0.9px solid rgba(0, 0, 0, 0.1); /* 从1px减小到0.9px，缩小10% */
-            
+            border: 0.9px solid rgba(0, 0, 0, 0.1);
+            /* 从1px减小到0.9px，缩小10% */
+
             /* 确保有明确的高度，便于对齐 */
             line-height: 1.1;
-            height: 57.6px; /* 从64px减小到57.6px，缩小10% */
+            height: 57.6px;
+            /* 从64px减小到57.6px，缩小10% */
             display: inline-flex;
             align-items: center;
         }
-        
+
         /* 副标题样式 - 添加新的样式，缩小10% */
         .subtitle {
-            font-size: 1.71rem; /* 从1.9rem减小到1.71rem，缩小10% */
+            font-size: 1.71rem;
+            /* 从1.9rem减小到1.71rem，缩小10% */
             font-style: italic;
             color: #f0f0f0;
-            text-shadow: 0.9px 0.9px 1.8px rgba(0, 0, 0, 0.3); /* 缩小10% */
+            text-shadow: 0.9px 0.9px 1.8px rgba(0, 0, 0, 0.3);
+            /* 缩小10% */
             font-weight: 400;
-            margin-left: 7.2px; /* 从8px减小到7.2px，缩小10% */
-            letter-spacing: 0.45px; /* 从0.5px减小到0.45px，缩小10% */
-            
+            margin-left: 7.2px;
+            /* 从8px减小到7.2px，缩小10% */
+            letter-spacing: 0.45px;
+            /* 从0.5px减小到0.45px，缩小10% */
+
             /* 向下移动，使底边与NDED外框底边对齐 */
             line-height: 1.1;
             display: inline-flex;
             align-items: flex-end;
-            height: 57.6px; /* 从64px减小到57.6px，缩小10% */
-            
+            height: 57.6px;
+            /* 从64px减小到57.6px，缩小10% */
+
             /* 添加一个微妙的底部边框，帮助视觉对齐 */
             position: relative;
         }
-        
+
         /* 给NDED添加装饰性边框效果 - 更新为适应新设计 */
         .nded-text::before {
             content: "";
             position: absolute;
-            top: -2.7px; /* 从-3px减小到-2.7px，缩小10% */
-            left: -2.7px; /* 从-3px减小到-2.7px，缩小10% */
-            right: -2.7px; /* 从-3px减小到-2.7px，缩小10% */
-            bottom: -2.7px; /* 从-3px减小到-2.7px，缩小10% */
-            border: 0.9px solid rgba(255, 215, 0, 0.2); /* 从1px减小到0.9px，缩小10% */
-            border-radius: 12.6px; /* 从14px减小到12.6px，缩小10% */
+            top: -2.7px;
+            /* 从-3px减小到-2.7px，缩小10% */
+            left: -2.7px;
+            /* 从-3px减小到-2.7px，缩小10% */
+            right: -2.7px;
+            /* 从-3px减小到-2.7px，缩小10% */
+            bottom: -2.7px;
+            /* 从-3px减小到-2.7px，缩小10% */
+            border: 0.9px solid rgba(255, 215, 0, 0.2);
+            /* 从1px减小到0.9px，缩小10% */
+            border-radius: 12.6px;
+            /* 从14px减小到12.6px，缩小10% */
             z-index: -1;
         }
 
@@ -301,8 +334,10 @@
             background-color: var(--primary-color);
             color: white;
             text-align: center;
-            padding: 0.45rem 0; /* 从0.5rem减小到0.45rem，缩小10% */
-            margin-top: 2.7rem; /* 从3rem减小到2.7rem，缩小10% */
+            padding: 0.45rem 0;
+            /* 从0.5rem减小到0.45rem，缩小10% */
+            margin-top: 2.7rem;
+            /* 从3rem减小到2.7rem，缩小10% */
         }
 
         /* 右侧边栏样式 */
@@ -323,28 +358,37 @@
         /* 问答栏样式 */
         .question-box {
             background: white;
-            border-radius: 18px; /* 从20px减小到18px，缩小10% */
-            box-shadow: 0 9px 22.5px rgba(0,0,0,0.1); /* 缩小10% */
+            border-radius: 18px;
+            /* 从20px减小到18px，缩小10% */
+            box-shadow: 0 9px 22.5px rgba(0, 0, 0, 0.1);
+            /* 缩小10% */
             text-align: center;
-            padding: 1.35em; /* 从1.5em减小到1.35em，缩小10% */
+            padding: 1.35em;
+            /* 从1.5em减小到1.35em，缩小10% */
             width: 100%;
             transition: all 0.3s ease;
             font-family: "Poppins", "Nunito", sans-serif;
         }
 
         .question-box h2 {
-            font-size: 0.99rem; /* 从1.1rem减小到0.99rem，缩小10% */
-            margin-bottom: 1.35em; /* 从1.5em减小到1.35em，缩小10% */
+            font-size: 0.99rem;
+            /* 从1.1rem减小到0.99rem，缩小10% */
+            margin-bottom: 1.35em;
+            /* 从1.5em减小到1.35em，缩小10% */
             color: #333;
         }
 
         .question-box .btn {
             display: block;
             width: 100%;
-            padding: 0.72em 0.9em; /* 从0.8em 1em减小到0.72em 0.9em，缩小10% */
-            margin-bottom: 0.72em; /* 从0.8em减小到0.72em，缩小10% */
-            border-radius: 10.8px; /* 从12px减小到10.8px，缩小10% */
-            font-size: 0.855rem; /* 从0.95rem减小到0.855rem，缩小10% */
+            padding: 0.72em 0.9em;
+            /* 从0.8em 1em减小到0.72em 0.9em，缩小10% */
+            margin-bottom: 0.72em;
+            /* 从0.8em减小到0.72em，缩小10% */
+            border-radius: 10.8px;
+            /* 从12px减小到10.8px，缩小10% */
+            font-size: 0.855rem;
+            /* 从0.95rem减小到0.855rem，缩小10% */
             font-weight: 600;
             cursor: pointer;
             border: none;
@@ -358,7 +402,8 @@
 
         .question-box .yes:hover {
             transform: scale(1.05);
-            box-shadow: 0 3.6px 9px rgba(120,100,255,0.3); /* 缩小10% */
+            box-shadow: 0 3.6px 9px rgba(120, 100, 255, 0.3);
+            /* 缩小10% */
         }
 
         .question-box .no {
@@ -368,12 +413,15 @@
 
         .question-box .no:hover {
             transform: rotate(-2deg) scale(1.05);
-            box-shadow: 0 3.6px 9px rgba(255,75,75,0.2); /* 缩小10% */
+            box-shadow: 0 3.6px 9px rgba(255, 75, 75, 0.2);
+            /* 缩小10% */
         }
 
         .question-box .response {
-            margin-top: 1.35em; /* 从1.5em减小到1.35em，缩小10% */
-            font-size: 0.9rem; /* 从1rem减小到0.9rem，缩小10% */
+            margin-top: 1.35em;
+            /* 从1.5em减小到1.35em，缩小10% */
+            font-size: 0.9rem;
+            /* 从1rem减小到0.9rem，缩小10% */
             color: #555;
             font-weight: 500;
             opacity: 0;
@@ -383,44 +431,51 @@
         .question-box .response.show {
             opacity: 1;
         }
-        
+
         /* ====== 游戏CSS整合 ====== */
         /* 我们将游戏CSS放在这里，并做一些调整以适应模板容器 */
-        
+
         /* 游戏粘土风格变量 */
         .memory-game-root {
             /* 基础背景色 */
             --clay-bg: #f0f4f8;
-            
+
             /* 主题颜色 - 匹配分数、小数、百分比三种类型 */
-            --fraction-color: #87CEEB;          /* 分数 - 天空蓝 */
-            --decimal-color: #FFD93D;           /* 小数 - 黄色 */
-            --percent-color: #D1D1FF;           /* 百分比 - 淡蓝色 */
-            
+            --fraction-color: #87CEEB;
+            /* 分数 - 天空蓝 */
+            --decimal-color: #FFD93D;
+            /* 小数 - 黄色 */
+            --percent-color: #D1D1FF;
+            /* 百分比 - 淡蓝色 */
+
             /* 表格边框颜色 - 加深 */
             --table-border: #A0AEC0;
             --table-border-dark: #718096;
-            
+
             /* 通用颜色 */
-            --clay-success: #10B981;           /* 成功色 */
-            --clay-gray: #94A3B8;              /* 灰色 */
-            --clay-dark: #0A1931;              /* 深色背景 */
-            --clay-light: #F8FAFC;             /* 浅色背景 */
+            --clay-success: #10B981;
+            /* 成功色 */
+            --clay-gray: #94A3B8;
+            /* 灰色 */
+            --clay-dark: #0A1931;
+            /* 深色背景 */
+            --clay-light: #F8FAFC;
+            /* 浅色背景 */
 
             /* 3D粘土效果 */
-            --clay-shadow: 
+            --clay-shadow:
                 5px 5px 10px rgba(0, 0, 0, 0.07),
                 -3px -3px 7px rgba(255, 255, 255, 0.8),
                 inset 2px 2px 5px rgba(255, 255, 255, 0.3),
                 inset -2px -2px 5px rgba(0, 0, 0, 0.03);
 
-            --clay-shadow-hover: 
+            --clay-shadow-hover:
                 7px 7px 14px rgba(0, 0, 0, 0.09),
                 -4px -4px 10px rgba(255, 255, 255, 0.9),
                 inset 2px 2px 5px rgba(255, 255, 255, 0.4),
                 inset -2px -2px 5px rgba(0, 0, 0, 0.03);
 
-            --clay-shadow-active: 
+            --clay-shadow-active:
                 3px 3px 6px rgba(0, 0, 0, 0.07),
                 -2px -2px 4px rgba(255, 255, 255, 0.8),
                 inset 3px 3px 6px rgba(255, 255, 255, 0.2),
@@ -438,21 +493,21 @@
             --text-medium: #4A5568;
             --text-light: #718096;
             --text-white: #FFFFFF;
-            
+
             /* 透明度背景 */
             --bg-white-90: rgba(255, 255, 255, 0.9);
             --bg-white-80: rgba(255, 255, 255, 0.8);
             --bg-white-70: rgba(255, 255, 255, 0.7);
             --bg-white-60: rgba(255, 255, 255, 0.6);
-            
+
             /* 边框颜色 */
             --border-white: rgba(255, 255, 255, 0.5);
-            
+
             /* 过渡动画 */
             --transition-fast: 0.1s ease;
             --transition-normal: 0.18s ease;
             --transition-slow: 0.25s ease;
-            
+
             /* 拖拽高亮颜色变量 */
             --drag-highlight-bg: rgba(135, 206, 235, 0.2);
             --drag-highlight-border: rgba(135, 206, 235, 0.8);
@@ -624,7 +679,8 @@
             font-weight: 700;
             user-select: none;
             /* transition: all var(--transition-normal);  <-- 这行不要了 */
-            transition: none !important; /* 强制关闭所有动画，解决闪烁根源 */
+            transition: none !important;
+            /* 强制关闭所有动画，解决闪烁根源 */
             box-shadow: var(--clay-shadow);
             border: 2px solid var(--border-white);
             height: fit-content;
@@ -632,8 +688,10 @@
             overflow: hidden;
             touch-action: none;
             -webkit-touch-callout: none;
-            will-change: auto; /* 降低浏览器的渲染压力 */
-            margin: 5px; /* 增加固定间距 */
+            will-change: auto;
+            /* 降低浏览器的渲染压力 */
+            margin: 5px;
+            /* 增加固定间距 */
             /* 防止点击时被选中 */
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -690,7 +748,8 @@
             background: var(--bg-white-90);
             display: flex;
             flex-direction: column;
-            min-height: unset;      /* 关键 */
+            min-height: unset;
+            /* 关键 */
             height: auto;
         }
 
@@ -802,14 +861,17 @@
         .memory-game .drop-zone.over {
             border-color: var(--drag-highlight-border);
             background: var(--drag-highlight-bg) !important;
-            transform: none !important; /* 绝对不放大，表格就不会动了 */
+            transform: none !important;
+            /* 绝对不放大，表格就不会动了 */
         }
 
         /* 锁定答案方块在点击、活跃和拖拽时的位置 */
         .memory-game .answer-card:active,
         .memory-game .answer-card.dragging {
-            transform: scale(0.98) !important; /* 允许轻微向内缩小（视觉反馈），但绝不产生位移 */
-            box-shadow: none !important;      /* 移除阴影防止布局重绘 */
+            transform: scale(0.98) !important;
+            /* 允许轻微向内缩小（视觉反馈），但绝不产生位移 */
+            box-shadow: none !important;
+            /* 移除阴影防止布局重绘 */
             position: relative;
             z-index: 100;
         }
@@ -817,7 +879,7 @@
         /* 移除任何可能导致表格抖动的过渡动画 */
         .memory-game .conversion-table,
         .memory-game .conversion-table td {
-             transition: none !important; 
+            transition: none !important;
         }
 
         /* 正确状态 - 粘土风格 */
@@ -1028,7 +1090,7 @@
         .memory-game .how-to-play-content li {
             margin-bottom: 5px;
         }
-        
+
         /* 文章容器样式 - 新增 */
         .article-container {
             margin-top: 25px;
@@ -1054,7 +1116,8 @@
             margin-top: 0;
         }
 
-        .article-container p, .article-container ul {
+        .article-container p,
+        .article-container ul {
             font-size: 0.95rem;
             color: var(--text-medium);
             line-height: 1.6;
@@ -1111,20 +1174,54 @@
 
         /* 动画效果 */
         @keyframes clay-pulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 0.6; }
+
+            0%,
+            100% {
+                opacity: 0.8;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
         }
 
         @keyframes success-pop {
-            0% { transform: scale(0.8); opacity: 0; }
-            70% { transform: scale(1.03); }
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.03);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         @keyframes shake {
-            0%, 100% { transform: translate3d(0, 0, 0); }
-            10%, 30%, 50%, 70%, 90% { transform: translate3d(-2px, 0, 0); }
-            20%, 40%, 60%, 80% { transform: translate3d(2px, 0, 0); }
+
+            0%,
+            100% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translate3d(-2px, 0, 0);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translate3d(2px, 0, 0);
+            }
         }
 
         /* ====== 移动端响应式布局 ====== */
@@ -1132,233 +1229,753 @@
             .memory-game .game-container {
                 flex-direction: column;
             }
-            
-            .memory-game .answers-section, .memory-game .table-section {
+
+            .memory-game .answers-section,
+            .memory-game .table-section {
                 min-height: auto;
             }
-            
+
             /* 在移动端，将计分栏移动到表格下方 */
             .answers-section .stats {
-                display: none; /* 隐藏答案栏中的计分栏 */
+                display: none;
+                /* 隐藏答案栏中的计分栏 */
             }
-            
+
             /* 在表格容器内添加移动端计分栏 */
             .table-section::after {
                 content: '';
                 display: table;
                 clear: both;
             }
-            
-            /* 移动端计分栏样式 */
-            .mobile-stats {
-                display: flex !important;
-                justify-content: space-around;
-                background: var(--bg-white-80);
-                padding: 12px;
-                border-radius: var(--clay-radius-md);
-                margin-top: 15px;
-                box-shadow: var(--clay-shadow);
-                border: 1px solid var(--border-white);
-            }
-        }
-        
-        /* 桌面端保持原有布局 */
-        @media (min-width: 1025px) {
-            .mobile-stats {
-                display: none !important; /* 桌面端隐藏移动端计分栏 */
-            }
-            
-            .answers-section .stats {
-                display: flex; /* 桌面端显示答案栏中的计分栏 */
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .memory-game .memory-game-container {
-                padding: 1rem;
-            }
-            
-            .memory-game h1 {
-                font-size: 1.6rem;
-            }
-            
-            .memory-game .conversion-table {
-                font-size: 0.9rem;
-            }
-            
-            .memory-game .conversion-table td, .memory-game .conversion-table th {
-                padding: 10px 8px;
-            }
-            
-            .memory-game .answer-card {
-                padding: 8px 12px;
-                font-size: 0.9rem;
-            }
-            
-            .memory-game .controls {
-                flex-wrap: wrap;
-            }
-            
-            .memory-game button {
-                flex: 1;
-                min-width: 110px;
-                padding: 8px 16px;
-                font-size: 0.8rem;
-            }
-            
-            .memory-game .how-to-play {
-                padding: 12px;
-            }
-            
-            .memory-game .how-to-play h3 {
-                font-size: 1.1rem;
-            }
-            
-            .memory-game .how-to-play-content {
-                font-size: 0.9rem;
-            }
-            
-            /* 响应式调整文章容器 */
-            .article-container {
-                padding: 12px;
-            }
-            
-            .article-container h3 {
-                font-size: 1.1rem;
-            }
-            
-            .article-container p, .article-container ul {
-                font-size: 0.9rem;
-            }
-            
-            .start-button {
-                display: block;
-                margin: 10px auto 5px auto;
-                text-align: center;
-                width: 120px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .memory-game .memory-game-container {
-                padding: 0.8rem;
-            }
-            
-            .memory-game h1 {
-                font-size: 1.4rem;
-            }
-            
-            .memory-game .answer-card {
-                padding: 7px 10px;
-                font-size: 0.8rem;
-            }
-            
-            .memory-game .conversion-table td, .memory-game .conversion-table th {
-                padding: 8px 5px;
-            }
-            
-            .memory-game .controls {
-                gap: 0.5rem;
-            }
-            
-            .memory-game button {
-                max-width: 140px;
-                padding: 7px 14px;
-                font-size: 0.75rem;
-                min-width: 100px;
-            }
-            
-            .memory-game .how-to-play {
-                padding: 10px;
-            }
-            
-            .memory-game .how-to-play h3 {
-                font-size: 1rem;
-            }
-            
-            .memory-game .how-to-play-content {
-                font-size: 0.85rem;
-            }
-            
-            .article-container {
-                padding: 10px;
-            }
-            
-            .article-container h3 {
-                font-size: 1rem;
-            }
-            
-            .article-container p, .article-container ul {
-                font-size: 0.85rem;
-            }
-        }
 
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .main-row {
-                flex-direction: column;
+            /* ====== 移动端响应式布局 ====== */
+            @media (max-width: 1024px) {
+                .memory-game .game-container {
+                    flex-direction: column;
+                }
+
+                .memory-game .answers-section,
+                .memory-game .table-section {
+                    min-height: auto;
+                }
+
+                /* 在移动端，将计分栏移动到表格下方 */
+                .answers-section .stats {
+                    display: none;
+                    /* 隐藏答案栏中的计分栏 */
+                }
+
+                /* 在表格容器内添加移动端计分栏 */
+                .table-section::after {
+                    content: '';
+                    display: table;
+                    clear: both;
+                }
+
+                /* 移动端计分栏样式 */
+                .mobile-stats {
+                    display: flex !important;
+                    justify-content: space-around;
+                    background: var(--bg-white-80);
+                    padding: 12px;
+                    border-radius: var(--clay-radius-md);
+                    margin-top: 15px;
+                    box-shadow: var(--clay-shadow);
+                    border: 1px solid var(--border-white);
+                }
             }
-            
-            .left-sidebar, .right-sidebar {
-                flex: 1;
+
+            @media (max-width: 768px) {
+
+                /* 1. 极限缩小边距和内边距 */
+                body {
+                    padding: 3px !important;
+                    overflow-x: hidden;
+                }
+
+                .main-row-container {
+                    padding: 0;
+                }
+
+                .wide-container {
+                    padding: 0 3px !important;
+                    max-width: 100%;
+                }
+
+                .dynamic-content-container {
+                    padding: 5px !important;
+                    background-color: transparent !important;
+                    box-shadow: none !important;
+                }
+
+                /* 2. 游戏容器最大化 */
+                .memory-game-container {
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    margin: 0 auto !important;
+                    padding: 8px 5px !important;
+                    border-radius: 12px !important;
+                    border: none !important;
+                    box-shadow: none !important;
+                }
+
+                /* 3. 标题极限紧凑 */
+                .memory-game h1 {
+                    font-size: 1.2rem !important;
+                    padding: 0.3rem 0.5rem !important;
+                    margin-bottom: 8px !important;
+                }
+
+                .memory-game .subtitle {
+                    font-size: 0.9rem !important;
+                    padding: 0.3rem !important;
+                    margin-top: 0.2rem !important;
+                }
+
+                /* 4. 游戏信息栏紧凑 */
+                .memory-game .game-info {
+                    margin-bottom: 10px !important;
+                    padding: 0.6rem !important;
+                    flex-wrap: wrap;
+                    gap: 5px;
+                }
+
+                .memory-game .game-status {
+                    font-size: 0.9rem !important;
+                }
+
+                .memory-game .level-indicator {
+                    font-size: 0.8rem !important;
+                    padding: 4px 10px !important;
+                    margin-left: 5px !important;
+                }
+
+                /* 5. 关卡选择器紧凑 */
+                .memory-game .level-selector {
+                    margin-top: 10px !important;
+                    gap: 5px !important;
+                }
+
+                .memory-game .level-btn {
+                    padding: 6px 12px !important;
+                    font-size: 0.8rem !important;
+                    min-width: 0;
+                }
+
+                /* 6. 答案栏极限紧凑 */
+                .memory-game .answers-section {
+                    padding: 10px !important;
+                    margin-bottom: 15px;
+                    border: none !important;
+                    box-shadow: none !important;
+                }
+
+                .memory-game .section-title {
+                    font-size: 1.1rem !important;
+                    margin-bottom: 10px !important;
+                }
+
+                .memory-game .answers-container {
+                    padding: 8px 4px !important;
+                    gap: 6px !important;
+                    border: none !important;
+                    box-shadow: none !important;
+                    min-height: 120px;
+                }
+
+                /* 7. 答案卡片增大，便于触摸 */
+                .memory-game .answer-card {
+                    padding: 10px 14px !important;
+                    font-size: 1rem !important;
+                    min-width: 60px;
+                    margin: 2px !important;
+                    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+                }
+
+                /* 8. 表格区域紧凑 */
+                .memory-game .table-section {
+                    padding: 10px !important;
+                    border: none !important;
+                    box-shadow: none !important;
+                }
+
+                .memory-game .conversion-table {
+                    font-size: 0.9rem !important;
+                }
+
+                .memory-game .conversion-table th {
+                    padding: 10px 5px !important;
+                    font-size: 0.9rem !important;
+                }
+
+                .memory-game .conversion-table td {
+                    padding: 8px 4px !important;
+                }
+
+                /* 9. 拖放区域增大 */
+                .memory-game .drop-zone {
+                    min-height: 50px !important;
+                    padding: 5px !important;
+                    border-width: 1px !important;
+                }
+
+                /* 10. 固定单元格适当缩小 */
+                .memory-game .fixed-cell {
+                    font-size: 1rem !important;
+                    padding: 8px 4px !important;
+                }
+
+                /* 11. 按钮容器紧凑 */
+                .memory-game .controls {
+                    margin-top: 15px !important;
+                    gap: 10px !important;
+                }
+
+                .memory-game button {
+                    padding: 8px 16px !important;
+                    font-size: 0.85rem !important;
+                    min-width: 100px;
+                }
+
+                /* 12. 提示文字缩小 */
+                .memory-game .empty-cell-hint {
+                    font-size: 0.8rem !important;
+                    margin-top: 8px !important;
+                    padding: 0.4rem !important;
+                }
+
+                /* 13. 如何玩游戏区域紧凑 */
+                .memory-game .how-to-play {
+                    margin-top: 15px !important;
+                    padding: 10px !important;
+                    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                    box-shadow: none !important;
+                }
+
+                .memory-game .how-to-play h3 {
+                    font-size: 1.1rem !important;
+                    margin-bottom: 8px !important;
+                }
+
+                .memory-game .how-to-play-content {
+                    font-size: 0.85rem !important;
+                }
+
+                /* 14. 文章容器紧凑 */
+                .memory-game .article-container {
+                    margin-top: 15px !important;
+                    padding: 10px !important;
+                    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                    box-shadow: none !important;
+                }
+
+                .memory-game .article-container h3 {
+                    font-size: 1.1rem !important;
+                    margin: 15px 0 8px !important;
+                }
+
+                .memory-game .article-container p,
+                .memory-game .article-container ul {
+                    font-size: 0.85rem !important;
+                }
+
+                .memory-game .start-button {
+                    padding: 5px 12px !important;
+                    font-size: 0.85rem !important;
+                }
+
+                /* 移动端边栏和主布局调整 */
+                .main-row {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
+                .left-sidebar,
+                .right-sidebar {
+                    flex: 1;
+                    width: 100%;
+                    padding: 10px !important;
+                    margin-bottom: 10px;
+                }
+
+                /* 页眉调整 */
+                header {
+                    padding: 0.2rem 0 !important;
+                    min-height: 70px;
+                    margin-bottom: 5px;
+                }
+
+                .main-title {
+                    font-size: 1.5rem;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .nded-text {
+                    font-size: 1.6rem;
+                    margin-right: 0;
+                    margin-bottom: 3px;
+                    height: 40px;
+                    padding: 0 8px;
+                }
+
+                .subtitle {
+                    font-size: 1rem;
+                    margin-left: 0;
+                    text-align: center;
+                    height: auto;
+                    line-height: 1.2;
+                    display: block;
+                    margin-top: 3px;
+                }
+
+                /* 导航按钮在移动端改为每行2个 */
+                .nav-buttons {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 5px;
+                }
+
+                .nav-button {
+                    font-size: 0.8rem;
+                    padding: 0.5rem 0.3rem;
+                }
+
+                /* 移动端计分栏 */
+                .mobile-stats {
+                    padding: 10px !important;
+                    margin-top: 10px !important;
+                }
+
+                .memory-game .stat-value {
+                    font-size: 1.2rem !important;
+                }
+
+                .memory-game .stat-label {
+                    font-size: 0.75rem !important;
+                }
             }
-            
-            .main-title {
-                font-size: 1.8rem;
-                flex-direction: column;
-                align-items: center;
+
+            /* 对于稍大的移动设备（如平板竖屏） */
+            @media (min-width: 481px) and (max-width: 768px) {
+                .memory-game .answer-card {
+                    padding: 12px 16px !important;
+                    font-size: 1.1rem !important;
+                    min-width: 70px;
+                }
+
+                .memory-game .drop-zone {
+                    min-height: 55px !important;
+                }
+
+                .memory-game .conversion-table th {
+                    padding: 12px 6px !important;
+                }
+
+                .memory-game .conversion-table td {
+                    padding: 10px 5px !important;
+                }
             }
-            
-            .nded-text {
-                font-size: 1.98rem;
-                margin-right: 0;
-                margin-bottom: 4.5px;
-                height: 45px;
+
+            /* 超小屏幕手机优化 (如iPhone SE) */
+            @media (max-width: 480px) {
+                body {
+                    padding: 2px !important;
+                }
+
+                .memory-game-container {
+                    padding: 6px 4px !important;
+                }
+
+                .memory-game h1 {
+                    font-size: 1.1rem !important;
+                    padding: 0.25rem 0.4rem !important;
+                }
+
+                .memory-game .subtitle {
+                    font-size: 0.85rem !important;
+                    padding: 0.25rem !important;
+                }
+
+                .memory-game .answer-card {
+                    padding: 8px 12px !important;
+                    font-size: 0.9rem !important;
+                    min-width: 55px;
+                }
+
+                .memory-game .answers-container {
+                    gap: 4px !important;
+                    padding: 6px 3px !important;
+                }
+
+                .memory-game .conversion-table {
+                    font-size: 0.8rem !important;
+                }
+
+                .memory-game .conversion-table th {
+                    padding: 8px 4px !important;
+                    font-size: 0.8rem !important;
+                }
+
+                .memory-game .conversion-table td {
+                    padding: 6px 3px !important;
+                }
+
+                .memory-game .drop-zone {
+                    min-height: 45px !important;
+                    padding: 4px !important;
+                }
+
+                .memory-game .fixed-cell {
+                    font-size: 0.9rem !important;
+                    padding: 6px 3px !important;
+                }
+
+                .memory-game .controls {
+                    gap: 8px !important;
+                }
+
+                .memory-game button {
+                    padding: 7px 12px !important;
+                    font-size: 0.8rem !important;
+                    min-width: 90px;
+                }
+
+                .memory-game .how-to-play {
+                    padding: 8px !important;
+                }
+
+                .memory-game .how-to-play h3 {
+                    font-size: 1rem !important;
+                }
+
+                .memory-game .how-to-play-content {
+                    font-size: 0.8rem !important;
+                }
+
+                .memory-game .article-container {
+                    padding: 8px !important;
+                }
+
+                .memory-game .article-container h3 {
+                    font-size: 1rem !important;
+                }
+
+                .memory-game .article-container p,
+                .memory-game .article-container ul {
+                    font-size: 0.8rem !important;
+                }
+
+                /* 超小屏幕页眉 */
+                header {
+                    min-height: 60px !important;
+                }
+
+                .main-title {
+                    font-size: 1.3rem !important;
+                }
+
+                .nded-text {
+                    font-size: 1.4rem !important;
+                    height: 35px !important;
+                }
+
+                .subtitle {
+                    font-size: 0.9rem !important;
+                }
+
+                /* 导航按钮在小屏幕设备上的调整 */
+                .nav-buttons {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 4px;
+                }
+
+                .nav-button {
+                    font-size: 0.75rem;
+                    padding: 0.4rem 0.2rem;
+                }
             }
-            
-            .subtitle {
-                font-size: 1.26rem;
-                margin-left: 0;
-                text-align: center;
-                height: auto;
-                line-height: 1.3;
-                display: block;
-                margin-top: 4.5px;
+
+            /* 横屏优化 */
+            @media (max-width: 768px) and (orientation: landscape) {
+                body {
+                    padding: 2px !important;
+                }
+
+                .memory-game-container {
+                    padding: 6px 4px !important;
+                }
+
+                .memory-game h1 {
+                    font-size: 1rem !important;
+                    padding: 0.2rem !important;
+                }
+
+                .memory-game .game-info {
+                    margin-bottom: 5px !important;
+                    padding: 0.4rem !important;
+                }
+
+                .memory-game .answers-container {
+                    min-height: 80px;
+                    padding: 4px 2px !important;
+                    gap: 4px !important;
+                }
+
+                .memory-game .answer-card {
+                    padding: 6px 10px !important;
+                    font-size: 0.9rem !important;
+                    min-width: 50px;
+                }
+
+                .memory-game .conversion-table th {
+                    padding: 8px 4px !important;
+                }
+
+                .memory-game .conversion-table td {
+                    padding: 6px 3px !important;
+                }
+
+                .memory-game .drop-zone {
+                    min-height: 40px !important;
+                    padding: 3px !important;
+                }
+
+                .memory-game .controls {
+                    gap: 8px !important;
+                    margin-top: 10px !important;
+                }
+
+                .memory-game button {
+                    padding: 6px 10px !important;
+                    font-size: 0.8rem !important;
+                    min-width: 80px;
+                }
+
+                .memory-game .how-to-play,
+                .memory-game .article-container {
+                    display: none;
+                    /* 横屏时隐藏文章，为游戏腾出空间 */
+                }
             }
-            
-            header {
-                flex-direction: column;
-                padding: 0.45rem 0;
-                min-height: 108px;
+
+            /* 防止键盘弹出时布局被压缩 */
+            @media (max-height: 500px) {
+                .memory-game-container {
+                    padding-top: 3px !important;
+                }
+
+                .memory-game h1 {
+                    margin-bottom: 4px !important;
+                }
+
+                .memory-game .answers-container {
+                    padding: 4px !important;
+                    min-height: 70px;
+                }
+
+                .memory-game .conversion-table td {
+                    padding: 4px 2px !important;
+                }
+
+                .memory-game .drop-zone {
+                    min-height: 35px !important;
+                }
             }
-            
-            /* 导航按钮在移动端改为每行2个 */
-            .nav-buttons {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.675rem;
+
+            @media (max-width: 768px) {
+                .memory-game .memory-game-container {
+                    padding: 1rem;
+                }
+
+                .memory-game h1 {
+                    font-size: 1.6rem;
+                }
+
+                .memory-game .conversion-table {
+                    font-size: 0.9rem;
+                }
+
+                .memory-game .conversion-table td,
+                .memory-game .conversion-table th {
+                    padding: 10px 8px;
+                }
+
+                .memory-game .answer-card {
+                    padding: 8px 12px;
+                    font-size: 0.9rem;
+                }
+
+                .memory-game .controls {
+                    flex-wrap: wrap;
+                }
+
+                .memory-game button {
+                    flex: 1;
+                    min-width: 110px;
+                    padding: 8px 16px;
+                    font-size: 0.8rem;
+                }
+
+                .memory-game .how-to-play {
+                    padding: 12px;
+                }
+
+                .memory-game .how-to-play h3 {
+                    font-size: 1.1rem;
+                }
+
+                .memory-game .how-to-play-content {
+                    font-size: 0.9rem;
+                }
+
+                /* 响应式调整文章容器 */
+                .article-container {
+                    padding: 12px;
+                }
+
+                .article-container h3 {
+                    font-size: 1.1rem;
+                }
+
+                .article-container p,
+                .article-container ul {
+                    font-size: 0.9rem;
+                }
+
+                .start-button {
+                    display: block;
+                    margin: 10px auto 5px auto;
+                    text-align: center;
+                    width: 120px;
+                }
             }
-            
-            .nav-button {
-                font-size: 0.855rem;
-                padding: 0.675rem 0.45rem;
+
+            @media (max-width: 480px) {
+                .memory-game .memory-game-container {
+                    padding: 0.8rem;
+                }
+
+                .memory-game h1 {
+                    font-size: 1.4rem;
+                }
+
+                .memory-game .answer-card {
+                    padding: 7px 10px;
+                    font-size: 0.8rem;
+                }
+
+                .memory-game .conversion-table td,
+                .memory-game .conversion-table th {
+                    padding: 8px 5px;
+                }
+
+                .memory-game .controls {
+                    gap: 0.5rem;
+                }
+
+                .memory-game button {
+                    max-width: 140px;
+                    padding: 7px 14px;
+                    font-size: 0.75rem;
+                    min-width: 100px;
+                }
+
+                .memory-game .how-to-play {
+                    padding: 10px;
+                }
+
+                .memory-game .how-to-play h3 {
+                    font-size: 1rem;
+                }
+
+                .memory-game .how-to-play-content {
+                    font-size: 0.85rem;
+                }
+
+                .article-container {
+                    padding: 10px;
+                }
+
+                .article-container h3 {
+                    font-size: 1rem;
+                }
+
+                .article-container p,
+                .article-container ul {
+                    font-size: 0.85rem;
+                }
             }
-        }
-        
-        @media (max-width: 480px) {
-            /* 导航按钮在小屏幕设备上的调整 */
-            .nav-buttons {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.54rem;
+
+            /* 响应式设计 */
+            @media (max-width: 768px) {
+                .main-row {
+                    flex-direction: column;
+                }
+
+                .left-sidebar,
+                .right-sidebar {
+                    flex: 1;
+                }
+
+                .main-title {
+                    font-size: 1.8rem;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .nded-text {
+                    font-size: 1.98rem;
+                    margin-right: 0;
+                    margin-bottom: 4.5px;
+                    height: 45px;
+                }
+
+                .subtitle {
+                    font-size: 1.26rem;
+                    margin-left: 0;
+                    text-align: center;
+                    height: auto;
+                    line-height: 1.3;
+                    display: block;
+                    margin-top: 4.5px;
+                }
+
+                header {
+                    flex-direction: column;
+                    padding: 0.45rem 0;
+                    min-height: 108px;
+                }
+
+                /* 导航按钮在移动端改为每行2个 */
+                .nav-buttons {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 0.675rem;
+                }
+
+                .nav-button {
+                    font-size: 0.855rem;
+                    padding: 0.675rem 0.45rem;
+                }
             }
-            
-            .nav-button {
-                font-size: 0.81rem;
-                padding: 0.585rem 0.36rem;
+
+            @media (max-width: 480px) {
+
+                /* 导航按钮在小屏幕设备上的调整 */
+                .nav-buttons {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 0.54rem;
+                }
+
+                .nav-button {
+                    font-size: 0.81rem;
+                    padding: 0.585rem 0.36rem;
+                }
             }
-        }
     </style>
 </head>
+
 <body>
     <!-- 页眉部分 -->
     <header>
@@ -1369,7 +1986,7 @@
             </h1>
         </div>
     </header>
-    
+
     <!-- 主内容区域 -->
     <div class="main-row-container">
         <div class="wide-container">
@@ -1381,14 +1998,15 @@
                         <a href="../index.html" class="nav-button">Home</a>
                         <a href="about-us.html" class="nav-button">About us</a>
                         <a href="#content" class="nav-button">Content</a>
-                        <a href="https://matrixcalcu.com/" target="_blank" class="nav-button external">Matrix Calculator</a>
+                        <a href="https://matrixcalcu.com/" target="_blank" class="nav-button external">Matrix
+                            Calculator</a>
                     </div>
                 </div>
-                
+
                 <!-- 主内容区域 - 游戏将放在这里 -->
                 <div class="main-content">
                     <div class="dynamic-content-container">
-                        
+
                         <!-- 游戏容器 -->
                         <div class="memory-game-container memory-game-root" id="game-container">
                             <div class="memory-game">
@@ -1397,13 +2015,14 @@
                                     <div class="game-info">
                                         <div class="game-status">
                                             <span id="levelDescription">Level 1: Fraction to Decimal & Percent</span>
-                                            <span class="level-indicator">Round <span id="roundNumber">1</span> of 2</span>
+                                            <span class="level-indicator">Round <span id="roundNumber">1</span> of
+                                                2</span>
                                         </div>
                                         <div class="game-status">
                                             Filled: <span id="filledCount">0</span> of <span id="totalCount">16</span>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="level-selector" id="levelSelector">
                                         <button class="level-btn active" data-level="1">Level 1</button>
                                         <button class="level-btn" data-level="2">Level 2</button>
@@ -1411,14 +2030,14 @@
                                         <button class="level-btn" data-level="4">Level 4</button>
                                     </div>
                                 </div>
-                                
+
                                 <div class="game-container">
                                     <div class="answers-section">
                                         <h2 class="section-title">Answer Bank</h2>
                                         <div class="answers-container" id="answersContainer">
                                             <!-- Answer cards will be generated here -->
                                         </div>
-                                        
+
                                         <!-- 桌面端计分栏 -->
                                         <div class="stats">
                                             <div class="stat-item">
@@ -1431,7 +2050,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="table-section" id="tableSection">
                                         <h2 class="section-title">Conversion Table</h2>
                                         <table class="conversion-table">
@@ -1446,13 +2065,14 @@
                                                 <!-- Table rows will be generated here -->
                                             </tbody>
                                         </table>
-                                        <p class="empty-cell-hint" id="hintText">Drag answers from the left panel to the empty cells above</p>
-                                        
+                                        <p class="empty-cell-hint" id="hintText">Drag answers from the left panel to the
+                                            empty cells above</p>
+
                                         <div class="controls">
                                             <button class="reset-btn" id="resetBtn">Reset Round</button>
                                             <button class="next-btn" id="nextBtn" disabled>Next Round</button>
                                         </div>
-                                        
+
                                         <!-- 移动端计分栏 -->
                                         <div class="mobile-stats" style="display: none;">
                                             <div class="stat-item">
@@ -1464,35 +2084,43 @@
                                                 <div class="stat-label">Needs Review</div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="message success-message" id="successMessage">
                                             <p>Excellent! All answers are correct.</p>
                                             <p>You can continue practicing or click "Next Round" to continue.</p>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- 如何玩游戏说明 -->
                                 <div class="how-to-play">
                                     <h3>How to Play</h3>
                                     <div class="how-to-play-content">
-                                        <p><strong>Goal:</strong> Match equivalent fractions, decimals, and percentages in the conversion table.</p>
-                                        <p><strong>How to play:</strong> Drag answer cards from the Answer Bank to the empty cells in the table. Each row must contain three equivalent values.</p>
+                                        <p><strong>Goal:</strong> Match equivalent fractions, decimals, and percentages
+                                            in the conversion table.</p>
+                                        <p><strong>How to play:</strong> Drag answer cards from the Answer Bank to the
+                                            empty cells in the table. Each row must contain three equivalent values.</p>
                                         <p><strong>Levels:</strong></p>
                                         <ul>
-                                            <li><strong>Level 1:</strong> Given fractions, match the corresponding decimals and percents.</li>
-                                            <li><strong>Level 2:</strong> Given decimals, match the corresponding fractions and percents.</li>
-                                            <li><strong>Level 3:</strong> Given percents, match the corresponding fractions and decimals.</li>
-                                            <li><strong>Level 4:</strong> All cells are empty. Match three equivalent values in each row.</li>
+                                            <li><strong>Level 1:</strong> Given fractions, match the corresponding
+                                                decimals and percents.</li>
+                                            <li><strong>Level 2:</strong> Given decimals, match the corresponding
+                                                fractions and percents.</li>
+                                            <li><strong>Level 3:</strong> Given percents, match the corresponding
+                                                fractions and decimals.</li>
+                                            <li><strong>Level 4:</strong> All cells are empty. Match three equivalent
+                                                values in each row.</li>
                                         </ul>
-                                        <p><strong>Tips:</strong> You can move cards around to correct mistakes. When all cells are filled correctly, you can proceed to the next round!</p>
+                                        <p><strong>Tips:</strong> You can move cards around to correct mistakes. When
+                                            all cells are filled correctly, you can proceed to the next round!</p>
                                     </div>
                                 </div>
-                                
+
                                 <!-- 文章内容 -->
                                 <div class="article-container">
                                     <h3>What Are Fractions, Decimals, and Percents?</h3>
-                                    <p>Fractions, decimals, and percents are three different ways to represent the same numerical value.</p>
+                                    <p>Fractions, decimals, and percents are three different ways to represent the same
+                                        numerical value.</p>
                                     <p>For example:</p>
                                     <ul>
                                         <li>1/2</li>
@@ -1500,33 +2128,50 @@
                                         <li>50%</li>
                                     </ul>
                                     <p>All three represent the same amount, but in different forms.</p>
-                                    <p>In math learning and everyday life, students are expected to move easily between fractions, decimals, and percents—whether they are calculating discounts, understanding ratios, or solving word problems.</p>
-                                    <p>Difficulty with these conversions often slows students down and increases math anxiety.</p>
+                                    <p>In math learning and everyday life, students are expected to move easily between
+                                        fractions, decimals, and percents—whether they are calculating discounts,
+                                        understanding ratios, or solving word problems.</p>
+                                    <p>Difficulty with these conversions often slows students down and increases math
+                                        anxiety.</p>
 
                                     <h3>What Is the Fraction, Decimal, and Percent Memory Game?</h3>
-                                    <p>The Fraction, Decimal, and Percent Memory Game is a free interactive math game designed to build fluency and instant recognition, not step-by-step calculation.</p>
-                                    <p>Instead of focusing on long procedures, this game helps learners form strong mental connections between fractions, decimals, and percents, so that:</p>
+                                    <p>The Fraction, Decimal, and Percent Memory Game is a free interactive math game
+                                        designed to build fluency and instant recognition, not step-by-step calculation.
+                                    </p>
+                                    <p>Instead of focusing on long procedures, this game helps learners form strong
+                                        mental connections between fractions, decimals, and percents, so that:</p>
                                     <ul>
                                         <li>Seeing one form immediately triggers the other two</li>
                                         <li>Conversions become fast and automatic</li>
                                         <li>Less mental effort is spent on basic recognition</li>
                                     </ul>
-                                    <p>This type of fluency allows students to focus on understanding and problem-solving rather than calculation mechanics.</p>
+                                    <p>This type of fluency allows students to focus on understanding and
+                                        problem-solving rather than calculation mechanics.</p>
 
                                     <h3>How Does the Game Work?</h3>
-                                    <p>The game includes four progressive levels, each designed to strengthen conversion skills from a different starting point:</p>
+                                    <p>The game includes four progressive levels, each designed to strengthen conversion
+                                        skills from a different starting point:</p>
                                     <ul>
-                                        <li><strong>Level 1</strong><br>A fraction is given. Players drag and place the matching decimal and percent.</li>
-                                        <li><strong>Level 2</strong><br>A decimal is given. Players complete the corresponding fraction and percent.</li>
-                                        <li><strong>Level 3</strong><br>A percent is given. Players complete the corresponding fraction and decimal.</li>
-                                        <li><strong>Level 4</strong><br>All three fields are empty. Players drag the correct fraction, decimal, and percent into their matching positions.</li>
+                                        <li><strong>Level 1</strong><br>A fraction is given. Players drag and place the
+                                            matching decimal and percent.</li>
+                                        <li><strong>Level 2</strong><br>A decimal is given. Players complete the
+                                            corresponding fraction and percent.</li>
+                                        <li><strong>Level 3</strong><br>A percent is given. Players complete the
+                                            corresponding fraction and decimal.</li>
+                                        <li><strong>Level 4</strong><br>All three fields are empty. Players drag the
+                                            correct fraction, decimal, and percent into their matching positions.</li>
                                     </ul>
-                                    <p>The game provides instant visual feedback.<br>Answers can be adjusted freely, allowing players to recognize mistakes and correct them independently. When all matches are correct, the game automatically moves to the next round.</p>
+                                    <p>The game provides instant visual feedback.<br>Answers can be adjusted freely,
+                                        allowing players to recognize mistakes and correct them independently. When all
+                                        matches are correct, the game automatically moves to the next round.</p>
                                     <p>This low-pressure design supports confidence, accuracy, and long-term memory.</p>
 
                                     <h3>Who Created This Game? Is It Free?</h3>
-                                    <p>The Fraction, Decimal, and Percent Memory Game was developed by NDED Education Group.</p>
-                                    <p>NDED's mission is to rethink how mathematics is learned by combining technology, game-based design, and structured practice to help students build strong foundations with less stress and more confidence.</p>
+                                    <p>The Fraction, Decimal, and Percent Memory Game was developed by NDED Education
+                                        Group.</p>
+                                    <p>NDED's mission is to rethink how mathematics is learned by combining technology,
+                                        game-based design, and structured practice to help students build strong
+                                        foundations with less stress and more confidence.</p>
                                     <p>This game is completely free to use.</p>
 
                                     <h3>How Can This Game Be Used?</h3>
@@ -1537,24 +2182,31 @@
                                         <li>Parents supporting math practice at home</li>
                                         <li>Teachers using interactive tools for classroom or review activities</li>
                                     </ul>
-                                    <p>Short, repeated practice sessions are recommended. Even a few minutes at a time can significantly improve math fluency and speed.</p>
+                                    <p>Short, repeated practice sessions are recommended. Even a few minutes at a time
+                                        can significantly improve math fluency and speed.</p>
 
                                     <h3>Do I Need to Register or Log In?</h3>
-                                    <p>No.<br>This fraction, decimal, and percent practice game does not require registration or login.</p>
-                                    <p>Players can start practicing immediately. <a href="#game-container" class="start-button">Start</a></p>
+                                    <p>No.<br>This fraction, decimal, and percent practice game does not require
+                                        registration or login.</p>
+                                    <p>Players can start practicing immediately. <a href="#game-container"
+                                            class="start-button">Start</a></p>
 
                                     <h3>Feedback and Suggestions</h3>
-                                    <p>We welcome feedback, suggestions, and bug reports from users around the world.</p>
-                                    <p>NDED Education Group is committed to continuously improving this fraction, decimal, and percent conversion game and expanding it with additional fluency-based math tools.</p>
+                                    <p>We welcome feedback, suggestions, and bug reports from users around the world.
+                                    </p>
+                                    <p>NDED Education Group is committed to continuously improving this fraction,
+                                        decimal, and percent conversion game and expanding it with additional
+                                        fluency-based math tools.</p>
                                     <p>If you would like to share your experience, please contact us at:<br>
-                                    <strong>info@nd-ed.org</strong></p>
+                                        <strong>info@nd-ed.org</strong>
+                                    </p>
                                     <p>Your feedback helps us build better learning tools for everyone.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- 右侧边栏 -->
                 <div class="right-sidebar">
                     <div class="question-box">
@@ -1567,7 +2219,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- 页脚部分 -->
     <footer>
         <div class="container">
@@ -1596,7 +2248,7 @@
 
         // ====== 游戏JavaScript代码 ======
         // 注意：这里包含完整的游戏逻辑，但由于长度限制，我们将使用之前优化过的游戏代码
-        
+
         // 游戏数据 - fraction, decimal, percent equivalents
         const gameData = [
             { fraction: '1/2', decimal: '0.5', percent: '50%' },
@@ -1686,38 +2338,38 @@
             offsetY: 0,
             currentX: 0,
             currentY: 0,
-            
+
             // 预缓存的拖放区域数据
             dropZones: [],
             answerBankZone: null,
             lastHighlightedZone: null,
-            
+
             // 动画帧ID（用于requestAnimationFrame节流）
             animationFrameId: null,
             pendingUpdate: false,
-            
+
             // 初始化拖拽管理器
-            init: function() {
+            init: function () {
                 this.cacheDropZones();
-                
+
                 // 监听窗口大小变化，重新缓存拖放区域
                 window.addEventListener('resize', () => {
                     this.cacheDropZones();
                 });
-                
+
                 // 监听页面滚动，重新缓存拖放区域
                 window.addEventListener('scroll', () => {
                     this.cacheDropZones();
                 }, { passive: true });
             },
-            
+
             // 预缓存所有可拖放区域的位置信息
-            cacheDropZones: function() {
+            cacheDropZones: function () {
                 // 缓存表格中的拖放区域
                 const tableDropZones = document.querySelectorAll('.drop-zone');
                 this.dropZones = Array.from(tableDropZones).map(zone => {
                     const rect = zone.getBoundingClientRect();
-                    
+
                     return {
                         element: zone,
                         rect: {
@@ -1736,7 +2388,7 @@
                         isFilled: zone.getAttribute('data-filled') === 'true'
                     };
                 });
-                
+
                 // 缓存答案栏区域
                 if (answersContainer) {
                     const rect = answersContainer.getBoundingClientRect();
@@ -1755,25 +2407,25 @@
                     };
                 }
             },
-            
+
             // 开始拖拽（修复：不再修改body样式）
-            startDrag: function(element, clientX, clientY) {
+            startDrag: function (element, clientX, clientY) {
                 // 检查是否是答案卡片
                 if (!element.classList.contains('answer-card')) {
                     return false;
                 }
-                
+
                 // 获取卡片信息
                 const cardId = element.id;
                 const cardType = element.getAttribute('data-type');
                 const cardValue = element.getAttribute('data-value');
-                
+
                 this.isDragging = true;
                 this.currentElement = element;
                 this.dragCardId = cardId;
                 this.dragCardType = cardType;
                 this.dragCardValue = cardValue;
-                
+
                 // 获取元素位置
                 const rect = element.getBoundingClientRect();
                 this.startX = clientX;
@@ -1782,45 +2434,45 @@
                 this.offsetY = clientY - rect.top;
                 this.currentX = rect.left;
                 this.currentY = rect.top;
-                
+
                 // 创建拖拽幽灵
                 this.createDragGhost(element, rect);
-                
+
                 // 标记原始元素为拖拽中
                 element.classList.add('dragging');
-                
+
                 // 添加全局事件监听（使用Pointer Events）
                 document.addEventListener('pointermove', this.handlePointerMove.bind(this), { passive: false });
                 document.addEventListener('pointerup', this.handlePointerUp.bind(this), { passive: false });
                 document.addEventListener('pointercancel', this.handlePointerCancel.bind(this), { passive: false });
-                
+
                 // 不再修改body样式，防止页面跳动
                 // document.body.style.userSelect = 'none';
                 // document.body.style.overflow = 'hidden';
-                
+
                 return true;
             },
-            
+
             // 创建高性能拖拽幽灵
-            createDragGhost: function(sourceElement, sourceRect) {
+            createDragGhost: function (sourceElement, sourceRect) {
                 // 创建幽灵元素
                 this.ghostElement = sourceElement.cloneNode(true);
                 this.ghostElement.classList.add('drag-ghost');
                 this.ghostElement.classList.remove('dragging');
-                
+
                 // 应用样式
                 const style = window.getComputedStyle(sourceElement);
-                
+
                 // 设置基础样式
                 this.ghostElement.style.width = `${sourceRect.width}px`;
                 this.ghostElement.style.height = `${sourceRect.height}px`;
-                
+
                 // 确保position: fixed
                 this.ghostElement.style.position = 'fixed';
                 this.ghostElement.style.left = '0';
                 this.ghostElement.style.top = '0';
                 this.ghostElement.style.margin = '0';
-                
+
                 // 复制关键样式
                 this.ghostElement.style.background = style.background;
                 this.ghostElement.style.color = style.color;
@@ -1833,38 +2485,38 @@
                 this.ghostElement.style.justifyContent = 'center';
                 this.ghostElement.style.alignItems = 'center';
                 this.ghostElement.style.zIndex = '9999';
-                
+
                 // 设置初始位置到屏幕外
                 this.ghostElement.style.transform = `translate3d(-1000px, -1000px, 0)`;
-                
+
                 // 添加到文档
                 document.body.appendChild(this.ghostElement);
-                
+
                 // 强制同步布局
                 this.ghostElement.offsetHeight;
-                
+
                 // 立即移动到正确位置
                 const transformX = this.startX - this.offsetX;
                 const transformY = this.startY - this.offsetY;
-                this.ghostElement.style.transform = 
+                this.ghostElement.style.transform =
                     `translate3d(${transformX}px, ${transformY}px, 0) scale(1.05)`;
-                
+
                 // 强制重绘
                 this.ghostElement.getBoundingClientRect();
             },
-            
+
             // 指针移动处理（使用requestAnimationFrame节流）
-            handlePointerMove: function(e) {
+            handlePointerMove: function (e) {
                 if (!this.isDragging) return;
-                
+
                 // 关键修复：阻止默认行为，防止页面滚动
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 // 更新当前位置
                 this.currentX = e.clientX - this.offsetX;
                 this.currentY = e.clientY - this.offsetY;
-                
+
                 // 使用requestAnimationFrame节流更新
                 if (!this.pendingUpdate) {
                     this.pendingUpdate = true;
@@ -1874,28 +2526,28 @@
                     });
                 }
             },
-            
+
             // 更新拖拽位置（GPU加速）
-            updateDragPosition: function(clientX, clientY) {
+            updateDragPosition: function (clientX, clientY) {
                 if (!this.isDragging || !this.ghostElement) return;
-                
+
                 // 计算transform位置
                 const transformX = clientX - this.offsetX;
                 const transformY = clientY - this.offsetY;
-                
+
                 // 使用transform3d进行GPU加速
-                this.ghostElement.style.transform = 
+                this.ghostElement.style.transform =
                     `translate3d(${transformX}px, ${transformY}px, 0) scale(1.05)`;
-                
+
                 // 碰撞检测
                 this.checkDropZoneCollision(clientX, clientY);
             },
-            
+
             // 碰撞检测（使用预缓存的数据）
-            checkDropZoneCollision: function(x, y) {
+            checkDropZoneCollision: function (x, y) {
                 let currentZone = null;
                 let minDistance = Infinity;
-                
+
                 // 首先检查答案栏区域
                 if (this.answerBankZone) {
                     const bankZone = this.answerBankZone;
@@ -1904,35 +2556,35 @@
                         currentZone = bankZone;
                     }
                 }
-                
+
                 // 如果没有在答案栏区域，检查表格中的拖放区域
                 if (!currentZone) {
                     for (const zone of this.dropZones) {
                         // 跳过已填充的区域
                         if (zone.isFilled) continue;
-                        
+
                         // 对于前3关，检查卡片类型是否匹配单元格类型
                         if (gameState.currentLevel !== 4) {
                             const config = levelConfigs[gameState.currentLevel];
                             const isAllowedType = config.answerTypes.includes(this.dragCardType);
                             const isMatchingType = this.dragCardType === zone.type;
-                            
+
                             // 如果卡片类型不在当前关卡的答案类型中，或者类型不匹配，跳过
                             if (!isAllowedType || !isMatchingType) {
                                 continue;
                             }
                         }
-                        
+
                         // 快速矩形碰撞检测
                         if (x >= zone.rect.x && x <= zone.rect.right &&
                             y >= zone.rect.y && y <= zone.rect.bottom) {
-                            
+
                             // 计算到中心点的距离
                             const distance = Math.sqrt(
-                                Math.pow(x - zone.rect.centerX, 2) + 
+                                Math.pow(x - zone.rect.centerX, 2) +
                                 Math.pow(y - zone.rect.centerY, 2)
                             );
-                            
+
                             // 选择最近的区域
                             if (distance < minDistance) {
                                 minDistance = distance;
@@ -1941,18 +2593,18 @@
                         }
                     }
                 }
-                
+
                 // 更新高亮显示
                 this.updateDropZoneHighlight(currentZone);
             },
-            
+
             // 更新拖放区域高亮
-            updateDropZoneHighlight: function(zone) {
+            updateDropZoneHighlight: function (zone) {
                 // 清除之前的高亮
                 if (this.lastHighlightedZone && this.lastHighlightedZone !== zone) {
                     this.lastHighlightedZone.element.classList.remove('over');
                 }
-                
+
                 // 设置新的高亮
                 if (zone && zone !== this.lastHighlightedZone) {
                     zone.element.classList.add('over');
@@ -1962,99 +2614,99 @@
                     this.lastHighlightedZone = null;
                 }
             },
-            
+
             // 结束拖拽
-            handlePointerUp: function(e) {
+            handlePointerUp: function (e) {
                 if (!this.isDragging) return;
-                
+
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 // 获取放置位置
                 const dropZone = this.lastHighlightedZone;
-                
+
                 if (dropZone) {
                     // 如果是答案栏区域
                     if (dropZone.element.id === 'answersContainer') {
                         // 放回答案栏
                         this.handleReturnToBank();
-                    } 
+                    }
                     // 如果是表格中的拖放区域
                     else if (dropZone.element.classList.contains('drop-zone')) {
                         // 处理放置到表格单元格
                         this.handleDropToTableCell(dropZone);
                     }
                 }
-                
+
                 // 清理拖拽状态
                 this.endDrag();
             },
-            
+
             // 取消拖拽
-            handlePointerCancel: function() {
+            handlePointerCancel: function () {
                 if (!this.isDragging) return;
                 this.endDrag();
             },
-            
+
             // 放回答案栏处理
-            handleReturnToBank: function() {
+            handleReturnToBank: function () {
                 // 获取原始卡片
                 const card = document.getElementById(this.dragCardId);
                 if (!card) return;
-                
+
                 // 调用现有的returnToAnswerBank函数
                 returnToAnswerBank(card);
             },
-            
+
             // 放置到表格单元格处理
-            handleDropToTableCell: function(dropZone) {
+            handleDropToTableCell: function (dropZone) {
                 // 获取原始卡片
                 const card = document.getElementById(this.dragCardId);
                 if (!card) return;
-                
+
                 // 调用现有的dropToTableCell函数
                 dropToTableCell(card, dropZone.element);
             },
-            
+
             // 结束拖拽（清理）
-            endDrag: function() {
+            endDrag: function () {
                 if (!this.isDragging) return;
-                
+
                 this.isDragging = false;
-                
+
                 // 取消动画帧
                 if (this.animationFrameId) {
                     cancelAnimationFrame(this.animationFrameId);
                     this.animationFrameId = null;
                 }
-                
+
                 // 移除幽灵元素
                 if (this.ghostElement) {
                     this.ghostElement.remove();
                     this.ghostElement = null;
                 }
-                
+
                 // 清除原始元素的拖拽状态
                 if (this.currentElement) {
                     this.currentElement.classList.remove('dragging');
                     this.currentElement = null;
                 }
-                
+
                 // 清除拖放区域高亮
                 if (this.lastHighlightedZone) {
                     this.lastHighlightedZone.element.classList.remove('over');
                     this.lastHighlightedZone = null;
                 }
-                
+
                 // 移除全局事件监听
                 document.removeEventListener('pointermove', this.handlePointerMove.bind(this));
                 document.removeEventListener('pointerup', this.handlePointerUp.bind(this));
                 document.removeEventListener('pointercancel', this.handlePointerCancel.bind(this));
-                
+
                 // 不再需要恢复body样式
                 // document.body.style.userSelect = '';
                 // document.body.style.overflow = '';
-                
+
                 // 重置状态
                 this.dragCardId = null;
                 this.dragCardType = null;
@@ -2076,38 +2728,38 @@
             gameState.isCompleted = false;
             gameState.cardLocations = {};
             gameState.draggedCard = null;
-            
+
             // 根据当前关卡设置总单元格数
             const config = levelConfigs[gameState.currentLevel];
             gameState.totalCells = gameData.length * config.answerTypes.length;
-            
+
             // 更新表格区域类名 - 为第四关添加特殊类名
             updateTableSectionClass();
-            
+
             // Update UI elements
             updateGameInfo();
-            
+
             // Update next button state
             nextBtn.disabled = true;
-            
+
             // 更新Next按钮文本
             updateNextButtonText();
-            
+
             // Create answer cards
             createAnswerCards();
-            
+
             // Create table with appropriate fixed column
             createTable();
-            
+
             // Update counts
             updateCounts();
-            
+
             // Setup event listeners
             setupEventListeners();
-            
+
             // Update level selector
             updateLevelSelector();
-            
+
             // 初始化拖拽管理器的缓存
             setTimeout(() => {
                 dragManager.cacheDropZones();
@@ -2118,7 +2770,7 @@
         function updateTableSectionClass() {
             // 移除所有可能存在的关卡类名
             tableSection.classList.remove('level-1', 'level-2', 'level-3', 'level-4');
-            
+
             // 为当前关卡添加类名
             tableSection.classList.add(`level-${gameState.currentLevel}`);
         }
@@ -2126,14 +2778,14 @@
         // Create answer cards for dragging
         function createAnswerCards() {
             const config = levelConfigs[gameState.currentLevel];
-            
+
             // 收集所有需要的答案
             let allAnswers = [];
-            
+
             config.answerTypes.forEach(type => {
                 gameData.forEach(item => {
-                    allAnswers.push({ 
-                        type: type, 
+                    allAnswers.push({
+                        type: type,
                         value: item[type],
                         // 存储对应的其他值以便验证
                         expected: {
@@ -2144,18 +2796,18 @@
                     });
                 });
             });
-            
+
             // For round 1: ordered answers (by type)
             // For round 2: shuffled answers
             if (gameState.currentRound === 2) {
                 allAnswers = shuffleArray(allAnswers);
             }
-            
+
             // Create answer cards in the container
             allAnswers.forEach(answer => {
                 // 创建唯一的ID，确保即使值相同，类型不同也能区分
                 const cardId = `card-${answer.type}-${answer.value.replace(/[^a-zA-Z0-9]/g, '')}-${Math.random().toString(36).substr(2, 9)}`;
-                
+
                 const card = document.createElement('div');
                 card.className = `answer-card ${answer.type} in-bank`;
                 card.textContent = answer.value;
@@ -2166,24 +2818,24 @@
                 card.setAttribute('data-decimal', answer.expected.decimal);
                 card.setAttribute('data-percent', answer.expected.percent);
                 card.setAttribute('id', cardId);
-                
+
                 // 关键修复：添加touchstart事件监听，阻止默认行为
-                card.addEventListener('touchstart', function(e) {
+                card.addEventListener('touchstart', function (e) {
                     // 阻止触摸事件的默认行为（滚动、缩放等）
                     e.preventDefault();
                     e.stopPropagation();
                 }, { passive: false });
-                
+
                 // 添加Pointer Events监听器（移动端）
                 card.addEventListener('pointerdown', handlePointerStart);
-                
+
                 // 为了兼容性，保留原有的dragstart事件（PC端）
                 card.setAttribute('draggable', 'true');
                 card.addEventListener('dragstart', handleDragStart);
                 card.addEventListener('dragend', handleDragEnd);
-                
+
                 answersContainer.appendChild(card);
-                
+
                 // Track card location
                 gameState.cardLocations[cardId] = 'bank';
             });
@@ -2192,19 +2844,19 @@
         // Create the conversion table based on current level
         function createTable() {
             const config = levelConfigs[gameState.currentLevel];
-            
+
             gameData.forEach((item, index) => {
                 const row = document.createElement('tr');
                 row.setAttribute('data-row-index', index);
                 row.setAttribute('data-fraction', item.fraction);
                 row.setAttribute('data-decimal', item.decimal);
                 row.setAttribute('data-percent', item.percent);
-                
+
                 // 创建三列
                 const columnTypes = ['fraction', 'decimal', 'percent'];
                 columnTypes.forEach(columnType => {
                     const cell = document.createElement('td');
-                    
+
                     if (columnType === config.fixedColumn) {
                         // 固定列：显示已知值
                         cell.className = `fixed-cell ${columnType}`;
@@ -2218,21 +2870,21 @@
                         cell.setAttribute('data-expected', item[columnType]);
                         cell.setAttribute('data-row-index', index);
                         cell.setAttribute('data-filled', 'false');
-                        
+
                         // 为了兼容性，保留原有的拖放事件（PC端）
                         cell.addEventListener('dragover', handleDragOver);
                         cell.addEventListener('dragleave', handleDragLeave);
                         cell.addEventListener('drop', handleDrop);
-                        
+
                         // 对于第四关，所有单元格都是可拖放的
                         if (gameState.currentLevel === 4) {
                             cell.setAttribute('data-expected', ''); // 第四关不需要预期值
                         }
                     }
-                    
+
                     row.appendChild(cell);
                 });
-                
+
                 tableBody.appendChild(row);
             });
         }
@@ -2240,20 +2892,20 @@
         // Update game information display
         function updateGameInfo() {
             const config = levelConfigs[gameState.currentLevel];
-            
+
             roundNumber.textContent = gameState.currentRound;
             totalCount.textContent = gameState.totalCells;
-            
+
             // Update level description
             levelDescription.textContent = `Level ${gameState.currentLevel}: ${config.description}`;
-            
+
             // Update hint
             hintText.textContent = config.hint;
-            
+
             // 更新关卡选择器
             updateLevelSelector();
         }
-        
+
         // 更新Next按钮文本
         function updateNextButtonText() {
             if (gameState.currentLevel === 4 && gameState.currentRound === 2 && gameState.isCompleted) {
@@ -2280,25 +2932,25 @@
         // Update all counts
         function updateCounts() {
             const config = levelConfigs[gameState.currentLevel];
-            
+
             filledCount.textContent = gameState.filledCells;
-            
+
             // 根据关卡类型显示不同的正确计数
             if (gameState.currentLevel === 4) {
                 // 第四关：显示正确的行数
                 correctCount.textContent = gameState.correctRows;
                 incorrectCount.textContent = gameState.totalRows - gameState.correctRows;
-                
+
                 // 更新移动端计分栏
                 if (mobileCorrectCount) mobileCorrectCount.textContent = gameState.correctRows;
                 if (mobileIncorrectCount) mobileIncorrectCount.textContent = gameState.totalRows - gameState.correctRows;
-                
+
                 // 检查是否完成：所有行都正确
                 if (gameState.filledCells === gameState.totalCells && gameState.correctRows === gameState.totalRows) {
                     gameState.isCompleted = true;
                     successMessage.style.display = 'block';
                     nextBtn.disabled = false;
-                    
+
                     // 更新Next按钮文本
                     updateNextButtonText();
                 } else {
@@ -2309,11 +2961,11 @@
                 // 前3关：显示正确的单元格数
                 correctCount.textContent = gameState.correctCells;
                 incorrectCount.textContent = gameState.incorrectCells;
-                
+
                 // 更新移动端计分栏
                 if (mobileCorrectCount) mobileCorrectCount.textContent = gameState.correctCells;
                 if (mobileIncorrectCount) mobileIncorrectCount.textContent = gameState.incorrectCells;
-                
+
                 // 检查是否完成：所有单元格都正确
                 if (gameState.filledCells === gameState.totalCells && gameState.correctCells === gameState.totalCells) {
                     gameState.isCompleted = true;
@@ -2330,7 +2982,7 @@
         function checkRowForLevel4(rowIndex) {
             const row = document.querySelector(`tr[data-row-index="${rowIndex}"]`);
             const cells = row.querySelectorAll('.drop-zone');
-            
+
             // 检查行是否已填满
             let isRowFilled = true;
             cells.forEach(cell => {
@@ -2338,20 +2990,20 @@
                     isRowFilled = false;
                 }
             });
-            
+
             if (!isRowFilled) {
                 // 行未填满，移除正确样式
                 row.classList.remove('row-correct');
                 return false;
             }
-            
+
             // 收集行中所有卡片的数据
             const rowData = {
                 fractions: [],
                 decimals: [],
                 percents: []
             };
-            
+
             let isValid = true;
             cells.forEach(cell => {
                 const card = cell.querySelector('.answer-card');
@@ -2359,7 +3011,7 @@
                     const fraction = card.getAttribute('data-fraction');
                     const decimal = card.getAttribute('data-decimal');
                     const percent = card.getAttribute('data-percent');
-                    
+
                     rowData.fractions.push(fraction);
                     rowData.decimals.push(decimal);
                     rowData.percents.push(percent);
@@ -2367,23 +3019,23 @@
                     isValid = false;
                 }
             });
-            
+
             if (!isValid) return false;
-            
+
             // 检查所有分数是否相同，所有小数是否相同，所有百分数是否相同
             const allFractionsSame = rowData.fractions.every(val => val === rowData.fractions[0]);
             const allDecimalsSame = rowData.decimals.every(val => val === rowData.decimals[0]);
             const allPercentsSame = rowData.percents.every(val => val === rowData.percents[0]);
-            
+
             const isRowCorrect = allFractionsSame && allDecimalsSame && allPercentsSame;
-            
+
             // 更新行样式
             if (isRowCorrect) {
                 row.classList.add('row-correct');
             } else {
                 row.classList.remove('row-correct');
             }
-            
+
             return isRowCorrect;
         }
 
@@ -2404,11 +3056,11 @@
             answersContainer.addEventListener('dragover', handleDragOver);
             answersContainer.addEventListener('dragleave', handleDragLeave);
             answersContainer.addEventListener('drop', handleDrop);
-            
+
             // Button events
             resetBtn.addEventListener('click', resetRound);
             nextBtn.addEventListener('click', nextRound);
-            
+
             // Level selector events
             levelSelector.addEventListener('click', handleLevelSelect);
         }
@@ -2417,41 +3069,41 @@
         function handleLevelSelect(e) {
             if (e.target.classList.contains('level-btn')) {
                 const level = parseInt(e.target.getAttribute('data-level'));
-                
+
                 // 检查是否是当前关卡
                 if (level === gameState.currentLevel) return;
-                
+
                 // 更新当前关卡
                 gameState.currentLevel = level;
                 gameState.currentRound = 1; // 重置为第一回合
-                
+
                 // 重新初始化游戏
                 initGame();
             }
         }
 
         // ====== 事件处理函数 ======
-        
+
         // Pointer Events 处理（移动端）- 修复版
         function handlePointerStart(e) {
             // 防止多点触摸
             if (e.pointerType === 'touch' && e.isPrimary === false) return;
-            
+
             // 防止右键点击
             if (e.pointerType === 'mouse' && e.button !== 0) return;
-            
+
             // 关键修复：始终阻止默认行为，防止页面滚动
             e.preventDefault();
             e.stopPropagation();
-            
+
             // 开始拖拽
             const started = dragManager.startDrag(e.target, e.clientX, e.clientY);
-            
+
             if (started) {
                 // 设置捕获指针，确保移动事件被正确捕获
                 e.target.setPointerCapture(e.pointerId);
             }
-            
+
             // 阻止事件冒泡到父元素
             return false;
         }
@@ -2464,47 +3116,47 @@
                 e.preventDefault();
                 return;
             }
-            
+
             e.target.classList.add('dragging');
             e.dataTransfer.setData('text/plain', e.target.id);
-            
+
             // 修复拖拽闪现问题：始终阻止默认拖拽行为
             e.preventDefault();
         }
-        
+
         function handleDragEnd(e) {
             e.target.classList.remove('dragging');
         }
-        
+
         function handleDragOver(e) {
             e.preventDefault();
-            
+
             // 添加高亮效果
             if (e.target.classList.contains('drop-zone') || e.target === answersContainer) {
                 e.target.classList.add('over');
             }
         }
-        
+
         function handleDragLeave(e) {
             if (e.target.classList.contains('drop-zone') || e.target === answersContainer) {
                 e.target.classList.remove('over');
             }
         }
-        
+
         function handleDrop(e) {
             e.preventDefault();
-            
+
             // 移除高亮效果
             if (e.target.classList.contains('drop-zone') || e.target === answersContainer) {
                 e.target.classList.remove('over');
             }
-            
+
             // Get the dragged card
             const cardId = e.dataTransfer.getData('text/plain');
             const draggedCard = document.getElementById(cardId);
-            
+
             if (!draggedCard) return;
-            
+
             // Determine drop target
             if (e.target === answersContainer || e.target.closest('#answersContainer') === answersContainer) {
                 // Dropping back to answer bank
@@ -2522,10 +3174,10 @@
         // Return a card to the answer bank
         function returnToAnswerBank(card) {
             const cardId = card.id;
-            
+
             // If card is already in the bank, do nothing
             if (gameState.cardLocations[cardId] === 'bank') return;
-            
+
             // Remove card from its current cell
             const location = gameState.cardLocations[cardId];
             if (location && location !== 'bank') {
@@ -2535,10 +3187,10 @@
                     cell.innerHTML = '';
                     cell.setAttribute('data-filled', 'false');
                     cell.classList.remove('correct', 'incorrect');
-                    
+
                     // Update counts
                     gameState.filledCells--;
-                    
+
                     // 对于第四关，更新行检查
                     if (gameState.currentLevel === 4) {
                         checkAllRowsForLevel4();
@@ -2550,31 +3202,31 @@
                             gameState.incorrectCells--;
                         }
                     }
-                    
+
                     // Clear any validation classes
                     cell.classList.remove('correct', 'incorrect');
                 }
             }
-            
+
             // Reset card appearance
             card.classList.remove('in-cell');
             card.classList.add('in-bank');
-            
+
             // 重新添加事件监听器（因为cloneNode不会复制事件监听器）
             card.addEventListener('pointerdown', handlePointerStart);
             card.setAttribute('draggable', 'true');
             card.addEventListener('dragstart', handleDragStart);
             card.addEventListener('dragend', handleDragEnd);
-            
+
             // Move card back to answer bank
             answersContainer.appendChild(card);
-            
+
             // Update card location tracking
             gameState.cardLocations[cardId] = 'bank';
-            
+
             // Update counts
             updateCounts();
-            
+
             // 重新缓存拖放区域
             dragManager.cacheDropZones();
         }
@@ -2586,14 +3238,14 @@
             const cardValue = card.getAttribute('data-value');
             const cellType = cell.getAttribute('data-type');
             const rowIndex = cell.getAttribute('data-row-index');
-            
+
             // Check if the cell already has a card
             const existingCard = cell.querySelector('.answer-card');
             if (existingCard) {
                 // Swap cards: return existing card to bank and place new card
                 returnToAnswerBank(existingCard);
             }
-            
+
             // 对于第四关，不限制卡片类型，因为所有单元格都是空的
             // 对于前3关，检查卡片类型是否匹配单元格类型
             if (gameState.currentLevel !== 4 && cardType !== cellType) {
@@ -2604,16 +3256,16 @@
                 }, 500);
                 return;
             }
-            
+
             // Get the row data for validation
             const row = cell.closest('tr');
-            
+
             // 对于第四关，不需要预期值
             let expectedValue = null;
             if (gameState.currentLevel !== 4) {
                 expectedValue = cell.getAttribute('data-expected');
             }
-            
+
             // Remove card from its current location
             if (gameState.cardLocations[cardId] === 'bank') {
                 // Card was in the bank
@@ -2627,10 +3279,10 @@
                         oldCell.innerHTML = '';
                         oldCell.setAttribute('data-filled', 'false');
                         oldCell.classList.remove('correct', 'incorrect');
-                        
+
                         // Update counts
                         gameState.filledCells--;
-                        
+
                         // 对于第四关，更新行检查
                         if (gameState.currentLevel === 4) {
                             // 第四关的行检查会在之后统一进行
@@ -2645,27 +3297,27 @@
                     }
                 }
             }
-            
+
             // Create a new card for the cell (clone of the original)
             const newCard = card.cloneNode(true);
             newCard.classList.remove('in-bank');
             newCard.classList.add('in-cell');
             newCard.setAttribute('id', cardId); // 保持相同的ID
-            
+
             // 添加事件监听器
             newCard.addEventListener('pointerdown', handlePointerStart);
             newCard.setAttribute('draggable', 'true');
             newCard.addEventListener('dragstart', handleDragStart);
             newCard.addEventListener('dragend', handleDragEnd);
-            
+
             // Add card to cell
             cell.innerHTML = '';
             cell.appendChild(newCard);
             cell.setAttribute('data-filled', 'true');
-            
+
             // 验证答案（根据关卡类型）
             let isCorrect = false;
-            
+
             if (gameState.currentLevel === 4) {
                 // 第四关：不验证单个单元格，而是验证整行
                 // 单元格总是正确的（因为不验证类型）
@@ -2674,7 +3326,7 @@
             } else {
                 // 前3关：验证单个单元格
                 isCorrect = cardValue === expectedValue;
-                
+
                 // Apply appropriate styling
                 cell.classList.remove('correct', 'incorrect');
                 if (isCorrect) {
@@ -2685,22 +3337,22 @@
                     gameState.incorrectCells++;
                 }
             }
-            
+
             // Update counts
             gameState.filledCells++;
-            
+
             // Update card location tracking
             gameState.cardLocations[cardId] = { row: rowIndex, type: cellType };
-            
+
             // 对于第四关，检查整行
             if (gameState.currentLevel === 4) {
                 checkRowForLevel4(rowIndex);
                 checkAllRowsForLevel4();
             }
-            
+
             // 重新缓存拖放区域
             dragManager.cacheDropZones();
-            
+
             // Update counts and check completion
             updateCounts();
         }
@@ -2716,39 +3368,39 @@
                     }
                 }
             });
-            
+
             // Reset counts
             gameState.filledCells = 0;
             gameState.correctCells = 0;
             gameState.correctRows = 0;
             gameState.incorrectCells = 0;
-            
+
             // Clear all cells
             document.querySelectorAll('.drop-zone').forEach(zone => {
                 zone.innerHTML = '';
                 zone.setAttribute('data-filled', 'false');
                 zone.classList.remove('correct', 'incorrect', 'over');
             });
-            
+
             // 清除第四关的行正确样式
             document.querySelectorAll('tr').forEach(row => {
                 row.classList.remove('row-correct');
             });
-            
+
             // Reset all cards in bank
             document.querySelectorAll('.answer-card').forEach(card => {
                 card.classList.remove('in-cell');
                 card.classList.add('in-bank');
                 card.setAttribute('draggable', 'true');
             });
-            
+
             // Reset UI
             successMessage.style.display = 'none';
             nextBtn.disabled = true;
-            
+
             // 重新缓存拖放区域
             dragManager.cacheDropZones();
-            
+
             // Update counts
             updateCounts();
         }
@@ -2756,7 +3408,7 @@
         // Move to next round or level
         function nextRound() {
             if (!gameState.isCompleted) return;
-            
+
             // 特殊处理第四关
             if (gameState.currentLevel === 4 && gameState.currentRound === 2) {
                 // 第四关第二回合完成：重新开始第四关的练习
@@ -2765,7 +3417,7 @@
                 initGame();
                 return;
             }
-            
+
             if (gameState.currentRound < gameState.totalRounds) {
                 // Move to next round in the same level
                 gameState.currentRound++;
@@ -2777,9 +3429,9 @@
                     // Move to next level
                     const nextLevel = gameState.currentLevel + 1;
                     const levelName = levelConfigs[nextLevel].description;
-                    
+
                     alert(`Level ${gameState.currentLevel} completed! You have successfully matched all values. Moving to Level ${nextLevel}: ${levelName}.`);
-                    
+
                     gameState.currentLevel = nextLevel;
                     gameState.currentRound = 1;
                     resetRound();
@@ -2818,19 +3470,20 @@
         function initMemoryGame() {
             // 初始化拖拽管理器
             dragManager.init();
-            
+
             // 初始化游戏
             initGame();
         }
 
         // 页面加载时初始化所有功能
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // 初始化问答栏
             initPoll();
-            
+
             // 初始化游戏
             initMemoryGame();
         });
     </script>
 </body>
+
 </html>
