@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.1, user-scalable=yes">
     <meta name="description" content="Learn the 2 times table with our interactive multiplication game. Perfect for elementary students ages 7-10.">
     <meta name="keywords" content="2 times table, multiplication game, math game, elementary math, multiplication practice">
     <meta name="author" content="NDED">
@@ -60,6 +61,186 @@
         .dynamic-content-container {
             padding: 1rem;
             min-height: auto;
+        }
+                /* ===== 移动端间隙压缩优化 ===== */
+        /* 目标：大幅度压缩所有间距，让两个算式能并排显示 */
+
+        @media (max-width: 767px) {
+            /* 0. 重置所有元素的默认边距 */
+            .multiplication-game * {
+                box-sizing: border-box;
+            }
+            
+            /* 1. 压缩游戏容器本身 */
+            .multiplication-game {
+                padding: 8px !important; /* 从24px减到8px */
+                margin: 0 !important;
+                width: 100% !important;
+                max-width: 100vw !important;
+                overflow: hidden !important;
+            }
+            
+            /* 2. 压缩标题行 */
+            .title-row {
+                margin: 0 0 5px 0 !important; /* 从20px减到5px */
+                padding: 0 !important;
+            }
+            
+            .title-with-button h1 {
+                font-size: 1.3rem !important; /* 从2rem减到1.3rem */
+                margin: 0 !important;
+                line-height: 1.2 !important;
+            }
+            
+            /* 3. 压缩完成计数器 */
+            #completion-counter {
+                margin: 0 0 8px 0 !important; /* 从15px减到8px */
+                padding: 6px 8px !important; /* 从12px减到6px */
+                font-size: 0.85rem !important;
+                line-height: 1.2 !important;
+            }
+            
+            /* 4. 压缩答案栏 - 关键区域 */
+            #answers-container {
+                padding: 6px !important; /* 从15px减到6px */
+                margin: 0 0 8px 0 !important; /* 从20px减到8px */
+                min-height: 70px !important; /* 从100px减到70px */
+                max-height: 80px !important; /* 从120px减到80px */
+                gap: 5px !important; /* 从10px减到5px */
+            }
+            
+            /* 5. 压缩答案卡片 */
+            .answer {
+                width: 50px !important; /* 从80px减到50px */
+                height: 50px !important; /* 从80px减到50px */
+                font-size: 1.2rem !important; /* 从1.8rem减到1.2rem */
+                margin: 0 4px !important; /* 从10px减到4px */
+                padding: 0 !important;
+                border-width: 2px !important; /* 从3px减到2px */
+            }
+            
+            /* 6. 压缩算式容器 - 最关键的区域！ */
+            #equations-container {
+                padding: 8px !important; /* 从20px减到8px */
+                margin: 0 !important;
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important; /* 强制两列 */
+                gap: 8px !important; /* 从15px减到8px */
+                width: 100% !important;
+                max-width: 100vw !important;
+            }
+            
+            /* 7. 压缩算式卡片 */
+            .equation {
+                width: 100% !important;
+                height: auto !important;
+                min-height: 100px !important; /* 从140px减到100px */
+                max-width: 100% !important;
+                padding: 8px !important; /* 从20px减到8px */
+                margin: 0 !important;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            /* 8. 压缩算式内部元素 */
+            .equation-number {
+                font-size: 1.5rem !important; /* 从2.5rem减到1.5rem */
+                margin: 0 0 4px 0 !important; /* 从10px减到4px */
+                line-height: 1 !important;
+                height: 30px !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .equation span {
+                font-size: 0.95rem !important; /* 从1.2rem减到0.95rem */
+                margin: 2px 0 !important; /* 从8px减到2px */
+                line-height: 1 !important;
+                white-space: nowrap; /* 防止换行 */
+            }
+            
+            .equation-result {
+                width: 50px !important; /* 从80px减到50px */
+                height: 50px !important; /* 从80px减到50px */
+                font-size: 1.2rem !important; /* 从1.8rem减到1.2rem */
+                margin: 4px 0 0 0 !important; /* 从10px减到4px */
+                border-width: 2px !important; /* 从3px减到2px */
+                padding: 0 !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            /* 9. 压缩按钮区域 */
+            .buttons-container {
+                padding: 8px 0 0 0 !important; /* 从20px减到8px */
+                margin: 8px 0 0 0 !important;
+                display: flex;
+                flex-direction: column;
+                gap: 8px !important; /* 从15px减到8px */
+            }
+            
+            .game-btn {
+                padding: 10px !important; /* 从15px减到10px */
+                font-size: 0.95rem !important; /* 从1.1rem减到0.95rem */
+                margin: 0 !important;
+                min-height: 44px !important; /* 触摸友好的最小高度 */
+            }
+            
+            /* 10. 特别小屏幕的微调 */
+            @media (max-width: 400px) {
+                /* 进一步压缩 */
+                .answer {
+                    width: 45px !important;
+                    height: 45px !important;
+                    font-size: 1.1rem !important;
+                }
+                
+                .equation {
+                    min-height: 90px !important;
+                    padding: 6px !important;
+                }
+                
+                .equation-number {
+                    font-size: 1.3rem !important;
+                }
+                
+                .equation span {
+                    font-size: 0.85rem !important;
+                }
+                
+                .equation-result {
+                    width: 45px !important;
+                    height: 45px !important;
+                    font-size: 1.1rem !important;
+                }
+                
+                /* 如果还是放不下，尝试单列 */
+                @media (max-width: 340px) {
+                    #equations-container {
+                        grid-template-columns: 1fr !important;
+                        gap: 6px !important;
+                    }
+                    
+                    .equation {
+                        min-height: 85px !important;
+                    }
+                }
+            }
+            
+            /* 11. 防止横向滚动 */
+            body, .main-content, .dynamic-content-container {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+            }
+            
+            /* 12. 优化拖拽体验 */
+            .answer.dragging {
+                transform: scale(1.15); /* 稍微放大，保持可操作性 */
+            }
         }
     </style>
 </head>
@@ -341,6 +522,91 @@
     <!-- 游戏逻辑 -->
     <script src="../js/multiplication-game.js"></script>
     
+    <!-- 移动端布局优化 -->
+    <script>
+        // 移动端宽度优化
+        function optimizeMobileLayout() {
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const isPortrait = window.innerHeight > window.innerWidth;
+
+            if (isMobile && isPortrait) {
+                console.log('移动端竖屏优化，屏幕宽度:', window.innerWidth);
+
+                // 1. 获取游戏容器
+                const gameContainer = document.querySelector('.multiplication-game');
+                if (gameContainer) {
+                    // 移除所有宽度限制
+                    gameContainer.style.maxWidth = 'none';
+                    gameContainer.style.width = '100%';
+                }
+
+                // 2. 获取算式容器
+                const equationsContainer = document.getElementById('equations-container');
+                if (equationsContainer) {
+                    // 设置精确的网格布局
+                    const screenWidth = window.innerWidth;
+                    const padding = 16; // 左右内边距
+                    const gap = 8; // 列间距
+                    const availableWidth = screenWidth - (padding * 2);
+
+                    // 计算每个算式的理想宽度
+                    const columnWidth = Math.floor((availableWidth - gap) / 2);
+
+                    equationsContainer.style.gridTemplateColumns = `repeat(2, ${columnWidth}px)`;
+                    equationsContainer.style.justifyContent = 'center';
+
+                    console.log('网格列宽:', columnWidth, 'px');
+                }
+
+                // 3. 确保算式文本不换行
+                const equationTexts = document.querySelectorAll('.equation span');
+                equationTexts.forEach(text => {
+                    text.style.whiteSpace = 'nowrap';
+                    text.style.overflow = 'hidden';
+                    text.style.textOverflow = 'ellipsis';
+                });
+
+                // 4. 检查是否真的有换行问题
+                const equations = document.querySelectorAll('.equation');
+                equations.forEach((eq, index) => {
+                    const rect = eq.getBoundingClientRect();
+                    const parentRect = eq.parentElement.getBoundingClientRect();
+
+                    if (rect.width > parentRect.width / 2) {
+                        console.warn(`算式 ${index + 1} 可能过宽: ${rect.width}px`);
+
+                        // 进一步压缩
+                        eq.style.padding = '4px';
+                        eq.style.fontSize = '0.9em';
+                    }
+                });
+            }
+        }
+
+        // 页面加载后执行
+        document.addEventListener('DOMContentLoaded', function () {
+            // 延迟执行，确保CSS加载
+            setTimeout(optimizeMobileLayout, 100);
+
+            // 监听窗口变化
+            let resizeTimer;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(optimizeMobileLayout, 250);
+            });
+
+            // 监听方向变化
+            window.addEventListener('orientationchange', function () {
+                setTimeout(optimizeMobileLayout, 300);
+            });
+        });
+    </script>
+    
+    <!-- 模板的JavaScript代码 -->
+    <script>
+        // 问答栏功能
+        function initPoll() {
+        // ... 现有代码 ...
     <!-- 模板的JavaScript代码 -->
     <script>
         // 问答栏功能
