@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.1, user-scalable=yes">
-    <meta name="description" content="Learn the 2 times table with our interactive multiplication game. Perfect for elementary students ages 7-10.">
-    <meta name="keywords" content="2 times table, multiplication game, math game, elementary math, multiplication practice">
+    <meta name="description"
+        content="Learn the 2 times table with our interactive multiplication game. Perfect for elementary students ages 7-10.">
+    <meta name="keywords"
+        content="2 times table, multiplication game, math game, elementary math, multiplication practice">
     <meta name="author" content="NDED">
     <title>2 Times Table Game | NDED - Building Mathematical Confidence</title>
-    
+
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Fonts for NDED styling -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="canonical" href="https://www.nd-ed.org/pages/multiplication-by-2-game.html">
-    
+
     <!-- 样式文件 -->
     <link rel="stylesheet" href="../css/template.css">
     <link rel="stylesheet" href="../css/style.css">
-    
+
     <!-- 调整游戏在模板中的显示 -->
     <style>
         /* 重置body样式，让模板接管 */
@@ -28,7 +32,7 @@
             align-items: flex-start !important;
             padding: 0 !important;
         }
-        
+
         /* 游戏容器在模板中的样式调整 */
         .main-content .multiplication-game {
             width: 100%;
@@ -42,208 +46,212 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         /* 调整标题行 */
         .title-row {
             margin-top: 0;
         }
-        
+
         /* 调整答案和算式容器在模板中的间距 */
         .answers-container {
             margin: 1rem 0;
         }
-        
+
         .equations-container {
             margin: 1rem 0;
         }
-        
+
         /* 确保动态内容容器能够容纳游戏和文章 */
         .dynamic-content-container {
             padding: 1rem;
             min-height: auto;
         }
-                /* ===== 移动端间隙压缩优化 ===== */
-        /* 目标：大幅度压缩所有间距，让两个算式能并排显示 */
 
+        /* ===== 移动端布局优化 - 修复版 ===== */
         @media (max-width: 767px) {
-            /* 0. 重置所有元素的默认边距 */
-            .multiplication-game * {
-                box-sizing: border-box;
-            }
-            
-            /* 1. 压缩游戏容器本身 */
+
+            /* 重置游戏容器 */
             .multiplication-game {
-                padding: 8px !important; /* 从24px减到8px */
+                padding: 5px !important;
                 margin: 0 !important;
                 width: 100% !important;
                 max-width: 100vw !important;
-                overflow: hidden !important;
             }
-            
-            /* 2. 压缩标题行 */
+
+            /* 压缩标题行 */
             .title-row {
-                margin: 0 0 5px 0 !important; /* 从20px减到5px */
+                margin: 0 0 5px 0 !important;
                 padding: 0 !important;
             }
-            
+
             .title-with-button h1 {
-                font-size: 1.3rem !important; /* 从2rem减到1.3rem */
+                font-size: 1.3rem !important;
                 margin: 0 !important;
                 line-height: 1.2 !important;
             }
-            
-            /* 3. 压缩完成计数器 */
+
+            /* 压缩计数器 */
             #completion-counter {
-                margin: 0 0 8px 0 !important; /* 从15px减到8px */
-                padding: 6px 8px !important; /* 从12px减到6px */
+                margin: 0 0 6px 0 !important;
+                padding: 5px 6px !important;
                 font-size: 0.85rem !important;
-                line-height: 1.2 !important;
             }
-            
-            /* 4. 压缩答案栏 - 关键区域 */
+
+            /* 压缩答案栏 */
             #answers-container {
-                padding: 6px !important; /* 从15px减到6px */
-                margin: 0 0 8px 0 !important; /* 从20px减到8px */
-                min-height: 70px !important; /* 从100px减到70px */
-                max-height: 80px !important; /* 从120px减到80px */
-                gap: 5px !important; /* 从10px减到5px */
+                padding: 6px !important;
+                margin: 0 0 6px 0 !important;
+                min-height: 70px !important;
+                max-height: 80px !important;
+                gap: 5px !important;
+                background: #f0f8ff !important;
+                border-radius: 10px !important;
+                border: 2px solid #d0e6ff !important;
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
             }
-            
-            /* 5. 压缩答案卡片 */
+
+            /* 隐藏答案栏滚动条 */
+            #answers-container::-webkit-scrollbar {
+                display: none;
+            }
+
+            /* 答案卡片 */
             .answer {
-                width: 50px !important; /* 从80px减到50px */
-                height: 50px !important; /* 从80px减到50px */
-                font-size: 1.2rem !important; /* 从1.8rem减到1.2rem */
-                margin: 0 4px !important; /* 从10px减到4px */
-                padding: 0 !important;
-                border-width: 2px !important; /* 从3px减到2px */
+                flex: 0 0 auto !important;
+                width: 55px !important;
+                height: 55px !important;
+                font-size: 1.2rem !important;
+                margin: 0 4px !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
-            
-            /* 6. 压缩算式容器 - 最关键的区域！ */
+
+            /* 算式容器 - 关键：两列布局 */
             #equations-container {
-                padding: 8px !important; /* 从20px减到8px */
+                padding: 0 !important;
                 margin: 0 !important;
                 display: grid !important;
-                grid-template-columns: repeat(2, 1fr) !important; /* 强制两列 */
-                gap: 8px !important; /* 从15px减到8px */
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 6px !important;
                 width: 100% !important;
-                max-width: 100vw !important;
+                background: transparent !important;
+                border: none !important;
             }
-            
-            /* 7. 压缩算式卡片 */
+
+            /* 算式卡片 - 简化为一层 */
             .equation {
                 width: 100% !important;
                 height: auto !important;
-                min-height: 100px !important; /* 从140px减到100px */
-                max-width: 100% !important;
-                padding: 8px !important; /* 从20px减到8px */
+                min-height: 100px !important;
+                padding: 10px !important;
                 margin: 0 !important;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                justify-content: space-between;
+                justify-content: center;
+                background: linear-gradient(135deg, rgba(135, 206, 235, 0.15), rgba(255, 255, 255, 0.95)) !important;
+                border: 2px solid rgba(74, 144, 226, 0.3) !important;
+                border-radius: 10px !important;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
             }
-            
-            /* 8. 压缩算式内部元素 */
+
+            /* 移除可能的嵌套背景 */
+            .equation>div {
+                background: transparent !important;
+                border: none !important;
+            }
+
+            /* 算式内部元素 */
             .equation-number {
-                font-size: 1.5rem !important; /* 从2.5rem减到1.5rem */
-                margin: 0 0 4px 0 !important; /* 从10px减到4px */
-                line-height: 1 !important;
-                height: 30px !important;
+                font-size: 1.6rem !important;
+                margin: 0 0 5px 0 !important;
+                line-height: 1;
+                height: 35px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                color: #2980b9;
+                font-weight: 600;
             }
-            
+
             .equation span {
-                font-size: 0.95rem !important; /* 从1.2rem减到0.95rem */
-                margin: 2px 0 !important; /* 从8px减到2px */
-                line-height: 1 !important;
-                white-space: nowrap; /* 防止换行 */
+                font-size: 1.1rem !important;
+                margin: 5px 0 !important;
+                line-height: 1.2;
+                white-space: nowrap;
+                color: #7f8c8d;
+                font-weight: 500;
             }
-            
+
             .equation-result {
-                width: 50px !important; /* 从80px减到50px */
-                height: 50px !important; /* 从80px减到50px */
-                font-size: 1.2rem !important; /* 从1.8rem减到1.2rem */
-                margin: 4px 0 0 0 !important; /* 从10px减到4px */
-                border-width: 2px !important; /* 从3px减到2px */
-                padding: 0 !important;
+                width: 55px !important;
+                height: 55px !important;
+                font-size: 1.2rem !important;
+                margin: 5px 0 0 0 !important;
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
-            
-            /* 9. 压缩按钮区域 */
+
+            /* 按钮区域 */
             .buttons-container {
-                padding: 8px 0 0 0 !important; /* 从20px减到8px */
+                padding: 8px 0 0 0 !important;
                 margin: 8px 0 0 0 !important;
                 display: flex;
                 flex-direction: column;
-                gap: 8px !important; /* 从15px减到8px */
+                gap: 8px !important;
             }
-            
+
             .game-btn {
-                padding: 10px !important; /* 从15px减到10px */
-                font-size: 0.95rem !important; /* 从1.1rem减到0.95rem */
+                padding: 12px !important;
+                font-size: 1rem !important;
                 margin: 0 !important;
-                min-height: 44px !important; /* 触摸友好的最小高度 */
             }
-            
-            /* 10. 特别小屏幕的微调 */
+
+            /* 超小屏幕适配 */
             @media (max-width: 400px) {
-                /* 进一步压缩 */
                 .answer {
-                    width: 45px !important;
-                    height: 45px !important;
-                    font-size: 1.1rem !important;
+                    width: 50px !important;
+                    height: 50px !important;
                 }
-                
+
+                .equation {
+                    min-height: 95px !important;
+                    padding: 8px !important;
+                }
+
+                .equation-number {
+                    font-size: 1.5rem !important;
+                }
+
+                .equation span {
+                    font-size: 1rem !important;
+                }
+
+                .equation-result {
+                    width: 50px !important;
+                    height: 50px !important;
+                }
+            }
+
+            @media (max-width: 350px) {
+                #equations-container {
+                    grid-template-columns: 1fr !important;
+                    gap: 5px !important;
+                }
+
                 .equation {
                     min-height: 90px !important;
-                    padding: 6px !important;
                 }
-                
-                .equation-number {
-                    font-size: 1.3rem !important;
-                }
-                
-                .equation span {
-                    font-size: 0.85rem !important;
-                }
-                
-                .equation-result {
-                    width: 45px !important;
-                    height: 45px !important;
-                    font-size: 1.1rem !important;
-                }
-                
-                /* 如果还是放不下，尝试单列 */
-                @media (max-width: 340px) {
-                    #equations-container {
-                        grid-template-columns: 1fr !important;
-                        gap: 6px !important;
-                    }
-                    
-                    .equation {
-                        min-height: 85px !important;
-                    }
-                }
-            }
-            
-            /* 11. 防止横向滚动 */
-            body, .main-content, .dynamic-content-container {
-                overflow-x: hidden !important;
-                max-width: 100vw !important;
-            }
-            
-            /* 12. 优化拖拽体验 */
-            .answer.dragging {
-                transform: scale(1.15); /* 稍微放大，保持可操作性 */
             }
         }
     </style>
 </head>
+
 <body class="theme-2">
     <!-- 页眉部分 -->
     <header>
@@ -254,7 +262,7 @@
             </h1>
         </div>
     </header>
-    
+
     <!-- 主内容区域 -->
     <div class="main-row-container">
         <div class="wide-container">
@@ -277,7 +285,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <!-- 主内容区域 -->
                 <div class="main-content">
                     <div class="dynamic-content-container">
@@ -289,36 +297,38 @@
                                     <a href="../index.html" class="home-btn-small" aria-label="Return to home">
                                         <i class="fas fa-home"></i>
                                     </a>
-                                    
+
                                     <h1>Multiplication Table (×2)</h1>
                                 </div>
                             </div>
-                            
+
                             <div class="completion-counter" id="completion-counter">
                                 Complete 2 times to unlock next level (0/2)
                             </div>
-                            
+
                             <div class="answers-container" id="answers-container">
                                 <!-- Answers will be populated by JavaScript -->
                             </div>
-                            
+
                             <div class="equations-container" id="equations-container">
                                 <!-- Equations will be populated by JavaScript -->
                             </div>
-                            
+
                             <div class="buttons-container">
                                 <button class="game-btn" id="restart-btn">Practice Again</button>
                                 <button class="game-btn" id="next-btn" disabled>Next Level</button>
                             </div>
                         </div>
-                        
+
                         <!-- SEO文章区域（新增部分） -->
                         <div class="seo-articles-section">
-                            
+
                             <article class="digit-specific-article">
                                 <section class="digit-logic">
                                     <h2>Mastering the 2s: The Building Blocks</h2>
-                                    <p>Welcome to the very beginning of your math journey! This level focuses on the two most essential multiplication facts. Mastering these is the first step toward math fluency.</p>
+                                    <p>Welcome to the very beginning of your math journey! This level focuses on the two
+                                        most essential multiplication facts. Mastering these is the first step toward
+                                        math fluency.</p>
                                     <ul>
                                         <li><strong>2 × 1 = 2</strong> (Anything times 1 stays the same!)</li>
                                         <li><strong>2 × 2 = 4</strong> (It's just doubling the number 2.)</li>
@@ -329,56 +339,75 @@
 
                                 <section class="how-to-play">
                                     <h3>🎮 How to Play</h3>
-                                    <p class="intro-sentence"><strong>Start your math adventure! In this introductory level, you'll use simple drag-and-drop actions to unlock the world of multiplication.</strong></p>
-                                    
+                                    <p class="intro-sentence"><strong>Start your math adventure! In this introductory
+                                            level, you'll use simple drag-and-drop actions to unlock the world of
+                                            multiplication.</strong></p>
+
                                     <div class="step-box">
                                         <h4>Round 1: Sequential Memory</h4>
-                                        <p>Look at the <strong>Answer Bar</strong> at the top. The numbers are in order (2, 4). Drag each block to its matching equation in the <strong>Equation Zone</strong>. Once finished, hit <strong>"Practice Again"</strong> to level up!</p>
+                                        <p>Look at the <strong>Answer Bar</strong> at the top. The numbers are in order
+                                            (2, 4). Drag each block to its matching equation in the <strong>Equation
+                                                Zone</strong>. Once finished, hit <strong>"Practice Again"</strong> to
+                                            level up!</p>
                                     </div>
-                                    
+
                                     <div class="step-box">
                                         <h4>Round 2: The Shuffle Challenge</h4>
-                                        <p>Now it gets fun! The answers are now shuffled (out of order). Drag the correct answer to the right equation. This builds "muscle memory" for your brain.</p>
+                                        <p>Now it gets fun! The answers are now shuffled (out of order). Drag the
+                                            correct answer to the right equation. This builds "muscle memory" for your
+                                            brain.</p>
                                     </div>
-                                    
-                                    <p><em>Success! Once the Shuffle Challenge is complete, the <strong>"Next Level"</strong> button will glow. Click it to move to the 3s!</em></p>
+
+                                    <p><em>Success! Once the Shuffle Challenge is complete, the <strong>"Next
+                                                Level"</strong> button will glow. Click it to move to the 3s!</em></p>
                                 </section>
 
                                 <hr>
 
                                 <section class="about-game">
                                     <h3>About This Memory Game</h3>
-                                    <p>Our <strong>Scaffolded Multiplication Game</strong> is designed based on cognitive load theory. Instead of overwhelming students with a giant 10x10 chart, we focus on "One Step at a Time." By dragging and matching instead of just calculating, kids develop a visual intuition for numbers, making math less intimidating and more like a puzzle.</p>
+                                    <p>Our <strong>Scaffolded Multiplication Game</strong> is designed based on
+                                        cognitive load theory. Instead of overwhelming students with a giant 10x10
+                                        chart, we focus on "One Step at a Time." By dragging and matching instead of
+                                        just calculating, kids develop a visual intuition for numbers, making math less
+                                        intimidating and more like a puzzle.</p>
                                 </section>
                             </article>
 
                             <article class="times-table-article">
                                 <h2>Learn the 2 Times Table</h2>
-                                
+
                                 <div class="learning-path-intro">
-                                    <p>Once students understand the 2 times table, they are ready to build on this foundation with the 
-                                    <a href="/pages/multiplication-by-4-game.html" class="seo-logic-link">4 times table</a> 
-                                    and later the 
-                                    <a href="/pages/multiplication-by-8-game.html" class="seo-logic-link">8 times table</a>.</p>
+                                    <p>Once students understand the 2 times table, they are ready to build on this
+                                        foundation with the
+                                        <a href="/pages/multiplication-by-4-game.html" class="seo-logic-link">4 times
+                                            table</a>
+                                        and later the
+                                        <a href="/pages/multiplication-by-8-game.html" class="seo-logic-link">8 times
+                                            table</a>.
+                                    </p>
                                 </div>
-                                
+
                                 <p>The 2 times table is often the first multiplication table children learn.
-                                It is simple, predictable, and helps students understand how multiplication works as repeated addition.</p>
-                                
-                                <p>Learning the 2 times table builds confidence and prepares students for more difficult math skills later on.</p>
-                                
+                                    It is simple, predictable, and helps students understand how multiplication works as
+                                    repeated addition.</p>
+
+                                <p>Learning the 2 times table builds confidence and prepares students for more difficult
+                                    math skills later on.</p>
+
                                 <h3>What Is the 2 Times Table?</h3>
                                 <p>The 2 times table shows what happens when you multiply numbers by 2.</p>
-                                
+
                                 <div class="example-box">
                                     <p>For example:</p>
                                     <p>2 × 1 = 2</p>
                                     <p>2 × 2 = 4</p>
                                     <p>2 × 3 = 6</p>
                                 </div>
-                                
-                                <p>Each answer increases by 2, which makes this table easy to recognize and remember.</p>
-                                
+
+                                <p>Each answer increases by 2, which makes this table easy to recognize and remember.
+                                </p>
+
                                 <h3>Why Is the 2 Times Table Important?</h3>
                                 <p>Understanding the 2 times table helps children:</p>
                                 <ul>
@@ -386,10 +415,12 @@
                                     <li>Build a strong foundation for multiplication</li>
                                     <li>Improve speed and accuracy in mental math</li>
                                 </ul>
-                                <p>Many math topics, including division and fractions, become easier once the 2 times table is mastered.</p>
-                                
+                                <p>Many math topics, including division and fractions, become easier once the 2 times
+                                    table is mastered.</p>
+
                                 <h3>How This Game Helps Students Learn</h3>
-                                <p>This interactive game helps students practice the 2 times table in a fun and stress-free way.</p>
+                                <p>This interactive game helps students practice the 2 times table in a fun and
+                                    stress-free way.</p>
                                 <p>By repeating questions and getting immediate feedback, learners can:</p>
                                 <ul>
                                     <li>Strengthen memory</li>
@@ -397,7 +428,7 @@
                                     <li>Learn at their own pace</li>
                                 </ul>
                                 <p>Games turn practice into play, which helps children stay motivated longer.</p>
-                                
+
                                 <h3>Tips for Parents and Teachers</h3>
                                 <ul>
                                     <li>Encourage short daily practice instead of long sessions</li>
@@ -405,100 +436,112 @@
                                     <li>Celebrate progress, not just correct answers</li>
                                 </ul>
                                 <p>Mastering the 2 times table is a great first step toward math confidence.</p>
-                                
+
                                 <div class="next-steps">
-                                    <p>Mastering the 2 times table makes learning the 
-                                    <a href="/pages/multiplication-by-4-game.html" class="user-action-link">4 times table</a> 
-                                    much easier. Ready for the next challenge? Try the 
-                                    <a href="/pages/multiplication-by-3-game.html" class="user-action-link">3 times table</a> 
-                                    to explore new patterns!</p>
+                                    <p>Mastering the 2 times table makes learning the
+                                        <a href="/pages/multiplication-by-4-game.html" class="user-action-link">4 times
+                                            table</a>
+                                        much easier. Ready for the next challenge? Try the
+                                        <a href="/pages/multiplication-by-3-game.html" class="user-action-link">3 times
+                                            table</a>
+                                        to explore new patterns!
+                                    </p>
                                 </div>
                             </article>
 
                             <article class="faq-section">
                                 <h2>Frequently Asked Questions</h2>
-                                
+
                                 <div class="faq-item">
                                     <h3>What age is this multiplication game for?</h3>
                                     <p>This game is designed for elementary school students, typically ages 7 to 10.
-                                    It works well for beginners as well as students who need extra practice.</p>
+                                        It works well for beginners as well as students who need extra practice.</p>
                                 </div>
-                                
+
                                 <div class="faq-item">
                                     <h3>How long should a child practice each day?</h3>
                                     <p>Short and regular practice is more effective than long sessions.
-                                    5 to 10 minutes a day is usually enough to build strong recall without causing frustration.</p>
+                                        5 to 10 minutes a day is usually enough to build strong recall without causing
+                                        frustration.</p>
                                 </div>
-                                
+
                                 <div class="faq-item">
                                     <h3>Is this game suitable for beginners?</h3>
                                     <p>Yes. The game is designed to support learners at different levels.
-                                    Students can take their time, learn from mistakes, and improve through repetition.</p>
+                                        Students can take their time, learn from mistakes, and improve through
+                                        repetition.</p>
                                 </div>
-                                
+
                                 <div class="faq-item">
                                     <h3>Do students need to memorize the answers before playing?</h3>
                                     <p>No. Memorization happens naturally through practice.
-                                    The game encourages learning by doing rather than forcing memorization first.</p>
+                                        The game encourages learning by doing rather than forcing memorization first.
+                                    </p>
                                 </div>
-                                
+
                                 <div class="faq-item">
                                     <h3>Can this game be used at home and at school?</h3>
-                                    <p>Yes. This game works well for independent practice at home and as a classroom activity.
-                                    Teachers and parents can both use it to support learning.</p>
+                                    <p>Yes. This game works well for independent practice at home and as a classroom
+                                        activity.
+                                        Teachers and parents can both use it to support learning.</p>
                                 </div>
-                                
+
                                 <div class="faq-item">
                                     <h3>What if a student makes mistakes?</h3>
                                     <p>Making mistakes is part of the learning process.
-                                    The game is designed to provide a low-pressure environment where students can try again and improve.</p>
+                                        The game is designed to provide a low-pressure environment where students can
+                                        try again and improve.</p>
                                 </div>
-                                
+
                                 <div class="faq-item">
                                     <h3>Does this game replace worksheets or classroom teaching?</h3>
                                     <p>No. This game is best used as a supplement to traditional instruction.
-                                    It reinforces what students learn in class and helps build confidence.</p>
+                                        It reinforces what students learn in class and helps build confidence.</p>
                                 </div>
-                                
+
                                 <div class="faq-item">
                                     <h3>Why is learning multiplication tables important?</h3>
-                                    <p>Multiplication tables are the foundation for many math skills, including division, fractions, and problem-solving.
-                                    Strong multiplication skills make future math learning easier and less stressful.</p>
+                                    <p>Multiplication tables are the foundation for many math skills, including
+                                        division, fractions, and problem-solving.
+                                        Strong multiplication skills make future math learning easier and less
+                                        stressful.</p>
                                 </div>
                             </article>
 
                             <article class="for-teachers-section">
                                 <h2>For Teachers</h2>
-                                <p>This multiplication game is designed to support both classroom instruction and independent practice.</p>
-                                
+                                <p>This multiplication game is designed to support both classroom instruction and
+                                    independent practice.</p>
+
                                 <h3>How Teachers Can Use This Game</h3>
                                 <ul>
                                     <li>Use it as a warm-up activity before introducing a new multiplication table</li>
                                     <li>Assign short practice sessions for individual or small-group learning</li>
                                     <li>Encourage students to play multiple rounds to build automatic recall</li>
                                 </ul>
-                                
+
                                 <h3>Classroom Benefits</h3>
                                 <ul>
                                     <li>Reduces math anxiety through low-pressure practice</li>
                                     <li>Supports different learning speeds</li>
                                     <li>Reinforces multiplication facts through repetition and play</li>
                                 </ul>
-                                
+
                                 <h3>Suggested Use</h3>
                                 <ul>
                                     <li>Ideal for grades 2–4</li>
                                     <li>Works well for 5–10 minute practice sessions</li>
                                     <li>Can be used alongside worksheets or direct instruction</li>
                                 </ul>
-                                
-                                <p>This game helps students build confidence while allowing teachers to focus on instruction rather than drilling.</p>
+
+                                <p>This game helps students build confidence while allowing teachers to focus on
+                                    instruction rather than drilling.</p>
                             </article>
                         </div>
                         <!-- SEO文章区域结束 -->
                     </div>
                 </div>
-                
+
                 <!-- 右侧边栏 -->
                 <div class="right-sidebar">
                     <div class="question-box">
@@ -511,7 +554,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- 页脚部分 -->
     <footer>
         <div class="container">
@@ -521,92 +564,70 @@
 
     <!-- 游戏逻辑 -->
     <script src="../js/multiplication-game.js"></script>
-    
-    <!-- 移动端布局优化 -->
+
+    <!-- 移动端布局优化JavaScript -->
     <script>
-        // 移动端宽度优化
+        // 移动端布局优化
         function optimizeMobileLayout() {
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             const isPortrait = window.innerHeight > window.innerWidth;
 
             if (isMobile && isPortrait) {
-                console.log('移动端竖屏优化，屏幕宽度:', window.innerWidth);
+                console.log('移动端优化: 屏幕宽度', window.innerWidth, 'px');
 
-                // 1. 获取游戏容器
+                // 获取游戏容器
                 const gameContainer = document.querySelector('.multiplication-game');
                 if (gameContainer) {
-                    // 移除所有宽度限制
+                    // 移除宽度限制，充分利用屏幕
                     gameContainer.style.maxWidth = 'none';
                     gameContainer.style.width = '100%';
                 }
 
-                // 2. 获取算式容器
+                // 确保算式容器正确显示两列
                 const equationsContainer = document.getElementById('equations-container');
                 if (equationsContainer) {
-                    // 设置精确的网格布局
+                    // 计算可用宽度
                     const screenWidth = window.innerWidth;
-                    const padding = 16; // 左右内边距
-                    const gap = 8; // 列间距
+                    const padding = 5; // 左右内边距
+                    const gap = 6; // 列间距
                     const availableWidth = screenWidth - (padding * 2);
 
                     // 计算每个算式的理想宽度
                     const columnWidth = Math.floor((availableWidth - gap) / 2);
 
-                    equationsContainer.style.gridTemplateColumns = `repeat(2, ${columnWidth}px)`;
-                    equationsContainer.style.justifyContent = 'center';
+                    // 设置网格列宽
+                    equationsContainer.style.gridTemplateColumns = `repeat(2, minmax(${columnWidth}px, 1fr))`;
 
-                    console.log('网格列宽:', columnWidth, 'px');
+                    console.log('算式列宽:', columnWidth, 'px');
                 }
 
-                // 3. 确保算式文本不换行
+                // 确保算式文本不换行
                 const equationTexts = document.querySelectorAll('.equation span');
                 equationTexts.forEach(text => {
                     text.style.whiteSpace = 'nowrap';
-                    text.style.overflow = 'hidden';
-                    text.style.textOverflow = 'ellipsis';
-                });
-
-                // 4. 检查是否真的有换行问题
-                const equations = document.querySelectorAll('.equation');
-                equations.forEach((eq, index) => {
-                    const rect = eq.getBoundingClientRect();
-                    const parentRect = eq.parentElement.getBoundingClientRect();
-
-                    if (rect.width > parentRect.width / 2) {
-                        console.warn(`算式 ${index + 1} 可能过宽: ${rect.width}px`);
-
-                        // 进一步压缩
-                        eq.style.padding = '4px';
-                        eq.style.fontSize = '0.9em';
-                    }
                 });
             }
         }
 
         // 页面加载后执行
         document.addEventListener('DOMContentLoaded', function () {
-            // 延迟执行，确保CSS加载
+            // 延迟执行，确保CSS加载完成
             setTimeout(optimizeMobileLayout, 100);
 
-            // 监听窗口变化
+            // 监听窗口大小变化
             let resizeTimer;
             window.addEventListener('resize', function () {
                 clearTimeout(resizeTimer);
                 resizeTimer = setTimeout(optimizeMobileLayout, 250);
             });
 
-            // 监听方向变化
+            // 监听设备方向变化
             window.addEventListener('orientationchange', function () {
                 setTimeout(optimizeMobileLayout, 300);
             });
         });
     </script>
-    
-    <!-- 模板的JavaScript代码 -->
-    <script>
-        // 问答栏功能
-        function initPoll() {
-        // ... 现有代码 ...
+
     <!-- 模板的JavaScript代码 -->
     <script>
         // 问答栏功能
@@ -626,10 +647,11 @@
             });
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // 初始化问答栏
             initPoll();
         });
     </script>
 </body>
+
 </html>
