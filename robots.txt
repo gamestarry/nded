@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /css/
+Disallow: /js/
+Disallow: /img/
 
 Sitemap: https://www.nd-ed.org/sitemap.xml
