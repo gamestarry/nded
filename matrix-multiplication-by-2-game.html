@@ -444,6 +444,7 @@
             margin-top: -5px;
             box-shadow: var(--clay-shadow);
             border: 2px solid rgba(255, 255, 255, 0.5);
+            position: relative;
         }
 
         /* 游戏标题 */
@@ -931,6 +932,69 @@
             display: flex;
             align-items: center;
             color: white;
+        }
+
+        /* ================== 音效控制按钮样式 ================== */
+        .sound-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .sound-toggle-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--clay-primary);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--clay-shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .sound-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow:
+                12px 12px 24px rgba(0, 0, 0, 0.15),
+                -6px -6px 16px rgba(255, 255, 255, 0.9);
+        }
+
+        .sound-toggle-btn.muted {
+            background: var(--clay-gray);
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .sound-controls {
+                top: 15px;
+                right: 15px;
+            }
+
+            .sound-toggle-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sound-controls {
+                top: 10px;
+                right: 10px;
+            }
+
+            .sound-toggle-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
         }
 
         /* ================== SEO文章样式 ================== */
@@ -1684,6 +1748,11 @@
                         <!-- 已移除文字部分 -->
 
                         <div class="game-wrapper">
+                            <!-- 音效控制按钮 - 移动到游戏容器内右上角 -->
+                            <div class="sound-controls">
+                                <button id="soundToggleBtn" class="sound-toggle-btn">🔊</button>
+                            </div>
+
                             <!-- 游戏标题 -->
                             <h1 class="game-title">Matrix Multiplication Rules</h1>
 
@@ -1763,7 +1832,8 @@
                                         Training</button>
                                     <a href="https://matrixcalcu.com/en/matrix-multiplication-calculator"
                                         target="_blank" class="btn btn-link">📈 Matrix Calculator ↗</a>
-                                    <button class="btn btn-blue" onclick="window.location.href='matrix-multiplication-by-3-game.html'">🌌 Advance
+                                    <button class="btn btn-blue"
+                                        onclick="window.location.href='matrix-multiplication-by-3-game.html'">🌌 Advance
                                         to 3x3</button>
                                 </div>
                             </div>
@@ -2060,6 +2130,60 @@
 
     <!-- 游戏JavaScript代码 -->
     <script>
+        /* ================== Audio Manager ================== */
+        const AudioManager = {
+            enabled: true,
+            sounds: {},
+
+            init() {
+                // 读取本地存储状态
+                const saved = localStorage.getItem('matrix_game_sound');
+                if (saved !== null) {
+                    this.enabled = saved === 'true';
+                }
+
+                // 创建音频对象
+                this.sounds.correct = new Audio('assets/audio/correct.mp3');
+                this.sounds.wrong = new Audio('assets/audio/wrong.mp3');
+                this.sounds.complete = new Audio('assets/audio/complete.mp3');
+
+                Object.values(this.sounds).forEach(sound => {
+                    sound.volume = 0.6;
+                });
+
+                this.updateUI();
+            },
+
+            play(name) {
+                if (!this.enabled) return;
+                const sound = this.sounds[name];
+                if (!sound) return;
+
+                sound.currentTime = 0;
+                sound.play().catch(() => { });
+            },
+
+            toggle() {
+                this.enabled = !this.enabled;
+                localStorage.setItem('matrix_game_sound', this.enabled);
+                this.updateUI();
+            },
+
+            updateUI() {
+                const btn = document.getElementById('soundToggleBtn');
+                if (!btn) return;
+
+                if (this.enabled) {
+                    btn.innerText = '🔊';
+                    btn.classList.remove('muted');
+                } else {
+                    btn.innerText = '🔇';
+                    btn.classList.add('muted');
+                }
+            }
+        };
+        /* ================== End Audio Manager ================== */
+
         // 设备检测
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
@@ -2322,13 +2446,24 @@
             if (idx === 3) correct = (!isA && r === 1 && c === state.target.c);
 
             if (correct && !slot.classList.contains('filled')) {
+                // 播放正确音效
+                AudioManager.play('correct');
+
                 slot.innerText = draggedCell.innerText;
                 slot.classList.add('filled');
                 slot.style.backgroundColor = isA ? 'var(--clay-primary)' : 'var(--clay-accent-yellow)';
                 state.target.count++;
-                if (state.target.count === 4) endCell();
+
+                if (state.target.count === 4) {
+                    // 单元格完成音效（单个单元格完成）- 改为correct.mp3
+                    AudioManager.play('correct');
+                    endCell();
+                }
 
                 slot.classList.remove('hover');
+            } else {
+                // 播放错误音效
+                AudioManager.play('wrong');
             }
         }
 
@@ -2459,7 +2594,12 @@
             if (state.isDragging) cleanupDrag();
 
             state.solved++;
+
+            // 检查是否完成整个矩阵（4个单元格）
             if (state.solved === 4) {
+                // 播放关卡完成音效 - 保持使用complete.mp3
+                AudioManager.play('complete');
+
                 state.level++;
 
                 // 保存进度到本地存储
@@ -2580,6 +2720,14 @@
         // 页面初始化
         document.addEventListener('DOMContentLoaded', function () {
             initEvents();
+            // 初始化音频管理器
+            AudioManager.init();
+
+            // 为音效开关按钮添加点击事件
+            document.getElementById('soundToggleBtn')
+                .addEventListener('click', function () {
+                    AudioManager.toggle();
+                });
 
             // 根据保存的进度设置UI
             if (state.level > 0) {

@@ -446,6 +446,16 @@
             box-shadow: var(--clay-shadow);
             border: 2px solid rgba(255, 255, 255, 0.5);
             font-family: 'Quicksand', sans-serif;
+            position: relative;
+        }
+
+        /* 游戏标题容器 */
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            position: relative;
         }
 
         /* 游戏标题 */
@@ -454,10 +464,54 @@
             font-weight: 800;
             color: var(--clay-dark-bg);
             text-align: center;
-            margin: 0 0 8px 0;
+            margin: 0;
             padding: 0 5px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
             line-height: 1.2;
+            flex: 1;
+        }
+
+        /* 声音控制按钮位置 */
+        .game-sound-controls {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 10;
+        }
+
+        .sound-toggle-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(107, 148, 255, 0.5);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--clay-shadow);
+            transition: all 0.25s ease;
+            color: var(--clay-primary);
+        }
+
+        .sound-toggle-btn:hover {
+            transform: scale(1.1);
+            background: var(--clay-primary);
+            color: white;
+            border-color: var(--clay-primary);
+        }
+
+        .sound-toggle-btn.muted {
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--clay-gray);
+            border-color: var(--clay-gray);
+        }
+
+        .sound-toggle-btn.muted:hover {
+            background: var(--clay-gray);
+            color: white;
+            border-color: var(--clay-gray);
         }
 
         /* 星星容器，包含返回按钮和星星 */
@@ -1270,9 +1324,28 @@
                 margin-top: -3px;
             }
 
+            .game-header {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
             .game-title {
                 font-size: 1.6rem;
                 margin-bottom: 8px;
+                text-align: center;
+            }
+
+            .game-sound-controls {
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+
+            .sound-toggle-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1.3rem;
             }
 
             .stars-container {
@@ -1495,6 +1568,17 @@
             .game-wrapper {
                 padding: 8px !important;
                 border-radius: 16px;
+            }
+
+            .game-sound-controls {
+                top: -5px;
+                right: -5px;
+            }
+
+            .sound-toggle-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 1.1rem;
             }
 
             .playground {
@@ -1729,7 +1813,13 @@
                     <div class="dynamic-content-container">
                         <div class="game-wrapper">
                             <!-- 3x3游戏开始 -->
-                            <h1 class="game-title">Matrix Multiplication Rules</h1>
+                            <div class="game-header">
+                                <h1 class="game-title">Matrix Multiplication Rules</h1>
+                                <!-- 声音控制按钮放在游戏右上角 -->
+                                <div class="game-sound-controls">
+                                    <button id="soundToggleBtn" class="sound-toggle-btn">🔊</button>
+                                </div>
+                            </div>
 
                             <!-- 修改弹窗结构，为第三关添加不同的按钮 -->
                             <div id="miniNotice">
@@ -2127,6 +2217,60 @@
 
     <!-- 3x3游戏JavaScript代码 -->
     <script>
+        /* ================== Audio Manager ================== */
+        const AudioManager = {
+            enabled: true,
+            sounds: {},
+
+            init() {
+                // 读取本地存储状态
+                const saved = localStorage.getItem('matrix_game_sound');
+                if (saved !== null) {
+                    this.enabled = saved === 'true';
+                }
+
+                // 创建音频对象
+                this.sounds.correct = new Audio('assets/audio/correct.mp3');
+                this.sounds.wrong = new Audio('assets/audio/wrong.mp3');
+                this.sounds.complete = new Audio('assets/audio/complete.mp3');
+
+                Object.values(this.sounds).forEach(sound => {
+                    sound.volume = 0.6;
+                });
+
+                this.updateUI();
+            },
+
+            play(name) {
+                if (!this.enabled) return;
+                const sound = this.sounds[name];
+                if (!sound) return;
+
+                sound.currentTime = 0;
+                sound.play().catch(() => { });
+            },
+
+            toggle() {
+                this.enabled = !this.enabled;
+                localStorage.setItem('matrix_game_sound', this.enabled);
+                this.updateUI();
+            },
+
+            updateUI() {
+                const btn = document.getElementById('soundToggleBtn');
+                if (!btn) return;
+
+                if (this.enabled) {
+                    btn.innerText = '🔊';
+                    btn.classList.remove('muted');
+                } else {
+                    btn.innerText = '🔇';
+                    btn.classList.add('muted');
+                }
+            }
+        };
+        /* ================== End Audio Manager ================== */
+
         // 1. 游戏状态 - 包含完整的拖拽状态
         let game = {
             level: 0,
@@ -2165,6 +2309,13 @@
             game.practiceMode = false;
 
             initEvents();
+            AudioManager.init();
+
+            // 添加音效开关按钮点击事件
+            document.getElementById('soundToggleBtn')
+                .addEventListener('click', function () {
+                    AudioManager.toggle();
+                });
         });
 
         // 3. 初始化事件（统一使用Pointer Events）
@@ -2398,14 +2549,21 @@
             if (idx === 5) ok = (!isA && r === 2 && c === game.target.c);
 
             if (ok && !slot.classList.contains('filled')) {
+                AudioManager.play('correct');
+
                 slot.innerText = draggedCell.innerText;
                 slot.classList.add('filled');
                 slot.style.backgroundColor = isA ? 'var(--clay-primary)' : 'var(--clay-accent-yellow)';
                 slot.style.borderColor = isA ? 'var(--clay-primary)' : 'var(--clay-accent-yellow)';
                 game.target.count++;
-                if (game.target.count === 6) finishTask();
+                if (game.target.count === 6) {
+                    AudioManager.play('correct');
+                    finishTask();
+                }
 
                 slot.classList.remove('hover');
+            } else {
+                AudioManager.play('wrong');
             }
         }
 
@@ -2537,6 +2695,9 @@
         }
 
         function showSuccess() {
+            // 播放关卡完成音效
+            AudioManager.play('complete');
+
             document.getElementById('noticeTitle').innerText = "Level " + game.level + " Cleared!";
             document.getElementById('noticeBody').innerText = "Your matrix skills are growing.";
 
@@ -2551,6 +2712,9 @@
         }
 
         function victory() {
+            // 播放最终胜利音效
+            AudioManager.play('complete');
+
             document.getElementById('noticeTitle').innerText = "🏆 Grand Master!";
             document.getElementById('noticeBody').innerText = "You have fully mastered 3x3 Matrix Multiplication!";
             document.getElementById('practiceText').innerText = "Congratulations! You've mastered 3x3 matrix multiplication!";
