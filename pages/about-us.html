@@ -3,16 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn what fractions, decimals, and percents are, and how the Fraction, Decimal, and Percent Memory Game by NDED Education Group helps students build fast and confident math fluency.">
-    <meta name="keywords" content="fractions decimals percents, math fluency, fraction decimal percent game, math memory game, NDED Education Group, free math game">
-    <meta name="author" content="NDED Education Group">
-    <title>About Us | Fraction, Decimal & Percent Memory Game | NDED</title>
+    <!-- SEO优化：针对About Us页面的元描述和关键词 -->
+    <meta name="description" content="Learn about NDED - an education initiative helping learners build strong mathematical foundations through game-based learning. Discover our human-centered approach to reducing math anxiety.">
+    <meta name="keywords" content="NDED about us, mathematics education, game-based learning, math anxiety, mathematical foundations, math games, educational initiative">
+    <meta name="author" content="NDED">
+    <!-- 针对About页面的优化标题 -->
+    <title>About NDED - Building Mathematical Confidence Through Game-Based Learning</title>
+    
+    <!-- Open Graph 元标签，提升社交媒体分享体验 -->
+    <meta property="og:title" content="About NDED - Building Mathematical Confidence Through Game-Based Learning">
+    <meta property="og:description" content="Discover how NDED transforms math education through game-based learning to build lifelong mathematical confidence.">
+    <meta property="og:type" content="website">
     
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Fonts for NDED styling -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="canonical" href="https://www.nd-ed.org/about-us.html">
     
     <style>
         :root {
@@ -83,40 +89,152 @@
             z-index: 1;
         }
 
-        /* 动态内容容器样式 */
-        .dynamic-content-container {
+        /* 动态内容容器样式 - About Us页面专用 */
+        .about-content-container {
             background-color: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            padding: 2rem;
+            padding: 2.5rem;
             margin-bottom: 2rem;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
-        .dynamic-content-container h2 {
+        .about-content-container h1 {
             color: var(--primary-color);
             margin-bottom: 1.5rem;
             text-align: center;
-            border-bottom: none;
-            padding-bottom: 0;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 1rem;
+            font-size: 2.2rem;
+        }
+        
+        /* 添加装饰性图标 */
+        .about-content-container h1::before {
+            content: "\f19c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-color);
+            margin-right: 0.8rem;
+            font-size: 1.8rem;
         }
 
-        .dynamic-content-container p {
+        .about-content-container h2 {
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem 0;
+            font-size: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 0.8rem;
+        }
+
+        .about-content-container p {
             color: var(--dark-color);
-            text-align: center;
-            max-width: 600px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+            text-align: justify;
         }
-
-        .placeholder-content {
-            text-align: center;
-            color: #7f8c8d;
+        
+        /* 突出显示关键句子 */
+        .highlight-box {
+            background-color: rgba(52, 152, 219, 0.08);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .highlight-box p {
             font-style: italic;
-            padding: 2rem;
-            border: 2px dashed #ddd;
+            font-weight: 500;
+            margin-bottom: 0;
+            color: var(--primary-color);
+        }
+        
+        /* 特点部分样式 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-item {
+            background-color: #f8fafc;
             border-radius: var(--border-radius);
-            margin-top: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border-top: 3px solid var(--accent-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .feature-item p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+        
+        /* 使命宣言样式 */
+        .mission-statement {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            border-radius: var(--border-radius);
+            margin: 2.5rem 0;
+            position: relative;
+        }
+        
+        .mission-statement::before {
+            content: "\f0eb";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--box-shadow);
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+        
+        .mission-statement p {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--primary-color);
+            font-style: italic;
+        }
+        
+        /* 页面最后更新信息 */
+        .page-updated {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
         }
 
         /* 左侧导航栏样式 */
@@ -390,6 +508,12 @@
         }
         
         /* 响应式设计 */
+        @media (max-width: 992px) {
+            .features-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
         @media (max-width: 768px) {
             .main-row {
                 flex-direction: column;
@@ -439,6 +563,18 @@
                 font-size: 0.855rem; /* 从0.95rem减小到0.855rem，缩小10% */
                 padding: 0.675rem 0.45rem; /* 从0.75rem 0.5rem减小到0.675rem 0.45rem，缩小10% */
             }
+            
+            .about-content-container {
+                padding: 1.5rem;
+            }
+            
+            .about-content-container h1 {
+                font-size: 1.8rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 480px) {
@@ -452,130 +588,10 @@
                 font-size: 0.81rem; /* 从0.9rem减小到0.81rem，缩小10% */
                 padding: 0.585rem 0.36rem; /* 从0.65rem 0.4rem减小到0.585rem 0.36rem，缩小10% */
             }
-        }
-
-        /* About Us 页面特定样式 */
-        .about-article {
-            padding: 2rem;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            color: #222;
-            line-height: 1.7;
-            width: 100%;
-        }
-
-        .about-article header {
-            background: none;
-            color: inherit;
-            padding: 0;
-            margin-bottom: 3rem;
-            text-align: left;
-            box-shadow: none;
-            border-radius: 0;
-            display: block;
-            min-height: auto;
-            transform: none;
-        }
-
-        .about-article header::before {
-            display: none;
-        }
-
-        .about-article h1 {
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-            text-align: left;
-        }
-
-        .about-article header p {
-            font-size: 1.05rem;
-            color: #555;
-            max-width: 720px;
-            text-align: left;
-        }
-
-        .about-article section {
-            margin-bottom: 3.5rem;
-        }
-
-        .about-article h2 {
-            font-size: 1.6rem;
-            margin-bottom: 1.25rem;
-            border-left: 4px solid #2563eb;
-            padding-left: 12px;
-            color: var(--primary-color);
-            text-align: left;
-        }
-
-        .about-article h3 {
-            font-size: 1.2rem;
-            margin-top: 1.75rem;
-            margin-bottom: 0.75rem;
-            text-align: left;
-        }
-
-        .about-article p {
-            margin-bottom: 1rem;
-            text-align: left;
-        }
-
-        .about-article ul {
-            margin: 1rem 0 1rem 1.5rem;
-        }
-
-        .about-article li {
-            margin-bottom: 0.625rem;
-        }
-
-        .about-article .example-box {
-            background: #f1f5f9;
-            border-left: 4px solid #38bdf8;
-            padding: 1rem 1.25rem;
-            margin: 1.5rem 0;
-            font-size: 1.05rem;
-            border-radius: var(--border-radius);
-        }
-
-        .about-article .levels {
-            background: #f8fafc;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-        }
-
-        .about-article .levels p strong {
-            display: inline-block;
-            min-width: 72px;
-        }
-
-        .about-article .highlight {
-            font-weight: 600;
-            color: #1e40af;
-        }
-
-        .about-article footer {
-            background: none;
-            color: #444;
-            text-align: left;
-            padding: 0;
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid #e5e7eb;
-            font-size: 0.95rem;
-        }
-
-        .about-article .contact {
-            background: #f1f5f9;
-            padding: 1.25rem;
-            border-radius: var(--border-radius);
-        }
-
-        .about-article a {
-            color: #2563eb;
-            text-decoration: none;
-        }
-
-        .about-article a:hover {
-            text-decoration: underline;
+            
+            .mission-statement p {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -584,6 +600,7 @@
     <header>
         <div class="container">
             <h1 class="main-title">
+                <!-- 使用h1标签包装NDED，提升SEO -->
                 <span class="nded-text">NDED</span>
                 <span class="subtitle">building mathematical confidence for life.</span>
             </h1>
@@ -605,170 +622,62 @@
                     </div>
                 </div>
                 
-                <!-- 主内容区域 - 包含 About Us 文章 -->
+                <!-- 主内容区域 - About Us页面 -->
                 <div class="main-content">
-                    <div class="dynamic-content-container about-article">
-                        <header>
-                            <h1>About the Fraction, Decimal, and Percent Memory Game</h1>
-                            <p>
-                                Understanding fractions, decimals, and percents is a core math skill.
-                                This page explains why these concepts matter, why students often struggle,
-                                and how our memory-based game helps build lasting math fluency.
-                            </p>
-                        </header>
-
-                        <section>
-                            <h2>What Are Fractions, Decimals, and Percents?</h2>
-
-                            <p>
-                                Fractions, decimals, and percents are three different ways to represent the same numerical value.
-                            </p>
-
-                            <div class="example-box">
-                                <strong>Example:</strong><br />
-                                1/2 &nbsp; = &nbsp; 0.5 &nbsp; = &nbsp; 50%
+                    <div class="about-content-container">
+                        <h1>About NDED</h1>
+                        
+                        <p><strong>NDED</strong> is an education initiative dedicated to helping learners build strong mathematical foundations through game-based learning. We focus on essential skills—such as multiplication tables and core mathematical formulas—that many students struggle to memorize using traditional methods.</p>
+                        
+                        <div class="highlight-box">
+                            <p>We transform abstract and repetitive math concepts into interactive, low-pressure games that support memory, understanding, and confidence.</p>
+                        </div>
+                        
+                        <h2>The Challenge in Traditional Math Education</h2>
+                        <p>Across many education systems, mathematics is often taught through pressure, repetition, and fear of mistakes. Over time, this leads not only to weak fundamentals, but also to long-lasting math anxiety that affects confidence in everyday life. At NDED, we believe this does not have to be the case.</p>
+                        
+                        <h2>Our Human-Centered Approach</h2>
+                        <p>Our approach is simple and human-centered: we transform abstract and repetitive math concepts into interactive, low-pressure games that support memory, understanding, and confidence. By reducing cognitive load and emotional stress, learners are able to engage with mathematics naturally—without feeling overwhelmed.</p>
+                        
+                        <!-- 特点网格 -->
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <h3>Game-Based Learning</h3>
+                                <p>We turn abstract math concepts into engaging, interactive games that make learning enjoyable and effective.</p>
                             </div>
-
-                            <p>
-                                All three represent the same amount, but in different forms.
-                                In math learning and everyday life, students are expected to move easily
-                                between these representations—whether calculating discounts, understanding ratios,
-                                or solving word problems.
-                            </p>
-
-                            <p>
-                                Difficulty with these conversions often slows students down
-                                and increases math anxiety.
-                            </p>
-                        </section>
-
-                        <section>
-                            <h2>What Is the Fraction, Decimal, and Percent Memory Game?</h2>
-
-                            <p>
-                                The <span class="highlight">Fraction, Decimal, and Percent Memory Game</span>
-                                is a free interactive math game designed to build fluency and instant recognition,
-                                not step-by-step calculation.
-                            </p>
-
-                            <p>
-                                Instead of focusing on long procedures, the game helps learners form strong mental connections
-                                between fractions, decimals, and percents, so that:
-                            </p>
-
-                            <ul>
-                                <li>Seeing one form immediately triggers the other two</li>
-                                <li>Conversions become fast and automatic</li>
-                                <li>Less mental effort is spent on basic recognition</li>
-                            </ul>
-
-                            <p>
-                                This type of fluency allows students to focus on understanding and problem-solving
-                                rather than calculation mechanics.
-                            </p>
-                        </section>
-
-                        <section>
-                            <h2>How Does the Game Work?</h2>
-
-                            <p>
-                                The game includes four progressive levels, each designed to strengthen conversion skills
-                                from a different starting point:
-                            </p>
-
-                            <div class="levels">
-                                <p><strong>Level 1:</strong> A fraction is given. Players drag and place the matching decimal and percent.</p>
-                                <p><strong>Level 2:</strong> A decimal is given. Players complete the corresponding fraction and percent.</p>
-                                <p><strong>Level 3:</strong> A percent is given. Players complete the corresponding fraction and decimal.</p>
-                                <p><strong>Level 4:</strong> All three fields are empty. Players match the correct fraction, decimal, and percent.</p>
+                            
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <h3>Reduced Cognitive Load</h3>
+                                <p>Our methods minimize the mental effort required to learn, making mathematics more accessible to all learners.</p>
                             </div>
-
-                            <p>
-                                The game provides instant visual feedback.
-                                Answers can be adjusted freely, allowing players to recognize mistakes
-                                and correct them independently.
-                                When all matches are correct, the game automatically moves to the next round.
-                            </p>
-
-                            <p>
-                                This low-pressure design supports confidence, accuracy, and long-term memory.
-                            </p>
-                        </section>
-
-                        <section>
-                            <h2>Who Created This Game? Is It Free?</h2>
-
-                            <p>
-                                The Fraction, Decimal, and Percent Memory Game was developed by
-                                <strong>NDED Education Group</strong>.
-                            </p>
-
-                            <p>
-                                NDED's mission is to rethink how mathematics is learned by combining technology,
-                                game-based design, and structured practice to help students build strong foundations
-                                with less stress and more confidence.
-                            </p>
-
-                            <p class="highlight">
-                                This game is completely free to use.
-                            </p>
-                        </section>
-
-                        <section>
-                            <h2>How Can This Game Be Used?</h2>
-
-                            <p>This free online math game is suitable for:</p>
-
-                            <ul>
-                                <li>Upper elementary and middle school students</li>
-                                <li>Learners who need extra practice with fractions, decimals, and percents</li>
-                                <li>Parents supporting math practice at home</li>
-                                <li>Teachers using interactive tools for classroom or review activities</li>
-                            </ul>
-
-                            <p>
-                                Short, repeated practice sessions are recommended.
-                                Even a few minutes at a time can significantly improve math fluency and speed.
-                            </p>
-                        </section>
-
-                        <section>
-                            <h2>Do I Need to Register or Log In?</h2>
-
-                            <p>
-                                <strong>No.</strong><br />
-                                This fraction, decimal, and percent practice game does not require registration or login.
-                                Players can start practicing immediately.
-                            </p>
-                        </section>
-
-                        <section>
-                            <h2>Feedback and Suggestions</h2>
-
-                            <div class="contact">
-                                <p>
-                                    We welcome feedback, suggestions, and bug reports from users around the world.
-                                </p>
-
-                                <p>
-                                    NDED Education Group is committed to continuously improving this fraction, decimal,
-                                    and percent conversion game and expanding it with additional fluency-based math tools.
-                                </p>
-
-                                <p>
-                                    If you would like to share your experience, please contact us at:<br />
-                                    <a href="mailto:info@nd-ed.org">info@nd-ed.org</a>
-                                </p>
-
-                                <p>
-                                    Your feedback helps us build better learning tools for everyone.
-                                </p>
+                            
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <h3>Emotional Support</h3>
+                                <p>We create low-pressure environments that reduce math anxiety and build confidence alongside skills.</p>
                             </div>
-                        </section>
-
-                        <footer>
-                            © NDED Education Group. All rights reserved.
-                        </footer>
+                        </div>
+                        
+                        <h2>Our Philosophy: Beyond Competition</h2>
+                        <p><strong>NDED is not about racing ahead or competing for scores.</strong> It is about helping learners truly retain what matters, so mathematics becomes a useful tool throughout adulthood—supporting logical thinking, problem-solving, and participation in an increasingly complex economic world.</p>
+                        
+                        <!-- 使命宣言 -->
+                        <div class="mission-statement">
+                            <p>We believe that when foundational math is learned with clarity and confidence, it serves people for a lifetime.</p>
+                        </div>
+                        
+                        <!-- 页面最后更新信息 -->
+                        <div class="page-updated">
+                            <p><i class="fas fa-info-circle"></i> This page was last updated: March 2026</p>
+                        </div>
                     </div>
                 </div>
                 
@@ -814,6 +723,20 @@
         document.addEventListener('DOMContentLoaded', function() {
             // 初始化问答栏
             initPoll();
+            
+            // 为当前页面导航按钮添加活动状态
+            const currentPage = window.location.pathname.split('/').pop();
+            const navButtons = document.querySelectorAll('.nav-button');
+            
+            navButtons.forEach(button => {
+                if (button.getAttribute('href') === currentPage || 
+                    (currentPage === '' && button.getAttribute('href') === 'index.html') ||
+                    (currentPage.includes('about') && button.getAttribute('href').includes('about'))) {
+                    button.style.backgroundColor = 'var(--secondary-color)';
+                    button.style.color = 'white';
+                    button.style.borderColor = 'var(--secondary-color)';
+                }
+            });
         });
     </script>
 </body>
