@@ -1910,6 +1910,45 @@
                                                 <li>Reach Master Mode to unlock more tools and challenges</li>
                                             </ul>
                                         </div>
+
+                                        <!-- 嵌入视频：在“1. How to Play”部分的结尾处插入 -->
+                                        <div class="video-section" style="margin-top: 25px;">
+                                            <p
+                                                style="font-weight: bold; color: #2c3e50; margin-bottom: 12px; text-align: center;">
+                                                <i class="fas fa-play-circle"></i> Watch Video Tutorial: How to Play
+                                                Matrix Weaver
+                                            </p>
+                                            <div class="video-responsive-container">
+                                                <iframe
+                                                    src="https://www.youtube.com/embed/H3C-vxsq64U?si=Wd1z8PtH7A3zOChy"
+                                                    title="YouTube video player" frameborder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                                </iframe>
+                                            </div>
+                                        </div>
+
+                                        <style>
+                                            /* 确保视频按 16:9 比例自适应 */
+                                            .video-responsive-container {
+                                                position: relative;
+                                                padding-bottom: 56.25%;
+                                                height: 0;
+                                                overflow: hidden;
+                                                max-width: 100%;
+                                                background: #000;
+                                                border-radius: 10px;
+                                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                                            }
+
+                                            .video-responsive-container iframe {
+                                                position: absolute;
+                                                top: 0;
+                                                left: 0;
+                                                width: 100%;
+                                                height: 100%;
+                                            }
+                                        </style>
                                     </div>
 
                                     <!-- Part 2: 2×2 Matrix Multiplication Rules -->
