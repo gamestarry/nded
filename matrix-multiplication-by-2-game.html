@@ -1929,24 +1929,34 @@
                                         </div>
 
                                         <style>
-                                            /* 确保视频按 16:9 比例自适应 */
+                                            /* 视频外层容器：控制整体尺寸 */
+                                            .video-section {
+                                                max-width: 480px;
+                                                /* 老师建议：设为480px，大约是之前的一半，非常精致 */
+                                                margin: 25px auto;
+                                                /* 居中显示 */
+                                                padding: 0 15px;
+                                            }
+                                        
+                                            /* 视频比例容器：依然保持 16:9 */
                                             .video-responsive-container {
                                                 position: relative;
                                                 padding-bottom: 56.25%;
                                                 height: 0;
                                                 overflow: hidden;
-                                                max-width: 100%;
                                                 background: #000;
-                                                border-radius: 10px;
-                                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                                                border-radius: 8px;
+                                                /* 缩小后，圆角也可以稍微调小一点点更协调 */
+                                                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
                                             }
-
+                                        
                                             .video-responsive-container iframe {
                                                 position: absolute;
                                                 top: 0;
                                                 left: 0;
                                                 width: 100%;
                                                 height: 100%;
+                                                border: none;
                                             }
                                         </style>
                                     </div>
