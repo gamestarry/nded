@@ -1263,6 +1263,34 @@
             font-size: 0.85rem;
         }
 
+        /* ============ 视频嵌入样式 ============ */
+        .video-section {
+            margin: 35px 0 25px;
+            padding: 0 5px;
+            max-width: 50%;        /* 宽度减半 */
+            margin-left: auto;     /* 水平居中 */
+            margin-right: auto;
+        }
+
+        .video-responsive-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%;
+            /* 16:9 宽高比 */
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-responsive-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
         /* ============ 移动端响应式优化 ============ */
         @media (max-width: 768px) {
             .main-row {
@@ -2005,6 +2033,20 @@
                                         <li>Use "Restart Training" to reset progress anytime</li>
                                         <li>Reach Master Mode to unlock more tools and challenges</li>
                                     </ul>
+                                </div>
+                            </div>
+
+                            <!-- ===== 嵌入的视频：Advanced Strategy (放在 How to Play 下方) ===== -->
+                            <div class="video-section">
+                                <p style="font-weight: bold; color: #2c3e50; margin-bottom: 12px; text-align: center;">
+                                    <i class="fas fa-lightbulb"></i> Advanced Strategy: Mastering Complex Matrices
+                                </p>
+                                <div class="video-responsive-container">
+                                    <iframe src="https://www.youtube.com/embed/r7AJqa-qKec?si=ACg0LDp4eNEmiCiC"
+                                        title="Matrix Weaver Advanced Tutorial" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                    </iframe>
                                 </div>
                             </div>
 
