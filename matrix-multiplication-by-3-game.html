@@ -1598,15 +1598,24 @@
                 border-radius: 16px;
             }
 
-            .game-sound-controls {
-                top: -5px;
-                right: -5px;
-            }
-
-            .sound-toggle-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 1.1rem;
+            @media (max-width: 480px) {
+                .sound-controls {
+                    top: 40px;
+                    right: 10px;
+                }
+                .sound-toggle-btn {
+                    width: 28px;                /* 进一步缩小 */
+                    height: 28px;
+                    font-size: 1.1rem;
+                    background: transparent;     /* 同样移除背景 */
+                    border: none;
+                    box-shadow: none;
+                    color: var(--clay-dark-bg);
+                }
+                .sound-toggle-btn.muted {
+                    background: transparent;
+                    color: #999;
+                }
             }
 
             .playground {
@@ -1766,17 +1775,27 @@
 
         /* 原有的响应式样式 */
         @media (max-width: 768px) {
-            .seo-article-container .teacher-images {
-                flex-direction: column;
-                align-items: center;
+            .sound-controls {
+                top: 60px;
+                right: 15px;
             }
-
-            .seo-article-container .image-container {
-                min-width: 100%;
+            .sound-toggle-btn {
+                width: 30px;                /* 缩小宽度 */
+                height: 30px;                /* 缩小高度 */
+                font-size: 1.2rem;           /* 调整图标大小 */
+                background: transparent;      /* 移除背景色 */
+                border: none;                 /* 移除边框 */
+                box-shadow: none;             /* 移除阴影 */
+                color: var(--clay-dark-bg);   /* 设置深色图标，确保可见 */
             }
-
-            .seo-article-container .game-image {
-                max-width: 100%;
+            .sound-toggle-btn.muted {
+                background: transparent;      /* 静音状态也移除背景 */
+                color: #999;                  /* 静音图标颜色变浅 */
+            }
+            .sound-toggle-btn:hover {
+                background: transparent;      /* 悬停时无背景 */
+                box-shadow: none;
+                transform: scale(1.1);        /* 可保留轻微放大效果 */
             }
         }
 
