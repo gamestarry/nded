@@ -4,4 +4,4 @@ Disallow: /css/
 Disallow: /js/
 Disallow: /img/
 
-Sitemap: https://www.nd-ed.org/sitemap.xml
+Sitemap: https://nd-ed.org/sitemap.xml

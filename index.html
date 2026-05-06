@@ -7,7 +7,7 @@
 
     <!-- 优化的SEO元标签 -->
     <meta name="description"
-        content="Master multiplication tables with our engaging math games. NDED provides free online math practice including multiplication games, fraction matching, and matrix exercises to build mathematical confidence.">
+        content="Play free educational math games for kids, including multiplication practice, fraction matching, and matrix multiplication activities.">
     <meta name="keywords"
         content="multiplication games, math practice online, multiplication table practice, math games online, fraction matching game, matrix multiplication practice, educational math games, learn multiplication online, math drills, math fluency practice">
     <meta name="author" content="NDED">
@@ -16,7 +16,7 @@
     <!-- Open Graph / 社交媒体 -->
     <meta property="og:title" content="Multiplication Games & Math Practice Online | NDED">
     <meta property="og:description"
-        content="Free interactive multiplication games and math practice exercises to help build mathematical confidence and skills.">
+        content="Play free educational math games for kids, including multiplication practice, fraction matching, and matrix multiplication activities.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://nd-ed.org/">
     <meta property="og:image" content="https://nd-ed.org/images/og-image.png">
@@ -550,7 +550,7 @@
         }
 
         /* 增大第一个游戏的标题字体 */
-        #multiplication-game h1 {
+        #multiplication-game h2 {
             color: #2d3748;
             margin: 9px 0 1.8px 0;
             /* 上边距10px减小到9px，其他缩小10% */
@@ -686,7 +686,7 @@
             /* 从46px减小到41.4px，缩小10% */
         }
 
-        #matrix-game h1 {
+        #matrix-game h2 {
             color: #2D3748;
             font-size: 1.98rem;
             /* 从2.2rem减小到1.98rem，缩小10% */
@@ -807,7 +807,7 @@
             margin-top: 20px;
         }
 
-        #fraction-game h1 {
+        #fraction-game h2 {
             color: #2D3748;
             font-size: 1.98rem;
             /* 从2.2rem减小到1.98rem，缩小10% */
@@ -1095,7 +1095,7 @@
             }
 
             /* 移动端调整标题大小 */
-            #multiplication-game h1 {
+            #multiplication-game h2 {
                 font-size: 28.8px;
                 /* 从32px减小到28.8px，缩小10% */
             }
@@ -1119,7 +1119,7 @@
                 /* 从22px减小到19.8px，缩小10% */
             }
 
-            #matrix-game h1 {
+            #matrix-game h2 {
                 font-size: 1.62rem;
                 /* 从1.8rem减小到1.62rem，缩小10% */
                 margin-bottom: 22.5px;
@@ -1151,7 +1151,7 @@
             }
 
             /* 第三个游戏在移动端的调整 */
-            #fraction-game h1 {
+            #fraction-game h2 {
                 font-size: 1.62rem;
                 /* 从1.8rem减小到1.62rem，缩小10% */
                 margin-bottom: 22.5px;
@@ -1226,7 +1226,7 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            #multiplication-game h1 {
+            #multiplication-game h2 {
                 font-size: 25.2px;
                 /* 从28px减小到25.2px，缩小10% */
             }
@@ -1248,7 +1248,7 @@
                 /* 从10px减小到9px，缩小10% */
             }
 
-            #matrix-game h1 {
+            #matrix-game h2 {
                 font-size: 1.44rem;
                 /* 从1.6rem减小到1.44rem，缩小10% */
                 margin-bottom: 18px;
@@ -1280,7 +1280,7 @@
             }
 
             /* 第三个游戏在小屏幕设备上的调整 */
-            #fraction-game h1 {
+            #fraction-game h2 {
                 font-size: 1.44rem;
                 /* 从1.6rem减小到1.44rem，缩小10% */
                 margin-bottom: 18px;
@@ -1346,8 +1346,8 @@
                 <div class="left-sidebar">
                     <h3 class="nav-title">Navigation</h3>
                     <div class="nav-buttons">
-                        <a href="index.html" class="nav-button">Home</a>
-                        <a href="about-us.html" class="nav-button">About us</a>
+                        <a href="/" class="nav-button">Home</a>
+                        <a href="/about-us" class="nav-button">About us</a>
                         <a href="#math-games-section" class="nav-button">Math Games</a>
                         <a href="https://matrixcalcu.com/" target="_blank" class="nav-button external">Matrix
                             Calculator</a>
@@ -1371,40 +1371,40 @@
                                 <div class="game-content">
                                     <div class="game-container">
                                         <div class="header">
-                                            <h1>Multiplication Table</h1>
+                                            <h2>Multiplication Table</h2>
                                             <p class="subtitle">Select a number to start training!</p>
                                         </div>
 
                                         <div class="menu-grid">
-                                            <a href="pages/multiplication-by-2-game.html" class="level-btn btn-2"
+                                            <a href="/pages/multiplication-by-2-game" class="level-btn btn-2"
                                                 onclick="handleMultiplicationJump(event, this)">
                                                 <span>Table</span>2
                                             </a>
-                                            <a href="pages/multiplication-by-3-game.html" class="level-btn btn-3"
+                                            <a href="/pages/multiplication-by-3-game" class="level-btn btn-3"
                                                 onclick="handleMultiplicationJump(event, this)">
                                                 <span>Table</span>3
                                             </a>
-                                            <a href="pages/multiplication-by-4-game.html" class="level-btn btn-4"
+                                            <a href="/pages/multiplication-by-4-game" class="level-btn btn-4"
                                                 onclick="handleMultiplicationJump(event, this)">
                                                 <span>Table</span>4
                                             </a>
-                                            <a href="pages/multiplication-by-5-game.html" class="level-btn btn-5"
+                                            <a href="/pages/multiplication-by-5-game" class="level-btn btn-5"
                                                 onclick="handleMultiplicationJump(event, this)">
                                                 <span>Table</span>5
                                             </a>
-                                            <a href="pages/multiplication-by-6-game.html" class="level-btn btn-6"
+                                            <a href="/pages/multiplication-by-6-game" class="level-btn btn-6"
                                                 onclick="handleMultiplicationJump(event, this)">
                                                 <span>Table</span>6
                                             </a>
-                                            <a href="pages/multiplication-by-7-game.html" class="level-btn btn-7"
+                                            <a href="/pages/multiplication-by-7-game" class="level-btn btn-7"
                                                 onclick="handleMultiplicationJump(event, this)">
                                                 <span>Table</span>7
                                             </a>
-                                            <a href="pages/multiplication-by-8-game.html" class="level-btn btn-8"
+                                            <a href="/pages/multiplication-by-8-game" class="level-btn btn-8"
                                                 onclick="handleMultiplicationJump(event, this)">
                                                 <span>Table</span>8
                                             </a>
-                                            <a href="pages/multiplication-by-9-game.html" class="level-btn btn-9"
+                                            <a href="/pages/multiplication-by-9-game" class="level-btn btn-9"
                                                 onclick="handleMultiplicationJump(event, this)">
                                                 <span>Table</span>9
                                             </a>
@@ -1420,11 +1420,11 @@
                                 <!-- 移除了.game-header部分 -->
                                 <div class="game-content">
                                     <div class="container">
-                                        <h1>Matrix Multiplication</h1>
+                                        <h2>Matrix Multiplication</h2>
 
                                         <div class="matrices">
                                             <!-- 2x2矩阵按钮 -->
-                                            <a href="matrix-multiplication-by-2-game.html" class="matrix-button">
+                                            <a href="/matrix-multiplication-by-2-game" class="matrix-button">
                                                 <div class="matrix-preview matrix-2x2">
                                                     <div class="matrix-cell">a</div>
                                                     <div class="matrix-cell">b</div>
@@ -1435,7 +1435,7 @@
                                             </a>
 
                                             <!-- 3x3矩阵按钮 -->
-                                            <a href="matrix-multiplication-by-3-game.html" class="matrix-button">
+                                            <a href="/matrix-multiplication-by-3-game" class="matrix-button">
                                                 <div class="matrix-preview matrix-3x3">
                                                     <div class="matrix-cell">a</div>
                                                     <div class="matrix-cell">b</div>
@@ -1460,9 +1460,9 @@
                             <div class="additional-game-wrapper" id="fraction-game">
                                 <div class="game-content">
                                     <div class="container">
-                                        <h1>Fraction, Decimal & Percent Memory Game</h1>
+                                        <h2>Fraction, Decimal & Percent Memory Game</h2>
 
-                                        <a href="pages/fraction-match-game.html" class="fraction-button">
+                                        <a href="/pages/fraction-match-game" class="fraction-button">
                                             <div class="fraction-button-text">Fraction Match Game</div>
                                         </a>
 

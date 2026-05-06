@@ -523,7 +523,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 返回首页按钮事件
         document.getElementById('return-home-btn').addEventListener('click', function() {
-            window.location.href = "../index.html";
+            window.location.href = "/";
         });
         
         // 再次练习按钮事件
@@ -538,7 +538,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 点击遮罩层也可以关闭
         overlay.addEventListener('click', function(e) {
             if (e.target === overlay) {
-                window.location.href = "../index.html";
+                window.location.href = "/";
             }
         });
     }
@@ -783,7 +783,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 创建小首页按钮
                 const homeBtn = document.createElement('a');
                 homeBtn.className = 'home-btn-small';
-                homeBtn.href = '../index.html';  // 链接到首页
+                homeBtn.href = '/';  // 链接到首页
                 homeBtn.innerHTML = '🏠';  // 使用房子图标
                 homeBtn.title = 'Back to Home';  // 鼠标悬停提示
                 
@@ -853,7 +853,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (multiplier < 9) {
             // 跳转到下一个乘数的页面
             const nextMultiplier = multiplier + 1;
-            const nextPageUrl = `multiplication-by-${nextMultiplier}-game.html`;
+            const nextPageUrl = `/pages/multiplication-by-${nextMultiplier}-game`;
             window.location.href = nextPageUrl;
         }
     });
