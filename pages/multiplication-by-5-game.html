@@ -61,16 +61,125 @@
             padding: 1rem;
             min-height: auto;
         }
+
+        .two-rounds-section,
+        .table-chart-section,
+        .number-strategy-section,
+        .next-challenge-section {
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid var(--drag-highlight-border, rgba(52, 152, 219, 0.24));
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .two-rounds-section {
+            padding: 0.9rem 1rem;
+        }
+
+        .two-rounds-section h2,
+        .table-chart-section h2,
+        .number-strategy-section h2,
+        .next-challenge-section h2 {
+            margin-top: 0;
+        }
+
+        .two-rounds-section p,
+        .number-strategy-card p,
+        .next-challenge-section p {
+            margin-bottom: 0.55rem;
+        }
+
+        .times-chart-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.65rem;
+            margin-top: 1rem;
+        }
+
+        .chart-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            background: #f8fafc;
+            border: 1px solid rgba(52, 152, 219, 0.18);
+            border-radius: 8px;
+            padding: 0.7rem 0.85rem;
+        }
+
+        .chart-row.header {
+            background: var(--drag-highlight-bg, rgba(52, 152, 219, 0.12));
+            font-weight: 700;
+            color: #2c3e50;
+            grid-column: 1 / -1;
+        }
+
+        .chart-answer,
+        .strategy-fact {
+            font-weight: 800;
+            color: #2c3e50;
+        }
+
+        .number-strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .number-strategy-card {
+            background: #f8fafc;
+            border-left: 4px solid var(--drag-highlight-border, var(--secondary-color));
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .challenge-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.9rem;
+        }
+
+        .challenge-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 2px solid var(--drag-highlight-border, var(--secondary-color));
+            border-radius: var(--border-radius);
+            padding: 0.6rem 0.9rem;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .challenge-link:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        @media (max-width: 640px) {
+            .times-chart-grid,
+            .number-strategy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .challenge-links {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body class="theme-5">
     <!-- 页眉部分 -->
     <header>
         <div class="container">
-            <h1 class="main-title">
+            <div class="main-title">
                 <span class="nded-text">NDED</span>
                 <span class="subtitle">building mathematical confidence for life.</span>
-            </h1>
+            </div>
         </div>
     </header>
 
@@ -109,7 +218,7 @@
                                         <i class="fas fa-home"></i>
                                     </a>
 
-                                    <h1>Multiplication Table (×5)</h1>
+                                    <h1>5 Times Table Game</h1>
                                 </div>
                             </div>
 
@@ -130,6 +239,13 @@
                                 <button class="game-btn" id="next-btn" disabled>Next Level</button>
                             </div>
                         </div>
+
+                        <section class="two-rounds-section" aria-labelledby="two-rounds-title-5">
+                            <h2 id="two-rounds-title-5">How the Two Rounds Work</h2>
+                            <p><strong>Round 1:</strong> Solve 5 × 1 through 5 × 5 in order.</p>
+                            <p><strong>Round 2:</strong> Practice the same facts again in random order.</p>
+                            <p>Complete both rounds to unlock the next Times Table Game.</p>
+                        </section>
 
                         <!-- SEO文章区域（新增部分） -->
                         <div class="seo-articles-section">
@@ -164,7 +280,27 @@
                             </article>
 
                             <article class="times-table-article">
-                                <h2>Learn the 5 Times Table</h2>
+                                    <section class="table-chart-section">
+                                    <h2>5 Times Table Chart</h2>
+                                    <p>Use this chart to review the complete 5 times table from 1 to 12.</p>
+                                    <div class="times-chart-grid" aria-label="5 times table chart">
+                                        <div class="chart-row header"><span>Multiplication</span><span>Answer</span></div>
+                                        <div class="chart-row"><span>5 × 1</span><span class="chart-answer">5</span></div>
+                                        <div class="chart-row"><span>5 × 2</span><span class="chart-answer">10</span></div>
+                                        <div class="chart-row"><span>5 × 3</span><span class="chart-answer">15</span></div>
+                                        <div class="chart-row"><span>5 × 4</span><span class="chart-answer">20</span></div>
+                                        <div class="chart-row"><span>5 × 5</span><span class="chart-answer">25</span></div>
+                                        <div class="chart-row"><span>5 × 6</span><span class="chart-answer">30</span></div>
+                                        <div class="chart-row"><span>5 × 7</span><span class="chart-answer">35</span></div>
+                                        <div class="chart-row"><span>5 × 8</span><span class="chart-answer">40</span></div>
+                                        <div class="chart-row"><span>5 × 9</span><span class="chart-answer">45</span></div>
+                                        <div class="chart-row"><span>5 × 10</span><span class="chart-answer">50</span></div>
+                                        <div class="chart-row"><span>5 × 11</span><span class="chart-answer">55</span></div>
+                                        <div class="chart-row"><span>5 × 12</span><span class="chart-answer">60</span></div>
+                                    </div>
+                                </section>
+
+                            <h2>Learn the 5 Times Table</h2>
 
                                 <div class="learning-path-intro">
                                     <p>The 5 times table stands out because of its clear patterns and real-life uses, making it a strong confidence builder. While it doesn't have a strict learning sequence like other tables, mastering it prepares students for more complex multiplication concepts.</p>
@@ -222,55 +358,38 @@
                                 </div>
                             </article>
 
+
                             <article class="faq-section">
                                 <h2>Frequently Asked Questions</h2>
 
                                 <div class="faq-item">
-                                    <h3>What age is this multiplication game for?</h3>
-                                    <p>This game is designed for elementary school students, typically ages 7 to 10.
-                                    It works well for beginners as well as students who need extra practice.</p>
+                                    <h3>Why is the 5 times table useful?</h3>
+                                    <p>The 5 times table is useful because it has a clear counting pattern and connects naturally to the 10 times table.</p>
+                                </div>
+
+                                <div class="faq-item">
+                                    <h3>What is the easiest way to learn the 5 times table?</h3>
+                                    <p>Follow the 5, 10, 15, 20 pattern. The answers end in 5 or 0, and each new fact adds 5.</p>
+                                </div>
+
+                                <div class="faq-item">
+                                    <h3>How can I practice the 5 times table?</h3>
+                                    <p>Start with the facts in order so the pattern feels familiar. Then practice the same facts in random order so each answer can be recalled on its own.</p>
                                 </div>
 
                                 <div class="faq-item">
                                     <h3>How long should a child practice each day?</h3>
-                                    <p>Short and regular practice is more effective than long sessions.
-                                    5 to 10 minutes a day is usually enough to build strong recall without causing frustration.</p>
-                                </div>
-
-                                <div class="faq-item">
-                                    <h3>Is this game suitable for beginners?</h3>
-                                    <p>Yes. The game is designed to support learners at different levels.
-                                    Students can take their time, learn from mistakes, and improve through repetition.</p>
-                                </div>
-
-                                <div class="faq-item">
-                                    <h3>Do students need to memorize the answers before playing?</h3>
-                                    <p>No. Memorization happens naturally through practice.
-                                    The game encourages learning by doing rather than forcing memorization first.</p>
+                                    <p>Short and regular practice is more effective than long sessions. 5 to 10 minutes a day is usually enough to build strong recall without causing frustration.</p>
                                 </div>
 
                                 <div class="faq-item">
                                     <h3>Can this game be used at home and at school?</h3>
-                                    <p>Yes. This game works well for independent practice at home and as a classroom activity.
-                                    Teachers and parents can both use it to support learning.</p>
-                                </div>
-
-                                <div class="faq-item">
-                                    <h3>What if a student makes mistakes?</h3>
-                                    <p>Making mistakes is part of the learning process.
-                                    The game is designed to provide a low-pressure environment where students can try again and improve.</p>
+                                    <p>Yes. This game works well for independent practice at home and as a classroom activity. Teachers and parents can both use it to support learning.</p>
                                 </div>
 
                                 <div class="faq-item">
                                     <h3>Does this game replace worksheets or classroom teaching?</h3>
-                                    <p>No. This game is best used as a supplement to traditional instruction.
-                                    It reinforces what students learn in class and helps build confidence.</p>
-                                </div>
-
-                                <div class="faq-item">
-                                    <h3>Why is learning multiplication tables important?</h3>
-                                    <p>Multiplication tables are the foundation for many math skills, including division, fractions, and problem-solving.
-                                    Strong multiplication skills make future math learning easier and less stressful.</p>
+                                    <p>No. This game is best used as a supplement to traditional instruction. It reinforces what students learn in class and helps build confidence.</p>
                                 </div>
                             </article>
 
@@ -300,6 +419,15 @@
                                 </ul>
 
                                 <p>This game helps students build confidence while allowing teachers to focus on instruction rather than drilling.</p>
+                            </article>
+
+                            <article class="next-challenge-section">
+                                <h2>Ready for the Next Challenge?</h2>
+                                <p>Finished both rounds of the 5 Times Table Game? Use the links below to choose the best next step.</p>
+                                <div class="challenge-links">
+                                    <a href="/pages/multiplication-by-4-game" class="challenge-link"><- Practice 4 Times Table</a>
+                                    <a href="/pages/multiplication-by-6-game" class="challenge-link">Continue to 6 Times Table -></a>
+                                </div>
                             </article>
                         </div>
                         <!-- SEO文章区域结束 -->

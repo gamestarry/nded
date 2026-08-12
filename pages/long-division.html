@@ -279,7 +279,7 @@
             font-size: 0.98rem;
             font-weight: 650;
             line-height: 1.25;
-            pointer-events: none;
+            pointer-events: auto;
             transition: all 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             align-items: center;
@@ -287,6 +287,16 @@
             z-index: 10;
             box-shadow: 0 8px 20px rgba(88, 68, 28, 0.10);
             white-space: nowrap;
+        }
+
+        .long-division-tool .teacher-box.is-hidden {
+            display: none;
+        }
+
+        .long-division-tool .teacher-message {
+            display: flex;
+            align-items: center;
+            min-width: 0;
         }
 
         .long-division-tool .teacher-box::before {
@@ -308,20 +318,6 @@
             color: var(--primary);
         }
 
-        .long-division-tool .teacher-box.complete {
-            color: #176b4a;
-            background: #f2fbf6;
-            border-color: #bfe7d2;
-            box-shadow: 0 8px 20px rgba(22,163,106,0.08);
-        }
-
-        .long-division-tool .teacher-box.complete::before { content: '✓'; }
-
-        .long-division-tool .controls {
-            margin-top: 24px;
-            display: flex;
-            gap: 15px;
-        }
 
         .long-division-tool .btn-help {
             min-height: 50px;
@@ -347,6 +343,50 @@
             transform: none;
         }
 
+        .long-division-tool .controls {
+            margin-top: 18px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .long-division-tool .floating-help {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            flex: 0 0 32px;
+            border: 2px solid #7fa7e8;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #2f66d8;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 11;
+            box-shadow: 0 5px 12px rgba(47,102,216,0.10);
+            transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+        }
+
+        .long-division-tool .floating-help:hover {
+            background: var(--primary-soft);
+            transform: translateY(-1px);
+        }
+
+        .long-division-tool .floating-help.is-hidden {
+            display: none;
+        }
+
+        .long-division-tool .floating-help:disabled {
+            cursor: default;
+            opacity: 0.58;
+            transform: none;
+            box-shadow: none;
+        }
+
         .long-division-tool .help-icon {
             display: inline-flex;
             align-items: center;
@@ -360,6 +400,26 @@
             font-weight: 800;
             line-height: 1;
             vertical-align: 1px;
+        }
+
+        .long-division-tool .result-summary {
+            display: none;
+            width: min(100%, 620px);
+            margin: 18px auto 0;
+            padding: 12px 18px;
+            text-align: center;
+            color: var(--ink);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #dfe6ef;
+            border-radius: 12px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+        }
+
+        .long-division-tool .result-summary.show {
+            display: block;
         }
 
         .long-division-tool .bring-down-digit {
@@ -576,6 +636,65 @@
             .step-grid {
                 grid-template-columns: 1fr;
             }
+
+            /* Compact long-division workspace for phones */
+            .long-division-tool {
+                --cell-size: clamp(20px, 6.2vw, 26px);
+                padding: 20px 6px 36px;
+            }
+
+            .long-division-tool .division-workspace {
+                width: 100%;
+                max-width: 100%;
+                grid-auto-rows: 36px;
+                padding: 24px 8px 30px;
+                font-size: 1.35rem;
+            }
+
+            .long-division-tool .digit-input {
+                height: 32px;
+                font-size: 1.18rem;
+            }
+
+            .long-division-tool .placed-answer-digit,
+            .long-division-tool .bring-down-digit {
+                height: 32px;
+                font-size: 1.18rem;
+                line-height: 32px;
+            }
+
+            .long-division-tool .divisor {
+                padding-right: 6px;
+                border-right-width: 3px;
+            }
+
+            .long-division-tool .quotient-line {
+                border-bottom-width: 3px;
+            }
+
+            .long-division-tool .sub-line {
+                margin-bottom: 0;
+            }
+
+            .long-division-tool .teacher-box {
+                padding: 6px 8px;
+                font-size: 0.8rem;
+                max-width: min(180px, calc(100% - 16px));
+                white-space: normal;
+                flex-wrap: wrap;
+            }
+
+            .long-division-tool .result-summary {
+                font-size: clamp(0.95rem, 4vw, 1.15rem);
+                padding: 10px 12px;
+            }
+
+            .long-division-tool .floating-help {
+                width: 30px;
+                height: 30px;
+                flex-basis: 30px;
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
@@ -630,15 +749,20 @@
                             </div>
 
                             <div class="division-workspace" id="workspace" style="display:none;">
-                                <div id="teacher-hint" class="teacher-box">
-                                    <span id="hint-text">Let's solve this!</span>
+                                <div id="teacher-hint" class="teacher-box is-hidden">
+                                    <div class="teacher-message">
+                                        <span id="hint-text">Let's solve this!</span>
+                                    </div>
+                                    <button id="floating-help" class="floating-help is-hidden" type="button"
+                                        onclick="giveHelp()" aria-label="Show me one step">?</button>
                                 </div>
                             </div>
-
                             <div class="controls" id="controls" style="display:none;">
-                                <button class="btn-help" onclick="giveHelp()"><span class="help-icon"
-                                        aria-hidden="true">?</span>Show Me One Step</button>
+                                <button class="btn-help" onclick="giveHelp()">
+                                    <span class="help-icon" aria-hidden="true">?</span>Show Me One Step
+                                </button>
                             </div>
+                            <div id="result-summary" class="result-summary" aria-live="polite"></div>
                         </section>
 
                         <div class="learning-content">
@@ -759,7 +883,6 @@
             }
 
             document.getElementById('workspace').style.display = 'grid';
-            document.getElementById('controls').style.display = 'flex';
 
             buildGame(div, dd);
         }
@@ -769,23 +892,40 @@
             currentDivisor = div;
 
             const workspace = document.getElementById('workspace');
-            workspace.innerHTML = '<div id="teacher-hint" class="teacher-box"><span id="hint-text"></span></div>';
+            workspace.innerHTML = `
+                <div id="teacher-hint" class="teacher-box is-hidden">
+                    <div class="teacher-message">
+                        <span id="hint-text"></span>
+                    </div>
+                    <button id="floating-help" class="floating-help is-hidden" type="button"
+                        onclick="giveHelp()" aria-label="Show me one step">?</button>
+                </div>
+            `;
+
+            const resultSummary = document.getElementById('result-summary');
+            resultSummary.textContent = '';
+            resultSummary.classList.remove('show');
+
+            const controls = document.getElementById('controls');
+            controls.style.display = 'flex';
 
             steps = [];
             currentStepIdx = 0;
 
             const ddStr = dd.toString();
             const divStr = div.toString();
-            const colOffset = 2; // Where dividend starts
+            const divisorCols = divStr.length;
+            const colOffset = divisorCols + 1; // Where dividend starts
 
-            // Keep enough strict digit columns even for a longer custom dividend.
-            workspace.style.gridTemplateColumns = `repeat(${Math.max(12, ddStr.length + 4)}, var(--cell-size))`;
+            // Keep enough strict digit columns even for a longer custom divisor or dividend.
+            const totalColumns = Math.max(12, divisorCols + ddStr.length + 3);
+            workspace.style.gridTemplateColumns = `repeat(${totalColumns}, var(--cell-size))`;
 
             // 1. Render Divisor
             const divEl = document.createElement('div');
             divEl.className = 'divisor';
             divEl.style.gridRow = "2";
-            divEl.style.gridColumn = "1";
+            divEl.style.gridColumn = `1 / span ${divisorCols}`;
             divEl.innerText = div;
             workspace.appendChild(divEl);
 
@@ -948,14 +1088,38 @@
             }
         }
 
+        function positionFloatingElement(element, target, gap = 10) {
+            const workspace = document.getElementById('workspace');
+
+            element.style.top = target.offsetTop + "px";
+            element.style.left = (target.offsetLeft + target.offsetWidth + gap) + "px";
+
+            const preferredLeft = target.offsetLeft + target.offsetWidth + gap;
+            const fallbackLeft = target.offsetLeft - element.offsetWidth - gap;
+            const maxLeft = Math.max(0, workspace.clientWidth - element.offsetWidth);
+            const nextLeft = preferredLeft + element.offsetWidth > workspace.clientWidth
+                ? fallbackLeft
+                : preferredLeft;
+
+            element.style.left = Math.max(0, Math.min(nextLeft, maxLeft)) + "px";
+        }
+
+        function positionTeacherBox(target) {
+            positionFloatingElement(document.getElementById('teacher-hint'), target);
+        }
+
         function activateStep() {
             const hintBox = document.getElementById('teacher-hint');
-            const helpBtn = document.querySelector('.btn-help');
+            const floatingHelp = document.getElementById('floating-help');
+            const controls = document.getElementById('controls');
+            const resultSummary = document.getElementById('result-summary');
 
             if(currentStepIdx >= steps.length) {
                 hintBox.classList.remove('bring-down');
-                hintBox.classList.add('complete');
-                helpBtn.disabled = true;
+                hintBox.classList.add('is-hidden');
+                floatingHelp.classList.add('is-hidden');
+                floatingHelp.disabled = true;
+                controls.style.display = 'none';
 
                 const quotient = Math.floor(currentDividend / currentDivisor);
                 const remainder = currentDividend % currentDivisor;
@@ -963,25 +1127,30 @@
                     ? `${currentDividend} ÷ ${currentDivisor} = ${quotient}`
                     : `${currentDividend} ÷ ${currentDivisor} = ${quotient} R${remainder}`;
 
-                document.getElementById('hint-text').innerText = answerText;
+                resultSummary.textContent = answerText;
+                resultSummary.classList.add('show');
                 return;
             }
 
-            hintBox.classList.remove('complete', 'bring-down');
-            helpBtn.disabled = false;
+            hintBox.classList.remove('is-hidden', 'bring-down');
+            floatingHelp.classList.remove('is-hidden');
+            floatingHelp.disabled = false;
+            controls.style.display = 'flex';
 
             const s = steps[currentStepIdx];
             const target = document.getElementById(`step-${currentStepIdx}`);
 
             // Bring Down is a visible teaching step between subtraction and the next divide.
             if(s.type === 'b') {
-                helpBtn.disabled = true;
+                floatingHelp.classList.add('is-hidden');
+                floatingHelp.disabled = true;
+                controls.style.display = 'none';
+                hintBox.classList.remove('is-hidden');
                 hintBox.classList.add('bring-down');
 
                 const guide = document.getElementById(`bring-guide-${currentStepIdx}`);
-                hintBox.style.top = target.offsetTop + "px";
-                hintBox.style.left = (target.offsetLeft + target.offsetWidth + 10) + "px";
                 document.getElementById('hint-text').innerText = s.hint;
+                positionTeacherBox(target);
 
                 requestAnimationFrame(() => {
                     guide.classList.add('show');
@@ -1003,9 +1172,8 @@
             target.disabled = false;
             target.focus();
 
-            hintBox.style.top = target.offsetTop + "px";
-            hintBox.style.left = (target.offsetLeft + target.offsetWidth + 10) + "px";
             document.getElementById('hint-text').innerText = s.hint;
+            positionTeacherBox(target);
         }
 
         function giveHelp() {

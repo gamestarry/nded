@@ -61,16 +61,133 @@
             padding: 1rem;
             min-height: auto;
         }
+
+        .two-rounds-section,
+        .table-chart-section,
+        .hard-facts-section,
+        .next-challenge-section {
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(168, 224, 99, 0.35);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .two-rounds-section {
+            background: linear-gradient(135deg, rgba(168, 224, 99, 0.16), rgba(255, 255, 255, 0.94));
+            padding: 0.9rem 1rem;
+        }
+
+        .two-rounds-section h2,
+        .table-chart-section h2,
+        .hard-facts-section h2,
+        .next-challenge-section h2 {
+            margin-top: 0;
+        }
+
+        .two-rounds-section p,
+        .hard-fact-card p,
+        .next-challenge-section p {
+            margin-bottom: 0.55rem;
+        }
+
+        .times-chart-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.65rem;
+            margin-top: 1rem;
+        }
+
+        .chart-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            background: #f8fafc;
+            border: 1px solid rgba(52, 152, 219, 0.18);
+            border-radius: 8px;
+            padding: 0.7rem 0.85rem;
+        }
+
+        .chart-row.header {
+            background: rgba(52, 152, 219, 0.12);
+            font-weight: 700;
+            color: #2c3e50;
+            grid-column: 1 / -1;
+        }
+
+        .chart-answer,
+        .hard-fact-title {
+            font-weight: 800;
+            color: #2c3e50;
+        }
+
+        .hard-facts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .hard-fact-card {
+            background: #f8fafc;
+            border-left: 4px solid #a8e063;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .fact-work {
+            display: inline-block;
+            margin-top: 0.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .challenge-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.9rem;
+        }
+
+        .challenge-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 0.6rem 0.9rem;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .challenge-link:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        @media (max-width: 640px) {
+            .times-chart-grid,
+            .hard-facts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .challenge-links {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body class="theme-7">
     <!-- 页眉部分 -->
     <header>
         <div class="container">
-            <h1 class="main-title">
+            <div class="main-title">
                 <span class="nded-text">NDED</span>
                 <span class="subtitle">building mathematical confidence for life.</span>
-            </h1>
+            </div>
         </div>
     </header>
 
@@ -109,7 +226,7 @@
                                         <i class="fas fa-home"></i>
                                     </a>
 
-                                    <h1>Multiplication Table (×7)</h1>
+                                    <h1>7 Times Table Game</h1>
                                 </div>
                             </div>
 
@@ -130,6 +247,13 @@
                                 <button class="game-btn" id="next-btn" disabled>Next Level</button>
                             </div>
                         </div>
+
+                        <section class="two-rounds-section" aria-labelledby="two-rounds-title">
+                            <h2 id="two-rounds-title">How the Two Rounds Work</h2>
+                            <p><strong>Round 1:</strong> Solve 7 × 1 to 7 × 7 in order.</p>
+                            <p><strong>Round 2:</strong> Solve them again in random order.</p>
+                            <p>Finish both rounds to unlock the 8 Times Table Game.</p>
+                        </section>
 
                         <!-- SEO文章区域（新增部分） -->
                         <div class="seo-articles-section">
@@ -160,6 +284,26 @@
                             </article>
 
                             <article class="times-table-article">
+                                <section class="table-chart-section">
+                                    <h2>7 Times Table Chart</h2>
+                                    <p>Use this chart to review the complete 7 times table from 1 to 12.</p>
+                                    <div class="times-chart-grid" aria-label="7 times table chart">
+                                        <div class="chart-row header"><span>Multiplication</span><span>Answer</span></div>
+                                        <div class="chart-row"><span>7 × 1</span><span class="chart-answer">7</span></div>
+                                        <div class="chart-row"><span>7 × 2</span><span class="chart-answer">14</span></div>
+                                        <div class="chart-row"><span>7 × 3</span><span class="chart-answer">21</span></div>
+                                        <div class="chart-row"><span>7 × 4</span><span class="chart-answer">28</span></div>
+                                        <div class="chart-row"><span>7 × 5</span><span class="chart-answer">35</span></div>
+                                        <div class="chart-row"><span>7 × 6</span><span class="chart-answer">42</span></div>
+                                        <div class="chart-row"><span>7 × 7</span><span class="chart-answer">49</span></div>
+                                        <div class="chart-row"><span>7 × 8</span><span class="chart-answer">56</span></div>
+                                        <div class="chart-row"><span>7 × 9</span><span class="chart-answer">63</span></div>
+                                        <div class="chart-row"><span>7 × 10</span><span class="chart-answer">70</span></div>
+                                        <div class="chart-row"><span>7 × 11</span><span class="chart-answer">77</span></div>
+                                        <div class="chart-row"><span>7 × 12</span><span class="chart-answer">84</span></div>
+                                    </div>
+                                </section>
+
                                 <h2>Learn the 7 Times Table</h2>
 
                                 <div class="learning-path-intro">
@@ -203,6 +347,32 @@
                                     <li>Build long-term memory</li>
                                 </ul>
 
+                                <section class="hard-facts-section">
+                                    <h2>Hard 7 Times Table Facts to Remember</h2>
+                                    <p>The 7 times table can feel harder than the 2s, 5s, or 10s because its pattern is less obvious. Instead of trying to memorize every fact separately, use facts you already know to work out the harder ones.</p>
+                                    <div class="hard-facts-grid">
+                                        <div class="hard-fact-card">
+                                            <h3 class="hard-fact-title">7 × 6 = 42</h3>
+                                            <p>Start with 7 × 5 = 35, then add one more 7.</p>
+                                            <span class="fact-work">35 + 7 = 42</span>
+                                        </div>
+                                        <div class="hard-fact-card">
+                                            <h3 class="hard-fact-title">7 × 7 = 49</h3>
+                                            <p>This is the square fact for 7. It is worth practicing until 49 becomes automatic.</p>
+                                        </div>
+                                        <div class="hard-fact-card">
+                                            <h3 class="hard-fact-title">7 × 8 = 56</h3>
+                                            <p>If you know 7 × 7 = 49, add another 7.</p>
+                                            <span class="fact-work">49 + 7 = 56</span>
+                                        </div>
+                                        <div class="hard-fact-card">
+                                            <h3 class="hard-fact-title">7 × 9 = 63</h3>
+                                            <p>Start with 7 × 10 = 70 and subtract one 7.</p>
+                                            <span class="fact-work">70 - 7 = 63</span>
+                                        </div>
+                                    </div>
+                                </section>
+
                                 <h3>Helpful Tips</h3>
                                 <ul>
                                     <li>Practice in small sets</li>
@@ -223,9 +393,23 @@
                                 <h2>Frequently Asked Questions</h2>
 
                                 <div class="faq-item">
-                                    <h3>What age is this multiplication game for?</h3>
-                                    <p>This game is designed for elementary school students, typically ages 7 to 10.
-                                    It works well for beginners as well as students who need extra practice.</p>
+                                    <h3>Why is the 7 times table hard to learn?</h3>
+                                    <p>The 7 times table has fewer obvious patterns than the 2s, 5s, 9s, or 10s. Breaking difficult facts into easier known facts can make it much easier to remember.</p>
+                                </div>
+
+                                <div class="faq-item">
+                                    <h3>What is the easiest way to learn the 7 times table?</h3>
+                                    <p>Learn a few facts at a time, use nearby facts to work out harder answers, and then practice them in random order. This game uses that same progression: ordered practice first, followed by random practice.</p>
+                                </div>
+
+                                <div class="faq-item">
+                                    <h3>Which 7 times table facts are hardest to remember?</h3>
+                                    <p>Facts such as 7 × 6 = 42, 7 × 7 = 49, 7 × 8 = 56, and 7 × 9 = 63 often need extra practice because their answers are less easy to predict from simple number patterns.</p>
+                                </div>
+
+                                <div class="faq-item">
+                                    <h3>How can I practice the 7 times table?</h3>
+                                    <p>Start by working through the facts in order so you can see how each answer increases by 7. Once the sequence feels familiar, practice the same facts in random order so you learn to recall each answer independently.</p>
                                 </div>
 
                                 <div class="faq-item">
@@ -235,27 +419,9 @@
                                 </div>
 
                                 <div class="faq-item">
-                                    <h3>Is this game suitable for beginners?</h3>
-                                    <p>Yes. The game is designed to support learners at different levels.
-                                    Students can take their time, learn from mistakes, and improve through repetition.</p>
-                                </div>
-
-                                <div class="faq-item">
-                                    <h3>Do students need to memorize the answers before playing?</h3>
-                                    <p>No. Memorization happens naturally through practice.
-                                    The game encourages learning by doing rather than forcing memorization first.</p>
-                                </div>
-
-                                <div class="faq-item">
                                     <h3>Can this game be used at home and at school?</h3>
                                     <p>Yes. This game works well for independent practice at home and as a classroom activity.
                                     Teachers and parents can both use it to support learning.</p>
-                                </div>
-
-                                <div class="faq-item">
-                                    <h3>What if a student makes mistakes?</h3>
-                                    <p>Making mistakes is part of the learning process.
-                                    The game is designed to provide a low-pressure environment where students can try again and improve.</p>
                                 </div>
 
                                 <div class="faq-item">
@@ -297,6 +463,15 @@
                                 </ul>
 
                                 <p>This game helps students build confidence while allowing teachers to focus on instruction rather than drilling.</p>
+                            </article>
+
+                            <article class="next-challenge-section">
+                                <h2>Ready for the Next Challenge?</h2>
+                                <p>Finished both rounds of the 7 Times Table Game? Continue with the 8 Times Table Game, or review the 6 Times Table Game if you want more practice.</p>
+                                <div class="challenge-links">
+                                    <a href="/pages/multiplication-by-6-game" class="challenge-link">← Practice 6 Times Table</a>
+                                    <a href="/pages/multiplication-by-8-game" class="challenge-link">Continue to 8 Times Table →</a>
+                                </div>
                             </article>
                         </div>
                         <!-- SEO文章区域结束 -->
