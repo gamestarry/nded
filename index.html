@@ -7,16 +7,16 @@
 
     <!-- 优化的SEO元标签 -->
     <meta name="description"
-        content="Play free educational math games for kids, including multiplication practice, fraction matching, and matrix multiplication activities.">
+        content="Play online math games and use step-by-step learning tools for multiplication, long division, fractions, and matrix multiplication.">
     <meta name="keywords"
         content="multiplication games, math practice online, multiplication table practice, math games online, fraction matching game, matrix multiplication practice, educational math games, learn multiplication online, math drills, math fluency practice">
     <meta name="author" content="NDED">
-    <title>Multiplication Games & Math Practice Online | NDED</title>
+    <title>Online Math Games & Learning Tools | NDED</title>
 
     <!-- Open Graph / 社交媒体 -->
-    <meta property="og:title" content="Multiplication Games & Math Practice Online | NDED">
+    <meta property="og:title" content="Online Math Games & Learning Tools | NDED">
     <meta property="og:description"
-        content="Play free educational math games for kids, including multiplication practice, fraction matching, and matrix multiplication activities.">
+        content="Practice math through interactive games and step-by-step learning tools.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://nd-ed.org/">
     <meta property="og:image" content="https://nd-ed.org/images/og-image.png">
@@ -26,8 +26,8 @@
     {
       "@context": "https://schema.org",
       "@type": "EducationalOrganization",
-      "name": "NDED - Multiplication Games & Math Practice Online",
-      "description": "Free online multiplication games and math practice exercises for students of all ages",
+      "name": "NDED - Online Math Games & Learning Tools",
+      "description": "Free online math games and step-by-step learning tools for students of all ages",
       "url": "https://nd-ed.org/",
       "logo": "https://nd-ed.org/logo.png",
       "sameAs": [],
@@ -58,6 +58,14 @@
               "@type": "EducationalActivity",
               "name": "Fraction Matching Game",
               "description": "Match fractions, decimals, and percentages"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "EducationalActivity",
+              "name": "Long Division Tutor",
+              "description": "Learn long division step by step with guided practice"
             }
           }
         ]
@@ -891,6 +899,59 @@
             margin-bottom: 0;
         }
 
+        #long-division-game .container {
+            max-width: 560px;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #long-division-game h2 {
+            color: #2D3748;
+            font-size: 1.98rem;
+            margin-bottom: 24px;
+            text-shadow: 0 1.8px 3.6px rgba(0, 0, 0, 0.1);
+        }
+
+        #long-division-game .long-division-button {
+            display: inline-block;
+            text-decoration: none;
+            background: linear-gradient(135deg, #2f66d8 0%, #3498db 100%);
+            border-radius: var(--border-radius);
+            padding: 12px 24px;
+            box-shadow: 0 7.2px 18px rgba(47, 102, 216, 0.2), 0 3.6px 9px rgba(47, 102, 216, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+        }
+
+        #long-division-game .long-division-button:hover {
+            transform: translateY(-3.6px);
+            box-shadow: 0 10.8px 22.5px rgba(47, 102, 216, 0.28), 0 5.4px 13.5px rgba(47, 102, 216, 0.14);
+            background: linear-gradient(135deg, #2457bf 0%, #2f66d8 100%);
+        }
+
+        #long-division-game .long-division-button-text {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 1.8px 3.6px rgba(0, 0, 0, 0.2);
+            letter-spacing: 0;
+        }
+
+        #long-division-game .long-division-description {
+            max-width: 430px;
+            margin: 0 auto;
+            padding: 9px 0;
+        }
+
+        #long-division-game .description-text {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 5.4px;
+            font-style: italic;
+        }
+
         /* 新增：游戏入口下方容器 */
         .additional-game-container {
             width: 100%;
@@ -906,6 +967,226 @@
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             overflow: hidden;
+        }
+
+        .resource-subtitle {
+            color: #536275;
+            font-size: 1rem;
+            margin: 0.35rem auto 0;
+            text-align: center;
+            max-width: 620px;
+        }
+
+        #math-games-section.resources-section {
+            padding: 1.25rem;
+            min-height: 0;
+        }
+
+        .learning-resources-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .resource-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 245px;
+            padding: 1.15rem;
+            background: #ffffff;
+            border: 1px solid #e6edf5;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 22px rgba(44, 62, 80, 0.08);
+        }
+
+        #math-games-section.resources-section .resource-card h2 {
+            color: var(--primary-color);
+            font-size: 1.45rem;
+            line-height: 1.2;
+            margin: 0 0 0.45rem;
+            text-align: left;
+            text-shadow: none;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        #math-games-section.resources-section .resource-card p {
+            color: #536275;
+            font-size: 0.96rem;
+            line-height: 1.5;
+            margin: 0 0 1rem;
+            max-width: none;
+            text-align: left;
+        }
+
+        .resource-actions {
+            margin-top: auto;
+        }
+
+        .table-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.55rem;
+        }
+
+        .table-button,
+        .resource-cta,
+        .matrix-resource-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .table-button {
+            background: #eff6ff;
+            border: 1px solid #c9def7;
+            color: #1f5f9f;
+            font-size: 1.05rem;
+        }
+
+        .resource-cta {
+            align-self: flex-start;
+            min-width: 150px;
+            padding: 0 1rem;
+            background: var(--secondary-color);
+            color: #ffffff;
+            box-shadow: 0 7px 16px rgba(52, 152, 219, 0.2);
+        }
+
+        .table-button:hover,
+        .resource-cta:hover,
+        .matrix-resource-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(44, 62, 80, 0.13);
+        }
+
+        .matrix-resource-actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-top: auto;
+        }
+
+        .matrix-resource-link {
+            gap: 0.7rem;
+            padding: 0.75rem;
+            background: #f8fbff;
+            border: 1px solid #d9e7f5;
+            color: var(--primary-color);
+        }
+
+        .mini-matrix {
+            display: grid;
+            gap: 3px;
+            flex: 0 0 auto;
+        }
+
+        .mini-matrix-2 {
+            grid-template-columns: repeat(2, 16px);
+        }
+
+        .mini-matrix-3 {
+            grid-template-columns: repeat(3, 12px);
+        }
+
+        .mini-matrix span {
+            display: block;
+            aspect-ratio: 1;
+            border-radius: 3px;
+            background: #3498db;
+        }
+
+        .mini-matrix-3 span {
+            background: #8a2be2;
+        }
+
+        @media (max-width: 980px) {
+            .learning-resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-card {
+                min-height: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html,
+            body {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            header {
+                max-width: 100%;
+                overflow: hidden;
+            }
+
+            header .container,
+            .main-title {
+                max-width: 100%;
+                min-width: 0;
+            }
+
+            .subtitle {
+                max-width: calc(100vw - 24px);
+                white-space: normal;
+                overflow-wrap: anywhere;
+                text-align: center;
+            }
+
+            .wide-container {
+                width: 100%;
+                max-width: 100%;
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+            }
+
+            .main-row,
+            .main-content,
+            .left-sidebar,
+            .right-sidebar,
+            .dynamic-content-container {
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+            }
+
+            .nav-buttons {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .nav-button,
+            .page-subtitle h2,
+            .resource-card h2,
+            .resource-card p {
+                min-width: 0;
+                overflow-wrap: anywhere;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #math-games-section.resources-section {
+                padding: 0.8rem !important;
+            }
+
+            .resource-card {
+                padding: 1rem;
+            }
+
+            #math-games-section.resources-section .resource-card h2 {
+                font-size: 1.25rem;
+            }
+
+            .matrix-resource-actions {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* =========================================== */
@@ -1181,6 +1462,23 @@
                 /* 从0.9rem减小到0.81rem，缩小10% */
             }
 
+            #long-division-game h2 {
+                font-size: 1.62rem;
+                margin-bottom: 22.5px;
+            }
+
+            #long-division-game .long-division-button {
+                padding: 12px 18px;
+            }
+
+            #long-division-game .long-division-button-text {
+                font-size: 1.62rem;
+            }
+
+            #long-division-game .description-text {
+                font-size: 0.81rem;
+            }
+
             /* 导航按钮在移动端改为每行2个 */
             .nav-buttons {
                 display: grid;
@@ -1311,6 +1609,23 @@
                 /* 从0.8rem减小到0.72rem，缩小10% */
             }
 
+            #long-division-game h2 {
+                font-size: 1.44rem;
+                margin-bottom: 18px;
+            }
+
+            #long-division-game .long-division-button {
+                padding: 10px 14px;
+            }
+
+            #long-division-game .long-division-button-text {
+                font-size: 1.35rem;
+            }
+
+            #long-division-game .description-text {
+                font-size: 0.72rem;
+            }
+
             /* 导航按钮在小屏幕设备上的调整 */
             .nav-buttons {
                 grid-template-columns: repeat(2, 1fr);
@@ -1329,6 +1644,544 @@
             .page-subtitle {
                 font-size: 1.1rem;
                 margin-bottom: 0.75rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html,
+            body {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            .wide-container {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+            }
+
+            .main-row,
+            .main-content,
+            .left-sidebar,
+            .right-sidebar,
+            .dynamic-content-container,
+            .page-subtitle {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+                box-sizing: border-box;
+            }
+
+            .nav-buttons {
+                grid-template-columns: 1fr !important;
+            }
+
+            .nav-button,
+            .page-subtitle h2,
+            .resource-card h2,
+            .resource-card p {
+                min-width: 0;
+                overflow-wrap: anywhere;
+            }
+
+            .page-subtitle h2 {
+                max-width: calc(100vw - 56px);
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 1.35rem;
+                line-height: 1.25;
+            }
+
+            .resource-subtitle {
+                max-width: calc(100vw - 40px);
+            }
+
+            .table-buttons {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-subtitle h2 {
+                max-width: calc(100vw - 32px);
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 1.55rem;
+                line-height: 1.25;
+            }
+
+            .resource-subtitle {
+                max-width: calc(100vw - 40px);
+            }
+
+            .table-buttons {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+
+            .resource-card {
+                overflow: hidden;
+            }
+        }
+
+        /* Compact learning area: keep each tool's original visual identity. */
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
+        #math-games-section.home-learning-section {
+            padding: 1.15rem;
+            min-height: 0;
+        }
+
+        .home-learning-layout {
+            display: grid;
+            grid-template-columns: minmax(240px, 1fr) minmax(240px, 1fr) minmax(230px, 0.92fr);
+            grid-template-areas:
+                "multiplication longdivision matrix"
+                "fraction fraction matrix";
+            gap: 1.35rem;
+            align-items: stretch;
+        }
+
+        .home-learning-panel {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        #multiplication-game.home-learning-panel {
+            grid-area: multiplication;
+        }
+
+        #long-division-game.home-learning-panel {
+            grid-area: longdivision;
+        }
+
+        #fraction-game.home-learning-panel {
+            grid-area: fraction;
+        }
+
+        #matrix-game.home-learning-panel {
+            grid-area: matrix;
+        }
+
+        #math-games-section .game-content {
+            min-height: 0;
+            padding: 1rem;
+        }
+
+        #multiplication-game .game-container {
+            max-width: 285px;
+            padding: 14px 12px;
+            border-radius: 20px;
+            box-shadow: 10px 10px 28px #d1d9e6, -10px -10px 28px #ffffff;
+        }
+
+        #multiplication-game .header {
+            padding: 6px;
+            border-radius: 11px;
+            margin-bottom: 8px;
+        }
+
+        #multiplication-game h2 {
+            font-size: 21px;
+            margin: 4px 0 2px;
+            letter-spacing: 0;
+        }
+
+        #multiplication-game .subtitle {
+            margin-top: 0;
+            font-size: 11px;
+            line-height: 1.25;
+            padding-top: 0;
+        }
+
+        #multiplication-game .menu-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 7px;
+            margin-top: 10px;
+        }
+
+        #multiplication-game .level-btn {
+            min-height: 35px;
+            padding: 6px;
+            border-radius: 11px;
+            font-size: 16px;
+            box-shadow: 4px 4px 8px #d1d9e6, -4px -4px 8px #ffffff;
+        }
+
+        #multiplication-game .level-btn span {
+            font-size: 8px;
+            margin-bottom: 2px;
+        }
+
+        #multiplication-game .footer {
+            margin-top: 9px;
+            font-size: 8px;
+        }
+
+        #matrix-game.home-learning-panel {
+            display: flex;
+            align-items: stretch;
+        }
+
+        #matrix-game .game-content {
+            width: 100%;
+            align-items: flex-start;
+        }
+
+        #matrix-game .container {
+            max-width: 300px;
+            margin-top: 8px;
+            padding: 0;
+        }
+
+        #matrix-game h2 {
+            font-size: 1.64rem;
+            margin-bottom: 19px;
+        }
+
+        #matrix-game .matrices {
+            gap: 18px;
+        }
+
+        #matrix-game .matrix-button {
+            padding: 14px;
+            border-radius: 14px;
+        }
+
+        #matrix-game .matrix-2x2 {
+            grid-template-columns: repeat(2, 57px);
+            grid-template-rows: repeat(2, 57px);
+        }
+
+        #matrix-game .matrix-3x3 {
+            grid-template-columns: repeat(3, 45px);
+            grid-template-rows: repeat(3, 45px);
+        }
+
+        #matrix-game .matrix-cell {
+            font-size: 1.12rem;
+            border-radius: 6px;
+        }
+
+        #matrix-game .matrix-label {
+            font-size: 1.05rem;
+        }
+
+        .long-division-home {
+            height: 100%;
+            padding: 1rem 1.15rem;
+            background: #f4f7fb;
+            border: 1px solid #e5edf7;
+            border-top: 3px solid #3498db;
+        }
+
+        .long-division-home h2,
+        .fraction-home h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            line-height: 1.2;
+            margin: 0 0 0.75rem;
+            text-align: left;
+        }
+
+        .ld-kicker {
+            color: #527aa5;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            line-height: 1;
+            margin-bottom: 0.45rem;
+            text-transform: uppercase;
+        }
+
+        .division-preview {
+            --ld-cell: 42px;
+            --ld-row: 34px;
+            display: grid;
+            grid-template-columns: 30px repeat(3, var(--ld-cell));
+            grid-auto-rows: var(--ld-row);
+            width: calc(30px + 3 * var(--ld-cell));
+            margin: 0 auto 0.45rem;
+            font-family: "Courier New", Courier, monospace;
+            color: #172033;
+            font-size: 1.78rem;
+            line-height: 1;
+        }
+
+        .division-preview span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: var(--ld-row);
+        }
+
+        .division-preview .green {
+            color: #0f8a5a;
+        }
+
+        .division-preview .quotient-preview {
+            grid-column: 3 / span 2;
+            grid-row: 1;
+        }
+
+        .division-preview .quotient-line-preview {
+            grid-column: 2 / span 3;
+            grid-row: 1;
+            align-self: end;
+            height: 0;
+            border-bottom: 3px solid #2b2f36;
+        }
+
+        .division-preview .divisor-preview {
+            grid-column: 1;
+            grid-row: 2;
+            justify-content: flex-end;
+            padding-right: 8px;
+            border-right: 3px solid #2b2f36;
+        }
+
+        .division-preview .dividend-preview {
+            grid-column: 2 / span 3;
+            grid-row: 2;
+            justify-content: flex-start;
+            padding-left: 8px;
+        }
+
+        .division-preview .product-first {
+            grid-column: 2 / span 2;
+            grid-row: 3;
+        }
+
+        .division-preview .subline-first {
+            grid-column: 2 / span 2;
+            grid-row: 3;
+            align-self: end;
+            height: 0;
+            border-bottom: 2px solid #9aa5b3;
+        }
+
+        .division-preview .partial {
+            grid-column: 3 / span 2;
+            grid-row: 4;
+        }
+
+        .division-preview .product-second {
+            grid-column: 3 / span 2;
+            grid-row: 5;
+        }
+
+        .division-preview .subline-second {
+            grid-column: 3 / span 2;
+            grid-row: 5;
+            align-self: end;
+            height: 0;
+            border-bottom: 2px solid #9aa5b3;
+        }
+
+        .division-preview .remainder-zero {
+            grid-column: 4;
+            grid-row: 6;
+        }
+
+        .ld-steps {
+            color: #64748b;
+            font-size: 0.72rem;
+            line-height: 1.25;
+            margin: 0.2rem 0 0.55rem;
+            text-align: center;
+            letter-spacing: 0;
+            white-space: nowrap;
+        }
+
+        .ld-hint-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.22rem;
+            min-height: 24px;
+            padding: 0 0.5rem;
+            margin: 0 auto 0.7rem;
+            border: 1px solid #f1dfa6;
+            border-radius: 999px;
+            background: #fff8dc;
+            color: #8a6a18;
+            font-size: 0.74rem;
+            font-weight: 700;
+        }
+
+        .long-division-home .ld-core-copy {
+            color: #24344d;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 0.9rem;
+        }
+
+        #long-division-game .home-cta {
+            min-width: 186px;
+            padding: 0 1.1rem;
+        }
+
+        .long-division-home p,
+        .fraction-home p {
+            color: #4a5568;
+            font-size: 0.94rem;
+            line-height: 1.45;
+            margin: 0 0 0.9rem;
+            text-align: left;
+            max-width: none;
+        }
+
+        .home-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 0 1rem;
+            border-radius: var(--border-radius);
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 7px 16px rgba(52, 152, 219, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .home-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 9px 20px rgba(52, 152, 219, 0.25);
+        }
+
+        .fraction-home {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 0.45rem 0.9rem;
+            align-items: center;
+            padding: 0.72rem 1rem;
+            background: linear-gradient(135deg, #f0f8ff 0%, #ffffff 100%);
+            border: 1px solid #d8ebfb;
+        }
+
+        .fraction-home h2 {
+            font-size: 1.22rem;
+            margin-bottom: 0.35rem;
+        }
+
+        #fraction-game.fraction-home h2 {
+            font-size: 1.22rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .fraction-visual {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            flex-wrap: wrap;
+            color: #1f5f9f;
+            font-weight: 800;
+            font-size: 1.36rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .fraction-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 58px;
+            min-height: 34px;
+            padding: 0.18rem 0.5rem;
+            border-radius: var(--border-radius);
+            background: #eff6ff;
+            border: 1px solid #c9def7;
+        }
+
+        .fraction-home p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        .fraction-home .home-cta {
+            min-height: 36px;
+            padding: 0 0.9rem;
+            margin-right: 2rem;
+        }
+
+        @media (max-width: 1100px) {
+            .home-learning-layout {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-template-areas:
+                    "multiplication longdivision"
+                    "fraction fraction"
+                    "matrix matrix";
+            }
+
+            #matrix-game .container {
+                max-width: 520px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .home-learning-layout {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "multiplication"
+                    "longdivision"
+                    "fraction"
+                    "matrix";
+            }
+
+            #math-games-section.home-learning-section {
+                width: min(310px, calc(100vw - 48px)) !important;
+                max-width: min(310px, calc(100vw - 48px)) !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                padding: 0.9rem !important;
+                overflow: hidden;
+            }
+
+            .page-subtitle {
+                width: min(310px, calc(100vw - 48px)) !important;
+                max-width: min(310px, calc(100vw - 48px)) !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .fraction-home {
+                grid-template-columns: 1fr;
+            }
+
+            .fraction-home .home-cta {
+                margin-right: 0;
+            }
+
+            .division-preview {
+                --ld-cell: 34px;
+                --ld-row: 29px;
+                font-size: 1.46rem;
+            }
+
+            .ld-steps {
+                font-size: 0.68rem;
+            }
+
+            #multiplication-game .game-container,
+            #matrix-game .container {
+                max-width: 100%;
+            }
+
+            #matrix-game .matrix-2x2 {
+                grid-template-columns: repeat(2, 45px);
+                grid-template-rows: repeat(2, 45px);
+            }
+
+            #matrix-game .matrix-3x3 {
+                grid-template-columns: repeat(3, 36px);
+                grid-template-rows: repeat(3, 36px);
             }
         }
     </style>
@@ -1365,16 +2218,14 @@
                 <div class="main-content">
                     <!-- 页面副标题 -->
                     <div class="page-subtitle">
-                        <h2>Multiplication Games & Online Math Practice</h2>
+                        <h2>Online Math Games & Learning Tools</h2>
+                        <p class="resource-subtitle">Practice math through interactive games and step-by-step learning
+                            tools.</p>
                     </div>
 
-                    <div id="math-games-section" class="dynamic-content-container">
-                        <!-- 移除了Math Games标题 -->
-
-                        <div class="games-container">
-                            <!-- 第一个游戏：乘法表记忆 -->
-                            <div class="game-wrapper" id="multiplication-game">
-                                <!-- 移除了.game-header部分 -->
+                    <div id="math-games-section" class="dynamic-content-container home-learning-section">
+                        <div class="home-learning-layout">
+                            <section class="home-learning-panel" id="multiplication-game">
                                 <div class="game-content">
                                     <div class="game-container">
                                         <div class="header">
@@ -1420,17 +2271,72 @@
                                         <div class="footer">Ready to become a math master?</div>
                                     </div>
                                 </div>
-                            </div>
+                            </section>
 
-                            <!-- 第二个游戏：矩阵乘法规则 -->
-                            <div class="game-wrapper" id="matrix-game">
-                                <!-- 移除了.game-header部分 -->
+                            <section class="home-learning-panel long-division-home" id="long-division-game">
+                                <div class="ld-kicker">STEP-BY-STEP TUTOR</div>
+                                <h2>Long Division Tutor</h2>
+                                <div class="division-preview" aria-hidden="true">
+
+                                    <!-- Quotient: 25 -->
+                                    <span class="green" style="grid-column:3; grid-row:1;">2</span>
+                                    <span class="green" style="grid-column:4; grid-row:1;">5</span>
+
+                                    <span class="quotient-line-preview"></span>
+
+                                    <!-- Divisor -->
+                                    <span class="divisor-preview">5</span>
+
+                                    <!-- Dividend: 125 -->
+                                    <span style="grid-column:2; grid-row:2;">1</span>
+                                    <span style="grid-column:3; grid-row:2;">2</span>
+                                    <span style="grid-column:4; grid-row:2;">5</span>
+
+                                    <!-- First product: 10 -->
+                                    <span class="green" style="grid-column:2; grid-row:3;">1</span>
+                                    <span class="green" style="grid-column:3; grid-row:3;">0</span>
+                                    <span class="subline-first"></span>
+
+                                    <!-- Bring down -> 25 -->
+                                    <span class="green" style="grid-column:3; grid-row:4;">2</span>
+                                    <span style="grid-column:4; grid-row:4;">5</span>
+
+                                    <!-- Second product: 25 -->
+                                    <span class="green" style="grid-column:3; grid-row:5;">2</span>
+                                    <span class="green" style="grid-column:4; grid-row:5;">5</span>
+                                    <span class="subline-second"></span>
+
+                                    <!-- Remainder -->
+                                    <span class="green" style="grid-column:4; grid-row:6;">0</span>
+
+                                </div>
+                                <div class="ld-steps">Divide → Multiply → Subtract → Bring Down</div>
+                                <div class="ld-hint-note"><span>? </span><span>Hint available</span></div>
+                                <p class="ld-core-copy">You solve each step. We guide you when you need help.</p>
+                                <a href="/pages/long-division" class="home-cta">Try It Step by Step →</a>
+                            </section>
+
+                            <section class="home-learning-panel fraction-home" id="fraction-game">
+                                <div>
+                                    <h2>Fraction Match Game</h2>
+                                    <div class="fraction-visual" aria-hidden="true">
+                                        <span class="fraction-pill">1/2</span>
+                                        <span>=</span>
+                                        <span class="fraction-pill">0.5</span>
+                                        <span>=</span>
+                                        <span class="fraction-pill">50%</span>
+                                    </div>
+                                    <p>Match fractions, decimals, and percentages.</p>
+                                </div>
+                                <a href="/pages/fraction-match-game" class="home-cta">Play Game →</a>
+                            </section>
+
+                            <section class="home-learning-panel" id="matrix-game">
                                 <div class="game-content">
                                     <div class="container">
                                         <h2>Matrix Multiplication</h2>
 
                                         <div class="matrices">
-                                            <!-- 2x2矩阵按钮 -->
                                             <a href="/matrix-multiplication-by-2-game" class="matrix-button">
                                                 <div class="matrix-preview matrix-2x2">
                                                     <div class="matrix-cell">a</div>
@@ -1441,7 +2347,6 @@
                                                 <div class="matrix-label">2×2 Matrix</div>
                                             </a>
 
-                                            <!-- 3x3矩阵按钮 -->
                                             <a href="/matrix-multiplication-by-3-game" class="matrix-button">
                                                 <div class="matrix-preview matrix-3x3">
                                                     <div class="matrix-cell">a</div>
@@ -1459,29 +2364,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- 新增的第三个游戏入口：分数匹配游戏 -->
-                        <div class="additional-game-container">
-                            <div class="additional-game-wrapper" id="fraction-game">
-                                <div class="game-content">
-                                    <div class="container">
-                                        <h2>Fraction, Decimal & Percent Memory Game</h2>
-
-                                        <a href="/pages/fraction-match-game" class="fraction-button">
-                                            <div class="fraction-button-text">Fraction Match Game</div>
-                                        </a>
-
-                                        <div class="fraction-description">
-                                            <p class="description-text">Practice fractions, decimals, and percentages
-                                                through matching.</p>
-                                            <p class="description-text">Build number sense with instant feedback and no
-                                                time pressure.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </section>
                         </div>
                     </div>
 
@@ -1515,7 +2398,7 @@
                                 internalize mathematical relationships more naturally and with less stress.</p>
 
                             <h3>Game Series Overview</h3>
-                            <p>This site currently includes three playable math game series, each focused on a specific
+                            <p>This site currently includes four playable math game series, each focused on a specific
                                 foundational skill.</p>
 
                             <div class="game-list">
@@ -1534,6 +2417,11 @@
                                     <p>A game focused on understanding and remembering fractions, decimals, and
                                         percentages, helping learners see the relationships between different
                                         representations of the same value.</p>
+                                </div>
+                                <div class="game-item">
+                                    <h4><a href="/pages/long-division">Long Division Tutor</a></h4>
+                                    <p>A step-by-step long division tool for practicing divide, multiply, subtract, and
+                                        bring down with guided support.</p>
                                 </div>
                             </div>
 
@@ -1583,7 +2471,7 @@
                                 style="max-width: 150px;" /></a>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
