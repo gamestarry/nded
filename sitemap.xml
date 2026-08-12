@@ -1,60 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- updated: 2026-05-06 -->
   <url>
     <loc>https://nd-ed.org/</loc>
-    <priority>1.00</priority>
   </url>
   <url>
     <loc>https://nd-ed.org/about-us</loc>
-    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://nd-ed.org/matrix-multiplication-by-2-game</loc>
-    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://nd-ed.org/matrix-multiplication-by-3-game</loc>
-    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://nd-ed.org/pages/fraction-match-game</loc>
-    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://nd-ed.org/pages/long-division</loc>
-    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://nd-ed.org/pages/multiplication-by-2-game</loc>
-    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://nd-ed.org/pages/multiplication-by-3-game</loc>
-    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://nd-ed.org/pages/multiplication-by-4-game</loc>
-    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://nd-ed.org/pages/multiplication-by-5-game</loc>
-    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://nd-ed.org/pages/multiplication-by-6-game</loc>
-    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://nd-ed.org/pages/multiplication-by-7-game</loc>
-    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://nd-ed.org/pages/multiplication-by-8-game</loc>
-    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://nd-ed.org/pages/multiplication-by-9-game</loc>
-    <priority>0.70</priority>
   </url>
 </urlset>
