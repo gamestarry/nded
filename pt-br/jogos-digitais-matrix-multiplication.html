@@ -1,0 +1,2702 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Jogos digitais de multiplicação de matrizes: pratique matrizes 2×2 de forma interativa, usando letras, números e a regra linha × coluna." name="description"/>
+<meta content="jogos digitais, multiplicação de matrizes, jogo de matrizes, matrizes 2x2, matemática, jogo educativo" name="keywords"/>
+<meta content="NDED" name="author"/>
+<title>Jogos Digitais de Multiplicação de Matrizes | NDED</title>
+<!-- Font Awesome for icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<!-- Google Fonts for NDED styling -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&amp;family=Raleway:wght@400;500&amp;family=Quicksand:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://nd-ed.org/pt-br/jogos-digitais-matrix-multiplication" rel="canonical"/>
+<style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #8a2be2;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+            /* 游戏黏土风格变量 */
+            --clay-bg: #E0E9FF;
+            --clay-primary: #6B94FF;
+            --clay-accent-pink: #FF99C8;
+            --clay-accent-yellow: #FFD152;
+            --clay-success: #10B981;
+            --clay-selected: #6ED6A7;
+            /* 新增：选中状态颜色（浅绿色） */
+            --clay-purple: #A78BFA;
+            --clay-dark-bg: #0A1931;
+            --clay-gray: #94A3B8;
+            --clay-shadow:
+                8px 8px 16px rgba(0, 0, 0, 0.1),
+                -4px -4px 12px rgba(255, 255, 255, 0.8),
+                inset 4px 4px 8px rgba(255, 255, 255, 0.4),
+                inset -4px -4px 8px rgba(0, 0, 0, 0.05);
+            --clay-radius-lg: 30px;
+            --clay-radius-sm: 12px;
+            --text-dark: #2D3748;
+            --text-light: #4A5568;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* 主行布局容器 */
+        .main-row-container {
+            width: 100%;
+            background-color: #f9f9f9;
+            padding: 0 0 1.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 更宽的容器，用于容纳三个并排的部分 */
+        .wide-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* 主行布局 */
+        .main-row {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .left-sidebar,
+        .right-sidebar {
+            flex: 0 0 250px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-content {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 动态内容容器样式 */
+        .dynamic-content-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dynamic-content-container h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .dynamic-content-container p {
+            color: var(--dark-color);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* 左侧边栏矩阵计算器边框 */
+        .matrix-calc-banner {
+            background: linear-gradient(135deg, var(--clay-primary) 0%, var(--clay-purple) 100%);
+            border-radius: var(--clay-radius-sm);
+            padding: 1rem;
+            margin-top: 1.2rem;
+            box-shadow: var(--clay-shadow);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        .matrix-calc-banner h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 0.7rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .matrix-calc-button {
+            display: inline-block;
+            background: white;
+            color: var(--clay-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .matrix-calc-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: var(--clay-accent-yellow);
+            color: var(--clay-dark-bg);
+        }
+
+        /* 左侧导航栏样式 */
+        .nav-title {
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-color);
+            text-align: center;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .nav-button {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 2px solid var(--secondary-color);
+            padding: 0.4rem 0.8rem;
+            font-size: 0.95rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-weight: 500;
+        }
+
+        .nav-button:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-color: var(--secondary-color);
+        }
+
+        .nav-button:active {
+            transform: translateY(0);
+        }
+
+        /* 为外部链接按钮添加外链标志 */
+        .nav-button.external {
+            position: relative;
+            padding-right: 2.5rem;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 2px solid var(--secondary-color);
+        }
+
+        .nav-button.external::after {
+            content: "↗";
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-button.external:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        .nav-button.external:hover::after {
+            transform: translateY(-50%) translateX(2px) translateY(-2px);
+        }
+
+        /* 头部样式 - 已修改，整体缩小10% */
+        header {
+            background: linear-gradient(135deg, #00447F 0%, #0066AA 100%);
+            color: white;
+            padding: 0.2rem 0;
+            text-align: center;
+            margin-bottom: 0.4rem;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            min-height: 72px;
+            z-index: 1000;
+            transform: scaleY(0.9);
+            transform-origin: top;
+        }
+
+        /* 添加微妙的纹理效果 */
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        /* 新的标题样式 - 缩小10% */
+        .main-title {
+            font-size: 2.3rem;
+            margin-bottom: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            line-height: 1.2;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 500;
+            display: flex;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            justify-content: center;
+            transform: scale(0.9);
+            transform-origin: center;
+        }
+
+        /* NDED特殊样式 - 修改为向内凹的圆角，缩小10% */
+        .nded-text {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 900;
+            font-size: 2.6rem;
+            color: #2c3e50;
+            letter-spacing: 0.4px;
+            display: inline-block;
+            position: relative;
+            padding: 0 9px;
+            margin-right: 6px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow:
+                inset 2.5px 2.5px 4px rgba(0, 0, 0, 0.2),
+                inset -2.5px -2.5px 4px rgba(255, 255, 255, 0.8),
+                0 1.5px 3px rgba(0, 0, 0, 0.1);
+            border: 0.8px solid rgba(0, 0, 0, 0.1);
+            line-height: 1.1;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* 副标题样式 - 添加新的样式，缩小10% */
+        .subtitle {
+            font-size: 1.55rem;
+            font-style: italic;
+            color: #f0f0f0;
+            text-shadow: 0.8px 0.8px 1.5px rgba(0, 0, 0, 0.3);
+            font-weight: 400;
+            margin-left: 6px;
+            letter-spacing: 0.4px;
+            line-height: 1.1;
+            display: inline-flex;
+            align-items: flex-end;
+            height: 52px;
+            position: relative;
+        }
+
+        /* 给NDED添加装饰性边框效果 */
+        .nded-text::before {
+            content: "";
+            position: absolute;
+            top: -2.5px;
+            left: -2.5px;
+            right: -2.5px;
+            bottom: -2.5px;
+            border: 0.8px solid rgba(255, 215, 0, 0.2);
+            border-radius: 11.5px;
+            z-index: -1;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 0.4rem 0;
+            margin-top: 2rem;
+        }
+
+        /* 右侧边栏样式 */
+        .right-sidebar {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: 200px;
+            padding: 1.2rem;
+        }
+
+        .right-sidebar-placeholder {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        /* 问答栏样式 */
+        .question-box {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 1.2em;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-family: "Poppins", "Nunito", sans-serif;
+        }
+
+        .question-box h2 {
+            font-size: 0.95rem;
+            margin-bottom: 1.2em;
+            color: #333;
+        }
+
+        .question-box .btn {
+            display: block;
+            width: 100%;
+            padding: 0.65em 0.8em;
+            margin-bottom: 0.65em;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .question-box .yes {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+        }
+
+        .question-box .yes:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3.6px 9px rgba(120, 100, 255, 0.3);
+        }
+
+        .question-box .no {
+            background: #ffe7e7;
+            color: #ff4b4b;
+        }
+
+        .question-box .no:hover {
+            transform: rotate(-2deg) scale(1.05);
+            box-shadow: 0 3.6px 9px rgba(255, 75, 75, 0.2);
+        }
+
+        .question-box .response {
+            margin-top: 1.2em;
+            font-size: 0.85rem;
+            color: #555;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .question-box .response.show {
+            opacity: 1;
+        }
+
+        /* 游戏容器样式 */
+        .game-wrapper {
+            background-color: var(--clay-bg);
+            border-radius: var(--clay-radius-lg);
+            padding: 12px;
+            margin-top: -5px;
+            box-shadow: var(--clay-shadow);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+        }
+
+        /* 游戏标题 */
+        .game-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--clay-dark-bg);
+            text-align: center;
+            margin: 0 0 8px 0;
+            padding: 0 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.2;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        /* 星星与状态 - 粘土风格 */
+        .stars-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: center;
+            margin: 0 auto 5px;
+        }
+
+        .stars-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .star {
+            font-size: 2.2rem;
+            color: rgba(107, 148, 255, 0.2);
+            transition: 0.3s;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .star.active {
+            color: var(--clay-accent-yellow);
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px rgba(255, 209, 82, 0.3));
+        }
+
+        .status-container {
+            text-align: center;
+            margin-bottom: 12px;
+            max-width: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 8px 12px;
+            border-radius: var(--clay-radius-lg);
+            box-shadow: var(--clay-shadow);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            max-width: 800px;
+            margin: 0 auto 12px;
+        }
+
+        .status-label {
+            font-weight: 700;
+            color: var(--clay-dark-bg);
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 5px;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .hint-text {
+            font-size: 0.85rem;
+            color: var(--clay-primary);
+            font-style: italic;
+            margin-top: 5px;
+            animation: pulse 2s infinite;
+            display: block;
+            font-weight: 500;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* 迷你通知 - 粘土风格 */
+        #miniNotice {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 25px;
+            border-radius: var(--clay-radius-lg);
+            box-shadow: var(--clay-shadow);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            border: 2px solid var(--clay-primary);
+            text-align: center;
+            backdrop-filter: blur(20px);
+            max-width: 350px;
+            width: 90%;
+        }
+
+        /* 核心 Playground - 粘土容器 */
+        .playground {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: var(--clay-radius-lg);
+            box-shadow: var(--clay-shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            margin-bottom: 12px;
+        }
+
+        /* 矩阵容器 - 移动端优化 */
+        .matrices {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* 矩阵行容器 - 新增：用于移动端的两行布局 */
+        .matrix-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        /* 矩阵 - 粘土风格 */
+        .matrix {
+            display: grid;
+            grid-template-columns: repeat(2, 60px);
+            gap: 8px;
+            padding: 10px;
+            flex-shrink: 0;
+        }
+
+        /* 单元格 - 粘土质感 */
+        .cell {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--clay-radius-sm);
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
+            cursor: pointer;
+            box-shadow: var(--clay-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: var(--text-dark);
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        /* 矩阵A和矩阵B的初始颜色为白色 */
+        #matA .cell,
+        #matB .cell {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-dark);
+        }
+
+        /* 点击结果矩阵后，矩阵A高亮为蓝色 */
+        #matA .cell.highlight {
+            background: var(--clay-primary);
+            color: white;
+            box-shadow:
+                8px 8px 16px rgba(0, 0, 0, 0.15),
+                -4px -4px 12px rgba(255, 255, 255, 0.9),
+                inset 4px 4px 8px rgba(255, 255, 255, 0.6);
+        }
+
+        /* 点击结果矩阵后，矩阵B高亮为黄色 */
+        #matB .cell.highlight {
+            background: var(--clay-accent-yellow);
+            color: var(--clay-dark-bg);
+            box-shadow:
+                8px 8px 16px rgba(0, 0, 0, 0.15),
+                -4px -4px 12px rgba(255, 255, 255, 0.9),
+                inset 4px 4px 8px rgba(255, 255, 255, 0.6);
+        }
+
+        /* 结果矩阵初始状态 */
+        #matC .cell {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-light);
+            cursor: pointer;
+            border: 2px dashed rgba(107, 148, 255, 0.3);
+            position: relative;
+        }
+
+        /* 计算完成后，结果矩阵变为深绿色 */
+        #matC .cell.done {
+            background: var(--clay-success);
+            color: white;
+            border: none;
+            cursor: default;
+            box-shadow: var(--clay-shadow);
+        }
+
+        /* 新增：结果矩阵单元格选中状态（浅绿色） */
+        #matC .cell.selected {
+            background: var(--clay-selected);
+            color: var(--clay-dark-bg);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow:
+                0 0 0 3px rgba(110, 214, 167, 0.4),
+                8px 8px 16px rgba(0, 0, 0, 0.1),
+                -4px -4px 12px rgba(255, 255, 255, 0.8),
+                inset 4px 4px 8px rgba(255, 255, 255, 0.6);
+            font-weight: 800;
+            animation: pulse-selected 1.5s infinite alternate;
+            position: relative;
+        }
+
+        /* 选中状态脉冲动画 */
+        @keyframes pulse-selected {
+            0% {
+                box-shadow:
+                    0 0 0 3px rgba(110, 214, 167, 0.3),
+                    8px 8px 16px rgba(0, 0, 0, 0.1),
+                    -4px -4px 12px rgba(255, 255, 255, 0.8),
+                    inset 4px 4px 8px rgba(255, 255, 255, 0.6);
+            }
+
+            100% {
+                box-shadow:
+                    0 0 0 3px rgba(110, 214, 167, 0.6),
+                    8px 8px 16px rgba(0, 0, 0, 0.1),
+                    -4px -4px 12px rgba(255, 255, 255, 0.8),
+                    inset 4px 4px 8px rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        /* 可选：在选中状态的单元格中添加一个小图标 */
+        #matC .cell.selected::after {
+            content: "↻";
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        /* 完成状态的单元格可以添加对勾 */
+        #matC .cell.done::after {
+            content: "✓";
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        /* 结果矩阵单元格点击动画 */
+        #matC .cell:active {
+            transform: scale(0.95);
+            box-shadow:
+                4px 4px 8px rgba(0, 0, 0, 0.1),
+                -2px -2px 6px rgba(255, 255, 255, 0.8),
+                inset 2px 2px 4px rgba(255, 255, 255, 0.4);
+            transition: all 0.1s ease;
+        }
+
+        /* 移动端选中状态 */
+        .cell.selected {
+            outline: 3px solid var(--clay-primary);
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow:
+                12px 12px 24px rgba(0, 0, 0, 0.15),
+                -6px -6px 16px rgba(255, 255, 255, 0.9),
+                inset 6px 6px 10px rgba(255, 255, 255, 0.6);
+        }
+
+        /* 拖拽克隆元素 - 优化GPU加速 */
+        .drag-clone {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.8;
+            transform: scale(1.1);
+            transition: none !important;
+            will-change: transform;
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.25),
+                -6px -6px 20px rgba(255, 255, 255, 0.8);
+        }
+
+        /* 运算符 */
+        .operator {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--clay-primary);
+            flex-shrink: 0;
+            margin: 0 3px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        /* 公式插槽区域 */
+        .formula-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            width: 100%;
+        }
+
+        /* 公式插槽和按钮容器 */
+        .formula-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .dock {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50px;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+            flex-wrap: wrap;
+            justify-content: center;
+            box-shadow: var(--clay-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            flex-shrink: 0;
+        }
+
+        .dock.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .slot {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--clay-radius-sm);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 800;
+            background: white;
+            transition: all 0.2s;
+            box-shadow: var(--clay-shadow);
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        /* 矩阵A对应的插槽边框为蓝色 */
+        .slot-a {
+            border: 2px dashed var(--clay-primary);
+            background: rgba(107, 148, 255, 0.1);
+        }
+
+        /* 矩阵B对应的插槽边框为黄色 */
+        .slot-b {
+            border: 2px dashed var(--clay-accent-yellow);
+            background: rgba(255, 209, 82, 0.1);
+        }
+
+        .slot.filled {
+            border-style: solid;
+            color: var(--clay-dark-bg);
+        }
+
+        .slot.hover {
+            transform: scale(1.1);
+            border-width: 3px;
+            background-color: rgba(107, 148, 255, 0.2);
+        }
+
+        /* Resolver Atual按钮 */
+        #solveBtn {
+            padding: 8px 16px;
+            border-radius: var(--clay-radius-sm);
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.8rem;
+            color: white;
+            touch-action: manipulation;
+            box-shadow: var(--clay-shadow);
+            background: var(--clay-success);
+            white-space: nowrap;
+            display: none;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        #solveBtn:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                12px 12px 24px rgba(0, 0, 0, 0.12),
+                -6px -6px 16px rgba(255, 255, 255, 0.9),
+                inset 4px 4px 8px rgba(255, 255, 255, 0.6);
+        }
+
+        /* 底部工具栏 - 粘土按钮 */
+        .tools-area {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 800px;
+            padding-bottom: 10px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--clay-radius-sm);
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.8rem;
+            color: white;
+            touch-action: manipulation;
+            box-shadow: var(--clay-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                12px 12px 24px rgba(0, 0, 0, 0.12),
+                -6px -6px 16px rgba(255, 255, 255, 0.9),
+                inset 4px 4px 8px rgba(255, 255, 255, 0.6);
+        }
+
+        /* Quick Solve按钮 */
+        .btn-green {
+            background: var(--clay-success);
+        }
+
+        /* Avançar para 3×3按钮 */
+        .btn-blue {
+            background: var(--clay-purple);
+        }
+
+        /* Reiniciar Treino按钮 */
+        .btn-gray {
+            background: var(--clay-gray);
+        }
+
+        .btn-link {
+            background: var(--clay-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        /* ================== 音效控制按钮样式 ================== */
+        .sound-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .sound-toggle-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--clay-primary);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--clay-shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .sound-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow:
+                12px 12px 24px rgba(0, 0, 0, 0.15),
+                -6px -6px 16px rgba(255, 255, 255, 0.9);
+        }
+
+        .sound-toggle-btn.muted {
+            background: var(--clay-gray);
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .sound-controls {
+                top: 35px;
+                right: 15px;
+            }
+            .sound-toggle-btn {
+                width: 30px;                /* 缩小宽度 */
+                height: 30px;                /* 缩小高度 */
+                font-size: 1.2rem;           /* 调整图标大小 */
+                background: transparent;      /* 移除背景色 */
+                border: none;                 /* 移除边框 */
+                box-shadow: none;             /* 移除阴影 */
+                color: var(--clay-dark-bg);   /* 设置深色图标，确保可见 */
+            }
+            .sound-toggle-btn.muted {
+                background: transparent;      /* 静音状态也移除背景 */
+                color: #999;                  /* 静音图标颜色变浅 */
+            }
+            .sound-toggle-btn:hover {
+                background: transparent;      /* 悬停时无背景 */
+                box-shadow: none;
+                transform: scale(1.1);        /* 可保留轻微放大效果 */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sound-controls {
+                top: 30px;
+                right: 10px;
+            }
+            .sound-toggle-btn {
+                width: 28px;                /* 进一步缩小 */
+                height: 28px;
+                font-size: 1.1rem;
+                background: transparent;     /* 同样移除背景 */
+                border: none;
+                box-shadow: none;
+                color: var(--clay-dark-bg);
+            }
+            .sound-toggle-btn.muted {
+                background: transparent;
+                color: #999;
+            }
+        }
+
+        /* ================== SEO文章样式 ================== */
+        .seo-article-container {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .seo-article {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .seo-article * {
+            box-sizing: border-box;
+        }
+
+        .seo-article header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #4a6fa5;
+            background: none;
+            box-shadow: none;
+            border-radius: 0;
+            color: inherit;
+            min-height: auto;
+            transform: none;
+            padding: 0;
+        }
+
+        .seo-article h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #4a6fa5, #166088);
+            -webkit-background-clip: text;
+            white-space: nowrap;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .seo-article .subtitle {
+            color: #7b8a8b;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .seo-article h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin: 25px 0 12px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #eaeaea;
+        }
+
+        .seo-article h3 {
+            color: #3498db;
+            font-size: 1.4rem;
+            margin: 18px 0 8px;
+        }
+
+        .seo-article p {
+            margin-bottom: 14px;
+            font-size: 1rem;
+            color: #444;
+        }
+
+        .seo-article ul,
+        .seo-article ol {
+            margin-left: 20px;
+            margin-bottom: 18px;
+        }
+
+        .seo-article li {
+            margin-bottom: 6px;
+            padding-left: 5px;
+        }
+
+        .seo-article .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .seo-article .section-number {
+            background-color: #4a6fa5;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 12px;
+        }
+
+        .seo-article .gameplay-steps {
+            background-color: #f1f8ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #3498db;
+        }
+
+        .seo-article .gameplay-steps h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        .seo-article .step {
+            display: flex;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #d1e3f6;
+        }
+
+        .seo-article .step:last-child {
+            border-bottom: none;
+        }
+
+        .seo-article .step-number {
+            background-color: #3498db;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .seo-article .tip-box {
+            background-color: #fff8e1;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 20px 0;
+            border-left: 5px solid #ffc107;
+        }
+
+        .seo-article .teacher-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 25px 0;
+        }
+
+        .seo-article .image-container {
+            flex: 1;
+            min-width: 280px;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        /* 图片样式 - 这里控制了图片大小 */
+        .seo-article .game-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        /* 鼠标悬停效果 - 可选 */
+        .seo-article .game-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .seo-article .image-caption {
+            font-style: italic;
+            color: #666;
+            text-align: center;
+            font-size: 0.9rem;
+            padding: 0 8px;
+        }
+
+        .seo-article .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .seo-article .key-point {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 18px;
+            border-top: 4px solid #4a6fa5;
+        }
+
+        .seo-article .key-point h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .seo-article footer {
+            text-align: center;
+            margin-top: 35px;
+            padding-top: 15px;
+            border-top: 1px solid #eaeaea;
+            color: #7b8a8b;
+            font-size: 0.85rem;
+            background: none;
+            padding: 0;
+            margin: 35px 0 0 0;
+        }
+
+        @media (max-width: 768px) {
+            .seo-article h1 {
+                font-size: 2rem;
+            }
+
+            .seo-article h2 {
+                font-size: 1.6rem;
+            }
+
+            .seo-article .teacher-images {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .seo-article .image-container {
+                min-width: 100%;
+            }
+
+            .seo-article .game-image {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .seo-article .game-image {
+                max-width: 100%;
+            }
+
+            .seo-article .teacher-images {
+                gap: 15px;
+            }
+        }
+
+        /* ================== 响应式优化 ================== */
+        @media (max-width: 768px) {
+            .main-row {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .left-sidebar,
+            .right-sidebar {
+                flex: 1;
+                padding: 1rem !important;
+            }
+
+            .main-title {
+                font-size: 1.6rem;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nded-text {
+                font-size: 1.8rem;
+                margin-right: 0;
+                margin-bottom: 4px;
+                height: 40px;
+                padding: 0 8px;
+                border-radius: 8px;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+                margin-left: 0;
+                text-align: center;
+                height: auto;
+                line-height: 1.3;
+                display: block;
+                margin-top: 4px;
+            }
+
+            header {
+                flex-direction: column;
+                padding: 0.4rem 0;
+                min-height: 90px;
+                margin-bottom: 0.3rem;
+            }
+
+            .wide-container {
+                padding: 0 10px !important;
+            }
+
+            .dynamic-content-container {
+                padding: 1rem !important;
+                margin-bottom: 1rem;
+            }
+
+            /* 游戏响应式调整 */
+            .game-wrapper {
+                padding: 10px !important;
+                border-radius: 20px;
+                margin-top: -3px;
+            }
+
+            .game-title {
+                font-size: 1.6rem;
+                margin-bottom: 8px;
+            }
+
+            .playground {
+                padding: 12px 8px !important;
+                border-radius: 20px;
+                gap: 10px;
+                max-width: 95%;
+                margin-bottom: 10px;
+            }
+
+            .matrices {
+                flex-direction: column;
+                gap: 8px;
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            .matrix-row:first-child {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                flex-wrap: nowrap;
+                width: 100%;
+            }
+
+            .matrix-row:last-child {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                flex-wrap: nowrap;
+                width: 100%;
+                margin-top: 6px;
+            }
+
+            .matrix {
+                grid-template-columns: repeat(2, 50px) !important;
+                gap: 6px;
+                padding: 8px;
+                margin: 0;
+            }
+
+            #matA,
+            #matB {
+                transform: scale(0.9);
+                transform-origin: center;
+            }
+
+            #matC {
+                transform: none;
+            }
+
+            .cell {
+                width: 50px !important;
+                height: 50px !important;
+                font-size: 1.1rem;
+                border-radius: 8px;
+            }
+
+            /* 移动端选中状态调整 */
+            #matC .cell.selected {
+                box-shadow:
+                    0 0 0 2px rgba(110, 214, 167, 0.4),
+                    4px 4px 8px rgba(0, 0, 0, 0.1),
+                    -2px -2px 6px rgba(255, 255, 255, 0.8),
+                    inset 2px 2px 4px rgba(255, 255, 255, 0.6);
+            }
+
+            @keyframes pulse-selected {
+                0% {
+                    box-shadow:
+                        0 0 0 2px rgba(110, 214, 167, 0.3),
+                        4px 4px 8px rgba(0, 0, 0, 0.1),
+                        -2px -2px 6px rgba(255, 255, 255, 0.8),
+                        inset 2px 2px 4px rgba(255, 255, 255, 0.6);
+                }
+
+                100% {
+                    box-shadow:
+                        0 0 0 2px rgba(110, 214, 167, 0.5),
+                        4px 4px 8px rgba(0, 0, 0, 0.1),
+                        -2px -2px 6px rgba(255, 255, 255, 0.8),
+                        inset 2px 2px 4px rgba(255, 255, 255, 0.6);
+                }
+            }
+
+            .operator {
+                font-size: 1.2rem;
+                margin: 0 2px;
+            }
+
+            .formula-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .dock {
+                padding: 8px 14px;
+                gap: 5px;
+                max-width: 90%;
+                border-radius: 35px;
+            }
+
+            .slot {
+                width: 32px;
+                height: 32px;
+                font-size: 0.85rem;
+            }
+
+            #solveBtn {
+                padding: 7px 14px;
+                font-size: 0.75rem;
+            }
+
+            .star {
+                font-size: 1.8rem;
+            }
+
+            .status-container {
+                padding: 6px 10px;
+                max-width: 95%;
+                margin-bottom: 10px;
+            }
+
+            .status-label {
+                font-size: 0.95rem;
+            }
+
+            .hint-text {
+                font-size: 0.8rem;
+                padding: 0 8px;
+            }
+
+            .btn {
+                padding: 8px 14px;
+                font-size: 0.75rem;
+            }
+
+            #miniNotice {
+                padding: 12px 20px;
+                top: 50%;
+                max-width: 90%;
+            }
+
+            .tools-area {
+                margin-top: 5px;
+                gap: 8px;
+                max-width: 95%;
+            }
+
+            /* 导航按钮在移动端改为每行2个 */
+            .nav-buttons {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+
+            .nav-button {
+                font-size: 0.8rem;
+                padding: 0.6rem 0.4rem;
+            }
+
+            .matrix-calc-banner {
+                margin-top: 1rem;
+                padding: 0.8rem;
+            }
+
+            .matrix-calc-banner h4 {
+                font-size: 1rem;
+            }
+
+            .matrix-calc-button {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.85rem;
+            }
+
+            /* SEO文章容器响应式 */
+            .seo-article-container {
+                padding: 1rem !important;
+                margin-top: 1rem;
+            }
+
+            .seo-article h1 {
+                font-size: 1.8rem;
+            }
+
+            .seo-article h2 {
+                font-size: 1.5rem;
+            }
+
+            .seo-article .section-header {
+                margin-bottom: 15px;
+            }
+
+            .seo-article .gameplay-steps {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .wide-container {
+                padding: 0 8px !important;
+            }
+
+            .dynamic-content-container {
+                padding: 0.8rem !important;
+                margin-bottom: 0.8rem;
+            }
+
+            /* 导航按钮在小屏幕设备上的调整 */
+            .nav-buttons {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+
+            .nav-button {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.3rem;
+            }
+
+            /* 超小屏幕游戏优化 */
+            .game-title {
+                font-size: 1.4rem;
+                margin-bottom: 6px;
+            }
+
+            .game-wrapper {
+                padding: 8px !important;
+                border-radius: 16px;
+            }
+
+            .playground {
+                padding: 10px 6px !important;
+                border-radius: 16px;
+                gap: 8px;
+                max-width: 100%;
+                margin-bottom: 8px;
+            }
+
+            .matrix {
+                grid-template-columns: repeat(2, 45px) !important;
+                gap: 5px;
+                padding: 6px;
+            }
+
+            #matA,
+            #matB {
+                transform: scale(0.85);
+            }
+
+            .cell {
+                width: 45px !important;
+                height: 45px !important;
+                font-size: 1rem !important;
+            }
+
+            .operator {
+                font-size: 1.1rem !important;
+                margin: 0 2px !important;
+            }
+
+            .formula-container {
+                gap: 8px;
+            }
+
+            .dock {
+                padding: 6px 10px !important;
+                gap: 4px !important;
+                border-radius: 25px;
+                max-width: 100%;
+            }
+
+            .slot {
+                width: 28px !important;
+                height: 28px !important;
+                font-size: 0.75rem !important;
+            }
+
+            #solveBtn {
+                padding: 6px 10px;
+                font-size: 0.7rem;
+            }
+
+            .star {
+                font-size: 1.5rem;
+            }
+
+            .status-container {
+                padding: 5px 8px;
+                max-width: 100%;
+                margin-bottom: 8px;
+            }
+
+            .status-label {
+                font-size: 0.85rem;
+            }
+
+            .hint-text {
+                font-size: 0.7rem;
+            }
+
+            .btn {
+                padding: 7px 10px;
+                font-size: 0.7rem;
+            }
+
+            #miniNotice {
+                padding: 10px 15px;
+                top: 50%;
+                max-width: 95%;
+            }
+
+            .tools-area {
+                gap: 6px;
+            }
+
+            .matrix-calc-banner {
+                padding: 0.7rem;
+            }
+
+            .matrix-calc-banner h4 {
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .matrix-calc-button {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.8rem;
+            }
+
+            .seo-article-container {
+                padding: 0.8rem !important;
+                margin-top: 0.8rem;
+            }
+
+            .seo-article h1 {
+                font-size: 1.6rem;
+            }
+
+            .seo-article h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .game-title {
+                font-size: 1.8rem;
+            }
+
+            .stars-container {
+                max-width: 90%;
+            }
+
+            .matrices {
+                gap: 10px;
+                max-width: 100%;
+                justify-content: space-between;
+            }
+
+            .matrix {
+                grid-template-columns: repeat(2, 55px) !important;
+                gap: 7px;
+                padding: 9px;
+            }
+
+            .cell {
+                width: 55px !important;
+                height: 55px !important;
+                font-size: 1.2rem;
+            }
+
+            .operator {
+                font-size: 1.4rem;
+            }
+
+            .slot {
+                width: 35px;
+                height: 35px;
+            }
+
+            .left-sidebar,
+            .right-sidebar {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- 页眉部分 -->
+<header>
+<div class="container">
+<h1 class="main-title">
+<span class="nded-text">NDED</span>
+<span class="subtitle">construindo confiança matemática para a vida.</span>
+</h1>
+</div>
+</header>
+<!-- 主内容区域 -->
+<div class="main-row-container">
+<div class="wide-container">
+<div class="main-row">
+<!-- 左侧边栏 -->
+<div class="left-sidebar">
+<h3 class="nav-title">Navegação</h3>
+<div class="nav-buttons">
+<a class="nav-button" href="/">Início</a>
+<a class="nav-button" href="/about-us">Sobre nós</a>
+<a class="nav-button" href="/#math-games-section">Conteúdo</a>
+<a class="nav-button external" href="https://matrixcalcu.com/" target="_blank">Calculadora de Matrizes</a>
+</div>
+<!-- 新增：矩阵计算器边框 -->
+<div class="matrix-calc-banner">
+<h4>Quer calcular matrizes?</h4>
+<a class="matrix-calc-button" href="https://matrixcalcu.com/" target="_blank">
+                            Abrir Calculadora de Matrizes
+                        </a>
+</div>
+</div>
+<!-- 主内容区域 - 游戏 -->
+<div class="main-content">
+<div class="dynamic-content-container">
+<!-- 已移除文字部分 -->
+<div class="game-wrapper">
+<!-- 音效控制按钮 - 移动到游戏容器内右上角 -->
+<div class="sound-controls">
+<button class="sound-toggle-btn" id="soundToggleBtn">🔊</button>
+</div>
+<!-- 游戏标题 -->
+<h1 class="game-title">Regras da Multiplicação de Matrizes</h1>
+<div id="miniNotice">
+<h3 id="noticeTitle" style="margin:0; color: var(--clay-dark-bg);">Perfeito!</h3>
+<button class="btn btn-green" onclick="nextAction()" style="margin-top:10px">Continuar
+                                    ➡</button>
+</div>
+<!-- 星星和状态容器 -->
+<div class="stars-container">
+<div class="stars-row">
+<div class="star" id="s1">★</div>
+<div class="star" id="s2">★</div>
+<div class="star" id="s3">★</div>
+</div>
+</div>
+<div class="status-container">
+<span class="status-label" id="statusLabel">Etapa 1: Introdução (Letras)</span>
+<span class="hint-text" id="hintText">Dica: toque em um '?' na Matriz C para começar.</span>
+</div>
+<div class="playground">
+<div class="matrices">
+<!-- 第一行：矩阵A × 矩阵B -->
+<div class="matrix-row">
+<div class="matrix" id="matA">
+<div class="cell" data-c="0" data-r="0">a</div>
+<div class="cell" data-c="1" data-r="0">b</div>
+<div class="cell" data-c="0" data-r="1">c</div>
+<div class="cell" data-c="1" data-r="1">d</div>
+</div>
+<div class="operator">×</div>
+<div class="matrix" id="matB">
+<div class="cell" data-c="0" data-r="0">e</div>
+<div class="cell" data-c="1" data-r="0">f</div>
+<div class="cell" data-c="0" data-r="1">g</div>
+<div class="cell" data-c="1" data-r="1">h</div>
+</div>
+</div>
+<!-- 第二行：= 结果矩阵 -->
+<div class="matrix-row">
+<div class="operator">=</div>
+<div class="matrix" id="matC">
+<div class="cell" onclick="startCell(0, 0, this)">?</div>
+<div class="cell" onclick="startCell(0, 1, this)">?</div>
+<div class="cell" onclick="startCell(1, 0, this)">?</div>
+<div class="cell" onclick="startCell(1, 1, this)">?</div>
+</div>
+</div>
+</div>
+<!-- 公式区域包含dock和solve按钮 -->
+<div class="formula-area">
+<div class="formula-container">
+<div class="dock" id="dock">
+<div class="slot slot-a" data-idx="0">?</div> <span style="color: var(--clay-primary); font-weight: bold;">×</span>
+<div class="slot slot-b" data-idx="1">?</div> <span style="margin:0 5px; color: var(--clay-primary); font-weight: bold;">+</span>
+<div class="slot slot-a" data-idx="2">?</div> <span style="color: var(--clay-primary); font-weight: bold;">×</span>
+<div class="slot slot-b" data-idx="3">?</div>
+</div>
+<button class="btn btn-green" id="solveBtn" onclick="solveActiveCell()">⚡ Resolver Atual</button>
+</div>
+</div>
+</div>
+<div class="tools-area">
+<div id="masterExtras" style="display:none; gap:12px;">
+<button class="btn btn-gray" onclick="restartTraining()">🧠 Reiniciar Treino</button>
+<a class="btn btn-link" href="https://matrixcalcu.com/en/matrix-multiplication-calculator" target="_blank">📈 Calculadora de Matrizes ↗</a>
+<button class="btn btn-blue" onclick="window.location.href='/pt-br/multiplicacao-de-matrizes-3x3'">🌌 Avançar para 3×3</button>
+</div>
+</div>
+</div>
+<!-- ========== SEO文章部分 ========== -->
+<div class="seo-article-container">
+<article class="seo-article">
+<header>
+<h1>Jogos Digitais de Multiplicação de Matrizes</h1>
+<p class="subtitle"> </p>
+</header>
+<main>
+<!-- Part 1: Como Jogar -->
+<div class="container">
+<div class="section-header">
+<div class="section-number">1</div>
+<h2>Como Jogar</h2>
+</div>
+<h3>Como Funciona</h3>
+<div class="gameplay-steps">
+<div class="step">
+<div class="step-number">1</div>
+<div>
+<strong>Clique para Começar</strong> → Clique em qualquer célula "?" da matriz de resultado (matriz inferior) </div>
+</div>
+<div class="step">
+<div class="step-number">2</div>
+<div>
+<strong>Destaque Automático</strong> → A linha correspondente na Matriz A e a coluna correspondente na Matriz B serão destacadas automaticamente </div>
+</div>
+<div class="step">
+<div class="step-number">3</div>
+<div>
+<strong>Arraste e Preencha</strong> → Arraste as células destacadas para os espaços da fórmula (Desktop: arraste / Celular: toque e arraste) </div>
+</div>
+<div class="step">
+<div class="step-number">4</div>
+<div>
+<strong>Complete o Cálculo</strong> → O resultado é calculado automaticamente quando os 4 espaços forem preenchidos, ou clique em "Resolver Atual" </div>
+</div>
+</div>
+<h3>Progressão do Jogo</h3>
+<ul>
+<li><strong>Nível 1: Matrizes com Letras</strong> - Aprenda as regras básicas</li>
+<li><strong>Nível 2: Matrizes com Letras</strong> - Pratique e reforce</li>
+<li><strong>Nível 3: Matrizes com Números</strong> - Cálculos reais</li>
+<li><strong>Modo Mestre:</strong> Desbloqueie ferramentas avançadas e matrizes 3×3
+                                            </li>
+</ul>
+<div class="tip-box">
+<h3>Dicas Principais</h3>
+<ul>
+<li>Ganhe uma estrela a cada nível concluído</li>
+<li>Fórmula da multiplicação de matrizes: C[linha][coluna] = (A[linha][0] × B[0][coluna]) + (A[linha][1] × B[1][coluna])</li>
+<li>Use "Reiniciar Treino" para zerar o progresso a qualquer momento</li>
+<li>Chegue ao Modo Mestre para desbloquear mais ferramentas e desafios</li>
+</ul>
+</div>
+<!-- 嵌入视频：在“1. Como Jogar”部分的结尾处插入 -->
+<div class="video-section" style="margin-top: 25px;">
+<p style="font-weight: bold; color: #2c3e50; margin-bottom: 12px; text-align: center;">
+<i class="fas fa-play-circle"></i> Tutorial em vídeo: como jogar Matrix Weaver </p>
+<div class="video-responsive-container">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/H3C-vxsq64U?si=Wd1z8PtH7A3zOChy" title="Reprodutor de vídeo do YouTube">
+</iframe>
+</div>
+</div>
+<style>
+                                            /* 视频外层容器：控制整体尺寸 */
+                                            .video-section {
+                                                max-width: 480px;
+                                                /* 老师建议：设为480px，大约是之前的一半，非常精致 */
+                                                margin: 25px auto;
+                                                /* 居中显示 */
+                                                padding: 0 15px;
+                                            }
+
+                                            /* 视频比例容器：依然保持 16:9 */
+                                            .video-responsive-container {
+                                                position: relative;
+                                                padding-bottom: 56.25%;
+                                                height: 0;
+                                                overflow: hidden;
+                                                background: #000;
+                                                border-radius: 8px;
+                                                /* 缩小后，圆角也可以稍微调小一点点更协调 */
+                                                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                                            }
+
+                                            .video-responsive-container iframe {
+                                                position: absolute;
+                                                top: 0;
+                                                left: 0;
+                                                width: 100%;
+                                                height: 100%;
+                                                border: none;
+                                            }
+                                        </style>
+</div>
+<!-- Part 2: Regras da Multiplicação de Matrizes 2×2 -->
+<div class="container">
+<div class="section-header">
+<div class="section-number">2</div>
+<h2>Regras da Multiplicação de Matrizes 2×2</h2>
+</div>
+<p>No modo de matrizes 2×2, o foco está em compreender as condições básicas necessárias para a multiplicação de matrizes. Uma matriz 2×2 só pode ser multiplicada por outra matriz quando o número de colunas da primeira é igual ao número de linhas da segunda.</p>
+<p>Ao multiplicar duas matrizes compatíveis, o resultado é uma nova matriz cujas dimensões são determinadas pelas dimensões externas das matrizes originais. No modo 2×2, essa estrutura é mais fácil de reconhecer, o que ajuda a introduzir as regras de multiplicação de matrizes.</p>
+<p>Este modo foi criado para quem está aprendendo a identificar combinações válidas e inválidas de matrizes. Ao praticar com matrizes menores, os alunos podem ganhar confiança e formar um modelo mental claro das regras de multiplicação de matrizes antes de avançar para casos mais complexos.</p>
+<div class="key-points">
+<div class="key-point">
+<h4>Regra de Compatibilidade</h4>
+<p>A Matriz A (m×n) pode ser multiplicada pela Matriz B (p×q) somente se n = p (colunas de A = linhas de B).</p>
+</div>
+<div class="key-point">
+<h4>Dimensões do Resultado</h4>
+<p>A matriz produto terá dimensões m×q (linhas de A, colunas de B).</p>
+</div>
+<div class="key-point">
+<h4>Foco da Aprendizagem</h4>
+<p>O modo 2×2 ajuda a visualizar e internalizar as regras de multiplicação antes dos cálculos.</p>
+</div>
+</div>
+</div>
+<!-- Part 3: Jogo de Memória das Regras de Multiplicação de Matrizes -->
+<div class="container">
+<div class="section-header">
+<div class="section-number">3</div>
+<h2>Jogo de Memória das Regras de Multiplicação de Matrizes</h2>
+</div>
+<p>O <strong>Jogo de Memória das Regras de Multiplicação de Matrizes</strong> é uma atividade educacional criada para ajudar os alunos a memorizar e compreender as regras da multiplicação de matrizes. Em vez de se concentrar apenas nos cálculos, o jogo treina o reconhecimento de dimensões válidas, condições de multiplicação e dimensões do resultado por meio de uma prática estruturada de memória.</p>
+<h3>Por que é difícil memorizar as regras de multiplicação de matrizes</h3>
+<p>Muitos alunos têm dificuldade com multiplicação de matrizes não por causa da aritmética, mas porque as próprias regras são fáceis de esquecer. Entre os desafios mais comuns estão lembrar quando duas matrizes podem ser multiplicadas, determinar a ordem correta e identificar as dimensões da matriz resultante.</p>
+<p>O ensino tradicional muitas vezes pressupõe que essas regras serão memorizadas naturalmente pela repetição, mas, para muitos alunos, essa etapa exige prática focada e intencional.</p>
+<h3>Não é uma calculadora de matrizes nem um resolvedor automático</h3>
+<p>Este jogo não é uma calculadora de matrizes e não resolve automaticamente problemas de multiplicação de matrizes. Em vez disso, ele se concentra em ajudar os alunos a internalizar as regras por trás da multiplicação de matrizes antes de realizar os cálculos.</p>
+<p>Ao separar a memorização das regras dos cálculos, os alunos constroem uma base conceitual mais sólida e reduzem a confusão em atividades posteriores de resolução de problemas. </p>
+<h3>Como funciona o Jogo de Memória das Regras de Multiplicação de Matrizes</h3>
+<p>O jogo apresenta representações de matrizes e desafios baseados em regras que exigem que o aluno recorde e aplique as condições da multiplicação de matrizes. O jogador deve identificar se a multiplicação é possível e determinar a estrutura correta do resultado com base nas dimensões das matrizes.</p>
+<p>Com interação repetida, feedback e progressão, os alunos transformam gradualmente regras abstratas em conhecimento intuitivo.</p>
+<h3>O que torna esta abordagem de aprendizagem diferente</h3>
+<p>Enquanto muitas ferramentas de aprendizagem se concentram em completar exercícios de multiplicação de matrizes, poucas trabalham diretamente a memorização das regras. Este jogo atende a essa necessidade usando mecânicas de jogo para reforçar o reconhecimento das regras.</p>
+<p>O resultado é uma carga cognitiva menor, menos ansiedade e melhor retenção das regras de multiplicação de matrizes a longo prazo.</p>
+<h3>Para Quem é Este Jogo</h3>
+<ul>
+<li>Alunos do ensino fundamental II e do ensino médio que estão aprendendo matrizes</li>
+<li>Estudantes universitários revisando fundamentos de álgebra linear</li>
+<li>Professores que procuram ferramentas interativas para a sala de aula</li>
+<li>Autodidatas que desejam fortalecer a compreensão conceitual</li>
+</ul>
+<h3>Benefícios Educacionais</h3>
+<ul>
+<li>Melhora a memorização das condições da multiplicação de matrizes</li>
+<li>Desenvolve confiança antes de realizar os cálculos</li>
+<li>Incentiva a aprendizagem ativa por meio da interação</li>
+<li>Favorece a compreensão conceitual a longo prazo</li>
+</ul>
+<h3>Resumo</h3>
+<p>O Jogo de Memória das Regras de Multiplicação de Matrizes é uma ferramenta de aprendizagem focada que ajuda os alunos a dominar essas regras por meio da prática de memória. Ao priorizar a compreensão antes do cálculo, oferece um caminho mais claro e seguro para a álgebra linear.</p>
+</div>
+<!-- Part 4: Para Professores: Uso em Sala de Aula -->
+<div class="container">
+<div class="section-header">
+<div class="section-number">4</div>
+<h2>Para Professores: Uso em Sala de Aula</h2>
+</div>
+<p>O Jogo de Memória das Regras de Multiplicação de Matrizes foi criado para apoiar o ensino em sala de aula, tornando visíveis e interativas as regras abstratas das matrizes. Ele pode ser usado como recurso didático antes da introdução dos cálculos formais.</p>
+<!-- 图片区域 -->
+<div class="teacher-images">
+<div class="image-container">
+<img alt="Captura de tela do jogo de matrizes 2×2" class="game-image" src="/img/matrix-game-01.png"/>
+<p class="image-caption">Captura de tela da interface de multiplicação de matrizes 2×2</p>
+</div>
+<div class="image-container">
+<img alt="Captura de tela do modo de prática do jogo de matrizes" class="game-image" src="/img/matrix-game-02.png"/>
+<p class="image-caption">Captura de tela do modo de prática do jogo de memória</p>
+</div>
+</div>
+<h3>Como os professores podem usar este jogo</h3>
+<ul>
+<li>Apresentar as regras de multiplicação de matrizes antes de resolver problemas numéricos
+                                            </li>
+<li>Demonstrar visualmente combinações válidas e inválidas de matrizes</li>
+<li>Ajudar os alunos a entender por que a ordem na multiplicação de matrizes é importante</li>
+<li>Envolver os alunos em atividades rápidas de verificação de regras durante as aulas</li>
+</ul>
+<h3>Sugestões de uso em sala de aula</h3>
+<ul>
+<li>Demonstração para toda a turma usando o modo 2×2 para a explicação inicial
+                                            </li>
+<li>Prática em pequenos grupos para reforçar o reconhecimento das regras</li>
+<li>Atividade de aquecimento ou revisão antes das sessões de resolução de problemas</li>
+</ul>
+<h3>Por que este jogo funciona no ensino</h3>
+<ul>
+<li>Concentra-se nas regras e na estrutura, em vez de apenas no cálculo</li>
+<li>Reduz a carga cognitiva para alunos que estão começando a estudar matrizes</li>
+<li>Oferece feedback visual imediato</li>
+<li>Não exige configuração nem treinamento prévio</li>
+</ul>
+<p>Ao separar a memorização das regras dos cálculos, os professores podem ajudar os alunos a construir uma base conceitual mais sólida em multiplicação de matrizes e álgebra linear.</p>
+</div>
+</main>
+<footer>
+<p>Guia Educacional do Jogo de Multiplicação de Matrizes | Criado para Aprendizagem Interativa
+                                    </p>
+<p>© 2026 Matrix Learning Tools. Todo o conteúdo educacional está disponível gratuitamente para uso em sala de aula.</p>
+</footer>
+</article>
+</div>
+<!-- ========== SEO文章部分结束 ========== -->
+</div>
+</div>
+<!-- 右侧边栏 -->
+<div class="right-sidebar">
+<div class="question-box">
+<h2>Você gosta de aprender matemática?</h2>
+<button class="btn yes">Sim, eu adoro matemática!</button>
+<button class="btn no">Matemática é um desafio para mim</button>
+<div class="response" id="response"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 页脚部分 -->
+<footer>
+<div class="container">
+<p>© 2026 NDED - Construindo confiança matemática para a vida. Todos os direitos reservados.</p>
+</div>
+</footer>
+<!-- 游戏JavaScript代码 -->
+<script>
+        /* ================== Audio Manager ================== */
+        const AudioManager = {
+            enabled: true,
+            sounds: {},
+
+            init() {
+                // 读取本地存储状态
+                const saved = localStorage.getItem('matrix_game_sound');
+                if (saved !== null) {
+                    this.enabled = saved === 'true';
+                }
+
+                // 创建音频对象
+                this.sounds.correct = new Audio('/assets/audio/correct.mp3');
+                this.sounds.wrong = new Audio('/assets/audio/wrong.mp3');
+                this.sounds.complete = new Audio('/assets/audio/complete.mp3');
+
+                Object.values(this.sounds).forEach(sound => {
+                    sound.volume = 0.6;
+                });
+
+                this.updateUI();
+            },
+
+            play(name) {
+                if (!this.enabled) return;
+                const sound = this.sounds[name];
+                if (!sound) return;
+
+                sound.currentTime = 0;
+                sound.play().catch(() => { });
+            },
+
+            toggle() {
+                this.enabled = !this.enabled;
+                localStorage.setItem('matrix_game_sound', this.enabled);
+                this.updateUI();
+            },
+
+            updateUI() {
+                const btn = document.getElementById('soundToggleBtn');
+                if (!btn) return;
+
+                if (this.enabled) {
+                    btn.innerText = '🔊';
+                    btn.classList.remove('muted');
+                } else {
+                    btn.innerText = '🔇';
+                    btn.classList.add('muted');
+                }
+            }
+        };
+        /* ================== End Audio Manager ================== */
+
+        // 设备检测
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        // 游戏状态
+        let state = {
+            level: 0,
+            solved: 0,
+            target: null,
+            master: false,
+            dragged: null,
+            isDragging: false,
+            dragStartX: 0,
+            dragStartY: 0,
+            dragClone: null,
+            currentSlotHover: null,
+            dragOffsetX: 0,
+            dragOffsetY: 0,
+            slotRects: null,
+            needsUpdate: false,
+            currentTransformX: 0,
+            currentTransformY: 0,
+            pointerId: null
+        };
+
+        // 读取保存的进度
+        const savedLevel = localStorage.getItem('matrix_weaver_level');
+        if (savedLevel !== null) {
+            state.level = parseInt(savedLevel);
+            // 点亮星星
+            for (let i = 1; i <= state.level; i++) {
+                const star = document.getElementById('s' + i);
+                if (star) star.classList.add('active');
+            }
+
+            // 如果已经达到第三关，设置矩阵为数字
+            if (state.level >= 2) {
+                document.querySelectorAll('#matA .cell, #matB .cell').forEach(cell => {
+                    if (cell.parentNode.id !== 'matC') {
+                        cell.innerText = Math.floor(Math.random() * 10);
+                    }
+                });
+            }
+
+            // 如果已经是大师级，显示额外按钮
+            if (state.level >= 3) {
+                state.master = true;
+                document.getElementById('masterExtras').style.display = 'flex';
+            }
+        }
+
+        // 初始化事件
+        function initEvents() {
+            const cells = document.querySelectorAll('#matA .cell, #matB .cell');
+            const slots = document.querySelectorAll('.slot');
+
+            // 统一使用 Pointer Events
+            initPointerDrag(cells, slots);
+
+            // 为桌面端保留原有的拖拽属性（向后兼容）
+            if (!isTouchDevice) {
+                cells.forEach(cell => {
+                    cell.setAttribute('draggable', 'true');
+                });
+            }
+        }
+
+        // 统一Pointer Events拖拽实现
+        function initPointerDrag(cells, slots) {
+            // 按下事件
+            cells.forEach(cell => {
+                cell.addEventListener('pointerdown', function (e) {
+                    if (!state.target) return;
+
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    state.isDragging = true;
+                    state.dragged = cell;
+                    state.dragStartX = e.clientX;
+                    state.dragStartY = e.clientY;
+                    state.pointerId = e.pointerId;
+
+                    // 获取元素位置，用于计算偏移
+                    const rect = cell.getBoundingClientRect();
+                    state.dragOffsetX = e.clientX - rect.left;
+                    state.dragOffsetY = e.clientY - rect.top;
+
+                    // 创建拖拽克隆
+                    createDragClone(cell, e.clientX, e.clientY);
+                    cell.classList.add('selected');
+
+                    // 预缓存所有插槽的边界矩形
+                    cacheSlotRects(slots);
+
+                    // 设置pointer捕获
+                    cell.setPointerCapture && cell.setPointerCapture(e.pointerId);
+
+                }, { passive: false });
+            });
+
+            // 移动事件
+            document.addEventListener('pointermove', function (e) {
+                if (!state.isDragging || !state.dragged) return;
+
+                e.preventDefault();
+                e.stopPropagation();
+
+                // 使用rAF节流更新位置
+                state.currentTransformX = e.clientX - state.dragStartX;
+                state.currentTransformY = e.clientY - state.dragStartY;
+
+                // 检查是否悬停在插槽上
+                checkSlotHover(e.clientX, e.clientY);
+
+                // 标记需要更新
+                if (!state.needsUpdate) {
+                    state.needsUpdate = true;
+                    requestAnimationFrame(updateDragClonePosition);
+                }
+
+            }, { passive: false });
+
+            // 释放事件
+            document.addEventListener('pointerup', function (e) {
+                if (!state.isDragging || !state.dragged) return;
+
+                e.preventDefault();
+                e.stopPropagation();
+
+                // 完成拖拽
+                finishDrag(e.clientX, e.clientY);
+                cleanupDrag();
+
+            }, { passive: false });
+
+            // 取消事件
+            document.addEventListener('pointercancel', function (e) {
+                if (state.isDragging) {
+                    cleanupDrag();
+                }
+            }, { passive: false });
+
+            // 插槽悬停检测
+            slots.forEach(slot => {
+                slot.addEventListener('pointerenter', function (e) {
+                    if (state.isDragging && state.dragged) {
+                        this.classList.add('hover');
+                        state.currentSlotHover = this;
+                    }
+                });
+
+                slot.addEventListener('pointerleave', function (e) {
+                    if (state.isDragging && state.dragged) {
+                        this.classList.remove('hover');
+                        if (state.currentSlotHover === this) {
+                            state.currentSlotHover = null;
+                        }
+                    }
+                });
+
+                slot.addEventListener('pointerup', function (e) {
+                    if (state.isDragging && state.dragged && state.currentSlotHover === this) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleDropOnSlot(this);
+                        cleanupDrag();
+                    }
+                }, { passive: false });
+            });
+        }
+
+        // 预缓存插槽边界矩形
+        function cacheSlotRects(slots) {
+            state.slotRects = [];
+            slots.forEach(slot => {
+                const rect = slot.getBoundingClientRect();
+                state.slotRects.push({
+                    left: rect.left,
+                    top: rect.top,
+                    right: rect.right,
+                    bottom: rect.bottom,
+                    width: rect.width,
+                    height: rect.height,
+                    element: slot
+                });
+            });
+        }
+
+        // 检查插槽悬停（使用预缓存的矩形）
+        function checkSlotHover(x, y) {
+            // 清除之前的悬停状态
+            if (state.currentSlotHover) {
+                state.currentSlotHover.classList.remove('hover');
+                state.currentSlotHover = null;
+            }
+
+            // 使用预缓存的矩形进行数学计算
+            if (state.slotRects) {
+                for (const rect of state.slotRects) {
+                    if (x >= rect.left && x <= rect.right &&
+                        y >= rect.top && y <= rect.bottom) {
+                        rect.element.classList.add('hover');
+                        state.currentSlotHover = rect.element;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // 使用requestAnimationFrame更新拖拽克隆位置
+        function updateDragClonePosition() {
+            if (!state.dragClone || !state.needsUpdate) return;
+
+            // 使用transform进行GPU加速渲染
+            state.dragClone.style.transform =
+                `translate3d(${state.currentTransformX}px, ${state.currentTransformY}px, 0)`;
+
+            state.needsUpdate = false;
+        }
+
+        // 创建拖拽克隆（使用transform定位）
+        function createDragClone(cell, x, y) {
+            if (state.dragClone) state.dragClone.remove();
+
+            state.dragClone = cell.cloneNode(true);
+            state.dragClone.classList.add('drag-clone');
+
+            // 设置初始位置
+            const rect = cell.getBoundingClientRect();
+            state.dragClone.style.left = rect.left + 'px';
+            state.dragClone.style.top = rect.top + 'px';
+            state.dragClone.style.transform = 'translate3d(0, 0, 0)';
+
+            document.body.appendChild(state.dragClone);
+        }
+
+        // 完成拖拽
+        function finishDrag(x, y) {
+            if (state.currentSlotHover) {
+                handleDropOnSlot(state.currentSlotHover);
+            }
+        }
+
+        // 处理放置到插槽
+        function handleDropOnSlot(slot) {
+            if (!state.target || !state.dragged) return;
+            processDrop(slot, state.dragged);
+        }
+
+        // 处理放置逻辑
+        function processDrop(slot, draggedCell) {
+            const idx = parseInt(slot.dataset.idx);
+            const r = parseInt(draggedCell.dataset.r), c = parseInt(draggedCell.dataset.c);
+            const isA = draggedCell.parentNode.id === 'matA';
+
+            let correct = false;
+            if (idx === 0) correct = (isA && r === state.target.r && c === 0);
+            if (idx === 1) correct = (!isA && r === 0 && c === state.target.c);
+            if (idx === 2) correct = (isA && r === state.target.r && c === 1);
+            if (idx === 3) correct = (!isA && r === 1 && c === state.target.c);
+
+            if (correct && !slot.classList.contains('filled')) {
+                // 播放正确音效
+                AudioManager.play('correct');
+
+                slot.innerText = draggedCell.innerText;
+                slot.classList.add('filled');
+                slot.style.backgroundColor = isA ? 'var(--clay-primary)' : 'var(--clay-accent-yellow)';
+                state.target.count++;
+
+                if (state.target.count === 4) {
+                    // 单元格完成音效（单个单元格完成）- 改为correct.mp3
+                    AudioManager.play('correct');
+                    endCell();
+                }
+
+                slot.classList.remove('hover');
+            } else {
+                // 播放错误音效
+                AudioManager.play('wrong');
+            }
+        }
+
+        // 清理拖拽状态
+        function cleanupDrag() {
+            state.isDragging = false;
+
+            if (state.dragClone) {
+                state.dragClone.remove();
+                state.dragClone = null;
+            }
+
+            if (state.dragged) {
+                state.dragged.classList.remove('selected');
+                // 释放pointer捕获
+                if (state.dragged.releasePointerCapture && state.pointerId !== null) {
+                    state.dragged.releasePointerCapture(state.pointerId);
+                }
+            }
+
+            if (state.currentSlotHover) {
+                state.currentSlotHover.classList.remove('hover');
+                state.currentSlotHover = null;
+            }
+
+            state.dragged = null;
+            state.slotRects = null;
+            state.needsUpdate = false;
+            state.pointerId = null;
+        }
+
+        // 游戏核心函数
+        function startCell(r, c, el) {
+            if (el.classList.contains('done')) return;
+
+            // 清除所有结果矩阵单元格的选中状态
+            document.querySelectorAll('#matC .cell').forEach(cell => {
+                cell.classList.remove('selected');
+            });
+
+            // 为当前点击的单元格添加选中状态
+            el.classList.add('selected');
+
+            const hint = document.getElementById('hintText');
+            if (hint) hint.style.display = 'none';
+
+            state.target = { r, c, el, count: 0 };
+
+            document.querySelectorAll('#matA .cell, #matB .cell').forEach(c => {
+                c.classList.remove('highlight');
+                c.classList.remove('selected');
+            });
+            document.querySelectorAll('.slot').forEach(s => {
+                s.classList.remove('hover');
+            });
+            document.getElementById('dock').classList.add('show');
+
+            if (state.level >= 1) {
+                document.getElementById('solveBtn').style.display = 'block';
+            }
+
+            document.querySelectorAll('.slot').forEach(s => {
+                s.innerText = '?';
+                s.className = s.classList.contains('slot-a') ? 'slot slot-a' : 'slot slot-b';
+                s.style.backgroundColor = "";
+                s.classList.remove('filled');
+            });
+
+            document.querySelectorAll('#matA .cell').forEach(cell => {
+                if (parseInt(cell.dataset.r) === r) cell.classList.add('highlight');
+            });
+            document.querySelectorAll('#matB .cell').forEach(cell => {
+                if (parseInt(cell.dataset.c) === c) cell.classList.add('highlight');
+            });
+
+            if (isTouchDevice) {
+                setTimeout(() => {
+                    const hintElement = document.getElementById('hintText');
+                    if (hintElement) {
+                        hintElement.style.display = 'block';
+                        hintElement.innerText = "Toque e arraste uma célula até um espaço da fórmula";
+                        hintElement.style.color = 'var(--clay-accent-yellow)';
+                        hintElement.style.fontWeight = 'bold';
+
+                        setTimeout(() => {
+                            if (hintElement) {
+                                hintElement.innerText = "Dica: toque em um '?' na Matriz C para começar.";
+                                hintElement.style.color = '';
+                                hintElement.style.fontWeight = '';
+                            }
+                        }, 3000);
+                    }
+                }, 500);
+            }
+        }
+
+        function endCell() {
+            document.querySelectorAll('#matA .cell.highlight, #matB .cell.highlight').forEach(cell => {
+                cell.classList.remove('highlight');
+            });
+
+            if (!state.target || !state.target.el) {
+                console.warn('endCell被调用时，target已无效。仅清理状态。');
+                document.getElementById('dock').classList.remove('show');
+                if (document.getElementById('solveBtn')) {
+                    document.getElementById('solveBtn').style.display = 'none';
+                }
+                return;
+            }
+
+            const t = state.target;
+
+            // 移除选中状态，添加完成状态
+            t.el.classList.remove('selected');
+            t.el.classList.add('done');
+
+            // 修复：第2关及以后都计算数值结果
+            if (state.level >= 2) {
+                const s = Array.from(document.querySelectorAll('.slot')).map(x => parseInt(x.innerText) || 0);
+                t.el.innerText = (s[0] * s[1]) + (s[2] * s[3]);
+            } else {
+                t.el.innerText = "OK";
+            }
+
+            document.getElementById('dock').classList.remove('show');
+            document.getElementById('solveBtn').style.display = 'none';
+
+            if (state.isDragging) cleanupDrag();
+
+            state.solved++;
+
+            // 检查是否完成整个矩阵（4个单元格）
+            if (state.solved === 4) {
+                // 播放关卡完成音效 - 保持使用complete.mp3
+                AudioManager.play('complete');
+
+                state.level++;
+
+                // 保存进度到本地存储
+                localStorage.setItem('matrix_weaver_level', state.level);
+
+                // 点亮星星
+                document.getElementById('s' + state.level).classList.add('active');
+
+                if (state.level < 3) {
+                    showNotice("Nível concluído!", "Pronto para o próximo?");
+                } else {
+                    state.master = true;
+                    showNotice("Modo Mestre desbloqueado!", "Agora você tem as ferramentas do Modo Mestre.");
+                    document.getElementById('masterExtras').style.display = 'flex';
+                }
+            }
+        }
+
+        function solveActiveCell() {
+            if (!state.target) return;
+            const r = state.target.r;
+            const c = state.target.c;
+            const cellsA = Array.from(document.querySelectorAll('#matA .cell'));
+            const cellsB = Array.from(document.querySelectorAll('#matB .cell'));
+            const slots = document.querySelectorAll('.slot');
+            slots[0].innerText = cellsA[r * 2].innerText;
+            slots[1].innerText = cellsB[c].innerText;
+            slots[2].innerText = cellsA[r * 2 + 1].innerText;
+            slots[3].innerText = cellsB[c + 2].innerText;
+            endCell();
+        }
+
+        function showNotice(title, body) {
+            document.getElementById('noticeTitle').innerText = title;
+            document.getElementById('miniNotice').style.display = 'block';
+        }
+
+        function nextAction() {
+            document.getElementById('miniNotice').style.display = 'none';
+
+            // 清除所有选中状态
+            document.querySelectorAll('#matC .cell.selected').forEach(cell => {
+                cell.classList.remove('selected');
+            });
+
+            if (state.level < 3) {
+                setupUI();
+            } else {
+                // 第3关及以后的特殊处理
+                state.solved = 0;
+                const stepLabels = ["Introdução (Letras)", "Prática (Letras)", "Desafio (Números)", "Modo Mestre"];
+                const labelIndex = Math.min(state.level, 3);
+                document.getElementById('statusLabel').innerText = "Etapa " + (state.level + 1) + ": " + stepLabels[labelIndex];
+
+                document.querySelectorAll('#matC .cell').forEach(c => {
+                    c.innerText = '?';
+                    c.className = 'cell';
+                });
+
+                // 修复：第2关及以后都使用数字矩阵
+                if (state.level >= 2) {
+                    document.querySelectorAll('#matA .cell, #matB .cell').forEach(cell => {
+                        if (cell.parentNode.id !== 'matC') {
+                            cell.innerText = Math.floor(Math.random() * 10);
+                        }
+                    });
+                }
+            }
+        }
+
+        function setupUI() {
+            state.solved = 0;
+            const stepLabels = ["Introdução (Letras)", "Prática (Letras)", "Desafio (Números)", "Modo Mestre"];
+            const labelIndex = Math.min(state.level, 3);
+            document.getElementById('statusLabel').innerText = "Etapa " + (state.level + 1) + ": " + stepLabels[labelIndex];
+
+            // 清除所有结果矩阵单元格的状态，包括选中状态
+            document.querySelectorAll('#matC .cell').forEach(c => {
+                c.innerText = '?';
+                c.className = 'cell'; // 这会移除所有类名，包括selected和done
+            });
+
+            // 修复：第2关及以后都使用数字矩阵
+            if (state.level >= 2) {
+                document.querySelectorAll('#matA .cell, #matB .cell').forEach(cell => {
+                    if (cell.parentNode.id !== 'matC') {
+                        cell.innerText = Math.floor(Math.random() * 10);
+                    }
+                });
+            }
+        }
+
+        function restartTraining() {
+            // 清除保存的进度
+            localStorage.removeItem('matrix_weaver_level');
+
+            state.level = 0;
+            state.solved = 0;
+            state.master = false;
+            document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+            document.getElementById('hintText').style.display = 'block';
+            document.getElementById('hintText').innerText = "Dica: toque em um '?' na Matriz C para começar.";
+
+            if (state.isDragging) cleanupDrag();
+
+            const labelsA = ['a', 'b', 'c', 'd'], labelsB = ['e', 'f', 'g', 'h'];
+            document.querySelectorAll('#matA .cell').forEach((c, i) => {
+                c.innerText = labelsA[i];
+                c.draggable = !isTouchDevice;
+            });
+            document.querySelectorAll('#matB .cell').forEach((c, i) => {
+                c.innerText = labelsB[i];
+                c.draggable = !isTouchDevice;
+            });
+            setupUI();
+        }
+
+        // 页面初始化
+        document.addEventListener('DOMContentLoaded', function () {
+            initEvents();
+            // 初始化音频管理器
+            AudioManager.init();
+
+            // 为音效开关按钮添加点击事件
+            document.getElementById('soundToggleBtn')
+                .addEventListener('click', function () {
+                    AudioManager.toggle();
+                });
+
+            // 根据保存的进度设置UI
+            if (state.level > 0) {
+                // 更新状态标签
+                const stepLabels = ["Introdução (Letras)", "Prática (Letras)", "Desafio (Números)", "Modo Mestre"];
+                const labelIndex = Math.min(state.level, 3);
+                document.getElementById('statusLabel').innerText = "Etapa " + (state.level + 1) + ": " + stepLabels[labelIndex];
+
+                // 如果已经完成所有关卡，显示额外按钮
+                if (state.level >= 3) {
+                    document.getElementById('masterExtras').style.display = 'flex';
+                }
+            }
+        });
+
+        // 防止页面滚动
+        document.addEventListener('touchmove', function (e) {
+            if (state.isDragging) e.preventDefault();
+        }, { passive: false });
+    </script>
+<!-- 模板JavaScript代码 -->
+<script>
+        // 问答栏功能
+        function initPoll() {
+            const yesBtn = document.querySelector('.question-box .yes');
+            const noBtn = document.querySelector('.question-box .no');
+            const response = document.getElementById('response');
+
+            yesBtn.addEventListener('click', () => {
+                response.textContent = "Que ótimo! A matemática é uma ferramenta incrível para compreender o mundo! 🧮";
+                response.classList.add('show');
+            });
+
+            noBtn.addEventListener('click', () => {
+                response.textContent = "Estamos aqui para ajudar! Nossos recursos foram criados para tornar a matemática mais clara e divertida. 👍";
+                response.classList.add('show');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // 初始化问答栏
+            initPoll();
+        });
+    </script>
+</body>
+</html>
