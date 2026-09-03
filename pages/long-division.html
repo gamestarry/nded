@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Learn long division step by step with an interactive tutor. Practice divide, multiply, subtract, and bring down with guided help.">
+        content="Practice long division step by step with an interactive tutor. Enter a whole-number problem and work through divide, multiply, subtract, and bring down with guided help.">
     <meta name="author" content="NDED">
-    <title>Long Division Tutor - Step-by-Step Practice | NDED</title>
+    <title>Long Division Step by Step - Interactive Tutor | NDED</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap"
@@ -89,29 +89,84 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 48px 24px 64px;
+            padding: 30px 24px 34px;
         }
 
         .long-division-tool * { box-sizing: border-box; }
+
+        .long-division-tool .tool-title {
+            width: 100%;
+            margin: 0 0 14px;
+            color: var(--primary-color);
+            font-size: 1.22rem;
+            line-height: 1.25;
+            text-align: center;
+        }
 
         /* Input Area */
         .long-division-tool .setup-area {
             background: rgba(255,255,255,0.96);
             padding: 18px 20px;
             border: 1px solid #e7edf5;
-            border-radius: 18px;
-            margin-bottom: 28px;
+            border-radius: 12px;
+            margin-bottom: 10px;
             box-shadow: 0 10px 30px rgba(42, 61, 92, 0.08);
             display: flex;
             gap: 12px;
-            align-items: center;
+            align-items: flex-end;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .long-division-tool .setup-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 0 1 180px;
+        }
+
+        .long-division-tool .setup-field label {
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 750;
+            line-height: 1;
+            text-align: left;
+        }
+
+        .long-division-tool .setup-note {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto 22px;
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .long-division-tool .problem-setup {
+            width: 100%;
+            margin: 0 auto 26px;
+        }
+
+        .long-division-tool .setup-message {
+            min-height: 1.35em;
+            margin: -10px auto 18px;
+            color: var(--error);
+            font-size: 0.88rem;
+            font-weight: 650;
+            line-height: 1.35;
+            text-align: center;
+        }
+
+        .long-division-tool .setup-message:empty {
+            visibility: hidden;
         }
 
         .long-division-tool .setup-area input {
-            width: 118px;
+            width: 180px;
             height: 54px;
             padding: 8px 12px;
-            font-size: 1.45rem;
+            font-size: 1.08rem;
             font-weight: 500;
             text-align: center;
             color: var(--ink);
@@ -422,6 +477,29 @@
             display: block;
         }
 
+        .long-division-tool .result-summary-label {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .long-division-tool .result-summary-equation {
+            display: block;
+            font-size: 1.18rem;
+        }
+
+        .long-division-tool .result-summary-note {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
         .long-division-tool .bring-down-digit {
             display: flex;
             align-items: center;
@@ -563,7 +641,11 @@
                 justify-content: center;
             }
 
-            .long-division-tool .setup-area input { width: 104px; }
+            .long-division-tool .setup-field {
+                flex: 0 1 180px;
+            }
+
+            .long-division-tool .setup-area input { width: 180px; }
             .long-division-tool .btn-start { flex: 1 1 170px; }
 
             .long-division-tool .division-workspace {
@@ -609,9 +691,14 @@
             }
 
             header .subtitle {
-                max-width: calc(100vw - 20px);
+                width: min(260px, calc(100vw - 80px));
+                max-width: min(260px, calc(100vw - 80px));
+                margin-left: auto;
+                margin-right: auto;
                 white-space: normal;
                 text-align: center;
+                overflow-wrap: anywhere;
+                font-size: 0.82rem !important;
             }
 
             .left-sidebar .nav-buttons {
@@ -629,8 +716,42 @@
                 overflow-wrap: anywhere;
             }
 
+            .long-division-page {
+                align-items: flex-start;
+            }
+
+            .long-division-hero,
+            .learning-content {
+                width: calc(100vw - 24px) !important;
+                max-width: calc(100vw - 24px) !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
             .long-division-hero h1 {
+                width: min(260px, calc(100vw - 80px));
+                max-width: min(260px, calc(100vw - 80px));
+                margin-left: 0 !important;
+                margin-right: 0 !important;
                 font-size: 1.65rem;
+                line-height: 1.22;
+                white-space: normal;
+                word-break: break-word;
+            }
+
+            .long-division-hero p {
+                width: min(260px, calc(100vw - 80px));
+                max-width: min(260px, calc(100vw - 80px));
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .long-division-tool .tool-title {
+                width: min(230px, calc(100vw - 100px));
+                max-width: min(230px, calc(100vw - 100px));
+                font-size: 1.02rem;
+                line-height: 1.25;
+                overflow-wrap: anywhere;
             }
 
             .step-grid {
@@ -640,7 +761,29 @@
             /* Compact long-division workspace for phones */
             .long-division-tool {
                 --cell-size: clamp(20px, 6.2vw, 26px);
+                width: calc(100vw - 24px) !important;
                 padding: 20px 6px 36px;
+                max-width: calc(100vw - 24px) !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                align-items: flex-start;
+            }
+
+            .long-division-tool .setup-area {
+                width: 100%;
+                max-width: min(260px, calc(100vw - 80px));
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .long-division-tool .setup-field {
+                flex: 1 1 100%;
+                min-width: 0;
+            }
+
+            .long-division-tool .setup-area input {
+                width: 100%;
+                max-width: 100%;
             }
 
             .long-division-tool .division-workspace {
@@ -733,19 +876,30 @@
                 <main class="main-content">
                     <div class="dynamic-content-container long-division-page">
                         <section class="long-division-hero" aria-labelledby="long-division-title">
-                            <h1 id="long-division-title">Long Division Tutor – Learn Long Division Step by Step</h1>
-                            <p>Learn long division by doing each step yourself. Divide, multiply, subtract, and bring
-                                down with guided help whenever you need it.</p>
+                            <h1 id="long-division-title">Long Division Tutor</h1>
+                            <p>Practice long division one step at a time. Enter a whole-number problem and work through divide, multiply, subtract, and bring down with help when you need it.</p>
                         </section>
 
                         <section class="long-division-tool" aria-label="Interactive long division tutor">
-                            <div class="setup-area">
-                                <input type="number" id="input-dividend" placeholder="125" value="125" min="1" step="1"
-                                    inputmode="numeric" aria-label="Dividend">
-                                <span>÷</span>
-                                <input type="number" id="input-divisor" placeholder="5" value="5" min="1" step="1"
-                                    inputmode="numeric" aria-label="Divisor">
-                                <button class="btn-start" onclick="startCustomGame()">Start Learning</button>
+                            <h2 class="tool-title">Start a Long Division Problem</h2>
+
+                            <div class="problem-setup" id="problem-setup">
+                                <div class="setup-area">
+                                    <div class="setup-field">
+                                        <label for="input-dividend">Dividend</label>
+                                        <input type="number" id="input-dividend" placeholder="Enter dividend" min="1" step="1"
+                                            inputmode="numeric" aria-label="Dividend" oninput="clearSetupMessage()">
+                                    </div>
+                                    <span>&divide;</span>
+                                    <div class="setup-field">
+                                        <label for="input-divisor">Divisor</label>
+                                        <input type="number" id="input-divisor" placeholder="Enter divisor" min="1" step="1"
+                                            inputmode="numeric" aria-label="Divisor" oninput="clearSetupMessage()">
+                                    </div>
+                                    <button class="btn-start" onclick="startCustomGame()">Start Long Division</button>
+                                </div>
+                                <p class="setup-message" id="setup-message" aria-live="polite"></p>
+                                <p class="setup-note">Positive whole numbers only.</p>
                             </div>
 
                             <div class="division-workspace" id="workspace" style="display:none;">
@@ -766,6 +920,11 @@
                         </section>
 
                         <div class="learning-content">
+                            <section>
+                                <h2>How to Use This Long Division Tutor</h2>
+                                <p>Enter a dividend and divisor, then select <strong>Start Long Division</strong>. Fill in each part of the work yourself, or use <strong>Show Me One Step</strong> whenever you need the next correct move. When the problem is finished, the completed setup remains visible with the final answer.</p>
+                            </section>
+
                             <section>
                                 <h2>How to Do Long Division Step by Step</h2>
                                 <p>Set up the long division problem with the dividend inside and the divisor outside. Then work through the same four
@@ -794,9 +953,9 @@
                             </section>
 
                             <section>
-                                <h2>Try a Long Division Example</h2>
-                                <p>Enter a dividend and divisor, then do the long division work one step at a time. Start with a friendly example such
-                                    as 125 ÷ 5. If you get stuck, use Show Me One Step to see the next correct move and keep the work aligned.</p>
+                                <h2>Guided Long Division Practice</h2>
+                                <p>The tutor keeps the full long-division work visible as you solve. Each quotient digit, multiplication step, subtraction, and bring-down move stays aligned in the vertical setup, so your finished work becomes the step-by-step solution you can review afterward.</p>
+                                <p>Need the full answer and long-division work right away? <a href="/pages/long-division-calculator">Use the Long Division Calculator with Steps</a>.</p>
                             </section>
 
                             <section>
@@ -818,10 +977,9 @@
 
                             <section>
                                 <h2>For Parents and Teachers</h2>
-                                <p>This page is designed for Grade 4-6 learners who are building confidence with the
-                                    standard long division algorithm. It works well for short guided practice, homework
-                                    support, intervention groups, or a quick classroom demonstration before independent
-                                    work.</p>
+                                <p>This page is designed for learners who are practicing whole-number division and
+                                    long division. It works well for short guided practice, homework support, intervention
+                                    groups, or a quick classroom demonstration before independent work.</p>
                             </section>
 
                             <section>
@@ -870,15 +1028,48 @@
         let currentDividend = 0;
         let currentDivisor = 1;
 
-        function startCustomGame() {
-            const dd = Number(document.getElementById('input-dividend').value);
-            const div = Number(document.getElementById('input-divisor').value);
+        function clearSetupMessage() {
+            const message = document.getElementById('setup-message');
+            if(message) {
+                message.textContent = '';
+            }
+        }
 
-            // V1 teaches standard long division with positive whole numbers only.
-            if(!Number.isInteger(dd) || !Number.isInteger(div) || dd <= 0 || div <= 0) {
-                alert('Please enter positive whole numbers only.');
+        function showSetupMessage(text) {
+            document.getElementById('setup-message').textContent = text;
+        }
+
+        function isPositiveWholeNumber(value) {
+            return /^[1-9]\d*$/.test(value);
+        }
+
+        function startCustomGame() {
+            const dividendValue = document.getElementById('input-dividend').value.trim();
+            const divisorValue = document.getElementById('input-divisor').value.trim();
+
+            if(!dividendValue && !divisorValue) {
+                showSetupMessage('Enter a dividend and divisor to begin.');
                 return;
             }
+
+            if(!dividendValue) {
+                showSetupMessage('Enter a dividend to begin.');
+                return;
+            }
+
+            if(!divisorValue) {
+                showSetupMessage('Enter a divisor to begin.');
+                return;
+            }
+
+            if(!isPositiveWholeNumber(dividendValue) || !isPositiveWholeNumber(divisorValue)) {
+                showSetupMessage('Use positive whole numbers for this tutor.');
+                return;
+            }
+
+            clearSetupMessage();
+            const dd = Number(dividendValue);
+            const div = Number(divisorValue);
 
             document.getElementById('workspace').style.display = 'grid';
 
@@ -1125,7 +1316,11 @@
                     ? `${currentDividend} ÷ ${currentDivisor} = ${quotient}`
                     : `${currentDividend} ÷ ${currentDivisor} = ${quotient} R${remainder}`;
 
-                resultSummary.textContent = answerText;
+                resultSummary.innerHTML = `
+                    <span class="result-summary-label">Answer</span>
+                    <span class="result-summary-equation">${answerText}</span>
+                    <span class="result-summary-note">Your completed long division above is the full step-by-step solution.</span>
+                `;
                 resultSummary.classList.add('show');
                 return;
             }
