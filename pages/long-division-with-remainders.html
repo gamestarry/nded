@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Learn how long division with remainders works, how to write a remainder, and how to check your answer with clear step-by-step examples.">
+    <meta name="author" content="NDED">
+    <title>Long Division with Remainders | Step-by-Step Examples | NDED</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="canonical" href="https://nd-ed.org/pages/long-division-with-remainders">
+
+    <link rel="stylesheet" href="../css/template.css">
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        header .main-title {
+            margin-bottom: 0;
+        }
+
+        .main-content {
+            min-width: 0;
+        }
+
+        @media (min-width: 1025px) {
+            body.remainders-long-division-page .wide-container {
+                max-width: 1560px;
+                padding: 0 14px;
+            }
+
+            body.remainders-long-division-page .main-row {
+                gap: 24px;
+            }
+
+            body.remainders-long-division-page .left-sidebar,
+            body.remainders-long-division-page .right-sidebar {
+                flex-basis: 220px;
+            }
+
+            body.remainders-long-division-page .main-content {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+
+            body.remainders-long-division-page .dynamic-content-container {
+                padding: 1.55rem;
+            }
+        }
+
+        .long-division-page {
+            gap: 1.5rem;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .lesson-hero {
+            max-width: 1120px;
+            margin: 0 auto 1rem;
+            text-align: center;
+        }
+
+        .lesson-hero h1 {
+            color: var(--primary-color);
+            font-size: clamp(2rem, 3.1vw, 3rem);
+            line-height: 1.15;
+            margin: 0 0 0.9rem;
+            font-family: 'Raleway', sans-serif;
+            overflow-wrap: anywhere;
+        }
+
+        .lesson-hero p {
+            max-width: 720px;
+            margin: 0 auto;
+            color: #4a5568;
+            font-size: 1.06rem;
+            text-align: center;
+        }
+
+        .lesson-content {
+            --primary: #2f66d8;
+            --primary-dark: #2457bf;
+            --primary-soft: #eff6ff;
+            --ink: #172033;
+            --muted: #64748b;
+            --line: #d9e1ec;
+            width: 100%;
+            max-width: 1120px;
+            margin: 0 auto 1.8rem;
+            padding: 18px 10px 34px;
+            color: var(--ink);
+            background: #fff;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+        }
+
+        .lesson-content * {
+            box-sizing: border-box;
+        }
+
+        .lesson-section {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 1.65rem 0;
+            border-top: 1px solid #eef3f8;
+        }
+
+        .lesson-section:first-child {
+            border-top: 0;
+            padding-top: 0;
+        }
+
+        .lesson-section h2 {
+            margin: 0 0 0.7rem;
+            color: var(--primary-color);
+            font-size: 1.55rem;
+            text-align: left;
+        }
+
+        .lesson-section h3 {
+            margin: 0 0 0.55rem;
+            color: var(--primary-color);
+            font-size: 1.15rem;
+        }
+
+        .lesson-section p,
+        .lesson-section li {
+            color: #34495e;
+            font-size: 1rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .lesson-section p {
+            margin: 0 0 0.85rem;
+        }
+
+        .rule-callout,
+        .concept-row,
+        .check-section,
+        .example-section.alt-example,
+        .wrong-section,
+        .cta-section {
+            margin-left: -10px;
+            margin-right: -10px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .rule-callout {
+            max-width: 520px;
+            margin-top: 1rem;
+            padding: 0.78rem 0.95rem;
+            background: #f1f7ff;
+            border-left: 3px solid var(--primary);
+            border-radius: 6px;
+        }
+
+        .rule-callout strong {
+            display: block;
+            margin-bottom: 0.15rem;
+            color: #2457bf;
+            font-size: 0.9rem;
+        }
+
+        .rule-callout p {
+            margin: 0;
+            color: var(--ink);
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .concept-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            background: #f8fbff;
+        }
+
+        .concept-item {
+            padding: 14px;
+            background: #fff;
+            border: 1px solid #dfe8f5;
+            border-top: 3px solid #8fb2f2;
+            border-radius: 8px;
+        }
+
+        .concept-item strong,
+        .concept-item span {
+            display: block;
+        }
+
+        .concept-item strong {
+            color: var(--ink);
+        }
+
+        .concept-item span {
+            margin-top: 0.35rem;
+            color: #244f9e;
+            font-size: 1.18rem;
+            font-weight: 750;
+        }
+
+        .example-label {
+            display: inline-block;
+            margin: 0 0 0.45rem;
+            padding: 0.18rem 0.55rem;
+            color: #2457bf;
+            background: #eef5ff;
+            border: 1px solid #dbe9fb;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.01em;
+        }
+
+        .example-section.alt-example {
+            padding-top: 1.85rem;
+            padding-bottom: 1.85rem;
+            background: #f8fbff;
+        }
+
+        .answer-line {
+            margin: 0.2rem 0 0.9rem;
+            color: #244f9e;
+            font-size: 1.18rem;
+            font-weight: 750;
+        }
+
+        .worked-example {
+            display: grid;
+            grid-template-columns: minmax(300px, 0.82fr) minmax(0, 1.18fr);
+            gap: 28px;
+            align-items: start;
+            margin-top: 0.9rem;
+        }
+
+        .work-scroll {
+            max-width: 100%;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .division-work {
+            display: inline-block;
+            min-width: 100%;
+            margin: 0;
+            padding: 18px 20px;
+            color: var(--ink);
+            background: #fbfdff;
+            border: 1px solid #e6ecf3;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.38rem;
+            line-height: 1.25;
+            white-space: pre;
+        }
+
+        .example-notes {
+            margin: 0.1rem 0 0;
+            padding-left: 1.2rem;
+        }
+
+        .example-notes li {
+            margin-bottom: 0.2rem;
+            line-height: 1.55;
+        }
+
+        .check-section {
+            padding-top: 1.85rem;
+            padding-bottom: 1.95rem;
+            background: #f6f9fe;
+            border-top-color: #e5edf8;
+        }
+
+        .formula-strip {
+            width: fit-content;
+            max-width: 100%;
+            margin: 1rem 0;
+            padding: 0.65rem 0.9rem;
+            color: #244f9e;
+            background: #edf4ff;
+            border: 1px solid #d8e7fb;
+            border-radius: 999px;
+            font-weight: 800;
+            overflow-wrap: anywhere;
+        }
+
+        .check-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 1rem;
+        }
+
+        .check-work {
+            margin: 0;
+            padding: 14px 16px;
+            color: var(--ink);
+            background: #fff;
+            border: 1px solid #dfe8f5;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.08rem;
+            line-height: 1.45;
+            white-space: pre;
+        }
+
+        .wrong-section {
+            padding-top: 1.85rem;
+            padding-bottom: 1.85rem;
+            background: #fbfaf7;
+        }
+
+        .wrong-list {
+            margin: 0.65rem 0 0;
+            padding-left: 1.2rem;
+        }
+
+        .wrong-list li::marker {
+            color: #8a6d2f;
+        }
+
+        .inline-link-note {
+            margin-top: 1rem;
+            padding-left: 0.85rem;
+            border-left: 2px solid #d4e2f4;
+            color: #536273;
+            font-size: 0.98rem;
+        }
+
+        .inline-link-note a {
+            color: #2457bf;
+            font-weight: 750;
+        }
+
+        .cta-section {
+            padding-top: 1.85rem;
+            padding-bottom: 1.95rem;
+            background: #f6f9fe;
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+            gap: 14px;
+            margin-top: 1rem;
+        }
+
+        .cta-card {
+            padding: 18px;
+            background: #fff;
+            border: 1px solid #d9e6f6;
+            border-radius: 8px;
+        }
+
+        .cta-card.featured {
+            border-color: #bcd0f0;
+            background: #fbfdff;
+        }
+
+        .cta-kicker {
+            margin: 0 0 0.3rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 750;
+        }
+
+        .cta-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            margin-top: 0.45rem;
+            padding: 0 18px;
+            color: #fff;
+            background: var(--primary);
+            border-radius: 8px;
+            font-weight: 750;
+            text-decoration: none;
+            box-shadow: 0 7px 16px rgba(47,102,216,0.14);
+        }
+
+        .cta-link.secondary {
+            color: #315fae;
+            background: #fff;
+            border: 1px solid #cddcf3;
+            box-shadow: none;
+        }
+
+        .cta-link:hover {
+            background: var(--primary-dark);
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .cta-link.secondary:hover {
+            background: var(--primary-soft);
+            color: #315fae;
+        }
+
+        .faq-item {
+            padding: 0.35rem 0 0.7rem;
+        }
+
+        @media (max-width: 1100px) {
+            .worked-example,
+            .check-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .long-division-page {
+                padding: 14px !important;
+            }
+
+            .lesson-content {
+                padding: 28px 14px 42px;
+            }
+
+            .division-work {
+                font-size: 1.24rem;
+            }
+        }
+
+        @media (max-width: 520px) {
+            html,
+            body {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            .main-row-container,
+            .wide-container,
+            .main-row,
+            .main-content,
+            .dynamic-content-container,
+            .long-division-page,
+            .lesson-hero,
+            .lesson-content {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+            }
+
+            header {
+                overflow: hidden;
+            }
+
+            header .main-title {
+                width: 100%;
+            }
+
+            header .container {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            header .subtitle {
+                width: min(260px, calc(100vw - 80px));
+                max-width: min(260px, calc(100vw - 80px));
+                margin-left: auto;
+                margin-right: auto;
+                white-space: normal;
+                text-align: center;
+                overflow-wrap: anywhere;
+                font-size: 0.82rem !important;
+            }
+
+            .left-sidebar .nav-buttons {
+                grid-template-columns: 1fr !important;
+            }
+
+            .left-sidebar .nav-button,
+            .lesson-hero p,
+            .lesson-section p,
+            .lesson-section li {
+                overflow-wrap: anywhere;
+            }
+
+            .lesson-hero h1 {
+                width: min(270px, calc(100vw - 70px));
+                max-width: min(270px, calc(100vw - 70px));
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                font-size: 1.48rem;
+                line-height: 1.24;
+                white-space: normal;
+                word-break: break-word;
+            }
+
+            .lesson-hero p {
+                width: min(270px, calc(100vw - 70px));
+                max-width: min(270px, calc(100vw - 70px));
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .long-division-page {
+                overflow: visible;
+                align-items: flex-start;
+            }
+
+            .lesson-hero {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .lesson-content {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                padding: 20px 10px 34px;
+            }
+
+            .lesson-section h2 {
+                font-size: 1.32rem;
+            }
+
+            .concept-row,
+            .cta-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .worked-example {
+                gap: 14px;
+            }
+
+            .division-work {
+                padding: 14px 12px;
+                font-size: clamp(0.86rem, 3.75vw, 1.02rem);
+            }
+
+            .formula-strip {
+                width: 100%;
+                border-radius: 8px;
+            }
+
+            .check-work {
+                overflow-x: auto;
+            }
+
+            .cta-link {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body class="remainders-long-division-page">
+    <header>
+        <div class="container">
+            <div class="main-title">
+                <span class="nded-text">NDED</span>
+                <span class="subtitle">building mathematical confidence for life.</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-row-container">
+        <div class="wide-container">
+            <div class="main-row">
+                <aside class="left-sidebar">
+                    <h3 class="nav-title">Navigation</h3>
+                    <div class="nav-buttons">
+                        <a href="/" class="nav-button">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                        <a href="/about-us" class="nav-button">
+                            <i class="fas fa-info-circle"></i> About us
+                        </a>
+                        <a href="/#math-games-section" class="nav-button">
+                            <i class="fas fa-gamepad"></i> Math Games
+                        </a>
+                        <a href="https://matrixcalcu.com/" target="_blank" class="nav-button external">
+                            <i class="fas fa-calculator"></i> Matrix Calculator
+                        </a>
+                    </div>
+                </aside>
+
+                <main class="main-content">
+                    <div class="dynamic-content-container long-division-page">
+                        <section class="lesson-hero" aria-labelledby="long-division-title">
+                            <h1 id="long-division-title">Long Division with Remainders</h1>
+                            <p>A remainder is what is left when a division problem does not divide evenly. Learn how to find it, write it, and check that your answer is correct.</p>
+                        </section>
+
+                        <div class="lesson-content">
+                            <section class="lesson-section">
+                                <h2>What Is a Remainder?</h2>
+                                <p>A remainder is the amount left after making as many full groups as possible.</p>
+                                <p>For example, 17 &divide; 5 = 3 R2. The number 5 fits into 17 three full times. Then 3 &times; 5 = 15, and 17 &minus; 15 = 2. So the remainder is 2.</p>
+                                <div class="rule-callout">
+                                    <strong>Key rule</strong>
+                                    <p>Remainder &lt; Divisor</p>
+                                </div>
+                            </section>
+
+                            <section class="lesson-section">
+                                <h2>How to Write a Remainder</h2>
+                                <p>The remainder is written after the quotient using R notation.</p>
+                                <div class="concept-row" aria-label="Remainder notation for 17 divided by 5">
+                                    <div class="concept-item">
+                                        <strong>Quotient</strong>
+                                        <span>3</span>
+                                    </div>
+                                    <div class="concept-item">
+                                        <strong>Remainder</strong>
+                                        <span>2</span>
+                                    </div>
+                                </div>
+                                <p>In 17 &divide; 5 = 3 R2, 3 is the quotient and 2 is the remainder.</p>
+                                <p>In 157 &divide; 4 = 39 R1, R1 means 1 is left after 39 complete groups of 4.</p>
+                                <p class="inline-link-note">Need a refresher on the full method? <a href="/pages/how-to-do-long-division">How to Do Long Division Step by Step</a></p>
+                            </section>
+
+                            <section class="lesson-section example-section">
+                                <p class="example-label">Find the Final Remainder</p>
+                                <h2>Example 1: 157 &divide; 4</h2>
+                                <p class="answer-line">157 &divide; 4 = 39 R1</p>
+                                <div class="worked-example">
+                                    <div class="work-scroll" aria-label="Long division work for 157 divided by 4">
+                                        <pre class="division-work">      39
+   -----
+4 ) 157
+    12
+    --
+     37
+     36
+     --
+      1</pre>
+                                    </div>
+                                    <ol class="example-notes">
+                                        <li>4 goes into 15 three times.</li>
+                                        <li>3 &times; 4 = 12.</li>
+                                        <li>Subtract to get 3, then bring down 7.</li>
+                                        <li>4 goes into 37 nine times.</li>
+                                        <li>9 &times; 4 = 36.</li>
+                                        <li>37 &minus; 36 = 1.</li>
+                                        <li>There are no more digits to bring down, so 1 is the remainder.</li>
+                                    </ol>
+                                </div>
+                            </section>
+
+                            <section class="lesson-section example-section alt-example">
+                                <p class="example-label">Another Remainder Example</p>
+                                <h2>Example 2: 116 &divide; 5</h2>
+                                <p class="answer-line">116 &divide; 5 = 23 R1</p>
+                                <div class="worked-example">
+                                    <div class="work-scroll" aria-label="Long division work for 116 divided by 5">
+                                        <pre class="division-work">      23
+   -----
+5 ) 116
+    10
+    --
+     16
+     15
+     --
+      1</pre>
+                                    </div>
+                                    <div>
+                                        <p>Once there are no more digits to bring down, stop if the remainder is smaller than the divisor.</p>
+                                        <p>Here 1 is smaller than 5, so the answer is 23 R1.</p>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="lesson-section example-section">
+                                <p class="example-label">Remainders with a Multi-Digit Divisor</p>
+                                <h2>Example 3: 8576 &divide; 111</h2>
+                                <p class="answer-line">8576 &divide; 111 = 77 R29</p>
+                                <div class="worked-example">
+                                    <div class="work-scroll" aria-label="Long division work for 8576 divided by 111">
+                                        <pre class="division-work">        77
+    ------
+111 ) 8576
+      777
+      ---
+       806
+       777
+       ---
+        29</pre>
+                                    </div>
+                                    <div>
+                                        <p>A remainder does not have to be a single digit. It only has to be smaller than the divisor.</p>
+                                        <p>Here 29 is a valid remainder because 29 &lt; 111.</p>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="lesson-section check-section">
+                                <h2>How to Check a Long Division Answer</h2>
+                                <p>Use the quotient, divisor, and remainder to rebuild the dividend.</p>
+                                <p class="formula-strip">Quotient &times; Divisor + Remainder = Dividend</p>
+                                <div class="check-grid">
+                                    <div>
+                                        <h3>Check 157 &divide; 4 = 39 R1</h3>
+                                        <pre class="check-work">39 &times; 4 + 1
+= 156 + 1
+= 157</pre>
+                                    </div>
+                                    <div>
+                                        <h3>Check 8576 &divide; 111 = 77 R29</h3>
+                                        <pre class="check-work">77 &times; 111 + 29
+= 8547 + 29
+= 8576</pre>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="lesson-section wrong-section">
+                                <h2>When Is a Remainder Wrong?</h2>
+                                <ul class="wrong-list">
+                                    <li><strong>The remainder is too large:</strong> 17 &divide; 5 = 2 R7 is wrong because 7 &ge; 5. You can still make one more full group, so the correct answer is 3 R2.</li>
+                                    <li><strong>The arithmetic does not check:</strong> If quotient &times; divisor + remainder does not equal the dividend, the answer needs to be corrected.</li>
+                                </ul>
+                            </section>
+
+                            <section class="lesson-section">
+                                <h2>Remainder or Decimal?</h2>
+                                <p>Whole-number division often writes answers with a remainder: 157 &divide; 4 = 39 R1.</p>
+                                <p>The same value can also be written as a decimal: 39.25. This page focuses on remainder notation.</p>
+                                <p class="inline-link-note">Need the decimal form and full calculation? <a href="/pages/long-division-calculator">Use the Long Division Calculator with Steps</a></p>
+                            </section>
+
+                            <section class="lesson-section cta-section">
+                                <h2>Try It Yourself</h2>
+                                <div class="cta-grid">
+                                    <div class="cta-card featured">
+                                        <p class="cta-kicker">Practice a remainder problem yourself</p>
+                                        <h3>Long Division Tutor</h3>
+                                        <p>Work through each step yourself and use Show Me One Step if you get stuck.</p>
+                                        <a class="cta-link" href="/pages/long-division">Practice with the Long Division Tutor</a>
+                                    </div>
+                                    <div class="cta-card">
+                                        <p class="cta-kicker">Check a complete answer</p>
+                                        <h3>Long Division Calculator with Steps</h3>
+                                        <p>Enter a problem and see the answer and full long-division work.</p>
+                                        <a class="cta-link secondary" href="/pages/long-division-calculator">Open the Long Division Calculator</a>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="lesson-section">
+                                <h2>FAQ</h2>
+                                <div class="faq-item">
+                                    <h3>What is a remainder in division?</h3>
+                                    <p>A remainder is the amount left after making as many full groups as possible.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h3>Can a remainder be bigger than the divisor?</h3>
+                                    <p>No. If the remainder is bigger than the divisor, you can make another full group.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h3>Can the remainder equal the divisor?</h3>
+                                    <p>No. If the remainder equals the divisor, add 1 to the quotient and make the remainder 0.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h3>How do I check a remainder?</h3>
+                                    <p>Use quotient &times; divisor + remainder. The result should equal the dividend.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h3>What does R1 mean in a division answer?</h3>
+                                    <p>R1 means remainder 1, so 1 is left after the full groups are made.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h3>Can a remainder be written as a decimal?</h3>
+                                    <p>Yes. A remainder can represent the same value as a decimal or fraction, but the notation is different.</p>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </main>
+
+                <aside class="right-sidebar">
+                    <div class="question-box">
+                        <h2>Do you enjoy learning math?</h2>
+                        <button class="btn yes">Yes, I love math!</button>
+                        <button class="btn no">Math is challenging for me</button>
+                        <div class="response" id="response"></div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 NDED - Building Mathematical Confidence for Life. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function initPoll() {
+            const yesBtn = document.querySelector('.question-box .yes');
+            const noBtn = document.querySelector('.question-box .no');
+            const response = document.getElementById('response');
+
+            yesBtn.addEventListener('click', () => {
+                response.textContent = "That's great! Math is an amazing tool for understanding the world!";
+                response.classList.add('show');
+            });
+
+            noBtn.addEventListener('click', () => {
+                response.textContent = "We're here to help. Step-by-step support can make the process feel clearer.";
+                response.classList.add('show');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initPoll);
+    </script>
+</body>
+
+</html>

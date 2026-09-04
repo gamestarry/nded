@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Practice long division with interactive problems using 1-digit or 2-digit divisors, with or without remainders. Check your answers and generate new problems.">
+    <meta name="author" content="NDED">
+    <title>Long Division Practice | Interactive Problems | NDED</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="canonical" href="https://nd-ed.org/pages/long-division-practice">
+
+    <link rel="stylesheet" href="../css/template.css">
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        header .main-title {
+            margin-bottom: 0;
+        }
+
+        .main-content {
+            min-width: 0;
+        }
+
+        @media (min-width: 1025px) {
+            body.long-division-practice-page .wide-container {
+                max-width: 1560px;
+                padding: 0 14px;
+            }
+
+            body.long-division-practice-page .main-row {
+                gap: 24px;
+            }
+
+            body.long-division-practice-page .left-sidebar,
+            body.long-division-practice-page .right-sidebar {
+                flex-basis: 220px;
+            }
+
+            body.long-division-practice-page .main-content {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+
+            body.long-division-practice-page .dynamic-content-container {
+                padding: 1.55rem;
+            }
+        }
+
+        .long-division-page {
+            gap: 1.5rem;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .practice-hero {
+            max-width: 1040px;
+            margin: 0 auto 1rem;
+            text-align: center;
+        }
+
+        .practice-hero h1 {
+            color: var(--primary-color);
+            font-size: clamp(2rem, 3.1vw, 3rem);
+            line-height: 1.15;
+            margin: 0 0 0.9rem;
+            font-family: 'Raleway', sans-serif;
+            overflow-wrap: anywhere;
+        }
+
+        .practice-hero p {
+            max-width: 720px;
+            margin: 0 auto;
+            color: #4a5568;
+            font-size: 1.06rem;
+            text-align: center;
+        }
+
+        .practice-tool {
+            --primary: #2f66d8;
+            --primary-dark: #2457bf;
+            --primary-soft: #eff6ff;
+            --ink: #172033;
+            --muted: #64748b;
+            --line: #d9e1ec;
+            --success: #15803d;
+            --success-bg: #edfdf3;
+            --success-text: #148257;
+            --warn: #b45309;
+            --warn-bg: #fff7ed;
+            --error: #ef4444;
+            --teacher-bg: #fffaf0;
+            --teacher-border: #f1dfb6;
+            --teacher-text: #7a5a1e;
+            --surface: #ffffff;
+            --cell-size: 45px;
+            width: 100%;
+            max-width: 1040px;
+            margin: 0 auto 1.8rem;
+            padding: 26px 24px 28px;
+            color: var(--ink);
+            background: #f4f7fb;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+        }
+
+        .practice-tool * {
+            box-sizing: border-box;
+        }
+
+        .tool-panel {
+            background: #fff;
+            border: 1px solid #e2eaf5;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(42, 61, 92, 0.08);
+        }
+
+        .setup-panel {
+            padding: 18px;
+        }
+
+        .setup-panel h2,
+        .problem-panel h2,
+        .learning-content h2 {
+            margin: 0 0 0.85rem;
+            color: var(--primary-color);
+            font-size: 1.28rem;
+            line-height: 1.25;
+            text-align: left;
+        }
+
+        .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            align-items: start;
+        }
+
+        .option-group {
+            min-width: 0;
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        .option-group legend {
+            margin-bottom: 0.55rem;
+            color: var(--muted);
+            font-size: 0.84rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .segmented-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .option-card {
+            position: relative;
+            min-width: 0;
+        }
+
+        .option-card input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .option-card span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 0 12px;
+            color: #31506f;
+            background: #f8fbff;
+            border: 2px solid #d8e4f4;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            line-height: 1.2;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+        }
+
+        .option-card input:checked + span {
+            color: #fff;
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 7px 16px rgba(47,102,216,0.18);
+        }
+
+        .option-card input:focus-visible + span,
+        .answer-field input:focus,
+        .primary-action:focus-visible,
+        .secondary-action:focus-visible,
+        .text-link:focus-visible {
+            outline: 3px solid rgba(47,102,216,0.25);
+            outline-offset: 2px;
+        }
+
+        .setup-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .setup-note,
+        .score-line {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.45;
+            text-align: left;
+        }
+
+        .score-line strong {
+            color: #244f9e;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .primary-action,
+        .secondary-action {
+            min-height: 46px;
+            border-radius: 8px;
+            padding: 0 18px;
+            font-family: inherit;
+            font-size: 0.98rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform .16s ease, box-shadow .16s ease, background .16s ease, border-color .16s ease;
+        }
+
+        .primary-action {
+            color: #fff;
+            background: var(--primary);
+            border: 0;
+            box-shadow: 0 7px 16px rgba(47,102,216,0.18);
+        }
+
+        .primary-action:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .secondary-action {
+            color: #315fae;
+            background: #fff;
+            border: 1px solid #cddcf3;
+            box-shadow: none;
+        }
+
+        .secondary-action:hover {
+            background: var(--primary-soft);
+            border-color: #b9cff2;
+        }
+
+        .problem-panel {
+            display: none;
+            margin-top: 16px;
+            padding: 20px;
+        }
+
+        .problem-panel.show {
+            display: block;
+        }
+
+        .problem-kicker {
+            margin: 0 0 0.35rem;
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.01em;
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+        .problem-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 112px;
+            margin: 0 0 18px;
+            padding: 18px;
+            color: #13213a;
+            background: #fbfdff;
+            border: 1px solid #dfe8f5;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: clamp(2.15rem, 5vw, 3.9rem);
+            font-weight: 800;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .workspace-shell {
+            max-width: 100%;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .division-workspace {
+            display: grid;
+            grid-template-columns: repeat(12, var(--cell-size));
+            grid-auto-rows: var(--cell-size);
+            width: max-content;
+            min-width: 100%;
+            margin: 0 auto;
+            padding: 38px 42px 42px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 2rem;
+            line-height: 1;
+            position: relative;
+            background: var(--surface);
+            border: 1px solid #e6ecf3;
+            border-radius: 8px;
+            box-shadow: 0 12px 28px rgba(36, 52, 79, 0.08);
+        }
+
+        .divisor {
+            text-align: right;
+            padding-right: 10px;
+            border-right: 4px solid #2b2f36;
+            grid-column: 1;
+        }
+
+        .dividend-digit {
+            text-align: center;
+        }
+
+        .quotient-line {
+            border-bottom: 4px solid #2b2f36;
+            grid-row: 1;
+        }
+
+        .sub-line {
+            border-bottom: 2px solid #9aa5b3;
+            height: 0;
+            align-self: end;
+            margin-bottom: 5px;
+        }
+
+        .digit-input {
+            height: 40px;
+            padding: 0;
+            color: var(--ink);
+            background: #fbfdff;
+            border: 2px solid var(--line);
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.55rem;
+            font-weight: 500;
+            text-align: center;
+            outline: none;
+            opacity: 1;
+            letter-spacing: normal;
+            transition: border-color .2s ease, background .2s ease, box-shadow .2s ease, color .2s ease;
+        }
+
+        .digit-input:not(:disabled) {
+            background: #f8fbff;
+            border-color: #9cbcf1;
+            box-shadow: 0 0 0 4px rgba(47,102,216,0.09);
+        }
+
+        .digit-input.correct {
+            border-color: transparent;
+            color: var(--success-text);
+            background: transparent;
+            box-shadow: none;
+            opacity: 1;
+            -webkit-text-fill-color: var(--success-text);
+        }
+
+        .placed-answer-digit {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            align-self: start;
+            width: var(--cell-size);
+            height: 40px;
+            color: var(--success-text);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.55rem;
+            font-weight: 500;
+            line-height: 40px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .digit-input.wrong {
+            border-color: var(--error);
+            background: #fff7f7;
+            box-shadow: 0 0 0 4px rgba(239,68,68,0.08);
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .teacher-box {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 13px;
+            color: var(--teacher-text);
+            background: var(--teacher-bg);
+            border: 1px solid var(--teacher-border);
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(88, 68, 28, 0.10);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            font-size: 0.98rem;
+            font-weight: 650;
+            line-height: 1.25;
+            pointer-events: auto;
+            transition: all 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            white-space: nowrap;
+            z-index: 10;
+        }
+
+        .teacher-box.is-hidden {
+            display: none;
+        }
+
+        .teacher-message {
+            display: flex;
+            align-items: center;
+            min-width: 0;
+        }
+
+        .teacher-box::before {
+            content: '>';
+            color: var(--primary);
+            font-size: 1.05em;
+            font-weight: 800;
+        }
+
+        .teacher-box.bring-down {
+            color: #355a9e;
+            background: #f7faff;
+            border-color: #cdddf7;
+            box-shadow: 0 8px 20px rgba(47,102,216,0.08);
+        }
+
+        .workspace-controls {
+            display: none;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .workspace-controls.show {
+            display: flex;
+        }
+
+        .floating-help {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            flex: 0 0 32px;
+            color: var(--primary);
+            background: #ffffff;
+            border: 2px solid #7fa7e8;
+            border-radius: 50%;
+            box-shadow: 0 5px 12px rgba(47,102,216,0.10);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+            z-index: 11;
+        }
+
+        .floating-help:hover {
+            background: var(--primary-soft);
+            transform: translateY(-1px);
+        }
+
+        .floating-help.is-hidden {
+            display: none;
+        }
+
+        .floating-help:disabled,
+        .secondary-action:disabled {
+            cursor: default;
+            opacity: 0.58;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .help-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 21px;
+            height: 21px;
+            margin-right: 7px;
+            border: 1.7px solid currentColor;
+            border-radius: 50%;
+            font-size: 0.82rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .result-summary {
+            display: none;
+            width: min(100%, 640px);
+            margin: 18px auto 0;
+            padding: 12px 18px;
+            color: var(--success);
+            background: var(--success-bg);
+            border: 1px solid #bdeccf;
+            border-radius: 8px;
+            font-size: 1.15rem;
+            font-weight: 750;
+            line-height: 1.4;
+            text-align: center;
+            overflow-wrap: anywhere;
+        }
+
+        .result-summary.show {
+            display: block;
+        }
+
+        .result-summary-label {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--success);
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .result-summary-equation {
+            display: block;
+            color: var(--ink);
+            font-size: 1.18rem;
+        }
+
+        .result-summary-note {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .bring-down-digit {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            justify-self: stretch;
+            align-self: start;
+            width: var(--cell-size);
+            height: 40px;
+            color: var(--primary);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.55rem;
+            font-weight: 500;
+            line-height: 40px;
+            opacity: 0;
+            transform: translateY(-14px);
+            transition: opacity .22s ease, transform .55s cubic-bezier(.2,.8,.2,1), color .25s ease;
+            z-index: 4;
+        }
+
+        .bring-down-digit.drop {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bring-down-digit.settled {
+            color: var(--ink);
+        }
+
+        .bring-down-guide {
+            width: 0;
+            justify-self: center;
+            align-self: stretch;
+            margin-top: 31px;
+            margin-bottom: 8px;
+            border-right: 2px dashed #5f86dc;
+            position: relative;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .18s ease;
+            z-index: 3;
+        }
+
+        .bring-down-guide.show {
+            opacity: 0.95;
+        }
+
+        .bring-down-guide::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            bottom: -1px;
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid #5f86dc;
+            border-bottom: 2px solid #5f86dc;
+            transform: rotate(45deg);
+        }
+
+        .answer-form {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            align-items: end;
+        }
+
+        .answer-field {
+            min-width: 0;
+        }
+
+        .answer-field.hidden {
+            display: none;
+        }
+
+        .answer-field label {
+            display: block;
+            margin-bottom: 0.45rem;
+            color: var(--muted);
+            font-size: 0.84rem;
+            font-weight: 800;
+        }
+
+        .answer-field input {
+            width: 100%;
+            height: 52px;
+            padding: 8px 12px;
+            color: var(--ink);
+            background: #fbfdff;
+            border: 2px solid #dbe3ee;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1.12rem;
+            font-weight: 750;
+            text-align: center;
+            outline: none;
+            transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+            -moz-appearance: textfield;
+        }
+
+        .answer-field input::-webkit-outer-spin-button,
+        .answer-field input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .answer-field input.input-error {
+            border-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+        .feedback {
+            min-height: 1.6em;
+            margin: 14px 0 0;
+            padding: 0.7rem 0.85rem;
+            color: var(--muted);
+            background: #f8fbff;
+            border: 1px solid #e2eaf5;
+            border-radius: 8px;
+            font-weight: 750;
+            line-height: 1.45;
+            text-align: left;
+        }
+
+        .feedback:empty {
+            display: none;
+        }
+
+        .feedback.correct {
+            color: var(--success);
+            background: var(--success-bg);
+            border-color: #bdeccf;
+        }
+
+        .feedback.try-again,
+        .feedback.warning {
+            color: var(--warn);
+            background: var(--warn-bg);
+            border-color: #fed7aa;
+        }
+
+        .answer-reveal {
+            display: none;
+            margin-top: 14px;
+            padding: 14px;
+            background: #fff;
+            border: 1px solid #d8e4f4;
+            border-radius: 8px;
+        }
+
+        .answer-reveal.show {
+            display: block;
+        }
+
+        .answer-reveal strong,
+        .answer-reveal span {
+            display: block;
+            text-align: left;
+        }
+
+        .answer-reveal strong {
+            color: var(--muted);
+            font-size: 0.84rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .answer-reveal span {
+            color: #244f9e;
+            font-size: 1.24rem;
+            font-weight: 850;
+            overflow-wrap: anywhere;
+        }
+
+        .support-links {
+            display: grid;
+            gap: 0.35rem;
+            margin-top: 0.85rem;
+        }
+
+        .support-links p {
+            margin: 0;
+            color: #34495e;
+            font-size: 0.95rem;
+            line-height: 1.55;
+            text-align: left;
+        }
+
+        .text-link {
+            color: #2457bf;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .text-link:hover {
+            text-decoration: underline;
+        }
+
+        .learning-content {
+            width: 100%;
+            max-width: 1040px;
+            margin: 0 auto;
+            color: var(--ink);
+            background: #fff;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+        }
+
+        .learning-section {
+            padding: 1.55rem 0;
+            border-top: 1px solid #eef3f8;
+        }
+
+        .learning-section:first-child {
+            border-top: 0;
+        }
+
+        .practice-steps {
+            margin: 0.75rem 0 0;
+            padding-left: 1.25rem;
+        }
+
+        .practice-steps li,
+        .faq-item p,
+        .help-list p {
+            color: #34495e;
+            font-size: 1rem;
+            line-height: 1.65;
+            text-align: left;
+        }
+
+        .help-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px 16px;
+            margin-top: 0.8rem;
+        }
+
+        .help-list p {
+            margin: 0;
+            padding-left: 0.85rem;
+            border-left: 2px solid #d4e2f4;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 0.9rem;
+        }
+
+        .faq-item {
+            padding: 14px;
+            background: #f8fbff;
+            border: 1px solid #e2ebf7;
+            border-radius: 8px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 0.4rem;
+            color: var(--primary-color);
+            font-size: 1rem;
+            line-height: 1.3;
+            text-align: left;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 900px) {
+            .setup-grid,
+            .answer-form,
+            .help-list,
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .long-division-page {
+                padding: 14px !important;
+            }
+
+            .practice-tool {
+                padding: 20px 14px 22px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            html,
+            body {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            .main-row-container,
+            .wide-container,
+            .main-row,
+            .main-content,
+            .dynamic-content-container,
+            .long-division-page,
+            .practice-hero,
+            .practice-tool,
+            .learning-content {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+            }
+
+            header {
+                overflow: hidden;
+            }
+
+            header .main-title,
+            header .container {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            header .subtitle {
+                width: min(260px, calc(100vw - 80px));
+                max-width: min(260px, calc(100vw - 80px));
+                margin-left: auto;
+                margin-right: auto;
+                white-space: normal;
+                text-align: center;
+                overflow-wrap: anywhere;
+                font-size: 0.82rem !important;
+            }
+
+            .left-sidebar .nav-buttons {
+                grid-template-columns: 1fr !important;
+            }
+
+            .practice-hero h1,
+            .practice-hero p {
+                width: min(300px, calc(100vw - 64px));
+                max-width: min(300px, calc(100vw - 64px));
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .practice-hero h1 {
+                font-size: 1.5rem;
+                line-height: 1.24;
+                white-space: normal;
+                word-break: break-word;
+            }
+
+            .practice-hero p,
+            .setup-note,
+            .feedback,
+            .practice-steps li,
+            .faq-item p,
+            .help-list p {
+                overflow-wrap: anywhere;
+            }
+
+            .long-division-page {
+                overflow: visible;
+                align-items: flex-start;
+            }
+
+            .setup-panel,
+            .problem-panel {
+                padding: 14px;
+            }
+
+            .segmented-options {
+                grid-template-columns: 1fr;
+            }
+
+            .setup-actions,
+            .button-row {
+                align-items: stretch;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .primary-action,
+            .secondary-action {
+                width: 100%;
+            }
+
+            .problem-display {
+                min-height: 86px;
+                padding: 14px 10px;
+                font-size: clamp(1.85rem, 11vw, 2.35rem);
+            }
+
+            .practice-tool {
+                --cell-size: clamp(20px, 6.2vw, 26px);
+            }
+
+            .division-workspace {
+                width: 100%;
+                max-width: 100%;
+                grid-auto-rows: 36px;
+                padding: 24px 8px 30px;
+                font-size: 1.35rem;
+            }
+
+            .digit-input {
+                height: 32px;
+                font-size: 1.18rem;
+            }
+
+            .placed-answer-digit,
+            .bring-down-digit {
+                height: 32px;
+                font-size: 1.18rem;
+                line-height: 32px;
+            }
+
+            .divisor {
+                padding-right: 6px;
+                border-right-width: 3px;
+            }
+
+            .quotient-line {
+                border-bottom-width: 3px;
+            }
+
+            .sub-line {
+                margin-bottom: 0;
+            }
+
+            .teacher-box {
+                max-width: min(180px, calc(100% - 16px));
+                padding: 6px 8px;
+                font-size: 0.8rem;
+                white-space: normal;
+                flex-wrap: wrap;
+            }
+
+            .floating-help {
+                width: 30px;
+                height: 30px;
+                flex-basis: 30px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="long-division-practice-page">
+    <header>
+        <div class="container">
+            <div class="main-title">
+                <span class="nded-text">NDED</span>
+                <span class="subtitle">building mathematical confidence for life.</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-row-container">
+        <div class="wide-container">
+            <div class="main-row">
+                <aside class="left-sidebar">
+                    <h3 class="nav-title">Navigation</h3>
+                    <div class="nav-buttons">
+                        <a href="/" class="nav-button">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                        <a href="/about-us" class="nav-button">
+                            <i class="fas fa-info-circle"></i> About us
+                        </a>
+                        <a href="/#math-games-section" class="nav-button">
+                            <i class="fas fa-gamepad"></i> Math Games
+                        </a>
+                        <a href="https://matrixcalcu.com/" target="_blank" class="nav-button external">
+                            <i class="fas fa-calculator"></i> Matrix Calculator
+                        </a>
+                    </div>
+                </aside>
+
+                <main class="main-content">
+                    <div class="dynamic-content-container long-division-page">
+                        <section class="practice-hero" aria-labelledby="long-division-practice-title">
+                            <h1 id="long-division-practice-title">Long Division Practice</h1>
+                            <p>Choose a problem type, solve the division, and check your answer. Generate a new problem whenever you are ready.</p>
+                        </section>
+
+                        <section class="practice-tool" aria-labelledby="practice-tool-title">
+                            <div class="tool-panel setup-panel">
+                                <h2 id="practice-tool-title">Choose Your Practice</h2>
+                                <div class="setup-grid">
+                                    <fieldset class="option-group">
+                                        <legend>Divisor Size</legend>
+                                        <div class="segmented-options">
+                                            <label class="option-card">
+                                                <input type="radio" name="divisor-size" value="1" checked>
+                                                <span>1-Digit Divisor</span>
+                                            </label>
+                                            <label class="option-card">
+                                                <input type="radio" name="divisor-size" value="2">
+                                                <span>2-Digit Divisor</span>
+                                            </label>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="option-group">
+                                        <legend>Remainders</legend>
+                                        <div class="segmented-options">
+                                            <label class="option-card">
+                                                <input type="radio" name="remainder-mode" value="none" checked>
+                                                <span>Without Remainders</span>
+                                            </label>
+                                            <label class="option-card">
+                                                <input type="radio" name="remainder-mode" value="with">
+                                                <span>With Remainders</span>
+                                            </label>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <div class="setup-actions">
+                                    <p class="setup-note" id="setup-note">Pick a type, then start a fresh problem.</p>
+                                    <p class="score-line" id="score-line"><strong>0</strong> correct out of <strong>0</strong> completed</p>
+                                    <button class="primary-action" id="start-new-button" type="button">New Problem</button>
+                                </div>
+                            </div>
+
+                            <div class="tool-panel problem-panel" id="problem-panel">
+                                <p class="problem-kicker">Solve</p>
+                                <div class="problem-display" id="problem-display" aria-live="polite"></div>
+
+                                <div class="workspace-shell" aria-label="Interactive long division workspace">
+                                    <div class="division-workspace" id="workspace"></div>
+                                </div>
+
+                                <div class="workspace-controls" id="controls">
+                                    <button class="secondary-action" id="help-button" type="button">
+                                        <span class="help-icon" aria-hidden="true">?</span>Show Me One Step
+                                    </button>
+                                    <button class="secondary-action" id="show-answer-button" type="button">Show Answer</button>
+                                    <button class="primary-action" id="new-problem-button" type="button">New Problem</button>
+                                </div>
+
+                                <div id="result-summary" class="result-summary" aria-live="polite"></div>
+
+                                <div class="answer-reveal" id="answer-reveal">
+                                    <strong>Answer:</strong>
+                                    <span id="answer-text"></span>
+                                    <div class="support-links">
+                                        <p>Need the full worked solution? <a class="text-link" href="/pages/long-division-calculator">Open the Long Division Calculator</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="learning-content">
+                            <section class="learning-section">
+                                <h2>How to Practice Long Division</h2>
+                                <ol class="practice-steps">
+                                    <li>Read the problem.</li>
+                                    <li>Fill in each divide, multiply, subtract, and bring down step.</li>
+                                    <li>Use Show Me One Step only when you need the next move.</li>
+                                    <li>Finish the workspace to complete the problem.</li>
+                                </ol>
+                            </section>
+
+                            <section class="learning-section">
+                                <h2>Need Help?</h2>
+                                <div class="help-list">
+                                    <p>Learn the method: <a class="text-link" href="/pages/how-to-do-long-division">How to Do Long Division Step by Step</a></p>
+                                    <p>Practice with guidance: <a class="text-link" href="/pages/long-division">Long Division Tutor</a></p>
+                                    <p>Check a complete solution: <a class="text-link" href="/pages/long-division-calculator">Long Division Calculator with Steps</a></p>
+                                    <p>Review remainders: <a class="text-link" href="/pages/long-division-with-remainders">Long Division with Remainders</a></p>
+                                </div>
+                            </section>
+
+                            <section class="learning-section">
+                                <h2>FAQ</h2>
+                                <div class="faq-grid">
+                                    <div class="faq-item">
+                                        <h3>How many long division problems can I practice?</h3>
+                                        <p>You can use New Problem as many times as you want during the session.</p>
+                                    </div>
+                                    <div class="faq-item">
+                                        <h3>Can I practice with remainders?</h3>
+                                        <p>Yes. Choose With Remainders before you generate a problem.</p>
+                                    </div>
+                                    <div class="faq-item">
+                                        <h3>Can I practice with 2-digit divisors?</h3>
+                                        <p>Yes. Choose 2-Digit Divisor to practice divisors from 10 to 99.</p>
+                                    </div>
+                                    <div class="faq-item">
+                                        <h3>Does the practice tool show the full solution?</h3>
+                                        <p>No. It checks your answer. Use the calculator link if you need the full work.</p>
+                                    </div>
+                                    <div class="faq-item">
+                                        <h3>What should I do if I get an answer wrong?</h3>
+                                        <p>Try again, or use Show Answer when you are ready to compare.</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </main>
+
+                <aside class="right-sidebar">
+                    <div class="question-box">
+                        <h2>Do you enjoy learning math?</h2>
+                        <button class="btn yes">Yes, I love math!</button>
+                        <button class="btn no">Math is challenging for me</button>
+                        <div class="response" id="response"></div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 NDED - Building Mathematical Confidence for Life. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const DIVISION_SIGN = '\u00f7';
+        const MULTIPLY_SIGN = '\u00d7';
+
+        let steps = [];
+        let currentStepIdx = 0;
+        let currentDividend = 0;
+        let currentDivisor = 1;
+
+        const state = {
+            currentProblem: null,
+            dividend: null,
+            divisor: null,
+            quotient: null,
+            remainder: null,
+            hasRemainder: false,
+            completedCounted: false,
+            correctCounted: false,
+            answerShown: false,
+            previousProblem: null,
+            started: false,
+            score: {
+                correct: 0,
+                completed: 0
+            }
+        };
+
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function chooseDividendTarget(digits) {
+            if(digits === 2) return { min: 10, max: 99 };
+            if(digits === 3) return { min: 100, max: 999 };
+            return { min: 1000, max: 9999 };
+        }
+
+        function randomQuotientForRange(divisor, minDividend, maxDividend, reserveRemainder = 0) {
+            const minQuotient = Math.max(1, Math.ceil((minDividend - reserveRemainder) / divisor));
+            const maxQuotient = Math.max(1, Math.floor((maxDividend - reserveRemainder) / divisor));
+            return randomInt(minQuotient, maxQuotient);
+        }
+
+        function buildProblem(divisorDigits, remainderMode) {
+            const hasRemainder = remainderMode === 'with';
+            const divisor = divisorDigits === '1' ? randomInt(2, 9) : randomInt(10, 99);
+            const digitOptions = divisorDigits === '1' ? [2, 3, 4] : [3, 4];
+            const targetDigits = digitOptions[randomInt(0, digitOptions.length - 1)];
+            const target = chooseDividendTarget(targetDigits);
+            const remainder = hasRemainder ? randomInt(1, divisor - 1) : 0;
+            const quotient = randomQuotientForRange(divisor, target.min, target.max, remainder);
+            const dividend = divisor * quotient + remainder;
+
+            return {
+                dividend,
+                divisor,
+                quotient,
+                remainder,
+                hasRemainder,
+                key: `${dividend}/${divisor}/${hasRemainder ? 'R' : 'N'}`
+            };
+        }
+
+        function generateProblem() {
+            const divisorDigits = document.querySelector('input[name="divisor-size"]:checked').value;
+            const remainderMode = document.querySelector('input[name="remainder-mode"]:checked').value;
+            let problem = buildProblem(divisorDigits, remainderMode);
+
+            if(state.previousProblem && problem.key === state.previousProblem.key) {
+                problem = buildProblem(divisorDigits, remainderMode);
+            }
+
+            state.currentProblem = problem;
+            state.dividend = problem.dividend;
+            state.divisor = problem.divisor;
+            state.quotient = problem.quotient;
+            state.remainder = problem.remainder;
+            state.hasRemainder = problem.hasRemainder;
+            state.completedCounted = false;
+            state.correctCounted = false;
+            state.answerShown = false;
+            state.previousProblem = problem;
+            state.started = true;
+
+            renderProblem();
+        }
+
+        function formatAnswer(problem = state.currentProblem) {
+            if(!problem) return '';
+            const base = `${problem.dividend} ${DIVISION_SIGN} ${problem.divisor} = ${problem.quotient}`;
+            return problem.hasRemainder ? `${base} R${problem.remainder}` : base;
+        }
+
+        function renderScore() {
+            document.getElementById('score-line').innerHTML = `<strong>${state.score.correct}</strong> correct out of <strong>${state.score.completed}</strong> completed`;
+        }
+
+        function hideAnswer() {
+            document.getElementById('answer-reveal').classList.remove('show');
+            document.getElementById('answer-text').textContent = '';
+        }
+
+        function countCompletedOnce() {
+            if(!state.completedCounted) {
+                state.score.completed += 1;
+                state.completedCounted = true;
+                renderScore();
+            }
+        }
+
+        function countCorrectOnce() {
+            if(!state.correctCounted && !state.answerShown) {
+                state.score.correct += 1;
+                state.correctCounted = true;
+                renderScore();
+            }
+        }
+
+        function renderProblem() {
+            const problem = state.currentProblem;
+            const panel = document.getElementById('problem-panel');
+
+            panel.classList.add('show');
+            document.getElementById('problem-display').textContent = `${problem.dividend} ${DIVISION_SIGN} ${problem.divisor}`;
+            document.getElementById('setup-note').textContent = 'A new workspace is ready. Fill in each step.';
+            hideAnswer();
+            renderScore();
+            buildGame(problem.divisor, problem.dividend);
+        }
+
+        function clearCurrentProblem() {
+            state.currentProblem = null;
+            state.dividend = null;
+            state.divisor = null;
+            state.quotient = null;
+            state.remainder = null;
+            state.hasRemainder = false;
+            state.completedCounted = false;
+            state.correctCounted = false;
+            state.answerShown = false;
+            state.started = false;
+            steps = [];
+            currentStepIdx = 0;
+
+            document.getElementById('problem-panel').classList.remove('show');
+            document.getElementById('setup-note').textContent = 'Settings changed. Start a new problem when you are ready.';
+            document.getElementById('workspace').innerHTML = '';
+            document.getElementById('controls').classList.remove('show');
+            document.getElementById('result-summary').textContent = '';
+            document.getElementById('result-summary').classList.remove('show');
+            hideAnswer();
+        }
+
+        function buildGame(div, dd) {
+            currentDividend = dd;
+            currentDivisor = div;
+
+            const workspace = document.getElementById('workspace');
+            workspace.innerHTML = `
+                <div id="teacher-hint" class="teacher-box is-hidden">
+                    <div class="teacher-message">
+                        <span id="hint-text"></span>
+                    </div>
+                    <button id="floating-help" class="floating-help is-hidden" type="button"
+                        aria-label="Show me one step">?</button>
+                </div>
+            `;
+
+            const resultSummary = document.getElementById('result-summary');
+            resultSummary.textContent = '';
+            resultSummary.classList.remove('show');
+            document.getElementById('controls').classList.add('show');
+            document.getElementById('show-answer-button').disabled = false;
+
+            steps = [];
+            currentStepIdx = 0;
+
+            const ddStr = dd.toString();
+            const divStr = div.toString();
+            const divisorCols = divStr.length;
+            const colOffset = divisorCols + 1;
+            const totalColumns = Math.max(12, divisorCols + ddStr.length + 3);
+            workspace.style.gridTemplateColumns = `repeat(${totalColumns}, var(--cell-size))`;
+
+            const divEl = document.createElement('div');
+            divEl.className = 'divisor';
+            divEl.style.gridRow = '2';
+            divEl.style.gridColumn = `1 / span ${divisorCols}`;
+            divEl.innerText = div;
+            workspace.appendChild(divEl);
+
+            for(let i = 0; i < ddStr.length; i++) {
+                const dEl = document.createElement('div');
+                dEl.className = 'dividend-digit';
+                dEl.id = `dividend-digit-${i}`;
+                dEl.style.gridRow = '2';
+                dEl.style.gridColumn = (colOffset + i).toString();
+                dEl.innerText = ddStr[i];
+                workspace.appendChild(dEl);
+            }
+
+            const line = document.createElement('div');
+            line.className = 'quotient-line';
+            line.style.gridColumn = `${colOffset} / span ${ddStr.length}`;
+            workspace.appendChild(line);
+
+            let currentVal = 0;
+            let currentRow = 3;
+            let divisionStarted = false;
+            let previousRemainderRow = null;
+
+            for(let i = 0; i < ddStr.length; i++) {
+                const nextDigit = parseInt(ddStr[i], 10);
+                currentVal = currentVal * 10 + nextDigit;
+
+                if(currentVal >= div || divisionStarted || i === ddStr.length - 1) {
+                    const endCol = colOffset + i;
+
+                    if(divisionStarted && previousRemainderRow !== null) {
+                        steps.push({
+                            type: 'b',
+                            digit: ddStr[i],
+                            sourceIndex: i,
+                            row: previousRemainderRow,
+                            col: endCol,
+                            hint: `Bring down the ${ddStr[i]}.`
+                        });
+                    }
+
+                    const q = Math.floor(currentVal / div);
+                    const prod = q * div;
+                    const rem = currentVal - prod;
+                    const workDigits = currentVal.toString().length;
+                    const workStartCol = endCol - workDigits + 1;
+
+                    divisionStarted = true;
+                    steps.push({ type: 'q', val: q, row: 1, col: endCol, hint: `${currentVal} ${DIVISION_SIGN} ${div}` });
+                    steps.push({
+                        type: 'p',
+                        val: prod,
+                        row: currentRow,
+                        col: endCol,
+                        hint: `${q} ${MULTIPLY_SIGN} ${div}`,
+                        isProduct: true,
+                        subStartCol: workStartCol,
+                        subSpan: workDigits
+                    });
+
+                    currentRow += 1;
+                    steps.push({ type: 'r', val: rem, row: currentRow, col: endCol, hint: `${currentVal} - ${prod}` });
+                    previousRemainderRow = currentRow;
+                    currentVal = rem;
+                    currentRow += 1;
+                }
+            }
+
+            steps.forEach((step, index) => {
+                if(step.type === 'b') {
+                    const droppedDigit = document.createElement('div');
+                    droppedDigit.className = 'bring-down-digit';
+                    droppedDigit.id = `step-${index}`;
+                    droppedDigit.style.gridRow = step.row;
+                    droppedDigit.style.gridColumn = step.col;
+                    droppedDigit.innerText = step.digit;
+                    workspace.appendChild(droppedDigit);
+
+                    const guide = document.createElement('div');
+                    guide.className = 'bring-down-guide';
+                    guide.id = `bring-guide-${index}`;
+                    guide.style.gridRow = `2 / ${step.row + 1}`;
+                    guide.style.gridColumn = step.col;
+                    workspace.appendChild(guide);
+                    return;
+                }
+
+                const input = document.createElement('input');
+                input.className = 'digit-input';
+                input.id = `step-${index}`;
+                input.style.gridRow = step.row;
+
+                const answerDigits = String(step.val).length;
+                const answerStartCol = step.col - answerDigits + 1;
+                input.style.gridColumn = `${answerStartCol} / span ${answerDigits}`;
+                input.style.width = `calc(var(--cell-size) * ${answerDigits})`;
+                input.dataset.answer = step.val;
+                input.dataset.stepIndex = index;
+                input.inputMode = 'numeric';
+                input.autocomplete = 'off';
+                input.setAttribute('aria-label', `Step ${index + 1}: ${step.hint}`);
+                input.disabled = true;
+
+                if(step.isProduct) {
+                    const minus = document.createElement('div');
+                    minus.innerText = '-';
+                    minus.style.gridRow = step.row;
+                    minus.style.gridColumn = Math.max(1, step.subStartCol - 1);
+                    workspace.appendChild(minus);
+
+                    const subLine = document.createElement('div');
+                    subLine.className = 'sub-line';
+                    subLine.style.gridRow = step.row;
+                    subLine.style.gridColumn = `${step.subStartCol} / span ${step.subSpan}`;
+                    workspace.appendChild(subLine);
+                }
+
+                input.oninput = (event) => checkInput(event.target);
+                workspace.appendChild(input);
+            });
+
+            document.getElementById('floating-help').addEventListener('click', giveHelp);
+            activateStep();
+        }
+
+        function placeCorrectAnswer(el) {
+            const stepIndex = Number(el.dataset.stepIndex);
+            const step = steps[stepIndex];
+            const answer = String(step.val);
+            const startCol = step.col - answer.length + 1;
+            const workspace = document.getElementById('workspace');
+
+            el.style.visibility = 'hidden';
+            el.classList.add('correct');
+
+            for(let j = 0; j < answer.length; j++) {
+                const digit = document.createElement('div');
+                digit.className = 'placed-answer-digit';
+                digit.style.gridRow = step.row;
+                digit.style.gridColumn = startCol + j;
+                digit.innerText = answer[j];
+                workspace.appendChild(digit);
+            }
+        }
+
+        function checkInput(el) {
+            el.classList.remove('wrong');
+            hideAnswer();
+
+            if(el.value === el.dataset.answer) {
+                el.disabled = true;
+                placeCorrectAnswer(el);
+                currentStepIdx += 1;
+                activateStep();
+            } else if(el.value.length >= el.dataset.answer.length) {
+                el.classList.add('wrong');
+                setTimeout(() => {
+                    el.value = '';
+                    el.classList.remove('wrong');
+                }, 600);
+            }
+        }
+
+        function positionFloatingElement(element, target, gap = 10) {
+            const workspace = document.getElementById('workspace');
+
+            element.style.top = `${target.offsetTop}px`;
+            element.style.left = `${target.offsetLeft + target.offsetWidth + gap}px`;
+
+            const preferredLeft = target.offsetLeft + target.offsetWidth + gap;
+            const fallbackLeft = target.offsetLeft - element.offsetWidth - gap;
+            const maxLeft = Math.max(0, workspace.clientWidth - element.offsetWidth);
+            const nextLeft = preferredLeft + element.offsetWidth > workspace.clientWidth
+                ? fallbackLeft
+                : preferredLeft;
+
+            element.style.left = `${Math.max(0, Math.min(nextLeft, maxLeft))}px`;
+        }
+
+        function positionTeacherBox(target) {
+            positionFloatingElement(document.getElementById('teacher-hint'), target);
+        }
+
+        function activateStep() {
+            const hintBox = document.getElementById('teacher-hint');
+            const floatingHelp = document.getElementById('floating-help');
+            const controls = document.getElementById('controls');
+            const resultSummary = document.getElementById('result-summary');
+
+            if(currentStepIdx >= steps.length) {
+                hintBox.classList.remove('bring-down');
+                hintBox.classList.add('is-hidden');
+                floatingHelp.classList.add('is-hidden');
+                floatingHelp.disabled = true;
+                controls.classList.add('show');
+                countCompletedOnce();
+                countCorrectOnce();
+                const completionLabel = state.answerShown ? 'Completed' : 'Correct!';
+                const completionNote = state.answerShown
+                    ? 'The completed long division work stays visible. This problem was already counted after Show Answer.'
+                    : 'The completed long division work stays visible. Choose New Problem when you are ready.';
+
+                resultSummary.innerHTML = `
+                    <span class="result-summary-label">${completionLabel}</span>
+                    <span class="result-summary-equation">${formatAnswer()}</span>
+                    <span class="result-summary-note">${completionNote}</span>
+                `;
+                resultSummary.classList.add('show');
+                return;
+            }
+
+            hintBox.classList.remove('is-hidden', 'bring-down');
+            floatingHelp.classList.remove('is-hidden');
+            floatingHelp.disabled = false;
+            controls.classList.add('show');
+
+            const step = steps[currentStepIdx];
+            const target = document.getElementById(`step-${currentStepIdx}`);
+
+            if(step.type === 'b') {
+                floatingHelp.classList.add('is-hidden');
+                floatingHelp.disabled = true;
+                hintBox.classList.remove('is-hidden');
+                hintBox.classList.add('bring-down');
+
+                const guide = document.getElementById(`bring-guide-${currentStepIdx}`);
+                document.getElementById('hint-text').innerText = step.hint;
+                positionTeacherBox(target);
+
+                requestAnimationFrame(() => {
+                    guide.classList.add('show');
+                    target.classList.add('drop');
+                });
+
+                setTimeout(() => {
+                    target.classList.add('settled');
+                    guide.classList.remove('show');
+                }, 650);
+
+                setTimeout(() => {
+                    currentStepIdx += 1;
+                    activateStep();
+                }, 1050);
+                return;
+            }
+
+            target.disabled = false;
+            target.focus();
+            document.getElementById('hint-text').innerText = step.hint;
+            positionTeacherBox(target);
+        }
+
+        function giveHelp() {
+            if(currentStepIdx >= steps.length || state.answerShown) return;
+
+            const step = steps[currentStepIdx];
+            if(step.type === 'b') return;
+
+            const target = document.getElementById(`step-${currentStepIdx}`);
+            target.value = target.dataset.answer;
+            checkInput(target);
+        }
+
+        function showAnswer() {
+            if(!state.currentProblem) {
+                generateProblem();
+                return;
+            }
+
+            state.answerShown = true;
+            countCompletedOnce();
+            document.getElementById('answer-text').textContent = formatAnswer();
+            document.getElementById('answer-reveal').classList.add('show');
+            document.getElementById('show-answer-button').disabled = true;
+        }
+
+        function initPoll() {
+            const yesBtn = document.querySelector('.question-box .yes');
+            const noBtn = document.querySelector('.question-box .no');
+            const response = document.getElementById('response');
+
+            yesBtn.addEventListener('click', () => {
+                response.textContent = "That's great! Math is an amazing tool for understanding the world!";
+                response.classList.add('show');
+            });
+
+            noBtn.addEventListener('click', () => {
+                response.textContent = "We're here to help. Practice can make each step feel clearer.";
+                response.classList.add('show');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('start-new-button').addEventListener('click', generateProblem);
+            document.getElementById('new-problem-button').addEventListener('click', generateProblem);
+            document.getElementById('help-button').addEventListener('click', giveHelp);
+            document.getElementById('show-answer-button').addEventListener('click', showAnswer);
+
+            document.querySelectorAll('input[name="divisor-size"], input[name="remainder-mode"]').forEach(input => {
+                input.addEventListener('change', clearCurrentProblem);
+            });
+
+            initPoll();
+            renderScore();
+        });
+
+        window.longDivisionPractice = {
+            state,
+            steps: () => steps,
+            buildProblem,
+            buildGame,
+            generateProblem,
+            checkInput,
+            giveHelp,
+            showAnswer
+        };
+    </script>
+</body>
+
+</html>

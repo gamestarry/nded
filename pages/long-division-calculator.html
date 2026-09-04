@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Calculate long division with full steps. Enter whole numbers or decimals to see the quotient, remainder when applicable, and complete long-division work.">
+    <meta name="author" content="NDED">
+    <title>Long Division Calculator with Steps | NDED</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="canonical" href="https://nd-ed.org/pages/long-division-calculator">
+
+    <link rel="stylesheet" href="../css/template.css">
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        header .main-title {
+            margin-bottom: 0;
+        }
+
+        .main-content {
+            min-width: 0;
+        }
+
+        .long-division-page {
+            gap: 1.5rem;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .long-division-hero {
+            max-width: 980px;
+            margin: 0 auto 0.75rem;
+            text-align: center;
+        }
+
+        .long-division-hero h1 {
+            color: var(--primary-color);
+            font-size: clamp(2rem, 4vw, 3.15rem);
+            line-height: 1.15;
+            margin: 0 0 0.9rem;
+            font-family: 'Raleway', sans-serif;
+            overflow-wrap: anywhere;
+        }
+
+        .long-division-hero p {
+            max-width: 740px;
+            margin: 0 auto;
+            color: #4a5568;
+            font-size: 1.06rem;
+            text-align: center;
+        }
+
+        .long-division-calculator {
+            --primary: #2f66d8;
+            --primary-dark: #2457bf;
+            --primary-soft: #eff6ff;
+            --error: #b42318;
+            --ink: #172033;
+            --muted: #64748b;
+            --line: #d9e1ec;
+            --surface: #ffffff;
+            --page: #f4f7fb;
+            --cell-size: 30px;
+            width: 100%;
+            max-width: 1040px;
+            margin: 0 auto 1.8rem;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            color: var(--ink);
+            background: var(--page);
+            padding: 30px 24px 34px;
+        }
+
+        .long-division-calculator * {
+            box-sizing: border-box;
+        }
+
+        .tool-title {
+            width: 100%;
+            margin: 0 0 14px;
+            color: var(--primary-color);
+            font-size: 1.22rem;
+            line-height: 1.25;
+            text-align: center;
+        }
+
+        .calculator-form {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 0 auto 10px;
+            padding: 18px 20px;
+            max-width: 760px;
+            background: rgba(255,255,255,0.96);
+            border: 1px solid #e7edf5;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(42, 61, 92, 0.08);
+        }
+
+        .input-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 0 1 220px;
+            min-width: 180px;
+        }
+
+        .input-field label {
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 750;
+            line-height: 1;
+        }
+
+        .input-field input {
+            width: 100%;
+            height: 54px;
+            padding: 8px 12px;
+            font-size: 1.08rem;
+            font-weight: 550;
+            text-align: center;
+            color: var(--ink);
+            background: #fbfdff;
+            border: 2px solid #dbe3ee;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+        }
+
+        .input-field input:focus {
+            background: #fff;
+            border-color: #8fb2f2;
+            box-shadow: 0 0 0 4px rgba(47,102,216,0.10);
+        }
+
+        .division-symbol {
+            min-height: 54px;
+            display: inline-flex;
+            align-items: center;
+            color: #4b5563;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .btn-calculate {
+            min-height: 54px;
+            border: 0;
+            border-radius: 10px;
+            padding: 0 28px;
+            color: #fff;
+            background: var(--primary);
+            font-family: inherit;
+            font-size: 1.05rem;
+            font-weight: 750;
+            cursor: pointer;
+            box-shadow: 0 7px 16px rgba(47,102,216,0.18);
+            transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+        }
+
+        .btn-calculate:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 9px 20px rgba(47,102,216,0.22);
+        }
+
+        .calculator-note {
+            margin: 0 auto 18px;
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .error-message {
+            display: none;
+            max-width: 720px;
+            margin: 0 auto 16px;
+            color: var(--error);
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .results {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .result-block {
+            margin-top: 16px;
+            padding: 18px;
+            background: #fff;
+            border: 1px solid #dfe6ef;
+            border-radius: 8px;
+        }
+
+        .result-block h2 {
+            margin: 0 0 10px;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            text-align: left;
+        }
+
+        .answer-equation {
+            margin: 0;
+            font-size: 1.35rem;
+            font-weight: 800;
+            overflow-wrap: anywhere;
+        }
+
+        .answer-details {
+            margin: 0.7rem 0 0;
+            color: #34495e;
+            font-size: 1rem;
+            font-weight: 650;
+            line-height: 1.55;
+            white-space: pre-line;
+            text-align: left;
+        }
+
+        .setup-line {
+            margin: 0.25rem 0 0;
+            color: #34495e;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        .work-scroll {
+            max-width: 100%;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .vertical-work {
+            display: grid;
+            grid-auto-rows: var(--cell-size);
+            width: max-content;
+            min-width: 100%;
+            padding: 26px 22px 28px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.45rem;
+            line-height: 1;
+            background: #fbfdff;
+            border: 1px solid #e6ecf3;
+            border-radius: 8px;
+        }
+
+        .work-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: var(--cell-size);
+            height: var(--cell-size);
+        }
+
+        .divisor-cell {
+            justify-content: flex-end;
+            padding-right: 10px;
+            border-right: 4px solid #2b2f36;
+            font-weight: 700;
+            letter-spacing: 0;
+            white-space: nowrap;
+        }
+
+        .quotient-line {
+            border-bottom: 4px solid #2b2f36;
+        }
+
+        .sub-line {
+            align-self: end;
+            height: 0;
+            margin-bottom: 5px;
+            border-bottom: 2px solid #9aa5b3;
+        }
+
+        .minus-cell {
+            justify-content: flex-start;
+            position: relative;
+            z-index: 2;
+        }
+
+        .minus-cell::before {
+            content: '-';
+            position: absolute;
+            right: calc(100% - 0.08em);
+        }
+
+        .dim-zero,
+        .decimal-dot {
+            color: #7b8794;
+        }
+
+        .product-link {
+            margin: 1rem 0 0;
+            color: #34495e;
+            line-height: 1.6;
+        }
+
+        .learning-content {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .learning-content section {
+            padding: 1.3rem 0;
+            border-top: 1px solid #edf2f7;
+        }
+
+        .learning-content section:first-child {
+            border-top: 0;
+        }
+
+        .learning-content h2 {
+            text-align: left;
+            margin: 0 0 0.7rem;
+            font-size: 1.55rem;
+        }
+
+        .learning-content h3 {
+            color: var(--primary-color);
+            margin: 1rem 0 0.35rem;
+            font-size: 1.15rem;
+        }
+
+        .learning-content p,
+        .learning-content li {
+            color: #34495e;
+            font-size: 1rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .learning-content p {
+            max-width: none;
+            margin: 0 0 0.85rem;
+        }
+
+        .learning-content ul {
+            margin: 0.5rem 0 0 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .long-division-page {
+                padding: 14px !important;
+            }
+
+            .long-division-calculator {
+                --cell-size: 26px;
+                padding: 28px 14px 42px;
+            }
+
+            .calculator-form {
+                align-items: stretch;
+                padding: 14px;
+            }
+
+            .input-field {
+                flex: 1 1 136px;
+                min-width: 128px;
+            }
+
+            .btn-calculate {
+                flex: 1 1 100%;
+            }
+
+            .vertical-work {
+                font-size: 1.35rem;
+                padding: 20px 14px 22px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            html,
+            body {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            .main-row-container,
+            .wide-container,
+            .main-row,
+            .main-content,
+            .dynamic-content-container,
+            .long-division-page,
+            .long-division-hero,
+            .learning-content,
+            .long-division-calculator {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+            }
+
+            header {
+                overflow: hidden;
+            }
+
+            header .main-title {
+                width: 100%;
+            }
+
+            header .container {
+                width: 100vw;
+                max-width: 100vw;
+            }
+
+            header .subtitle {
+                width: min(260px, calc(100vw - 80px));
+                max-width: min(260px, calc(100vw - 80px));
+                margin-left: auto;
+                margin-right: auto;
+                white-space: normal;
+                text-align: center;
+                overflow-wrap: anywhere;
+                font-size: 0.82rem !important;
+            }
+
+            .left-sidebar .nav-buttons {
+                grid-template-columns: 1fr !important;
+            }
+
+            .left-sidebar .nav-button,
+            .long-division-hero p,
+            .learning-content p,
+            .learning-content li {
+                overflow-wrap: anywhere;
+            }
+
+            .long-division-hero h1 {
+                width: min(260px, calc(100vw - 80px));
+                max-width: min(260px, calc(100vw - 80px));
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                font-size: 1.48rem;
+                line-height: 1.24;
+                white-space: normal;
+                word-break: break-word;
+            }
+
+            .long-division-hero p {
+                width: min(260px, calc(100vw - 80px));
+                max-width: min(260px, calc(100vw - 80px));
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .tool-title {
+                width: min(230px, calc(100vw - 100px));
+                max-width: min(230px, calc(100vw - 100px));
+                font-size: 1.02rem;
+                line-height: 1.25;
+                overflow-wrap: anywhere;
+            }
+
+            .long-division-page {
+                overflow: visible;
+                align-items: flex-start;
+            }
+
+            .long-division-hero,
+            .learning-content {
+                width: calc(100vw - 24px) !important;
+                max-width: calc(100vw - 24px) !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .long-division-calculator {
+                --cell-size: clamp(17px, 5vw, 22px);
+                width: calc(100vw - 24px) !important;
+                padding: 20px 10px 34px;
+                max-width: calc(100vw - 24px) !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .calculator-form {
+                width: 100%;
+                max-width: min(220px, calc(100vw - 120px));
+                min-width: 0;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .input-field {
+                flex-basis: 100%;
+                min-width: 0;
+            }
+
+            .input-field input {
+                min-width: 0;
+            }
+
+            .division-symbol {
+                min-height: 28px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .result-block {
+                padding: 14px;
+            }
+
+            .vertical-work {
+                font-size: clamp(0.9rem, 4.4vw, 1.08rem);
+                padding: 16px 10px 18px;
+            }
+
+            .divisor-cell {
+                padding-right: 5px;
+                border-right-width: 3px;
+            }
+
+            .quotient-line {
+                border-bottom-width: 3px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="main-title">
+                <span class="nded-text">NDED</span>
+                <span class="subtitle">building mathematical confidence for life.</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-row-container">
+        <div class="wide-container">
+            <div class="main-row">
+                <aside class="left-sidebar">
+                    <h3 class="nav-title">Navigation</h3>
+                    <div class="nav-buttons">
+                        <a href="/" class="nav-button">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                        <a href="/about-us" class="nav-button">
+                            <i class="fas fa-info-circle"></i> About us
+                        </a>
+                        <a href="/#math-games-section" class="nav-button">
+                            <i class="fas fa-gamepad"></i> Math Games
+                        </a>
+                        <a href="https://matrixcalcu.com/" target="_blank" class="nav-button external">
+                            <i class="fas fa-calculator"></i> Matrix Calculator
+                        </a>
+                    </div>
+                </aside>
+
+                <main class="main-content">
+                    <div class="dynamic-content-container long-division-page">
+                        <section class="long-division-hero" aria-labelledby="long-division-title">
+                            <h1 id="long-division-title">Long Division Calculator with Steps</h1>
+                            <p>Calculate a division problem and see the complete long-division work.</p>
+                        </section>
+
+                        <section class="long-division-calculator" aria-label="Long division calculator with steps">
+                            <h2 class="tool-title">Enter a Division Problem</h2>
+                            <form class="calculator-form" id="calculator-form">
+                                <div class="input-field">
+                                    <label for="calc-dividend">Dividend</label>
+                                    <input id="calc-dividend" type="text" inputmode="decimal" autocomplete="off" placeholder="Enter dividend">
+                                </div>
+                                <span class="division-symbol" aria-hidden="true">&divide;</span>
+                                <div class="input-field">
+                                    <label for="calc-divisor">Divisor</label>
+                                    <input id="calc-divisor" type="text" inputmode="decimal" autocomplete="off" placeholder="Enter divisor">
+                                </div>
+                                <button class="btn-calculate" type="submit">Calculate</button>
+                            </form>
+                            <p class="calculator-note">Whole numbers and decimals supported.</p>
+                            <p id="error-message" class="error-message" role="alert"></p>
+
+                            <div id="results" class="results" aria-live="polite">
+                                <section class="result-block">
+                                    <h2>Answer</h2>
+                                    <p id="answer-equation" class="answer-equation"></p>
+                                    <p id="answer-details" class="answer-details"></p>
+                                </section>
+
+                                <section id="decimal-setup" class="result-block" hidden>
+                                    <h2>Decimal Setup</h2>
+                                    <p id="decimal-setup-text" class="setup-line"></p>
+                                </section>
+
+                                <section class="result-block">
+                                    <h2>Step-by-Step Solution</h2>
+                                    <div class="work-scroll">
+                                        <div id="vertical-work" class="vertical-work" aria-label="Aligned long-division work"></div>
+                                    </div>
+                                    <p class="product-link">Want to work through a problem yourself? <a href="/pages/long-division">Try the Long Division Tutor</a>.</p>
+                                </section>
+                            </div>
+                        </section>
+
+                        <div class="learning-content">
+                            <section>
+                                <h2>How to Use the Long Division Calculator</h2>
+                                <p>Enter the dividend and divisor, then select <strong>Calculate</strong>. The calculator returns the quotient, a remainder when that is the clearest whole-number form, and the aligned long-division work.</p>
+                            </section>
+
+                            <section>
+                                <h2>Long Division with Remainders</h2>
+                                <p>When a whole-number problem does not divide evenly, the answer may be shown with R notation. In 157 &divide; 4, the quotient is 39 and the remainder is 1, so the answer is 39 R1.</p>
+                            </section>
+
+                            <section>
+                                <h2>Long Division with Decimals</h2>
+                                <p>Decimal dividends can produce decimal quotients. The work follows the same divide, multiply, subtract, and bring down pattern, with zeros added after the decimal point as needed.</p>
+                            </section>
+
+                            <section>
+                                <h2>How Decimal Long Division Works</h2>
+                                <p>If the divisor has a decimal point, move the decimal point in both the divisor and dividend the same number of places. For example, 12.6 &divide; 0.3 becomes 126 &divide; 3.</p>
+                            </section>
+
+                            <section>
+                                <h2>FAQ</h2>
+                                <div class="faq-item">
+                                    <h3>What are the dividend and divisor?</h3>
+                                    <p>The dividend is the number being divided. The divisor is the number you divide by. The quotient is the result.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h3>Does this calculator support decimals?</h3>
+                                    <p>Yes. It handles positive decimal dividends and divisors, and it shows decimal shifting when the divisor is a decimal.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h3>What happens if the decimal keeps going?</h3>
+                                    <p>The calculator shows up to 10 decimal places and adds an ellipsis so the result is not mistaken for a terminating decimal.</p>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </main>
+
+                <aside class="right-sidebar">
+                    <div class="question-box">
+                        <h2>Do you enjoy learning math?</h2>
+                        <button class="btn yes">Yes, I love math!</button>
+                        <button class="btn no">Math is challenging for me</button>
+                        <div class="response" id="response"></div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 NDED - Building Mathematical Confidence for Life. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const DIVISION_SIGN = '\u00f7';
+        const ARROW = '\u2192';
+        const ELLIPSIS = '\u2026';
+
+        function parseDecimalInput(value, options = {}) {
+            const allowZero = Boolean(options.allowZero);
+            const label = options.label || 'number';
+            const raw = value.trim();
+            if(!raw || !/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(raw)) {
+                throw new Error(`Please enter a valid ${label}.`);
+            }
+
+            const [wholePart, decimalPart = ''] = raw.split('.');
+            const normalizedWhole = wholePart || '0';
+            const digits = (normalizedWhole + decimalPart).replace(/^0+(?=\d)/, '') || '0';
+            const integer = BigInt(digits);
+            if(integer < 0n || (!allowZero && integer === 0n)) {
+                throw new Error(label === 'divisor'
+                    ? 'The divisor must be greater than 0.'
+                    : 'The dividend must be 0 or greater.');
+            }
+
+            return {
+                raw,
+                integer,
+                scale: decimalPart.length,
+                hasDecimal: raw.includes('.'),
+                decimalPlaces: decimalPart.length
+            };
+        }
+
+        function pow10(exp) {
+            return 10n ** BigInt(exp);
+        }
+
+        function formatShiftedDecimal(parsed, places) {
+            const [wholePart, decimalPart = ''] = parsed.raw.split('.');
+            let digits = ((wholePart || '0') + decimalPart).replace(/^0+(?=\d)/, '') || '0';
+            const newScale = parsed.scale - places;
+
+            if(newScale <= 0) {
+                return digits + '0'.repeat(Math.abs(newScale));
+            }
+
+            if(digits.length <= newScale) {
+                digits = '0'.repeat(newScale - digits.length + 1) + digits;
+            }
+
+            const pointIndex = digits.length - newScale;
+            const whole = digits.slice(0, pointIndex) || '0';
+            const decimal = digits.slice(pointIndex).replace(/0+$/, '');
+            return decimal ? `${whole}.${decimal}` : whole;
+        }
+
+        function splitDisplayNumber(value) {
+            const [wholePart, decimalPart = ''] = value.split('.');
+            const whole = wholePart || '0';
+            const decimal = decimalPart.replace(/0+$/, '');
+            const digits = (whole + decimalPart) || '0';
+            const integerDigitCount = Math.max(1, whole.length);
+            return {
+                digits,
+                hasDecimal: value.includes('.') && decimalPart.length > 0,
+                integerDigitCount,
+                scale: decimalPart.length
+            };
+        }
+
+        function decimalExpansion(numerator, denominator, maxPlaces = 10) {
+            const integerPart = numerator / denominator;
+            let remainder = numerator % denominator;
+
+            if(remainder === 0n) {
+                return {
+                    text: integerPart.toString(),
+                    decimalDigits: '',
+                    truncated: false,
+                    repeating: false
+                };
+            }
+
+            const seen = new Map();
+            let digits = '';
+            let repeating = false;
+
+            while(remainder !== 0n && digits.length < maxPlaces) {
+                if(seen.has(remainder)) {
+                    repeating = true;
+                } else {
+                    seen.set(remainder, digits.length);
+                }
+                remainder *= 10n;
+                digits += (remainder / denominator).toString();
+                remainder %= denominator;
+            }
+
+            const truncated = remainder !== 0n;
+            return {
+                text: `${integerPart}.${digits}${truncated ? ELLIPSIS : ''}`,
+                decimalDigits: digits,
+                truncated,
+                repeating
+            };
+        }
+
+        function wholeNumberAnswer(numerator, denominator) {
+            const quotient = numerator / denominator;
+            const remainder = numerator % denominator;
+            return remainder === 0n
+                ? quotient.toString()
+                : `${quotient} R${remainder}`;
+        }
+
+        function shouldUseRemainder(dividend, divisor) {
+            return !dividend.hasDecimal && !divisor.hasDecimal;
+        }
+
+        function buildLongDivisionStages(dividendDigits, divisor, decimalPlaces) {
+            const stages = [];
+            const digits = dividendDigits.split('').map(Number);
+            let current = 0n;
+            let divisionStarted = false;
+            let endIndex = -1;
+
+            for(let i = 0; i < digits.length; i++) {
+                current = current * 10n + BigInt(digits[i]);
+                endIndex = i;
+
+                if(current >= divisor || divisionStarted || i === digits.length - 1) {
+                    const q = current / divisor;
+                    const product = q * divisor;
+                    const remainder = current - product;
+                    stages.push({ endIndex, current, q, product, remainder });
+                    divisionStarted = true;
+                    current = remainder;
+                }
+            }
+
+            for(let i = 0; i < decimalPlaces && current !== 0n; i++) {
+                current *= 10n;
+                endIndex += 1;
+                const q = current / divisor;
+                const product = q * divisor;
+                const remainder = current - product;
+                stages.push({ endIndex, current, q, product, remainder, appendedZero: true });
+                current = remainder;
+            }
+
+            return stages;
+        }
+
+        function addGridText(grid, text, row, endCol, className = '') {
+            const chars = text.toString().split('');
+            const startCol = endCol - chars.length + 1;
+            chars.forEach((char, index) => {
+                const cell = document.createElement('div');
+                cell.className = `work-cell ${className}`.trim();
+                cell.style.gridRow = row;
+                cell.style.gridColumn = startCol + index;
+                cell.textContent = char;
+                grid.appendChild(cell);
+            });
+        }
+
+        function addDivisorText(grid, text, row, startCol, span) {
+            const cell = document.createElement('div');
+            cell.className = 'work-cell divisor-cell';
+            cell.style.gridRow = row;
+            cell.style.gridColumn = `${startCol} / span ${span}`;
+            cell.textContent = text.toString();
+            grid.appendChild(cell);
+        }
+
+        function addGridSpan(grid, row, startCol, span, className) {
+            const cell = document.createElement('div');
+            cell.className = className;
+            cell.style.gridRow = row;
+            cell.style.gridColumn = `${startCol} / span ${span}`;
+            grid.appendChild(cell);
+        }
+
+        function renderVerticalWork(container, divisor, dividendDisplay, quotientText, appendedDecimalDigits = 0) {
+            container.innerHTML = '';
+
+            const divisorText = divisor.toString();
+            const display = splitDisplayNumber(dividendDisplay);
+            const baseDigits = display.digits;
+            const stages = buildLongDivisionStages(baseDigits, divisor, appendedDecimalDigits);
+            const appendedZeros = Math.max(0, stages.length ? stages[stages.length - 1].endIndex - baseDigits.length + 1 : 0);
+            const shownDividendDigits = baseDigits + '0'.repeat(appendedZeros);
+            const leftCols = divisorText.length;
+            const dividendStartCol = leftCols + 1;
+            const decimalExtraCol = display.hasDecimal || appendedZeros > 0 || quotientText.includes('.') ? 1 : 0;
+            const totalColumns = Math.max(dividendStartCol + shownDividendDigits.length + decimalExtraCol + 2, leftCols + quotientText.length + 5);
+            container.style.gridTemplateColumns = `repeat(${totalColumns}, var(--cell-size))`;
+
+            const digitCol = (index) => dividendStartCol + index + ((decimalExtraCol && index >= display.integerDigitCount) ? 1 : 0);
+            const quotientForWork = quotientText.replace(ELLIPSIS, '');
+            if(quotientForWork.includes('.')) {
+                const [qWhole, qDecimal] = quotientForWork.split('.');
+                const decimalCol = digitCol(display.integerDigitCount) - 1;
+                addGridText(container, qWhole || '0', 1, decimalCol - 1);
+                addGridText(container, '.', 1, decimalCol, 'decimal-dot');
+                if(qDecimal) {
+                    addGridText(container, qDecimal, 1, decimalCol + qDecimal.length);
+                }
+            } else {
+                addGridText(container, quotientForWork, 1, digitCol(shownDividendDigits.length - 1));
+            }
+
+            addDivisorText(container, divisorText, 2, 1, leftCols);
+            addGridSpan(container, 1, dividendStartCol, shownDividendDigits.length + decimalExtraCol, 'quotient-line');
+
+            shownDividendDigits.split('').forEach((digit, index) => {
+                const cell = document.createElement('div');
+                cell.className = `work-cell ${index >= baseDigits.length ? 'dim-zero' : ''}`.trim();
+                cell.style.gridRow = 2;
+                cell.style.gridColumn = digitCol(index);
+                cell.textContent = digit;
+                container.appendChild(cell);
+            });
+
+            if(decimalExtraCol) {
+                const dot = document.createElement('div');
+                dot.className = 'work-cell decimal-dot';
+                dot.style.gridRow = 2;
+                dot.style.gridColumn = digitCol(display.integerDigitCount) - 1;
+                dot.textContent = '.';
+                container.appendChild(dot);
+            }
+
+            let row = 3;
+            stages.forEach((stage) => {
+                const productText = stage.product.toString();
+                const currentText = stage.current.toString();
+                const productEndCol = digitCol(stage.endIndex);
+                const startCol = productEndCol - currentText.length + 1;
+
+                const minus = document.createElement('div');
+                minus.className = 'work-cell minus-cell';
+                minus.style.gridRow = row;
+                minus.style.gridColumn = productEndCol - productText.length + 1;
+                minus.setAttribute('aria-label', 'minus');
+                container.appendChild(minus);
+
+                addGridText(container, productText, row, productEndCol);
+                row += 1;
+                addGridSpan(container, row - 1, startCol, currentText.length, 'sub-line');
+                addGridText(container, stage.remainder.toString(), row, productEndCol);
+                row += 1;
+            });
+        }
+
+        function calculateLongDivision(dividendValue, divisorValue) {
+            const dividend = parseDecimalInput(dividendValue, { allowZero: true, label: 'dividend' });
+            const divisor = parseDecimalInput(divisorValue, { allowZero: false, label: 'divisor' });
+
+            const numerator = dividend.integer * pow10(divisor.scale);
+            const denominator = divisor.integer * pow10(dividend.scale);
+            if(denominator === 0n) {
+                throw new Error('The divisor cannot be 0.');
+            }
+
+            const decimalResult = decimalExpansion(numerator, denominator, 10);
+            const useRemainder = shouldUseRemainder(dividend, divisor);
+            const answer = useRemainder ? wholeNumberAnswer(numerator, denominator) : decimalResult.text;
+            const divisorShiftPlaces = divisor.decimalPlaces;
+            const shiftedDividend = formatShiftedDecimal(dividend, divisorShiftPlaces);
+            const shiftedDivisor = formatShiftedDecimal(divisor, divisorShiftPlaces);
+            const workDividend = splitDisplayNumber(shiftedDividend);
+            const appendedDecimalDigits = useRemainder
+                ? 0
+                : Math.max(0, decimalResult.decimalDigits.length - workDividend.scale);
+            const quotient = numerator / denominator;
+            const remainder = numerator % denominator;
+
+            return {
+                dividend,
+                divisor,
+                numerator,
+                denominator,
+                answer,
+                quotient,
+                remainder,
+                decimalResult,
+                useRemainder,
+                appendedDecimalDigits,
+                shiftedDividend,
+                shiftedDivisor,
+                workDivisor: BigInt(shiftedDivisor),
+                needsDecimalSetup: divisorShiftPlaces > 0
+            };
+        }
+
+        function showError(message) {
+            const error = document.getElementById('error-message');
+            error.textContent = message;
+            error.classList.add('show');
+            document.getElementById('results').classList.remove('show');
+        }
+
+        function showResult(result) {
+            const error = document.getElementById('error-message');
+            const results = document.getElementById('results');
+            const answerEquation = document.getElementById('answer-equation');
+            const answerDetails = document.getElementById('answer-details');
+            const decimalSetup = document.getElementById('decimal-setup');
+            const decimalSetupText = document.getElementById('decimal-setup-text');
+
+            error.classList.remove('show');
+            answerEquation.textContent = `${result.dividend.raw} ${DIVISION_SIGN} ${result.divisor.raw} = ${result.answer}`;
+            if(result.useRemainder) {
+                const details = [`Quotient: ${result.quotient}`];
+                if(result.remainder !== 0n) {
+                    details.push(`Remainder: ${result.remainder}`);
+                    details.push(`Decimal equivalent: ${result.decimalResult.text}`);
+                }
+                answerDetails.textContent = details.join('\n');
+            } else {
+                answerDetails.textContent = '';
+            }
+
+            if(result.needsDecimalSetup) {
+                decimalSetup.hidden = false;
+                decimalSetupText.textContent = `Move the decimal point ${result.divisor.decimalPlaces} ${result.divisor.decimalPlaces === 1 ? 'place' : 'places'} to the right in both numbers:\n\n${result.dividend.raw} ${DIVISION_SIGN} ${result.divisor.raw} ${ARROW} ${result.shiftedDividend} ${DIVISION_SIGN} ${result.shiftedDivisor}`;
+            } else {
+                decimalSetup.hidden = true;
+                decimalSetupText.textContent = '';
+            }
+
+            renderVerticalWork(
+                document.getElementById('vertical-work'),
+                result.workDivisor,
+                result.shiftedDividend,
+                result.useRemainder ? (result.numerator / result.denominator).toString() : result.decimalResult.text,
+                result.appendedDecimalDigits
+            );
+
+            results.classList.add('show');
+        }
+
+        function handleCalculate(event) {
+            event.preventDefault();
+            try {
+                const result = calculateLongDivision(
+                    document.getElementById('calc-dividend').value,
+                    document.getElementById('calc-divisor').value
+                );
+                showResult(result);
+            } catch(error) {
+                showError(error.message);
+            }
+        }
+
+        function initPoll() {
+            const yesBtn = document.querySelector('.question-box .yes');
+            const noBtn = document.querySelector('.question-box .no');
+            const response = document.getElementById('response');
+
+            yesBtn.addEventListener('click', () => {
+                response.textContent = "That's great! Math is an amazing tool for understanding the world!";
+                response.classList.add('show');
+            });
+
+            noBtn.addEventListener('click', () => {
+                response.textContent = "We're here to help. Step-by-step support can make the process feel clearer.";
+                response.classList.add('show');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('calculator-form').addEventListener('submit', handleCalculate);
+            initPoll();
+        });
+
+        window.calculateLongDivisionResult = calculateLongDivision;
+    </script>
+</body>
+
+</html>

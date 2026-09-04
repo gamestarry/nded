@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Learn how to do long division step by step using divide, multiply, subtract, and bring down. Follow clear worked examples, then practice with the interactive tutor.">
+    <meta name="author" content="NDED">
+    <title>How to Do Long Division Step by Step | NDED</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="canonical" href="https://nd-ed.org/pages/how-to-do-long-division">
+
+    <link rel="stylesheet" href="../css/template.css">
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        header .main-title {
+            margin-bottom: 0;
+        }
+
+        .main-content {
+            min-width: 0;
+        }
+
+        @media (min-width: 1025px) {
+            body.howto-long-division-page .wide-container {
+                max-width: 1560px;
+                padding: 0 14px;
+            }
+
+            body.howto-long-division-page .main-row {
+                gap: 24px;
+            }
+
+            body.howto-long-division-page .left-sidebar,
+            body.howto-long-division-page .right-sidebar {
+                flex-basis: 220px;
+            }
+
+            body.howto-long-division-page .main-content {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+
+            body.howto-long-division-page .dynamic-content-container {
+                padding: 1.55rem;
+            }
+        }
+
+        .long-division-page {
+            gap: 1.5rem;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .lesson-hero {
+            max-width: 1120px;
+            margin: 0 auto 1rem;
+            text-align: center;
+        }
+
+        .lesson-hero h1 {
+            color: var(--primary-color);
+            font-size: clamp(2rem, 3.1vw, 3rem);
+            line-height: 1.15;
+            margin: 0 0 0.9rem;
+            font-family: 'Raleway', sans-serif;
+            overflow-wrap: anywhere;
+        }
+
+        .lesson-hero p {
+            max-width: 740px;
+            margin: 0 auto;
+            color: #4a5568;
+            font-size: 1.06rem;
+            text-align: center;
+        }
+
+        .lesson-content {
+            --primary: #2f66d8;
+            --primary-dark: #2457bf;
+            --primary-soft: #eff6ff;
+            --ink: #172033;
+            --muted: #64748b;
+            --line: #d9e1ec;
+            --surface: #ffffff;
+            --page: #f4f7fb;
+            width: 100%;
+            max-width: 1120px;
+            margin: 0 auto 1.8rem;
+            padding: 18px 10px 34px;
+            color: var(--ink);
+            background: #fff;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+        }
+
+        .lesson-content * {
+            box-sizing: border-box;
+        }
+
+        .lesson-section {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 1.65rem 0;
+            border-top: 1px solid #eef3f8;
+        }
+
+        .lesson-section:first-child {
+            border-top: 0;
+            padding-top: 0;
+        }
+
+        .lesson-section h2 {
+            margin: 0 0 0.7rem;
+            color: var(--primary-color);
+            font-size: 1.55rem;
+            text-align: left;
+        }
+
+        .lesson-section h3 {
+            margin: 0 0 0.55rem;
+            color: var(--primary-color);
+            font-size: 1.15rem;
+        }
+
+        .lesson-section p,
+        .lesson-section li {
+            color: #34495e;
+            font-size: 1rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .lesson-section p {
+            margin: 0 0 0.85rem;
+        }
+
+        .lesson-milestone,
+        .example-section.alt-example,
+        .mistakes-section,
+        .cta-section {
+            margin-left: -10px;
+            margin-right: -10px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .lesson-milestone {
+            margin-top: 0.45rem;
+            padding-top: 1.85rem;
+            padding-bottom: 1.95rem;
+            background: #f6f9fe;
+            border-top-color: #e5edf8;
+        }
+
+        .term-grid,
+        .step-grid,
+        .cta-grid {
+            display: grid;
+            gap: 14px;
+        }
+
+        .term-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            margin: 1rem 0;
+            align-items: stretch;
+        }
+
+        .term-card,
+        .step-card,
+        .cta-card {
+            background: #fff;
+            border: 1px solid #dfe6ef;
+            border-radius: 8px;
+        }
+
+        .term-card {
+            min-height: 148px;
+            padding: 14px 14px 13px;
+            background: #f7faff;
+            border: 1px solid #e2ebf7;
+            border-top: 3px solid #8fb2f2;
+            border-radius: 8px;
+        }
+
+        .term-card strong {
+            display: block;
+            margin-bottom: 0.35rem;
+            color: var(--ink);
+        }
+
+        .term-card .term-value {
+            display: block;
+            margin-bottom: 0.45rem;
+            color: #244f9e;
+            font-size: 1.22rem;
+            font-weight: 750;
+            line-height: 1.15;
+        }
+
+        .term-card span {
+            display: block;
+            color: #34495e;
+            font-size: 0.95rem;
+            line-height: 1.55;
+        }
+
+        .simple-equation {
+            margin: 0.85rem 0 0;
+            padding: 0.2rem 0 0 0.85rem;
+            border-left: 2px solid #d4e2f4;
+            color: #536273;
+            font-size: 0.98rem;
+            font-weight: 550;
+        }
+
+        .simple-equation strong {
+            color: #315fae;
+        }
+
+        .step-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            margin-top: 1rem;
+        }
+
+        .step-card {
+            min-height: 188px;
+            padding: 15px;
+            border-color: #d8e4f4;
+            border-top: 3px solid #8fb2f2;
+            box-shadow: none;
+        }
+
+        .step-card .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            margin-bottom: 0.7rem;
+            color: #fff;
+            background: #2457bf;
+            border-radius: 50%;
+            font-weight: 800;
+        }
+
+        .step-card p {
+            margin-bottom: 0;
+        }
+
+        .step-flow {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 0.35rem 0.55rem;
+            width: fit-content;
+            max-width: 100%;
+            margin: 1.05rem auto 0;
+            padding: 0.55rem 0.85rem;
+            color: #315fae;
+            background: #edf4ff;
+            border: 1px solid #d8e7fb;
+            border-radius: 999px;
+            font-weight: 750;
+            text-align: center;
+        }
+
+        .step-flow span {
+            white-space: nowrap;
+        }
+
+        .step-flow .flow-arrow {
+            color: #7c93b5;
+            font-weight: 800;
+        }
+
+        .example-label {
+            display: inline-block;
+            margin: 0 0 0.45rem;
+            padding: 0.18rem 0.55rem;
+            color: #2457bf;
+            background: #eef5ff;
+            border: 1px solid #dbe9fb;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.01em;
+        }
+
+        .example-section.alt-example {
+            padding-top: 1.85rem;
+            padding-bottom: 1.85rem;
+            background: #f8fbff;
+        }
+
+        .worked-example {
+            display: grid;
+            grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+            gap: 28px;
+            align-items: start;
+            margin-top: 0.9rem;
+        }
+
+        .work-scroll {
+            max-width: 100%;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .division-work {
+            display: inline-block;
+            min-width: 100%;
+            margin: 0;
+            padding: 18px 20px;
+            color: var(--ink);
+            background: #fbfdff;
+            border: 1px solid #e6ecf3;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.38rem;
+            line-height: 1.25;
+            white-space: pre;
+        }
+
+        .example-notes {
+            margin: 0.1rem 0 0;
+            padding-left: 1.2rem;
+        }
+
+        .example-notes li {
+            margin-bottom: 0.2rem;
+            line-height: 1.55;
+        }
+
+        .answer-line {
+            margin: 0.2rem 0 0.9rem;
+            color: #244f9e;
+            font-size: 1.18rem;
+            font-weight: 750;
+        }
+
+        .key-idea {
+            margin-top: 1rem;
+            padding: 0.8rem 0.95rem;
+            background: #f1f7ff;
+            border-left: 3px solid #2f66d8;
+            border-radius: 6px;
+        }
+
+        .key-idea strong {
+            display: block;
+            margin-bottom: 0.2rem;
+            color: #2457bf;
+            font-size: 0.88rem;
+        }
+
+        .key-idea p {
+            margin-bottom: 0;
+        }
+
+        .mistake-list {
+            margin: 0.65rem 0 0;
+            padding-left: 1.2rem;
+        }
+
+        .mistakes-section {
+            padding-top: 1.85rem;
+            padding-bottom: 1.85rem;
+            background: #fbfaf7;
+        }
+
+        .mistake-list li::marker {
+            color: #8a6d2f;
+        }
+
+        .cta-section {
+            padding-top: 1.85rem;
+            padding-bottom: 1.95rem;
+            background: #f6f9fe;
+        }
+
+        .cta-grid {
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+            margin-top: 1rem;
+        }
+
+        .cta-card {
+            padding: 18px;
+            background: #fff;
+            border-color: #d9e6f6;
+            box-shadow: none;
+        }
+
+        .cta-card.featured {
+            border-color: #bcd0f0;
+            background: #fbfdff;
+        }
+
+        .cta-kicker {
+            margin: 0 0 0.3rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 750;
+        }
+
+        .cta-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            margin-top: 0.45rem;
+            padding: 0 18px;
+            color: #fff;
+            background: var(--primary);
+            border-radius: 8px;
+            font-weight: 750;
+            text-decoration: none;
+            box-shadow: 0 7px 16px rgba(47,102,216,0.14);
+        }
+
+        .cta-link.secondary {
+            color: #315fae;
+            background: #fff;
+            border: 1px solid #cddcf3;
+            box-shadow: none;
+        }
+
+        .cta-link:hover {
+            background: var(--primary-dark);
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .cta-link.secondary:hover {
+            background: var(--primary-soft);
+            color: #315fae;
+        }
+
+        .faq-item {
+            padding: 0.35rem 0 0.7rem;
+        }
+
+        @media (max-width: 1100px) {
+            .term-grid,
+            .step-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .worked-example {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .long-division-page {
+                padding: 14px !important;
+            }
+
+            .lesson-content {
+                padding: 28px 14px 42px;
+            }
+
+            .division-work {
+                font-size: 1.24rem;
+            }
+        }
+
+        @media (max-width: 520px) {
+            html,
+            body {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            .main-row-container,
+            .wide-container,
+            .main-row,
+            .main-content,
+            .dynamic-content-container,
+            .long-division-page,
+            .lesson-hero,
+            .lesson-content {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+            }
+
+            header {
+                overflow: hidden;
+            }
+
+            header .main-title {
+                width: 100%;
+            }
+
+            header .container {
+                width: 100vw;
+                max-width: 100vw;
+            }
+
+            header .subtitle {
+                width: min(260px, calc(100vw - 80px));
+                max-width: min(260px, calc(100vw - 80px));
+                margin-left: auto;
+                margin-right: auto;
+                white-space: normal;
+                text-align: center;
+                overflow-wrap: anywhere;
+                font-size: 0.82rem !important;
+            }
+
+            .left-sidebar .nav-buttons {
+                grid-template-columns: 1fr !important;
+            }
+
+            .left-sidebar .nav-button,
+            .lesson-hero p,
+            .lesson-section p,
+            .lesson-section li {
+                overflow-wrap: anywhere;
+            }
+
+            .lesson-hero h1 {
+                width: min(270px, calc(100vw - 70px));
+                max-width: min(270px, calc(100vw - 70px));
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                font-size: 1.48rem;
+                line-height: 1.24;
+                white-space: normal;
+                word-break: break-word;
+            }
+
+            .lesson-hero p {
+                width: min(270px, calc(100vw - 70px));
+                max-width: min(270px, calc(100vw - 70px));
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .long-division-page {
+                overflow: visible;
+                align-items: flex-start;
+            }
+
+            .lesson-hero {
+                width: calc(100vw - 24px) !important;
+                max-width: calc(100vw - 24px) !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .lesson-content {
+                width: calc(100vw - 24px) !important;
+                max-width: calc(100vw - 24px) !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                padding: 20px 10px 34px;
+            }
+
+            .lesson-section h2 {
+                font-size: 1.32rem;
+            }
+
+            .term-grid,
+            .step-grid,
+            .cta-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .term-card {
+                min-height: 0;
+            }
+
+            .worked-example {
+                gap: 14px;
+            }
+
+            .division-work {
+                padding: 14px 12px;
+                font-size: clamp(0.95rem, 4.3vw, 1.08rem);
+            }
+
+            .step-flow {
+                justify-content: flex-start;
+                width: 100%;
+                border-radius: 8px;
+            }
+
+            .cta-link {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body class="howto-long-division-page">
+    <header>
+        <div class="container">
+            <div class="main-title">
+                <span class="nded-text">NDED</span>
+                <span class="subtitle">building mathematical confidence for life.</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-row-container">
+        <div class="wide-container">
+            <div class="main-row">
+                <aside class="left-sidebar">
+                    <h3 class="nav-title">Navigation</h3>
+                    <div class="nav-buttons">
+                        <a href="/" class="nav-button">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                        <a href="/about-us" class="nav-button">
+                            <i class="fas fa-info-circle"></i> About us
+                        </a>
+                        <a href="/#math-games-section" class="nav-button">
+                            <i class="fas fa-gamepad"></i> Math Games
+                        </a>
+                        <a href="https://matrixcalcu.com/" target="_blank" class="nav-button external">
+                            <i class="fas fa-calculator"></i> Matrix Calculator
+                        </a>
+                    </div>
+                </aside>
+
+                <main class="main-content">
+                    <div class="dynamic-content-container long-division-page">
+                        <section class="lesson-hero" aria-labelledby="long-division-title">
+                            <h1 id="long-division-title">How to Do Long Division Step by Step</h1>
+                            <p>Long division becomes easier when you repeat the same four moves: divide, multiply, subtract, and bring down. Follow the examples below to see how each step fits together.</p>
+                        </section>
+
+                        <div class="lesson-content">
+                            <section class="lesson-section">
+                                <h2>What Is Long Division?</h2>
+                                <p>Long division is a written method for dividing larger numbers one place at a time. It keeps each part of the work lined up so you can see the quotient, products, subtractions, and any remainder.</p>
+                                <div class="term-grid" aria-label="Long division vocabulary">
+                                    <div class="term-card">
+                                        <strong>Dividend</strong>
+                                        <span class="term-value">125</span>
+                                        <span>The number being divided.</span>
+                                    </div>
+                                    <div class="term-card">
+                                        <strong>Divisor</strong>
+                                        <span class="term-value">5</span>
+                                        <span>The number you divide by.</span>
+                                    </div>
+                                    <div class="term-card">
+                                        <strong>Quotient</strong>
+                                        <span class="term-value">25</span>
+                                        <span>The answer.</span>
+                                    </div>
+                                    <div class="term-card">
+                                        <strong>Remainder</strong>
+                                        <span class="term-value">R</span>
+                                        <span>What is left when the division does not come out evenly.</span>
+                                    </div>
+                                </div>
+                                <p class="simple-equation"><strong>Example:</strong> In 125 &divide; 5 = 25, 125 is the dividend, 5 is the divisor, and 25 is the quotient.</p>
+                            </section>
+
+                            <section class="lesson-section lesson-milestone">
+                                <h2>The Four Long Division Steps</h2>
+                                <p>Each round uses the same pattern. Work with the current part of the dividend, then bring down the next digit when there is one.</p>
+                                <div class="step-grid">
+                                    <div class="step-card">
+                                        <span class="step-number">1</span>
+                                        <h3>Divide</h3>
+                                        <p>Ask how many times the divisor fits into the current part of the dividend without going over.</p>
+                                    </div>
+                                    <div class="step-card">
+                                        <span class="step-number">2</span>
+                                        <h3>Multiply</h3>
+                                        <p>Multiply that quotient digit by the divisor.</p>
+                                    </div>
+                                    <div class="step-card">
+                                        <span class="step-number">3</span>
+                                        <h3>Subtract</h3>
+                                        <p>Subtract the product from the current number.</p>
+                                    </div>
+                                    <div class="step-card">
+                                        <span class="step-number">4</span>
+                                        <h3>Bring Down</h3>
+                                        <p>Bring down the next digit of the dividend and repeat.</p>
+                                    </div>
+                                </div>
+                                <p class="step-flow" aria-label="Divide, multiply, subtract, bring down, then repeat">
+                                    <span>Divide</span>
+                                    <span class="flow-arrow">&rarr;</span>
+                                    <span>Multiply</span>
+                                    <span class="flow-arrow">&rarr;</span>
+                                    <span>Subtract</span>
+                                    <span class="flow-arrow">&rarr;</span>
+                                    <span>Bring Down</span>
+                                    <span class="flow-arrow">&#8634;</span>
+                                </p>
+                            </section>
+
+                            <section class="lesson-section example-section">
+                                <p class="example-label">Basic Pattern</p>
+                                <h2>Example 1: 125 &divide; 5</h2>
+                                <p class="answer-line">125 &divide; 5 = 25</p>
+                                <div class="worked-example">
+                                    <div class="work-scroll" aria-label="Long division work for 125 divided by 5">
+                                        <pre class="division-work">      25
+    ----
+5 ) 125
+    10
+    --
+     25
+     25
+     --
+      0</pre>
+                                    </div>
+                                    <ol class="example-notes">
+                                        <li>5 goes into 12 two times.</li>
+                                        <li>2 &times; 5 = 10.</li>
+                                        <li>12 &minus; 10 = 2.</li>
+                                        <li>Bring down the 5 to make 25.</li>
+                                        <li>5 goes into 25 five times.</li>
+                                        <li>5 &times; 5 = 25.</li>
+                                        <li>25 &minus; 25 = 0.</li>
+                                    </ol>
+                                </div>
+                            </section>
+
+                            <section class="lesson-section example-section alt-example">
+                                <p class="example-label">Repeat the Four Steps</p>
+                                <h2>Example 2: 936 &divide; 4</h2>
+                                <p class="answer-line">936 &divide; 4 = 234</p>
+                                <div class="worked-example">
+                                    <div class="work-scroll" aria-label="Long division work for 936 divided by 4">
+                                        <pre class="division-work">      234
+    -----
+4 ) 936
+    8
+    -
+    13
+    12
+    --
+     16
+     16
+     --
+      0</pre>
+                                    </div>
+                                    <div>
+                                        <p>The same four moves repeat several times. After each quotient digit, multiply, subtract, and bring down the next digit. Work with 9 first, then 13, and finally 16.</p>
+                                        <p>Keeping each digit in its column helps 234 line up with the parts of 936 it comes from.</p>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="lesson-section example-section">
+                                <p class="example-label">Watch the Zero in the Quotient</p>
+                                <h2>Example 3: Why the Zero in 201 Matters</h2>
+                                <p class="answer-line">1005 &divide; 5 = 201</p>
+                                <div class="worked-example">
+                                    <div class="work-scroll" aria-label="Long division work for 1005 divided by 5">
+                                        <pre class="division-work">       201
+    ------
+5 ) 1005
+    10
+    --
+      0
+      0
+      -
+      05
+       5
+       -
+       0</pre>
+                                    </div>
+                                    <div>
+                                        <p>After 5 goes into 10 two times, bring down the next 0. Since 5 does not fit into 0, write 0 in the quotient.</p>
+                                        <div class="key-idea">
+                                            <strong>Key idea</strong>
+                                            <p>The 0 is a placeholder. It keeps the quotient digits in the correct place-value columns.</p>
+                                        </div>
+                                        <p>Without it, 1005 &divide; 5 would be written incorrectly as 21 instead of 201.</p>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="lesson-section">
+                                <h2>Long Division with Remainders</h2>
+                                <p>Sometimes the division does not end at 0. For example, 157 &divide; 4 = 39 R1.</p>
+                                <div class="worked-example">
+                                    <div class="work-scroll" aria-label="Long division work for 157 divided by 4">
+                                        <pre class="division-work">       39
+    -----
+4 ) 157
+    12
+    --
+     37
+     36
+     --
+      1</pre>
+                                    </div>
+                                    <div>
+                                        <p>If there are no more digits to bring down and the amount left is smaller than the divisor, that amount is the remainder.</p>
+                                        <p>A remainder must always be smaller than the divisor.</p>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="lesson-section mistakes-section">
+                                <h2>Common Long Division Mistakes</h2>
+                                <ul class="mistake-list">
+                                    <li><strong>Skipping a zero in the quotient:</strong> If a place does not divide, you may still need a 0 to keep the place values correct.</li>
+                                    <li><strong>Putting digits in the wrong columns:</strong> Quotient digits, products, and remainders should line up with the part of the dividend being used.</li>
+                                    <li><strong>Subtracting incorrectly:</strong> A small subtraction error changes every step after it, so check each difference before bringing down.</li>
+                                    <li><strong>Bringing down the wrong digit:</strong> Bring down the next unused digit of the dividend, in order from left to right.</li>
+                                    <li><strong>Leaving a remainder that is too large:</strong> If the remainder is as large as or larger than the divisor, the quotient digit should have been bigger.</li>
+                                </ul>
+                            </section>
+
+                            <section class="lesson-section cta-section">
+                                <h2>Try It Yourself</h2>
+                                <div class="cta-grid">
+                                    <div class="cta-card featured">
+                                        <p class="cta-kicker">Ready to try one yourself?</p>
+                                        <h3>Long Division Tutor</h3>
+                                        <p>Work through each step yourself and use Show Me One Step if you get stuck.</p>
+                                        <a class="cta-link" href="/pages/long-division">Practice with the Long Division Tutor</a>
+                                    </div>
+                                    <div class="cta-card">
+                                        <p class="cta-kicker">Need to check a complete solution?</p>
+                                        <h3>Long Division Calculator with Steps</h3>
+                                        <p>Enter a problem and see the answer and full long-division work.</p>
+                                        <a class="cta-link secondary" href="/pages/long-division-calculator">Open the Long Division Calculator</a>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="lesson-section">
+                                <h2>FAQ</h2>
+                                <div class="faq-item">
+                                    <h3>What are the four steps of long division?</h3>
+                                    <p>The four steps are divide, multiply, subtract, and bring down. You repeat them until there are no more digits to bring down.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h3>How do I know which number goes inside the division symbol?</h3>
+                                    <p>The dividend goes inside the division symbol. It is the number being divided.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h3>What happens when a number does not divide evenly?</h3>
+                                    <p>The amount left over is the remainder, as long as it is smaller than the divisor.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h3>Why is there sometimes a zero in the quotient?</h3>
+                                    <p>A zero may be needed when one place value does not divide. It keeps the rest of the quotient in the correct columns.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h3>How can I check a long division answer?</h3>
+                                    <p>Use quotient &times; divisor + remainder = dividend. For example, 39 &times; 4 + 1 = 157.</p>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </main>
+
+                <aside class="right-sidebar">
+                    <div class="question-box">
+                        <h2>Do you enjoy learning math?</h2>
+                        <button class="btn yes">Yes, I love math!</button>
+                        <button class="btn no">Math is challenging for me</button>
+                        <div class="response" id="response"></div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 NDED - Building Mathematical Confidence for Life. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function initPoll() {
+            const yesBtn = document.querySelector('.question-box .yes');
+            const noBtn = document.querySelector('.question-box .no');
+            const response = document.getElementById('response');
+
+            yesBtn.addEventListener('click', () => {
+                response.textContent = "That's great! Math is an amazing tool for understanding the world!";
+                response.classList.add('show');
+            });
+
+            noBtn.addEventListener('click', () => {
+                response.textContent = "We're here to help. Step-by-step support can make the process feel clearer.";
+                response.classList.add('show');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initPoll);
+    </script>
+</body>
+
+</html>

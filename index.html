@@ -2111,6 +2111,380 @@
             margin-right: 2rem;
         }
 
+        .long-division-path-section {
+            background: #f4f8fd;
+            border: 1px solid #dfeaf6;
+            box-shadow: none;
+            gap: 1rem;
+        }
+
+        .long-division-path-header {
+            max-width: 760px;
+            margin: 0 auto 0.35rem;
+            text-align: center;
+        }
+
+        .long-division-path-section .long-division-path-header h2 {
+            margin: 0 0 0.45rem;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .long-division-path-section .long-division-path-header p {
+            max-width: 720px;
+            margin: 0 auto;
+            color: #536275;
+            font-size: 1rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .long-division-path {
+            display: flex;
+            gap: 0.35rem;
+            align-items: stretch;
+            width: 100%;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .path-card {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 0;
+            min-width: 0;
+            overflow: hidden;
+            padding: 0;
+            color: #172033;
+            background: #ffffff;
+            border: 1px solid #dce7f4;
+            border-radius: var(--border-radius);
+            transition: flex 0.24s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .path-card:hover,
+        .path-card:focus-within {
+            background: #fbfdff;
+            border-color: #9fc2ea;
+        }
+
+        .path-card:focus-within {
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.22);
+        }
+
+        .path-card[open] {
+            flex: 1.9 1 0;
+            background: #eef6ff;
+            border-color: #9fc2ea;
+        }
+
+        .path-card-featured:not([open]) {
+            background: #ffffff;
+            border-color: #dce7f4;
+        }
+
+        .path-card summary {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            min-width: 0;
+            padding: 0.8rem;
+            cursor: pointer;
+            list-style: none;
+        }
+
+        .path-card summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .path-card summary:focus-visible {
+            outline: 3px solid rgba(52, 152, 219, 0.28);
+            outline-offset: -3px;
+        }
+
+        .path-card[open] summary {
+            min-height: 0;
+            padding-bottom: 0.4rem;
+        }
+
+        .path-title {
+            display: block;
+            margin: 0 0 0.45rem;
+            color: var(--primary-color);
+            font-size: 1.04rem;
+            font-weight: 800;
+            line-height: 1.24;
+            overflow-wrap: anywhere;
+        }
+
+        .path-card[open] .path-title {
+            font-size: 1.22rem;
+        }
+
+        .path-card:not([open]) .path-step-label {
+            font-size: 0.6rem;
+            letter-spacing: 0.04em;
+        }
+
+        .path-card:not([open]) .path-number {
+            font-size: 1.45rem;
+        }
+
+        .path-card:not([open]) .path-title {
+            font-size: 0.9rem;
+        }
+
+        .path-card-details {
+            padding: 0 0.8rem 0.8rem;
+        }
+
+        .path-card:not([open]) .path-card-details {
+            display: none;
+        }
+
+        .path-step-label {
+            display: block;
+            color: #527aa5;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            line-height: 1.25;
+            text-transform: uppercase;
+        }
+
+        .path-number {
+            display: block;
+            margin: 0.45rem 0 0.35rem;
+            color: #2457bf;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .long-division-path-section .path-card p {
+            max-width: none;
+            margin: 0 0 0.85rem;
+            color: #4a5568;
+            font-size: 0.94rem;
+            line-height: 1.45;
+            text-align: left;
+        }
+
+        .path-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 82px;
+            margin-top: auto;
+            padding: 0.65rem;
+            color: #244f9e;
+            background: #f8fbff;
+            border: 1px solid #e1ebf7;
+            border-radius: var(--border-radius);
+            font-weight: 800;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .path-card[open] .path-visual {
+            min-height: 112px;
+            background: #ffffff;
+            border-color: #c8daf3;
+        }
+
+        .path-card:not([open]) .path-visual {
+            min-height: 58px;
+            padding: 0.42rem;
+        }
+
+        .path-card:not([open]) .mini-equation {
+            font-size: 0.92rem;
+            max-width: 100%;
+            white-space: nowrap;
+        }
+
+        .path-card[open] .mini-equation {
+            font-size: 1.28rem;
+        }
+
+        .path-card:not([open]) .mini-step-flow {
+            grid-template-columns: 1fr;
+            width: 40px;
+            gap: 3px;
+            font-size: 0;
+        }
+
+        .path-card:not([open]) .mini-step-flow span {
+            min-height: 6px;
+            padding: 0;
+        }
+
+        .path-link-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin-top: 0.8rem;
+            color: #2457bf;
+            font-size: 0.88rem;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .path-link-text:hover {
+            text-decoration: underline;
+        }
+
+        .path-card[open] .path-link-text {
+            min-height: 38px;
+            width: fit-content;
+            padding: 0 0.85rem;
+            color: #ffffff;
+            background: #3498db;
+            border-radius: var(--border-radius);
+        }
+
+        .path-card[open] .path-link-text:hover {
+            text-decoration: none;
+        }
+
+        .path-expand-cue {
+            display: block;
+            margin-top: 0.7rem;
+            color: #7b96b3;
+            font-size: 1rem;
+            font-weight: 900;
+        }
+
+        .path-card[open] .path-expand-cue {
+            display: none;
+        }
+
+        .path-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9eb2ca;
+            flex: 0 0 12px;
+            font-size: 1rem;
+            font-weight: 800;
+        }
+
+        .mini-step-flow {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.35rem;
+            width: 100%;
+            font-size: 0.72rem;
+            text-align: center;
+        }
+
+        .mini-step-flow span {
+            padding: 0.35rem 0.25rem;
+            background: #eef6ff;
+            border: 1px solid #cfe0f5;
+            border-radius: 6px;
+        }
+
+        .mini-equation {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1.28rem;
+            white-space: nowrap;
+        }
+
+        .mini-division-work,
+        .mini-solution-work {
+            display: grid;
+            grid-template-columns: 24px repeat(3, 28px);
+            grid-auto-rows: 23px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1.08rem;
+            line-height: 1;
+            color: #172033;
+        }
+
+        .mini-division-work span,
+        .mini-solution-work span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mini-division-work .mini-green,
+        .mini-solution-work .mini-green {
+            color: #148257;
+        }
+
+        .path-card:not([open]) .mini-division-work,
+        .path-card:not([open]) .mini-solution-work {
+            grid-template-columns: 18px repeat(3, 20px);
+            grid-auto-rows: 17px;
+            font-size: 0.82rem;
+        }
+
+        .path-card:not([open]) .mini-practice-card {
+            padding: 0.45rem;
+            font-size: 0.86rem;
+        }
+
+        .path-card:not([open]) .mini-check {
+            width: 18px;
+            height: 18px;
+            margin-left: 0.25rem;
+            font-size: 0.72rem;
+        }
+
+        .mini-line {
+            grid-column: 2 / span 3;
+            grid-row: 1;
+            align-self: end;
+            height: 0;
+            border-bottom: 3px solid #2b2f36;
+        }
+
+        .mini-divisor {
+            grid-column: 1;
+            grid-row: 2;
+            justify-content: flex-end !important;
+            padding-right: 5px;
+            border-right: 3px solid #2b2f36;
+        }
+
+        .mini-subline {
+            align-self: end !important;
+            height: 0;
+            border-bottom: 2px solid #9aa5b3;
+        }
+
+        .mini-check {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            margin-left: 0.45rem;
+            color: #148257;
+            background: #edfdf3;
+            border: 1px solid #bdeccf;
+            border-radius: 50%;
+            font-size: 0.88rem;
+            font-weight: 900;
+        }
+
+        .mini-practice-card {
+            width: 100%;
+            padding: 0.7rem;
+            color: #172033;
+            background: #ffffff;
+            border: 1px solid #cfe0f5;
+            border-radius: 7px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
         @media (max-width: 1100px) {
             .home-learning-layout {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2122,6 +2496,21 @@
 
             #matrix-game .container {
                 max-width: 520px;
+            }
+
+            .long-division-path {
+                flex-direction: column;
+            }
+
+            .path-card,
+            .path-card[open] {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+
+            .path-arrow {
+                min-height: 18px;
+                transform: rotate(90deg);
             }
         }
 
@@ -2167,6 +2556,23 @@
 
             .ld-steps {
                 font-size: 0.68rem;
+            }
+
+            .long-division-path-section {
+                width: min(310px, calc(100vw - 48px)) !important;
+                max-width: min(310px, calc(100vw - 48px)) !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                padding: 0.9rem !important;
+                overflow: hidden;
+            }
+
+            .path-card summary {
+                padding: 0.9rem;
+            }
+
+            .path-visual {
+                min-height: 72px;
             }
 
             #multiplication-game .game-container,
@@ -2369,6 +2775,129 @@
                     </div>
 
                     <!-- 关于NDED的部分 - 已更新为完整的文章内容 -->
+                    <section class="dynamic-content-container long-division-path-section" aria-labelledby="learn-long-division-title">
+                        <div class="long-division-path-header">
+                            <h2 id="learn-long-division-title">Learn Long Division</h2>
+                            <p>Learn the method, work through problems step by step, check complete solutions, and practice with new problems.</p>
+                        </div>
+
+                        <div class="long-division-path">
+                            <details class="path-card">
+                                <summary>
+                                    <span class="path-step-label">Step 1 · Learn the Method</span>
+                                    <span class="path-number">01</span>
+                                    <span class="path-title">How to Do Long Division</span>
+                                    <div class="path-visual" aria-hidden="true">
+                                        <div class="mini-step-flow">
+                                            <span>Divide</span>
+                                            <span>Multiply</span>
+                                            <span>Subtract</span>
+                                            <span>Bring Down</span>
+                                        </div>
+                                    </div>
+                                    <span class="path-expand-cue" aria-hidden="true">&rarr;</span>
+                                </summary>
+                                <div class="path-card-details">
+                                    <p>Learn divide, multiply, subtract, and bring down with worked examples.</p>
+                                    <a class="path-link-text" href="/pages/how-to-do-long-division">Learn the Method &rarr;</a>
+                                </div>
+                            </details>
+
+                            <div class="path-arrow" aria-hidden="true">&rarr;</div>
+
+                            <details class="path-card">
+                                <summary>
+                                    <span class="path-step-label">Step 2 · Understand Remainders</span>
+                                    <span class="path-number">02</span>
+                                    <span class="path-title">Long Division with Remainders</span>
+                                    <div class="path-visual" aria-hidden="true">
+                                        <div class="mini-equation">17 &divide; 5 = 3 R2</div>
+                                    </div>
+                                    <span class="path-expand-cue" aria-hidden="true">&rarr;</span>
+                                </summary>
+                                <div class="path-card-details">
+                                    <p>See when a remainder appears, how to write it, and how to check it.</p>
+                                    <a class="path-link-text" href="/pages/long-division-with-remainders">Study Remainders &rarr;</a>
+                                </div>
+                            </details>
+
+                            <div class="path-arrow" aria-hidden="true">&rarr;</div>
+
+                            <details class="path-card path-card-featured" open>
+                                <summary>
+                                    <span class="path-step-label">Step 3 · Practice with Guidance</span>
+                                    <span class="path-number">03</span>
+                                    <span class="path-title">Long Division Tutor</span>
+                                    <div class="path-visual" aria-hidden="true">
+                                        <div class="mini-division-work">
+                                            <span class="mini-green" style="grid-column:3; grid-row:1;">2</span>
+                                            <span style="grid-column:4; grid-row:1;">3</span>
+                                            <span class="mini-line"></span>
+                                            <span class="mini-divisor">4</span>
+                                            <span style="grid-column:2; grid-row:2;">9</span>
+                                            <span style="grid-column:3; grid-row:2;">3</span>
+                                            <span style="grid-column:4; grid-row:2;">6</span>
+                                            <span class="mini-green" style="grid-column:2; grid-row:3;">8</span>
+                                            <span class="mini-subline" style="grid-column:2; grid-row:3;"></span>
+                                            <span style="grid-column:3; grid-row:4;">1</span>
+                                            <span class="mini-green" style="grid-column:4; grid-row:4;">3</span>
+                                        </div>
+                                    </div>
+                                    <span class="path-expand-cue" aria-hidden="true">&rarr;</span>
+                                </summary>
+                                <div class="path-card-details">
+                                    <p>Work through each step yourself and use Show Me One Step when you get stuck.</p>
+                                    <a class="path-link-text" href="/pages/long-division">Open the Tutor &rarr;</a>
+                                </div>
+                            </details>
+
+                            <div class="path-arrow" aria-hidden="true">&rarr;</div>
+
+                            <details class="path-card">
+                                <summary>
+                                    <span class="path-step-label">Step 4 · Check a Solution</span>
+                                    <span class="path-number">04</span>
+                                    <span class="path-title">Long Division Calculator with Steps</span>
+                                    <div class="path-visual" aria-hidden="true">
+                                        <div class="mini-solution-work">
+                                            <span class="mini-green" style="grid-column:3 / span 2; grid-row:1;">25</span>
+                                            <span class="mini-line"></span>
+                                            <span class="mini-divisor">5</span>
+                                            <span style="grid-column:2 / span 3; grid-row:2;">125</span>
+                                            <span style="grid-column:2 / span 2; grid-row:3;">10</span>
+                                            <span class="mini-subline" style="grid-column:2 / span 2; grid-row:3;"></span>
+                                            <span class="mini-green" style="grid-column:4; grid-row:4;">0</span>
+                                        </div>
+                                        <span class="mini-check">&#10003;</span>
+                                    </div>
+                                    <span class="path-expand-cue" aria-hidden="true">&rarr;</span>
+                                </summary>
+                                <div class="path-card-details">
+                                    <p>Enter a problem to see the answer and complete long-division work.</p>
+                                    <a class="path-link-text" href="/pages/long-division-calculator">Check a Solution &rarr;</a>
+                                </div>
+                            </details>
+
+                            <div class="path-arrow" aria-hidden="true">&rarr;</div>
+
+                            <details class="path-card">
+                                <summary>
+                                    <span class="path-step-label">Step 5 · Practice More</span>
+                                    <span class="path-number">05</span>
+                                    <span class="path-title">Long Division Practice</span>
+                                    <div class="path-visual" aria-hidden="true">
+                                        <div class="mini-practice-card">936 &divide; 4 = ?</div>
+                                    </div>
+                                    <span class="path-expand-cue" aria-hidden="true">&rarr;</span>
+                                </summary>
+                                <div class="path-card-details">
+                                    <p>Generate new problems with 1-digit or 2-digit divisors, with or without remainders.</p>
+                                    <a class="path-link-text" href="/pages/long-division-practice">Practice More &rarr;</a>
+                                </div>
+                            </details>
+                        </div>
+                    </section>
+
                     <div class="dynamic-content-container">
                         <h2>About NDED Multiplication Games & Math Practice</h2>
                         <div class="article-content">
@@ -2505,10 +3034,36 @@
         document.addEventListener('DOMContentLoaded', function () {
             // 初始化问答栏
             initPoll();
+            initLongDivisionPathAccordion();
 
         });
 
         // 第一个游戏：乘法表记忆的跳转处理函数
+        function initLongDivisionPathAccordion() {
+            const cards = Array.from(document.querySelectorAll('.long-division-path .path-card'));
+            const featured = document.querySelector('.long-division-path .path-card-featured');
+
+            if(!cards.length) return;
+
+            cards.forEach(card => {
+                card.open = card === featured;
+                card.addEventListener('toggle', () => {
+                    if(card.open) {
+                        cards.forEach(otherCard => {
+                            if(otherCard !== card) {
+                                otherCard.open = false;
+                            }
+                        });
+                        return;
+                    }
+
+                    if(!cards.some(otherCard => otherCard.open)) {
+                        card.open = true;
+                    }
+                });
+            });
+        }
+
         function handleMultiplicationJump(event, element) {
             event.preventDefault();
             element.classList.add('active-style');
