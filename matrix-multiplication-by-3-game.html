@@ -176,6 +176,23 @@
             color: var(--clay-dark-bg);
         }
 
+        .matrix-tool-group {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .matrix-tool-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.82rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+
+        .matrix-tool-secondary {
+            background: rgba(255, 255, 255, 0.88);
+            color: var(--clay-purple);
+        }
+
         /* 左侧导航栏样式 */
         .nav-title {
             color: var(--primary-color);
@@ -748,15 +765,6 @@
 
 
         /* 完成状态的单元格可以添加对勾 */
-        #matC .cell.done::after {
-            content: "✓";
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            font-size: 0.8rem;
-            opacity: 0.9;
-        }
-
         #matC .cell.done {
             background: var(--clay-success);
             color: white;
@@ -764,6 +772,12 @@
             cursor: default;
             box-shadow: var(--clay-shadow);
             animation: none;
+            font-size: 0.72rem;
+            line-height: 1.1;
+            text-align: center;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            padding: 3px;
         }
 
         /* 为矩阵C的单元格添加点击动效 */
@@ -782,7 +796,8 @@
         }
 
         /* 拖拽克隆元素 */
-        .cell.drag-clone {
+        .cell.drag-clone,
+        .formula-result.drag-clone {
             position: fixed !important;
             top: 0 !important;
             left: 0 !important;
@@ -811,6 +826,7 @@
         /* 公式插槽和按钮容器 */
         .dock-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             width: 100%;
@@ -834,7 +850,7 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(5px);
             flex-grow: 0.4;
-            max-width: calc(100% - 140px);
+            max-width: 100%;
         }
 
         .dock.show {
@@ -879,9 +895,77 @@
         }
 
         /* 快速解决按钮样式 */
+        .formula-equals {
+            display: none;
+            color: var(--clay-primary);
+            font-size: 1.2rem;
+            font-weight: 900;
+            font-family: 'Quicksand', sans-serif;
+            flex-shrink: 0;
+        }
+
+        .formula-result {
+            display: none;
+            min-width: 42px;
+            max-width: 190px;
+            min-height: 42px;
+            padding: 0 10px;
+            border-radius: var(--clay-radius-sm);
+            align-items: center;
+            justify-content: center;
+            background: var(--clay-success);
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 800;
+            line-height: 1.1;
+            text-align: center;
+            box-shadow: var(--clay-shadow);
+            flex-shrink: 0;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .formula-equals.show,
+        .formula-result.show {
+            display: flex;
+        }
+
+        .formula-result.ready {
+            cursor: grab;
+            touch-action: none;
+            animation: result-ready 0.35s ease-out;
+        }
+
+        .formula-result.ready:active {
+            cursor: grabbing;
+        }
+
+        #matC .cell.result-drop-hover {
+            transform: scale(1.05);
+            box-shadow:
+                0 0 0 4px rgba(16, 185, 129, 0.45),
+                var(--clay-shadow);
+        }
+
+        @keyframes result-ready {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
         #solveBtn {
             flex-shrink: 0;
-            white-space: nowrap;
+            margin-top: 10px;
+            white-space: normal;
             display: none;
             padding: 8px 16px;
             border-radius: var(--clay-radius-sm);
@@ -895,6 +979,7 @@
             box-shadow: var(--clay-shadow);
             background: var(--clay-success);
             border: 1px solid rgba(255, 255, 255, 0.5);
+            font-family: 'Quicksand', sans-serif;
         }
 
         #solveBtn:hover {
@@ -1839,10 +1924,23 @@
 
                     <!-- 新增：矩阵计算器边框 -->
                     <div class="matrix-calc-banner">
-                        <h4>Want to calculate actual matrices?</h4>
-                        <a href="https://matrixcalculator.net/" target="_blank" class="matrix-calc-button">
-                            Open Matrix Calculator
-                        </a>
+                        <h4>More Matrix Tools</h4>
+                        <div class="matrix-tool-group">
+                            <div>
+                                <div class="matrix-tool-label">Practice step by step</div>
+                                <a href="https://matrixcalculator.net/en/matrix-multiplication-tutor" target="_blank"
+                                    rel="noopener noreferrer" class="matrix-calc-button">
+                                    Matrix Multiplication Tutor &#8599;
+                                </a>
+                            </div>
+                            <div>
+                                <div class="matrix-tool-label">Check a calculation</div>
+                                <a href="https://matrixcalculator.net/" target="_blank" rel="noopener noreferrer"
+                                    class="matrix-calc-button matrix-tool-secondary">
+                                    Matrix Calculator &#8599;
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1952,10 +2050,11 @@
                                         <span style="padding:0 4px; color:var(--text-light); font-weight:bold">+</span>
                                         <div class="slot slot-a" data-idx="4">?</div><span>×</span>
                                         <div class="slot slot-b" data-idx="5">?</div>
+                                        <span class="formula-equals" id="formulaEquals">=</span>
+                                        <span class="formula-result" id="formulaResult"></span>
                                     </div>
                                     <!-- Quick Solve按钮现在在这里，与算式在同一行 -->
-                                    <button class="clay-btn clay-btn-green" id="solveBtn" onclick="autoFill()">⚡ Quick
-                                        Solve</button>
+                                    <button class="clay-btn clay-btn-green" id="solveBtn" onclick="autoFill()">Solve Current</button>
                                 </div>
                             </div>
 
@@ -2020,8 +2119,8 @@
                                     <div class="step">
                                         <div class="step-number">4</div>
                                         <div>
-                                            <strong>Complete Calculation</strong> → The result calculates automatically
-                                            when all 4 slots are filled, or click "Solve Current"
+                                            <strong>Place the Result</strong> → When all 6 slots are filled, the result
+                                            appears in the green chip. Drag that chip into the highlighted Matrix C cell.
                                         </div>
                                     </div>
                                 </div>
@@ -2039,7 +2138,7 @@
                                     <ul>
                                         <li>Earn a star for each level completed</li>
                                         <li>Matrix multiplication formula: C[row][col] = (A[row][0] × B[0][col]) +
-                                            (A[row][1] × B[1][col])</li>
+                                            (A[row][1] × B[1][col]) + (A[row][2] × B[2][col])</li>
                                         <li>Use "Restart Training" to reset progress anytime</li>
                                         <li>Reach Master Mode to unlock more tools and challenges</li>
                                     </ul>
@@ -2047,6 +2146,11 @@
                             </div>
 
                             <!-- ===== 嵌入的视频：Advanced Strategy (放在 How to Play 下方) ===== -->
+                            <p>Want more guided practice? Try the <a
+                                    href="https://matrixcalculator.net/en/matrix-multiplication-tutor" target="_blank"
+                                    rel="noopener noreferrer">Matrix Multiplication Tutor</a> for step-by-step matrix
+                                multiplication practice.</p>
+
                             <div class="video-section">
                                 <p style="font-weight: bold; color: #2c3e50; margin-bottom: 12px; text-align: center;">
                                     <i class="fas fa-lightbulb"></i> Advanced Strategy: Mastering Complex Matrices
@@ -2346,6 +2450,11 @@
             touchOffsetY: 0,  // 点击位置相对于元素左上角的垂直偏移
             draggedCellWidth: 0,
             draggedCellHeight: 0,
+            dragType: null,
+            awaitingResultPlacement: false,
+            pendingResult: null,
+            resultReady: false,
+            resultReadyTimer: null,
 
             // 【新增】练习模式标志
             practiceMode: false
@@ -2374,27 +2483,28 @@
         function initEvents() {
             const cells = document.querySelectorAll('#matA .cell, #matB .cell');
             const slots = document.querySelectorAll('.slot');
+            const resultChip = document.getElementById('formulaResult');
 
             // 移除所有现有的拖拽属性
             cells.forEach(cell => {
                 cell.removeAttribute('draggable');
             });
 
-            console.log("启用统一Pointer Events拖拽");
-            initUnifiedDrag(cells, slots);
+            initUnifiedDrag(cells, slots, resultChip);
         }
 
         // 4. 统一拖拽实现（使用Pointer Events）
-        function initUnifiedDrag(cells, slots) {
+        function initUnifiedDrag(cells, slots, resultChip) {
             cells.forEach(cell => {
                 // Pointer Events事件监听
                 cell.addEventListener('pointerdown', function (e) {
-                    if (!game.target) return;
+                    if (!game.target || game.awaitingResultPlacement) return;
 
                     e.preventDefault();
                     e.stopPropagation();
 
                     game.isDragging = true;
+                    game.dragType = 'matrix-cell';
                     game.dragged = cell;
                     game.dragStartX = e.clientX;
                     game.dragStartY = e.clientY;
@@ -2420,6 +2530,27 @@
             });
 
             // 全局pointermove事件（使用事件委托提高性能）
+            if (resultChip) {
+                resultChip.addEventListener('pointerdown', function (e) {
+                    if (!game.awaitingResultPlacement || !game.target || !game.pendingResult || !game.resultReady) return;
+
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    game.isDragging = true;
+                    game.dragType = 'result';
+                    game.dragged = resultChip;
+                    game.dragStartX = e.clientX;
+                    game.dragStartY = e.clientY;
+
+                    cacheSlotRects(document.querySelectorAll('#matC .cell'));
+                    createDragClone(resultChip, e.clientX, e.clientY);
+                    resultChip.classList.add('selected');
+                    resultChip.setPointerCapture && resultChip.setPointerCapture(e.pointerId);
+                    startDragUpdate();
+                }, { passive: false });
+            }
+
             document.addEventListener('pointermove', function (e) {
                 if (!game.isDragging || !game.dragged) return;
 
@@ -2490,6 +2621,7 @@
         function checkSlotHoverWithCache(x, y) {
             if (game.currentSlotHover) {
                 game.currentSlotHover.classList.remove('hover');
+                game.currentSlotHover.classList.remove('result-drop-hover');
                 game.currentSlotHover = null;
             }
 
@@ -2498,7 +2630,7 @@
                 if (x >= slotData.left && x <= slotData.right &&
                     y >= slotData.top && y <= slotData.bottom) {
                     game.currentSlotHover = slotData.element;
-                    slotData.element.classList.add('hover');
+                    slotData.element.classList.add(game.dragType === 'result' ? 'result-drop-hover' : 'hover');
                     break;
                 }
             }
@@ -2571,6 +2703,10 @@
         }
 
         function finishDrag(x, y) {
+            if (game.dragType === 'result') {
+                handleResultDrop(getMatrixCDropTarget(x, y));
+                return;
+            }
             // 使用缓存的矩形数据检测放置目标
             for (const slotData of game.slotRects) {
                 if (x >= slotData.left && x <= slotData.right &&
@@ -2581,12 +2717,127 @@
             }
         }
 
+        function getMatrixCDropTarget(x, y) {
+            if (game.currentSlotHover && game.currentSlotHover.closest('#matC')) {
+                return game.currentSlotHover;
+            }
+
+            const element = document.elementFromPoint(x, y);
+            return element ? element.closest('#matC .cell') : null;
+        }
+
+        function handleResultDrop(cell) {
+            if (!game.awaitingResultPlacement || !game.target || !game.pendingResult || !game.resultReady) return;
+
+            if (cell === game.target.el && !cell.classList.contains('done')) {
+                AudioManager.play('correct');
+                finishTask();
+                return;
+            }
+
+            if (cell && cell.closest('#matC')) {
+                AudioManager.play('wrong');
+            }
+
+            if (game.target.el) {
+                game.target.el.classList.add('selected');
+            }
+        }
+
         function handleDropOnSlot(slot) {
-            if (!game.target || !game.dragged) return;
+            if (!game.target || !game.dragged || game.awaitingResultPlacement) return;
             processDrop(slot, game.dragged);
         }
 
         // 10. 放置处理函数（支持3x3矩阵的6个插槽）
+        function clearFormulaResult() {
+            if (game.resultReadyTimer) {
+                clearTimeout(game.resultReadyTimer);
+                game.resultReadyTimer = null;
+            }
+
+            const equals = document.getElementById('formulaEquals');
+            const result = document.getElementById('formulaResult');
+            if (equals) equals.classList.remove('show');
+            if (result) {
+                result.classList.remove('show');
+                result.classList.remove('ready');
+                result.innerText = '';
+            }
+            game.resultReady = false;
+        }
+
+        function clearResultPlacementState() {
+            game.awaitingResultPlacement = false;
+            game.pendingResult = null;
+            game.resultReady = false;
+            game.dragType = null;
+            if (game.resultReadyTimer) {
+                clearTimeout(game.resultReadyTimer);
+                game.resultReadyTimer = null;
+            }
+            document.querySelectorAll('#matC .cell.result-drop-hover').forEach(cell => {
+                cell.classList.remove('result-drop-hover');
+            });
+        }
+
+        function showFormulaPlaceholder() {
+            const equals = document.getElementById('formulaEquals');
+            const result = document.getElementById('formulaResult');
+            if (equals) equals.classList.add('show');
+            if (result) {
+                result.innerText = '?';
+                result.classList.remove('ready');
+                result.classList.add('show');
+            }
+            game.resultReady = false;
+        }
+
+        function getFormulaResult() {
+            const slots = Array.from(document.querySelectorAll('.slot')).map(slot => slot.innerText.trim());
+            if (game.level === 2 || game.practiceMode) {
+                const values = slots.map(value => parseInt(value, 10) || 0);
+                return String((values[0] * values[1]) + (values[2] * values[3]) + (values[4] * values[5]));
+            }
+
+            return slots[0] + slots[1] + ' + ' + slots[2] + slots[3] + ' + ' + slots[4] + slots[5];
+        }
+
+        function showFormulaResult(result) {
+            const equals = document.getElementById('formulaEquals');
+            const resultEl = document.getElementById('formulaResult');
+            if (equals) equals.classList.add('show');
+            if (resultEl) {
+                resultEl.innerText = result;
+                resultEl.classList.add('show');
+                resultEl.classList.remove('ready');
+            }
+        }
+
+        function prepareResultForPlacement() {
+            if (game.awaitingResultPlacement || !game.target) return;
+
+            game.pendingResult = getFormulaResult();
+            game.awaitingResultPlacement = true;
+            game.resultReady = false;
+            showFormulaResult(game.pendingResult);
+            document.getElementById('solveBtn').style.display = 'none';
+
+            const hint = document.getElementById('hintText');
+            if (hint) {
+                hint.style.display = 'block';
+                hint.innerText = 'Result ready. Drag it to the highlighted Matrix C cell.';
+                hint.style.color = 'var(--clay-success)';
+                hint.style.fontWeight = 'bold';
+            }
+
+            game.resultReadyTimer = setTimeout(function () {
+                const resultEl = document.getElementById('formulaResult');
+                game.resultReady = true;
+                if (resultEl) resultEl.classList.add('ready');
+            }, 2000);
+        }
+
         function processDrop(slot, draggedCell) {
             const idx = parseInt(slot.dataset.idx);
             const r = parseInt(draggedCell.dataset.r), c = parseInt(draggedCell.dataset.c);
@@ -2610,7 +2861,7 @@
                 game.target.count++;
                 if (game.target.count === 6) {
                     AudioManager.play('correct');
-                    finishTask();
+                    prepareResultForPlacement();
                 }
 
                 slot.classList.remove('hover');
@@ -2639,18 +2890,21 @@
 
             if (game.currentSlotHover) {
                 game.currentSlotHover.classList.remove('hover');
+                game.currentSlotHover.classList.remove('result-drop-hover');
                 game.currentSlotHover = null;
             }
 
             // 清空缓存
             game.slotRects = [];
             game.dragged = null;
+            game.dragType = null;
         }
 
         // 11. 游戏核心函数（修复选中状态问题）
         function initTask(r, c, el) {
             // 【新增】如果游戏已经完成，不执行任何操作
             if (game.level >= 3 && !game.practiceMode) return;
+            if (game.awaitingResultPlacement) return;
 
             if (el.classList.contains('done')) return;
 
@@ -2663,7 +2917,15 @@
             el.classList.add('selected');
 
             game.target = { r, c, el, count: 0 };
-            document.getElementById('hintText').style.display = 'none';
+            clearFormulaResult();
+            clearResultPlacementState();
+            const hint = document.getElementById('hintText');
+            if (hint) {
+                hint.style.display = 'block';
+                hint.innerText = 'Drag the highlighted values into the formula.';
+                hint.style.color = '';
+                hint.style.fontWeight = '';
+            }
 
             // 【关键修复】只清除矩阵A和B的单元格状态，不包含矩阵C
             document.querySelectorAll('#matA .cell, #matB .cell').forEach(c => {
@@ -2683,6 +2945,7 @@
                 s.style.borderColor = "";
                 s.classList.remove('filled');
             });
+            showFormulaPlaceholder();
 
             document.querySelectorAll('#matA .cell').forEach(cell => {
                 if (parseInt(cell.dataset.r) === r) cell.classList.add('highlight');
@@ -2695,7 +2958,6 @@
         function finishTask() {
             // 【新增】安全检查
             if (!game.target || !game.target.el) {
-                console.log("游戏目标不存在，安全退出");
                 return;
             }
 
@@ -2708,22 +2970,25 @@
 
             // 【关键修复】移除选中状态，添加完成状态
             t.el.classList.remove('selected');
+            t.el.classList.remove('result-drop-hover');
             t.el.classList.add('done');
 
             // 如果是练习模式或第三关，计算数值结果
-            if (game.level === 2 || game.practiceMode) {
-                const s = Array.from(document.querySelectorAll('.slot')).map(x => parseInt(x.innerText) || 0);
-                t.el.innerText = (s[0] * s[1]) + (s[2] * s[3]) + (s[4] * s[5]);
-            } else {
-                t.el.innerText = "✓";
-            }
+            t.el.innerText = game.pendingResult || getFormulaResult();
 
             document.getElementById('dock').classList.remove('show');
             document.getElementById('solveBtn').style.display = 'none'; // 隐藏Quick Solve按钮
 
+            document.querySelectorAll('#matA .cell.highlight, #matB .cell.highlight').forEach(cell => {
+                cell.classList.remove('highlight');
+            });
+
             cleanupDrag();
+            clearFormulaResult();
+            clearResultPlacementState();
 
             game.solved++;
+            game.target = null;
 
             // 【修改】根据是否练习模式决定完成后的行为
             if (game.solved === 9) {
@@ -2783,6 +3048,8 @@
         }
 
         function closeNotice() {
+            clearFormulaResult();
+            clearResultPlacementState();
             document.getElementById('miniNotice').style.display = 'none';
 
             // 【修改】清除所有结果矩阵单元格的选中状态
@@ -2796,6 +3063,8 @@
 
         // 【新增】开始更多练习函数
         function startMorePractice() {
+            clearFormulaResult();
+            clearResultPlacementState();
             // 关闭弹窗
             document.getElementById('miniNotice').style.display = 'none';
 
@@ -2836,6 +3105,8 @@
         }
 
         function setupNext() {
+            clearFormulaResult();
+            clearResultPlacementState();
             // 【修改】如果完成所有关卡且不是练习模式，重置游戏到第一关
             if (game.level >= 3 && !game.practiceMode) {
                 game.level = 0;
@@ -2877,7 +3148,7 @@
         }
 
         function autoFill() {
-            if (!game.target) return;
+            if (!game.target || game.awaitingResultPlacement) return;
 
             // 【新增】安全检查
             if (!game.target.el) return;
@@ -2892,7 +3163,14 @@
             slots[3].innerText = cellsB[c + 3].innerText;
             slots[4].innerText = cellsA[r * 3 + 2].innerText;
             slots[5].innerText = cellsB[c + 6].innerText;
-            finishTask();
+            slots.forEach((slot, index) => {
+                const isA = index % 2 === 0;
+                slot.classList.add('filled');
+                slot.style.backgroundColor = isA ? 'var(--clay-primary)' : 'var(--clay-accent-yellow)';
+                slot.style.borderColor = isA ? 'var(--clay-primary)' : 'var(--clay-accent-yellow)';
+            });
+            game.target.count = 6;
+            prepareResultForPlacement();
         }
 
         // 防止全局触摸事件干扰
