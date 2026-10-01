@@ -472,7 +472,7 @@
       color: #315fae; text-decoration: underline; text-decoration-color: #f1dfb6;
       text-decoration-thickness: 3px; text-underline-offset: 5px;
     }
-    .addition-mode .full-sum-input { width: 100%; min-width: 0; padding-right: 12px; }
+    .addition-mode .full-sum-input { width: 58px; min-width: 58px; padding-right: 12px; }
     .addition-mode.complete {
       grid-template-rows: 38px 38px 10px 38px;
       padding-top: 20px; padding-bottom: 22px; align-items: center;
@@ -498,6 +498,7 @@
       }
       .addition-mode .carry-old { font-size: .95rem; }
       .addition-mode .temp-sum-digit { font-size: 1.05rem; line-height: 30px; }
+      .addition-mode .full-sum-input { width: 50px; min-width: 50px; }
       .addition-mode.complete { grid-template-rows: 34px 34px 10px 34px; }
     }
 </style>
@@ -858,7 +859,7 @@
         input.id = 'active-answer';
         input.className = `digit-input ${twoCols ? 'full-sum-input' : 'unit-answer-input'}`;
         input.style.gridRow = 6;
-        input.style.gridColumn = twoCols ? `${step.col - 1} / span 2` : step.col;
+        input.style.gridColumn = step.col;
         input.dataset.answer = step.answer;
         input.inputMode = 'numeric';
         input.autocomplete = 'off';
