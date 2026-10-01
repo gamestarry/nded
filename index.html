@@ -2590,6 +2590,159 @@
                 grid-template-rows: repeat(3, 36px);
             }
         }
+        /* Supplemental tutor cards: scoped so the existing four home modules keep their original layout. */
+        .more-tutors-section {
+            margin: 0 0 2rem;
+            padding: 1.2rem;
+            background: #f4f9ff;
+            border: 1px solid #dfeaf6;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .more-tutors-heading {
+            max-width: 680px;
+            margin: 0 auto 0.9rem;
+            text-align: center;
+        }
+
+        .more-tutors-heading h2 {
+            margin: 0 0 0.4rem;
+            color: var(--primary-color);
+            font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+        }
+
+        .more-tutors-heading p {
+            max-width: none;
+            margin: 0;
+            color: #4a5568;
+            font-size: 0.95rem;
+            line-height: 1.45;
+            text-align: center;
+        }
+
+        .more-tutors-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .more-tutor-card {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            min-height: 278px;
+            padding: 1rem 1.05rem;
+            background: #edf7ff;
+            border: 1px solid #dbe8f5;
+            border-top: 3px solid #82b8e7;
+            border-radius: 14px;
+            box-shadow: 0 6px 16px rgba(42, 74, 116, 0.07);
+        }
+
+        .more-tutor-eyebrow {
+            margin-bottom: 0.5rem;
+            color: #527aa5;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.09em;
+            line-height: 1;
+        }
+
+        .more-tutor-card h3 {
+            margin: 0 0 0.7rem;
+            color: var(--primary-color);
+            font-size: 1.38rem;
+            line-height: 1.2;
+        }
+
+        .more-tutor-card > p {
+            max-width: none;
+            margin: 0 0 0.65rem;
+            color: #4a5568;
+            font-size: 0.85rem;
+            font-weight: 700;
+            line-height: 1.3;
+            text-align: left;
+        }
+
+        .more-tutor-preview { position: relative; display: flex; align-items: center; justify-content: center; height: 308px; min-height: 308px; margin: 0 0 0.7rem; padding: 0.45rem; background: #fff; border: 1px solid #d9e8f6; border-radius: 12px; box-shadow: inset 0 1px 0 rgba(255,255,255,.8),0 3px 8px rgba(70,112,158,.05); overflow: hidden; }
+        .more-preview-stage { position: relative; width: 348px; height: 280px; color: #202733; font-family: "Courier New",monospace; font-variant-numeric: tabular-nums; }
+        .more-preview-frame { position: absolute; top: 0; left: 50%; display: grid; grid-template-rows: 82px 42px; width: 174px; height: 140px; justify-items: center; opacity: 0; transform: translateX(-50%) scale(2); transform-origin: top center; animation: more-tutor-frame 14.4s ease-in-out infinite both; }
+        .more-preview-work { position: relative; display: grid; grid-template-columns: repeat(5,23px); grid-template-rows: 14px 20px 20px 4px 25px; width: 115px; font-size: .93rem; font-weight: 700; line-height: 1; }
+        .more-preview-work > span { display: flex; align-items: center; justify-content: center; min-width: 0; }
+        .more-preview-work .more-carry-note, .more-preview-work .more-borrow-note, .more-preview-work .more-borrow-value { align-self: end; color: #315fae; font: 800 .68rem/1 system-ui,sans-serif; z-index: 2; }
+        .more-preview-work .more-borrow-value { min-width: 18px; height: 15px; padding: 0 2px; background: #eaf2ff; border-radius: 4px; }
+        .more-preview-work .more-digit-focus { color: #1f4f9f; background: rgba(49,95,174,.16); outline: 2px solid rgba(49,95,174,.62); border-radius: 4px; }
+        .more-preview-work .more-work-line { grid-row: 4 !important; grid-column: 1 / -1 !important; margin-top: 1px; border-top: 2px solid #2b2f36; }
+        .more-preview-input { align-self: center; justify-self: center; width: 20px; height: 19px; border: 1.5px solid #9cbcf1; border-radius: 4px; background: #f8fbff; box-shadow: 0 0 0 2px rgba(47,102,216,.09); color: #202733; font: 700 .73rem/17px "Courier New",monospace; text-align: center; }
+        .more-preview-input.more-preview-input-wide { grid-row: 5 !important; grid-column: 3 / 5 !important; width: 34px; }
+        .more-preview-work .more-result { color: #202733; }
+        .more-preview-work .more-crossed { position: relative; color: #5f6d80; }
+        .more-preview-work .more-crossed::after { content: ''; position: absolute; width: 15px; border-top: 1.5px solid #cc8189; transform: rotate(-38deg); }
+        .more-preview-work .more-temp-product { color: #315fae; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+        .more-preview-hint { position: relative; display: flex; align-items: center; justify-content: center; min-width: 112px; min-height: 29px; padding: 0 25px 0 8px; color: #79542c; background: #fff4df; border: 1px solid #f0c982; border-radius: 7px; box-shadow: 0 3px 7px rgba(143,94,29,.08); font: 800 .68rem/1 system-ui,sans-serif; white-space: nowrap; }
+        .more-preview-hint::before { content: '↑'; position: absolute; top: -13px; color: #d89b43; font: 800 .82rem/1 system-ui,sans-serif; }
+        .more-preview-help { position: absolute; right: 5px; top: 50%; display: flex; align-items: center; justify-content: center; width: 16px; height: 16px; transform: translateY(-50%); color: #2f66d8; background: #fff; border: 1.5px solid #7fa7e8; border-radius: 50%; font: 800 .61rem/1 system-ui,sans-serif; }
+        .more-frame-add-a { animation-delay: 0s; } .more-frame-add-b { animation-delay: 3.6s; } .more-frame-sub-a { animation-delay: 7.2s; } .more-frame-sub-b { animation-delay: 10.8s; }
+        .more-frame-mul-a { animation-delay: 0s; } .more-frame-mul-b { animation-delay: 4s; } .more-frame-mul-c { animation-delay: 8s; }
+        .more-multiplication-preview .more-preview-frame { animation-duration: 13.2s; }
+        @keyframes more-tutor-frame { 0%,3% { opacity: 0; } 6%,30% { opacity: 1; } 33%,100% { opacity: 0; } }
+        @media (prefers-reduced-motion: reduce) { .more-preview-frame { animation: none; opacity: 0; } .more-add-sub-preview .more-frame-sub-b, .more-multiplication-preview .more-frame-mul-a { opacity: 1; } }
+
+        .more-tutor-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-start;
+            min-height: 32px;
+            width: auto;
+            margin-top: auto;
+            padding: 0 0.75rem;
+            background: #ffffff;
+            border: 1px solid #9cc4e9;
+            border-radius: 999px;
+            box-shadow: none;
+            color: #2678bd;
+            font-size: 0.82rem;
+            font-weight: 800;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .more-tutor-cta:hover {
+            transform: translateY(-2px);
+            background: #e8f4ff;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.14);
+        }
+
+        @media (max-width: 900px) {
+            .more-tutor-preview { height: 252px; min-height: 252px; }
+            .more-preview-stage { width: 278px; height: 224px; }
+            .more-preview-frame { transform: translateX(-50%) scale(1.6); }
+        }
+
+        @media (max-width: 768px) {
+            .more-tutors-section {
+                width: min(310px, calc(100vw - 48px));
+                max-width: min(310px, calc(100vw - 48px));
+                margin-left: 0;
+                margin-right: 0;
+                padding: 0.9rem;
+            }
+
+            .more-tutors-grid { grid-template-columns: 1fr; }
+            .more-tutor-card { min-height: 0; }
+            .more-tutor-preview { height: 210px; min-height: 210px; }
+            .more-preview-stage { width: 226px; height: 182px; }
+            .more-preview-frame { transform: translateX(-50%) scale(1.3); }
+        }
+
+        @media (max-width: 400px) {
+            .more-tutor-preview { height: 182px; min-height: 182px; }
+            .more-preview-stage { width: 191px; height: 154px; }
+            .more-preview-frame { transform: translateX(-50%) scale(1.1); }
+        }
     </style>
 </head>
 
@@ -2775,6 +2928,78 @@
                     </div>
 
                     <!-- 关于NDED的部分 - 已更新为完整的文章内容 -->
+                    <section class="more-tutors-section" aria-labelledby="more-tutors-title">
+                        <div class="more-tutors-heading">
+                            <h2 id="more-tutors-title">More Step-by-Step Tutors</h2>
+                            <p>Practice each part of the written method with guidance when you need it.</p>
+                        </div>
+                        <div class="more-tutors-grid">
+                            <article class="more-tutor-card">
+                                <div class="more-tutor-eyebrow">STEP-BY-STEP TUTOR</div>
+                                <h3>Addition &amp; Subtraction Tutor</h3>
+                                <div class="more-tutor-preview more-add-sub-preview" aria-hidden="true">
+                                    <div class="more-preview-stage">
+                                        <div class="more-preview-frame more-frame-add-a">
+                                            <div class="more-preview-work">
+                                                <span class="more-carry-note" style="grid-area:1/4">1</span><span style="grid-area:2/2">1</span><span style="grid-area:2/3">2</span><span class="more-digit-focus" style="grid-area:2/4">3</span><span style="grid-area:2/5">5</span><span style="grid-area:3/1">+</span><span style="grid-area:3/3">3</span><span class="more-digit-focus" style="grid-area:3/4">8</span><span style="grid-area:3/5">6</span><i class="more-work-line" style="grid-area:4/1/-1"></i><span class="more-preview-input" style="grid-area:5/4"></span><span class="more-result" style="grid-area:5/5">1</span>
+                                            </div>
+                                            <div class="more-preview-hint">3 + 8<span class="more-preview-help">?</span></div>
+                                        </div>
+                                        <div class="more-preview-frame more-frame-add-b">
+                                            <div class="more-preview-work">
+                                                <span class="more-carry-note more-digit-focus" style="grid-area:1/3">1</span><span style="grid-area:2/2">1</span><span class="more-digit-focus" style="grid-area:2/3">2</span><span style="grid-area:2/4">3</span><span style="grid-area:2/5">5</span><span style="grid-area:3/1">+</span><span class="more-digit-focus" style="grid-area:3/3">3</span><span style="grid-area:3/4">8</span><span style="grid-area:3/5">6</span><i class="more-work-line" style="grid-area:4/1/-1"></i><span class="more-preview-input" style="grid-area:5/3"></span><span class="more-result" style="grid-area:5/4">1</span><span class="more-result" style="grid-area:5/5">1</span>
+                                            </div>
+                                            <div class="more-preview-hint">1 + 1<span class="more-preview-help">?</span></div>
+                                        </div>
+                                        <div class="more-preview-frame more-frame-sub-a">
+                                            <div class="more-preview-work">
+                                                <span style="grid-area:2/4">5</span><span class="more-digit-focus" style="grid-area:2/5">2</span><span style="grid-area:3/3">&minus;</span><span style="grid-area:3/4">1</span><span class="more-digit-focus" style="grid-area:3/5">8</span><i class="more-work-line" style="grid-area:4/1/-1"></i><span class="more-preview-input" style="grid-area:5/5"></span>
+                                            </div>
+                                            <div class="more-preview-hint">2 &minus; 8<span class="more-preview-help">?</span></div>
+                                        </div>
+                                        <div class="more-preview-frame more-frame-sub-b">
+                                            <div class="more-preview-work">
+                                                <span class="more-borrow-note" style="grid-area:1/4">&minus;1</span><span class="more-borrow-value" style="grid-area:1/5">12</span><span style="grid-area:2/4">5</span><span class="more-digit-focus more-crossed" style="grid-area:2/5">2</span><span style="grid-area:3/3">&minus;</span><span style="grid-area:3/4">1</span><span class="more-digit-focus" style="grid-area:3/5">8</span><i class="more-work-line" style="grid-area:4/1/-1"></i><span class="more-preview-input" style="grid-area:5/5"></span>
+                                            </div>
+                                            <div class="more-preview-hint">12 &minus; 8<span class="more-preview-help">?</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p>Carry forward. Borrow step by step.</p>
+                                <a href="/pages/long-addition-subtraction" class="more-tutor-cta">Open the Tutor &rarr;</a>
+                            </article>
+
+                            <article class="more-tutor-card">
+                                <div class="more-tutor-eyebrow">STEP-BY-STEP TUTOR</div>
+                                <h3>Long Multiplication Tutor</h3>
+                                <div class="more-tutor-preview more-multiplication-preview" aria-hidden="true">
+                                    <div class="more-preview-stage">
+                                        <div class="more-preview-frame more-frame-mul-a">
+                                            <div class="more-preview-work">
+                                                <span class="more-carry-note" style="grid-area:1/4">2</span><span style="grid-area:2/2">1</span><span style="grid-area:2/3">2</span><span class="more-digit-focus" style="grid-area:2/4">5</span><span style="grid-area:2/5">4</span><span style="grid-area:3/1">&times;</span><span class="more-digit-focus" style="grid-area:3/5">6</span><i class="more-work-line" style="grid-area:4/1/-1"></i><span class="more-preview-input" style="grid-area:5/4"></span><span class="more-result" style="grid-area:5/5">4</span>
+                                            </div>
+                                            <div class="more-preview-hint">5 &times; 6<span class="more-preview-help">?</span></div>
+                                        </div>
+                                        <div class="more-preview-frame more-frame-mul-b">
+                                            <div class="more-preview-work">
+                                                <span class="more-carry-note" style="grid-area:1/4">2</span><span style="grid-area:2/2">1</span><span style="grid-area:2/3">2</span><span class="more-digit-focus" style="grid-area:2/4">5</span><span style="grid-area:2/5">4</span><span style="grid-area:3/1">&times;</span><span class="more-digit-focus" style="grid-area:3/5">6</span><i class="more-work-line" style="grid-area:4/1/-1"></i><span class="more-preview-input more-preview-input-wide" style="grid-area:5/3/5/5">30</span><span class="more-result" style="grid-area:5/5">4</span>
+                                            </div>
+                                            <div class="more-preview-hint">5 &times; 6<span class="more-preview-help">?</span></div>
+                                        </div>
+                                        <div class="more-preview-frame more-frame-mul-c">
+                                            <div class="more-preview-work">
+                                                <span class="more-carry-note" style="grid-area:1/4">2</span><span style="grid-area:2/2">1</span><span style="grid-area:2/3">2</span><span class="more-digit-focus" style="grid-area:2/4">5</span><span style="grid-area:2/5">4</span><span style="grid-area:3/1">&times;</span><span class="more-digit-focus" style="grid-area:3/5">6</span><i class="more-work-line" style="grid-area:4/1/-1"></i><span class="more-temp-product" style="grid-area:5/2">3</span><span class="more-temp-product more-digit-focus" style="grid-area:5/3">0</span><span class="more-preview-input" style="grid-area:5/4"></span><span class="more-result" style="grid-area:5/5">4</span>
+                                            </div>
+                                            <div class="more-preview-hint">2 + 0<span class="more-preview-help">?</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p>Multiply, carry, and build each step yourself.</p>
+                                <a href="/pages/long-multiplication" class="more-tutor-cta">Open the Tutor &rarr;</a>
+                            </article>
+                        </div>
+                    </section>
+
                     <section class="dynamic-content-container long-division-path-section" aria-labelledby="learn-long-division-title">
                         <div class="long-division-path-header">
                             <h2 id="learn-long-division-title">Learn Long Division</h2>
@@ -2899,7 +3124,7 @@
                     </section>
 
                     <div class="dynamic-content-container">
-                        <h2>About NDED Multiplication Games & Math Practice</h2>
+                        <h2>About NDED Math Games &amp; Learning Tools</h2>
                         <div class="article-content">
                             <h3>Why This Site Exists</h3>
                             <p>This site was created for people who find math difficult, stressful, or discouraging.</p>
@@ -2909,15 +3134,15 @@
 
                             <div class="highlight-box">
                                 <p><strong>Our goal is simple:</strong><br>to help learners build solid mathematical
-                                    foundations through calm, repeatable, and low-pressure games — so math becomes
+                                    foundations through calm, repeatable math games, interactive learning tools, and step-by-step tutors — so math becomes
                                     something usable, not something to fear.</p>
                             </div>
 
-                            <h3>How We Design Our Games</h3>
-                            <p>We design our games around one core idea:<br>memory improves when understanding,
+                            <h3>How We Design Our Games and Learning Tools</h3>
+                            <p>We design our games and learning tools around one core idea:<br>memory improves when understanding,
                                 structure, and repetition work together.</p>
 
-                            <p>Instead of fast-paced competition or heavy time pressure, our games focus on:</p>
+                            <p>Instead of fast-paced competition or heavy time pressure, our games and learning tools focus on:</p>
                             <ul>
                                 <li><strong>visual patterns and structural recognition</strong></li>
                                 <li><strong>small, repeatable practice sessions</strong></li>
@@ -2926,8 +3151,8 @@
                             <p>By turning abstract rules into visual and interactive experiences, learners can
                                 internalize mathematical relationships more naturally and with less stress.</p>
 
-                            <h3>Game Series Overview</h3>
-                            <p>This site currently includes four playable math game series, each focused on a specific
+                            <h3>Math Games and Learning Tools Overview</h3>
+                            <p>This site currently includes six interactive math games and learning tools, each focused on a specific
                                 foundational skill.</p>
 
                             <div class="game-list">
@@ -2952,13 +3177,23 @@
                                     <p>A step-by-step long division tool for practicing divide, multiply, subtract, and
                                         bring down with guided support.</p>
                                 </div>
+                                <div class="game-item">
+                                    <h4><a href="/pages/long-multiplication">Long Multiplication Tutor</a></h4>
+                                    <p>A step-by-step long multiplication tool for building products, carrying, and
+                                        partial results with guided support.</p>
+                                </div>
+                                <div class="game-item">
+                                    <h4><a href="/pages/long-addition-subtraction">Addition &amp; Subtraction Tutor</a></h4>
+                                    <p>A step-by-step tool for practicing carrying in addition and borrowing in
+                                        subtraction with guided support.</p>
+                                </div>
                             </div>
 
-                            <p>Each game is designed to be played independently, in short sessions, and revisited as
+                            <p>Each game and learning tool is designed to be used independently, in short sessions, and revisited as
                                 needed.</p>
 
-                            <h3>Who These Games Are For</h3>
-                            <p>These games are designed for anyone who wants to strengthen their math foundations,
+                            <h3>Who These Games and Tools Are For</h3>
+                            <p>These games and tools are designed for anyone who wants to strengthen their math foundations,
                                 including:</p>
 
                             <div class="target-audience">
@@ -2976,7 +3211,7 @@
                                 </div>
                             </div>
 
-                            <p>No prior expertise is required. The games are meant to be accessible, calm, and easy to
+                            <p>No prior expertise is required. The games, tools, and tutors are meant to be accessible, calm, and easy to
                                 start.</p>
 
                             <h3>A Small Closing Thought</h3>

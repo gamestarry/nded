@@ -1,0 +1,2220 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Practice long multiplication online, step by step. Enter products, work through carrying, build partial products, and add them with guided help.">
+    <meta name="author" content="NDED">
+    <title>Long Multiplication Tutor – Step-by-Step Practice | NDED</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="canonical" href="https://nd-ed.org/pages/long-multiplication">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "NDED Long Multiplication Tutor",
+        "url": "https://nd-ed.org/pages/long-multiplication",
+        "description": "A free interactive tool that helps students practice long multiplication through complete products, visual carrying, partial products, and step-by-step addition.",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Any",
+        "isAccessibleForFree": true,
+        "offers": {
+            "@type": "Offer",
+            "price": 0,
+            "priceCurrency": "USD"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "NDED",
+            "url": "https://nd-ed.org/"
+        }
+    }
+    </script>
+
+    <link rel="stylesheet" href="../css/template.css">
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        header .main-title {
+            margin-bottom: 0;
+        }
+
+        .main-content {
+            min-width: 0;
+        }
+
+        .long-division-page {
+            gap: 1.5rem;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .long-division-hero {
+            max-width: 980px;
+            margin: 0 auto 0.75rem;
+            text-align: center;
+        }
+
+        .long-division-hero h1 {
+            color: var(--primary-color);
+            font-size: clamp(2rem, 4vw, 3.15rem);
+            line-height: 1.15;
+            margin: 0 0 0.9rem;
+            font-family: 'Raleway', sans-serif;
+            overflow-wrap: anywhere;
+        }
+
+        .long-division-hero p {
+            max-width: 760px;
+            margin: 0 auto;
+            color: #4a5568;
+            font-size: 1.06rem;
+            text-align: center;
+        }
+
+        .long-division-tool {
+            --primary: #2f66d8;
+            --primary-dark: #2457bf;
+            --primary-soft: #eff6ff;
+            --error: #ef4444;
+            --success: #16a36a;
+            --success-text: #148257;
+            --teacher-bg: #fffaf0;
+            --teacher-border: #f1dfb6;
+            --teacher-text: #7a5a1e;
+            --ink: #172033;
+            --muted: #64748b;
+            --line: #d9e1ec;
+            --surface: #ffffff;
+            --page: #f4f7fb;
+            --cell-size: 45px;
+            width: 100%;
+            max-width: 1040px;
+            margin: 0 auto 1.8rem;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            color: var(--ink);
+            background: var(--page);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 24px 34px;
+        }
+
+        .long-division-tool * { box-sizing: border-box; }
+
+        .long-division-tool .tool-title {
+            width: 100%;
+            margin: 0 0 14px;
+            color: var(--primary-color);
+            font-size: 1.22rem;
+            line-height: 1.25;
+            text-align: center;
+        }
+
+        /* Input Area */
+        .long-division-tool .setup-area {
+            background: rgba(255,255,255,0.96);
+            padding: 18px 20px;
+            border: 1px solid #e7edf5;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 10px 30px rgba(42, 61, 92, 0.08);
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .long-division-tool .setup-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 0 1 180px;
+        }
+
+        .long-division-tool .setup-field label {
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 750;
+            line-height: 1;
+            text-align: left;
+        }
+
+        .long-division-tool .setup-note {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto 22px;
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .long-division-tool .problem-setup {
+            width: 100%;
+            margin: 0 auto 26px;
+        }
+
+        .long-division-tool .setup-message {
+            min-height: 1.35em;
+            margin: -10px auto 18px;
+            color: var(--error);
+            font-size: 0.88rem;
+            font-weight: 650;
+            line-height: 1.35;
+            text-align: center;
+        }
+
+        .long-division-tool .setup-message:empty {
+            visibility: hidden;
+        }
+
+        .long-division-tool .setup-area input {
+            width: 180px;
+            height: 54px;
+            padding: 8px 12px;
+            font-size: 1.08rem;
+            font-weight: 500;
+            text-align: center;
+            color: var(--ink);
+            background: #fbfdff;
+            border: 2px solid #dbe3ee;
+            border-radius: 12px;
+            outline: none;
+            transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+            -moz-appearance: textfield;
+        }
+
+        .long-division-tool .setup-area input::-webkit-outer-spin-button,
+        .long-division-tool .setup-area input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .long-division-tool .setup-area input:focus {
+            background: #fff;
+            border-color: #8fb2f2;
+            box-shadow: 0 0 0 4px rgba(47,102,216,0.10);
+        }
+
+        .long-multiplication-page .setup-field .setup-error {
+            min-height: 1.1rem;
+            color: var(--error);
+            font-size: 0.76rem;
+            font-weight: 650;
+            line-height: 1.25;
+            text-align: left;
+        }
+
+        .long-multiplication-page .setup-field .setup-error:empty {
+            visibility: hidden;
+        }
+
+        .long-multiplication-page .setup-field input.input-error {
+            border-color: var(--error);
+            background: #fff8f8;
+            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.08);
+        }
+
+        .long-multiplication-page .btn-start:disabled {
+            cursor: not-allowed;
+            background: #a8b5c8;
+            box-shadow: none;
+            transform: none;
+            opacity: .85;
+        }
+
+        .long-multiplication-page .btn-start:disabled:hover {
+            background: #a8b5c8;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .long-division-tool .setup-area span {
+            color: #4b5563;
+            font-size: 1.35rem;
+            font-weight: 600;
+        }
+
+        .long-division-tool .btn-start,
+        .long-division-tool .btn-help {
+            font-family: inherit;
+            border: 0;
+            cursor: pointer;
+            transition: transform .16s ease, box-shadow .16s ease, background .16s ease, border-color .16s ease;
+        }
+
+        .long-division-tool .btn-start {
+            min-height: 54px;
+            background: var(--primary);
+            color: white;
+            padding: 0 26px;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            box-shadow: 0 7px 16px rgba(47,102,216,0.18);
+        }
+
+        .long-division-tool .btn-start:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 9px 20px rgba(47,102,216,0.22);
+        }
+
+        /* The Grid - The Core of Alignment */
+        .long-division-tool .division-workspace {
+            display: grid;
+            grid-template-columns: repeat(12, var(--cell-size));
+            grid-auto-rows: var(--cell-size);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 2rem;
+            position: relative;
+            background: var(--surface);
+            padding: 42px 46px 46px;
+            border: 1px solid #e6ecf3;
+            border-radius: 18px;
+            box-shadow: 0 16px 38px rgba(36, 52, 79, 0.09);
+        }
+
+        /* Styling for the division bar */
+        .long-division-tool .divisor {
+            text-align: right;
+            padding-right: 10px;
+            border-right: 4px solid #2b2f36;
+            grid-column: 1;
+        }
+
+        .long-division-tool .quotient-line {
+            border-bottom: 4px solid #2b2f36;
+            grid-row: 1;
+        }
+
+        .long-division-tool .sub-line {
+            border-bottom: 2px solid #9aa5b3;
+            height: 0;
+            align-self: end;
+            margin-bottom: 5px;
+        }
+
+        /* Input Boxes */
+        .long-division-tool .digit-input {
+            height: 40px;
+            font-size: 1.55rem;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 500;
+            color: var(--ink);
+            box-sizing: border-box;
+            padding: 0;
+            background: #fbfdff;
+            border: 2px solid var(--line);
+            border-radius: 8px;
+            outline: none;
+            opacity: 1;
+            transition: border-color .2s ease, background .2s ease, box-shadow .2s ease, color .2s ease;
+            /* The input is only the temporary answer box. Correct answers are
+               rendered as separate grid-aligned digits, so no letter-spacing trick is needed. */
+            letter-spacing: normal;
+        }
+
+        .long-division-tool .digit-input:not(:disabled) {
+            background: #f8fbff;
+            border-color: #9cbcf1;
+            box-shadow: 0 0 0 4px rgba(47,102,216,0.09);
+        }
+
+        /* Once an answer is correct, the input box visually disappears and the math remains. */
+        .long-division-tool .digit-input.correct {
+            border-color: transparent;
+            color: var(--success-text);
+            background: transparent;
+            box-shadow: none;
+            opacity: 1;
+            -webkit-text-fill-color: var(--success-text);
+        }
+
+        .long-division-tool .placed-answer-digit {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            align-self: start;
+            width: var(--cell-size);
+            height: 40px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.55rem;
+            font-weight: 500;
+            line-height: 40px;
+            color: var(--success-text);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .long-division-tool .digit-input.wrong {
+            border-color: var(--error);
+            background: #fff7f7;
+            box-shadow: 0 0 0 4px rgba(239,68,68,0.08);
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Teacher Hint: deliberately softer than the main action button. */
+        .long-division-tool .teacher-box {
+            position: absolute;
+            background: var(--teacher-bg);
+            color: var(--teacher-text);
+            border: 1px solid var(--teacher-border);
+            padding: 9px 13px;
+            border-radius: 11px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            font-size: 0.98rem;
+            font-weight: 650;
+            line-height: 1.25;
+            pointer-events: auto;
+            transition: all 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+            box-shadow: 0 8px 20px rgba(88, 68, 28, 0.10);
+            white-space: nowrap;
+        }
+
+        .long-division-tool .teacher-box.is-hidden {
+            display: none;
+        }
+
+        .long-division-tool .teacher-message {
+            display: flex;
+            align-items: center;
+            min-width: 0;
+        }
+
+        .long-division-tool .teacher-box::before {
+            content: '→';
+            color: var(--primary);
+            font-size: 1.05em;
+            font-weight: 800;
+        }
+
+        .long-division-tool .teacher-box.bring-down {
+            color: #355a9e;
+            background: #f7faff;
+            border-color: #cdddf7;
+            box-shadow: 0 8px 20px rgba(47,102,216,0.08);
+        }
+
+        .long-division-tool .teacher-box.bring-down::before {
+            content: '↓';
+            color: var(--primary);
+        }
+
+
+        .long-division-tool .btn-help {
+            min-height: 50px;
+            background: #ffffff;
+            color: #315fae;
+            border: 1px solid #cddcf3;
+            padding: 0 24px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            box-shadow: 0 7px 18px rgba(45, 72, 110, 0.07);
+        }
+
+        .long-division-tool .btn-help:hover {
+            background: var(--primary-soft);
+            border-color: #aec6eb;
+            transform: translateY(-1px);
+        }
+
+        .long-division-tool .btn-help:disabled {
+            cursor: default;
+            opacity: 0.58;
+            transform: none;
+        }
+
+        .long-division-tool .controls {
+            margin-top: 18px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .long-division-tool .floating-help {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            flex: 0 0 32px;
+            border: 2px solid #7fa7e8;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #2f66d8;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 11;
+            box-shadow: 0 5px 12px rgba(47,102,216,0.10);
+            transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+        }
+
+        .long-division-tool .floating-help:hover {
+            background: var(--primary-soft);
+            transform: translateY(-1px);
+        }
+
+        .long-division-tool .floating-help.is-hidden {
+            display: none;
+        }
+
+        .long-division-tool .floating-help:disabled {
+            cursor: default;
+            opacity: 0.58;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .long-division-tool .help-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 21px;
+            height: 21px;
+            margin-right: 7px;
+            border: 1.7px solid currentColor;
+            border-radius: 50%;
+            font-size: 0.82rem;
+            font-weight: 800;
+            line-height: 1;
+            vertical-align: 1px;
+        }
+
+        .long-division-tool .result-summary {
+            display: none;
+            width: min(100%, 620px);
+            margin: 18px auto 0;
+            padding: 12px 18px;
+            text-align: center;
+            color: var(--ink);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #dfe6ef;
+            border-radius: 12px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+        }
+
+        .long-division-tool .result-summary.show {
+            display: block;
+        }
+
+        .long-division-tool .result-summary-label {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .long-division-tool .result-summary-equation {
+            display: block;
+            font-size: 1.18rem;
+        }
+
+        .long-division-tool .result-summary-note {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .long-division-tool .bring-down-digit {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            justify-self: stretch;
+            align-self: start;
+            width: var(--cell-size);
+            height: 40px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.55rem;
+            font-weight: 500;
+            line-height: 40px;
+            color: var(--primary);
+            opacity: 0;
+            transform: translateY(-14px);
+            transition: opacity .22s ease, transform .55s cubic-bezier(.2,.8,.2,1), color .25s ease;
+            z-index: 4;
+        }
+
+        .long-division-tool .bring-down-digit.drop {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .long-division-tool .bring-down-digit.settled { color: var(--ink); }
+
+        .long-division-tool .bring-down-guide {
+            width: 0;
+            justify-self: center;
+            align-self: stretch;
+            border-right: 2px dashed #5f86dc;
+            margin-top: 31px;
+            margin-bottom: 8px;
+            position: relative;
+            opacity: 0;
+            transition: opacity .18s ease;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .long-division-tool .bring-down-guide.show { opacity: 0.95; }
+
+        .long-division-tool .bring-down-guide::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            bottom: -1px;
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid #5f86dc;
+            border-bottom: 2px solid #5f86dc;
+            transform: rotate(45deg);
+        }
+
+        .learning-content {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .learning-content section {
+            padding: 1.3rem 0;
+            border-top: 1px solid #edf2f7;
+        }
+
+        .learning-content section:first-child {
+            border-top: 0;
+        }
+
+        .learning-content h2 {
+            text-align: left;
+            margin: 0 0 0.7rem;
+            font-size: 1.55rem;
+        }
+
+        .learning-content h3 {
+            color: var(--primary-color);
+            margin: 1rem 0 0.35rem;
+            font-size: 1.15rem;
+        }
+
+        .learning-content p,
+        .learning-content li {
+            color: #34495e;
+            font-size: 1rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .learning-content p {
+            max-width: none;
+            margin: 0 0 0.85rem;
+        }
+
+        .learning-content ul {
+            margin: 0.5rem 0 0 1.25rem;
+        }
+
+        .step-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .step-panel {
+            border: 1px solid #e7edf5;
+            border-radius: 8px;
+            padding: 1rem;
+            background: #fbfdff;
+        }
+
+        .step-panel h3 {
+            margin-top: 0;
+        }
+
+        .faq-item {
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 1100px) {
+            .step-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .long-division-page {
+                padding: 14px !important;
+            }
+
+            .long-division-tool { padding: 26px 14px 48px; }
+
+            .long-division-tool .setup-area {
+                width: 100%;
+                max-width: 520px;
+                padding: 14px;
+                gap: 8px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .long-division-tool .setup-field {
+                flex: 0 1 180px;
+            }
+
+            .long-division-tool .setup-area input { width: 180px; }
+            .long-division-tool .btn-start { flex: 1 1 170px; }
+
+            .long-division-tool .division-workspace {
+                max-width: 100%;
+                overflow-x: auto;
+                padding: 32px 34px 38px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            html,
+            body {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            .main-row-container,
+            .wide-container,
+            .main-row,
+            .main-content,
+            .dynamic-content-container,
+            .long-division-page,
+            .long-division-hero,
+            .learning-content,
+            .long-division-tool {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+            }
+
+            header {
+                overflow: hidden;
+            }
+
+            header .main-title {
+                width: 100%;
+            }
+
+            header .container {
+                width: 100vw;
+                max-width: 100vw;
+            }
+
+            header .subtitle {
+                width: min(260px, calc(100vw - 80px));
+                max-width: min(260px, calc(100vw - 80px));
+                margin-left: auto;
+                margin-right: auto;
+                white-space: normal;
+                text-align: center;
+                overflow-wrap: anywhere;
+                font-size: 0.82rem !important;
+            }
+
+            .left-sidebar .nav-buttons {
+                grid-template-columns: 1fr !important;
+            }
+
+            .left-sidebar .nav-button {
+                white-space: normal;
+                overflow-wrap: anywhere;
+            }
+
+            .long-division-hero p,
+            .learning-content p,
+            .learning-content li {
+                overflow-wrap: anywhere;
+            }
+
+            .long-division-page {
+                align-items: flex-start;
+            }
+
+            .long-division-hero,
+            .learning-content {
+                width: calc(100vw - 24px) !important;
+                max-width: calc(100vw - 24px) !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .long-division-hero h1 {
+                width: min(260px, calc(100vw - 80px));
+                max-width: min(260px, calc(100vw - 80px));
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                font-size: 1.65rem;
+                line-height: 1.22;
+                white-space: normal;
+                word-break: break-word;
+            }
+
+            .long-division-hero p {
+                width: min(260px, calc(100vw - 80px));
+                max-width: min(260px, calc(100vw - 80px));
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .long-division-tool .tool-title {
+                width: min(230px, calc(100vw - 100px));
+                max-width: min(230px, calc(100vw - 100px));
+                font-size: 1.02rem;
+                line-height: 1.25;
+                overflow-wrap: anywhere;
+            }
+
+            .step-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Compact long-division workspace for phones */
+            .long-division-tool {
+                --cell-size: clamp(20px, 6.2vw, 26px);
+                width: calc(100vw - 24px) !important;
+                padding: 20px 6px 36px;
+                max-width: calc(100vw - 24px) !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                align-items: flex-start;
+            }
+
+            .long-division-tool .setup-area {
+                width: 100%;
+                max-width: min(260px, calc(100vw - 80px));
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .long-division-tool .setup-field {
+                flex: 1 1 100%;
+                min-width: 0;
+            }
+
+            .long-division-tool .setup-area input {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .long-division-tool .division-workspace {
+                width: 100%;
+                max-width: 100%;
+                grid-auto-rows: 36px;
+                padding: 24px 8px 30px;
+                font-size: 1.35rem;
+            }
+
+            .long-division-tool .digit-input {
+                height: 32px;
+                font-size: 1.18rem;
+            }
+
+            .long-division-tool .placed-answer-digit,
+            .long-division-tool .bring-down-digit {
+                height: 32px;
+                font-size: 1.18rem;
+                line-height: 32px;
+            }
+
+            .long-division-tool .divisor {
+                padding-right: 6px;
+                border-right-width: 3px;
+            }
+
+            .long-division-tool .quotient-line {
+                border-bottom-width: 3px;
+            }
+
+            .long-division-tool .sub-line {
+                margin-bottom: 0;
+            }
+
+            .long-division-tool .teacher-box {
+                padding: 6px 8px;
+                font-size: 0.8rem;
+                max-width: min(180px, calc(100% - 16px));
+                white-space: normal;
+                flex-wrap: wrap;
+            }
+
+            .long-division-tool .result-summary {
+                font-size: clamp(0.95rem, 4vw, 1.15rem);
+                padding: 10px 12px;
+            }
+
+            .long-division-tool .floating-help {
+                width: 30px;
+                height: 30px;
+                flex-basis: 30px;
+                font-size: 0.95rem;
+            }
+        }
+        /* Long Multiplication Tutor: single active implementation. */
+        .long-multiplication-page .multiplication-hero {
+            max-width: 980px;
+            margin: 0 auto 0.35rem;
+            text-align: center;
+        }
+
+        .long-multiplication-page .multiplication-hero h1 {
+            color: var(--primary-color);
+            font-size: clamp(2rem, 4vw, 3.15rem);
+            line-height: 1.15;
+            margin: 0 0 0.65rem;
+            font-family: 'Raleway', sans-serif;
+            overflow-wrap: anywhere;
+        }
+
+        .long-multiplication-page .multiplication-hero p {
+            max-width: 760px;
+            margin: 0 auto;
+            color: #4a5568;
+            font-size: 1.06rem;
+            text-align: center;
+        }
+
+        .long-multiplication-page .multiplication-content {
+            width: 100%;
+            max-width: 980px;
+            margin: 28px auto 0;
+            display: grid;
+            gap: 22px;
+        }
+
+        .long-multiplication-page .content-card {
+            background: rgba(255,255,255,0.96);
+            border: 1px solid #e7edf5;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 12px 30px rgba(42, 61, 92, 0.07);
+        }
+
+        .long-multiplication-page .content-card h2 {
+            margin: 0 0 14px;
+            color: var(--primary-color);
+            font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+            line-height: 1.25;
+        }
+
+        .long-multiplication-page .content-card h3 {
+            margin: 18px 0 8px;
+            color: var(--ink);
+            font-size: 1.05rem;
+        }
+
+        .long-multiplication-page .content-card p,
+        .long-multiplication-page .content-card li {
+            color: #4a5568;
+            font-size: 1rem;
+            line-height: 1.65;
+        }
+
+        .long-multiplication-page .content-card p {
+            margin: 0 0 12px;
+        }
+
+        .long-multiplication-page .content-card ol,
+        .long-multiplication-page .content-card ul {
+            margin: 0;
+            padding-left: 1.35rem;
+        }
+
+        .long-multiplication-page .example-equations {
+            display: grid;
+            gap: 6px;
+            margin: 14px 0;
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--ink);
+            font-size: 1.08rem;
+        }
+
+        .long-multiplication-page .static-vertical-example {
+            display: inline-block;
+            margin: 10px 0 14px;
+            padding: 14px 18px;
+            background: #fbfdff;
+            border: 1px solid #e1e8f2;
+            border-radius: 12px;
+            color: var(--ink);
+            font: 700 1.12rem/1.35 'Courier New', Courier, monospace;
+            white-space: pre;
+        }
+
+        .long-multiplication-page .carry-demo-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            margin: 16px 0 8px;
+        }
+
+        .long-multiplication-page .carry-demo-step {
+            min-width: 0;
+            padding: 16px;
+            background: #fbfdff;
+            border: 1px solid #e1e8f2;
+            border-radius: 12px;
+        }
+
+        .long-multiplication-page .carry-demo-step h3 {
+            margin: 0 0 9px;
+            color: var(--primary-color);
+        }
+
+        .long-multiplication-page .carry-demo-step p:last-child {
+            margin-bottom: 0;
+        }
+
+        .long-multiplication-page .carry-demo-math {
+            margin: 7px 0;
+            color: var(--ink);
+            font: 700 1.03rem/1.45 'Courier New', Courier, monospace;
+            overflow-wrap: anywhere;
+        }
+
+        .long-multiplication-page .carry-demo-carry {
+            color: #315fae;
+        }
+
+        .long-multiplication-page .workspace-shell {
+            width: 100%;
+            max-width: 980px;
+            margin: 0 auto;
+            background: var(--surface);
+            border: 1px solid #e6ecf3;
+            border-radius: 18px;
+            box-shadow: 0 16px 38px rgba(36, 52, 79, 0.09);
+            overflow-x: auto;
+            overflow-y: visible;
+        }
+
+        .long-multiplication-page .multiplication-workspace {
+            --top-row: 38px;
+            --multiplier-row: 34px;
+            --line-row: 6px;
+            --carry-row: 20px;
+            --temp-row: 26px;
+            --result-row: 42px;
+            --hint-row: 48px;
+            width: 100%;
+            min-width: 0;
+            padding: 20px 30px 22px;
+            grid-template-rows: var(--top-row) var(--multiplier-row) var(--line-row) var(--carry-row) var(--temp-row) var(--result-row) var(--hint-row);
+            grid-auto-rows: var(--result-row);
+            font-size: 2.2rem;
+            position: relative;
+            max-width: none;
+            overflow: visible;
+            background: transparent;
+            border: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .long-multiplication-page .setup-area {
+            display: grid;
+            grid-template-columns: auto max-content;
+            align-items: end;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .long-multiplication-page .operand-pair {
+            display: grid;
+            grid-template-columns: 180px auto 180px;
+            grid-template-rows: auto 54px auto;
+            align-items: center;
+            justify-content: center;
+            column-gap: 12px;
+        }
+
+        .long-multiplication-page .operand-pair .setup-field {
+            display: grid;
+            grid-template-rows: auto 54px auto;
+            grid-row: 1 / 4;
+            gap: 6px;
+            min-width: 0;
+        }
+
+        .long-multiplication-page .operand-pair .setup-field:first-child {
+            grid-column: 1;
+        }
+
+        .long-multiplication-page .operand-pair .setup-field:last-child {
+            grid-column: 3;
+        }
+
+        .long-multiplication-page .operand-pair > span {
+            grid-column: 2;
+            grid-row: 2;
+            align-self: center;
+            display: flex;
+            align-items: center;
+            height: 54px;
+            line-height: 1;
+            padding-bottom: 0;
+        }
+
+        .long-multiplication-page .setup-area .btn-start {
+            align-self: center;
+            grid-column: 2;
+            grid-row: 1;
+            min-height: 54px;
+        }
+
+        @media (max-width: 1200px) {
+            .long-multiplication-page .setup-area {
+                grid-template-columns: 1fr;
+            }
+
+            .long-multiplication-page .operand-pair {
+                width: 100%;
+                grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            }
+
+            .long-multiplication-page .operand-pair .setup-field input {
+                width: 100%;
+            }
+
+            .long-multiplication-page .setup-area .btn-start {
+                grid-column: 1;
+                grid-row: 2;
+                justify-self: center;
+            }
+        }
+
+        .long-multiplication-page .operator-sign {
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .long-multiplication-page .multiplication-workspace .operand-digit,
+        .long-multiplication-page .multiplication-workspace .operator-sign,
+        .long-multiplication-page .multiplication-workspace .placed-answer-digit,
+        .long-multiplication-page .multiplication-workspace .temp-product-digit,
+        .long-multiplication-page .multiplication-workspace .carry-old,
+        .long-multiplication-page .multiplication-workspace .carry-new {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            justify-self: stretch;
+            width: 100%;
+            text-align: center;
+        }
+
+        .long-multiplication-page .multiplication-workspace .placed-answer-digit {
+            align-self: center;
+            color: var(--ink, #172033);
+            font-size: 2.2rem;
+            line-height: 1;
+        }
+
+        .long-multiplication-page .work-line {
+            border-bottom: 3px solid #2b2f36;
+            height: 0;
+            align-self: start;
+            margin-bottom: 0;
+        }
+
+        .long-multiplication-page .multiplication-workspace .digit-input {
+            height: 38px;
+            font-size: 1.8rem;
+            text-align: right;
+            direction: ltr;
+            padding: 0 9px 0 4px;
+            font-variant-numeric: tabular-nums;
+            z-index: 7;
+            justify-self: center;
+        }
+
+        .long-multiplication-page .multiplication-workspace .full-product-input {
+            width: 100%;
+            min-width: 0;
+            padding-right: 12px;
+            grid-column-end: span 2 !important;
+        }
+
+        .long-multiplication-page .sum-input {
+            width: 46px;
+            min-width: 46px;
+        }
+
+        .long-multiplication-page .carry-old,
+        .long-multiplication-page .carry-new {
+            align-self: end;
+            justify-self: center;
+            color: #315fae;
+            font: 800 1.25rem/1 'Courier New', monospace;
+            z-index: 5;
+        }
+
+        .long-multiplication-page .temp-product-digit {
+            align-self: center;
+            justify-self: center;
+            color: #315fae;
+            font: 800 1.35rem/26px 'Courier New', monospace;
+            z-index: 4;
+        }
+
+        .long-multiplication-page .is-focus-source {
+            color: #315fae;
+            text-decoration: underline;
+            text-decoration-color: #f1dfb6;
+            text-decoration-thickness: 3px;
+            text-underline-offset: 5px;
+        }
+
+        .long-multiplication-page .operand-digit.is-round-factor {
+            color: #315fae;
+            background: rgba(49, 95, 174, 0.10);
+            border-radius: 10px;
+        }
+
+        .long-multiplication-page .operand-digit.is-current-factor {
+            color: #1f4f9f;
+            background: rgba(49, 95, 174, 0.16);
+            outline: 3px solid rgba(49, 95, 174, 0.58);
+            outline-offset: -3px;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.92);
+            border-radius: 10px;
+            z-index: 8;
+        }
+
+        .long-multiplication-page .hint-spacer {
+            grid-column: 1 / -1;
+            grid-row: 7;
+            height: var(--hint-row);
+            pointer-events: none;
+        }
+
+        .long-multiplication-page .formula-popover {
+            position: absolute;
+            left: 0;
+            top: 0;
+            min-width: 118px;
+            max-width: min(220px, calc(100% - 16px));
+            padding: 9px 45px 9px 13px;
+            border: 1px solid var(--teacher-border, #f1dfb6);
+            border-radius: 11px;
+            background: var(--teacher-bg, #fffaf0);
+            color: var(--teacher-text, #7a5a1e);
+            box-shadow: 0 8px 20px rgba(88, 68, 28, 0.10);
+            font: 650 0.98rem/1.25 system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            text-align: center;
+            z-index: 20;
+            white-space: nowrap;
+            pointer-events: auto;
+            transition: opacity .16s ease;
+        }
+
+        .long-multiplication-page .formula-popover.is-hidden {
+            display: none;
+        }
+
+        .long-multiplication-page .formula-popover::before {
+            content: '';
+            position: absolute;
+            top: -7px;
+            left: var(--arrow-left, 50%);
+            width: 12px;
+            height: 12px;
+            background: var(--teacher-bg, #fffaf0);
+            border-left: 1px solid var(--teacher-border, #f1dfb6);
+            border-top: 1px solid var(--teacher-border, #f1dfb6);
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .long-multiplication-page .formula-popover::after {
+            content: '↑';
+            position: absolute;
+            top: -20px;
+            left: var(--arrow-left, 50%);
+            transform: translateX(-50%);
+            color: var(--primary, #2f66d8);
+            font-size: .95rem;
+            font-weight: 800;
+        }
+
+        .long-multiplication-page .popover-help {
+            position: absolute;
+            right: 9px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border: 2px solid #7fa7e8;
+            border-radius: 50%;
+            background: #fff;
+            color: #2f66d8;
+            font: 800 1rem/1 system-ui;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 12px rgba(47, 102, 216, .10);
+            transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+        }
+
+        .long-multiplication-page .popover-help:hover {
+            background: var(--primary-soft, #eff6ff);
+            transform: translateY(-50%) translateY(-1px);
+        }
+
+        .long-multiplication-page .multiplication-workspace.complete {
+            grid-template-rows: 38px 38px 10px 38px;
+            grid-auto-rows: 38px;
+            padding-top: 20px;
+            padding-bottom: 22px;
+            align-items: center;
+        }
+
+        .long-multiplication-page .multiplication-workspace.complete .work-line {
+            align-self: center;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 600px) {
+            .long-multiplication-page .carry-demo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .long-multiplication-page .workspace-shell {
+                width: calc(100% - 12px);
+                overflow-x: auto;
+            }
+            .long-multiplication-page .operand-pair {
+                width: 100%;
+                grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            }
+            .long-multiplication-page .operand-pair .setup-field {
+                min-width: 0;
+            }
+            .long-multiplication-page .setup-area .btn-start {
+                width: 100%;
+            }
+            .long-multiplication-page .multiplication-workspace {
+                --top-row: 34px;
+                --multiplier-row: 30px;
+                --line-row: 6px;
+                --carry-row: 18px;
+                --temp-row: 24px;
+                --result-row: 36px;
+                --hint-row: 44px;
+                min-width: 510px;
+                padding: 18px 20px 20px;
+                grid-template-rows: var(--top-row) var(--multiplier-row) var(--line-row) var(--carry-row) var(--temp-row) var(--result-row) var(--hint-row);
+                grid-auto-rows: var(--result-row);
+                font-size: 1.65rem;
+            }
+            .long-multiplication-page .multiplication-workspace .digit-input {
+                height: 32px;
+                font-size: 1.35rem;
+                padding: 0 8px 0 3px;
+            }
+            .long-multiplication-page .multiplication-workspace .full-product-input {
+                min-width: 0;
+                padding-right: 10px;
+            }
+            .long-multiplication-page .sum-input {
+                width: 40px;
+                min-width: 40px;
+            }
+            .long-multiplication-page .formula-popover {
+                font-size: .92rem;
+                min-width: 104px;
+                padding: 8px 42px 8px 12px;
+            }
+            .long-multiplication-page .temp-product-digit {
+                font-size: 1.05rem;
+                line-height: 30px;
+            }
+            .long-multiplication-page .carry-old,
+            .long-multiplication-page .carry-new { font-size: .95rem; }
+            .long-multiplication-page .multiplication-workspace.complete {
+                grid-template-rows: 34px 34px 10px 34px;
+                grid-auto-rows: 34px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="main-title">
+                <span class="nded-text">NDED</span>
+                <span class="subtitle">building mathematical confidence for life.</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-row-container">
+        <div class="wide-container">
+            <div class="main-row">
+                <aside class="left-sidebar">
+                    <h3 class="nav-title">Navigation</h3>
+                    <div class="nav-buttons">
+                        <a href="/" class="nav-button">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                        <a href="/about-us" class="nav-button">
+                            <i class="fas fa-info-circle"></i> About us
+                        </a>
+                        <a href="/#math-games-section" class="nav-button">
+                            <i class="fas fa-gamepad"></i> Math Games
+                        </a>
+                        <a href="https://matrixcalculator.net/" target="_blank" class="nav-button external">
+                            <i class="fas fa-calculator"></i> Matrix Calculator
+                        </a>
+                    </div>
+                </aside>
+
+                <main class="main-content">
+                    <div class="dynamic-content-container long-multiplication-page">
+                        <section class="multiplication-hero">
+                            <h1>Long Multiplication Tutor</h1>
+                            <p>Enter your numbers and practice long multiplication step by step, with help whenever you need it.</p>
+                        </section>
+
+                        <section class="long-division-tool multiplication-tool" aria-label="Interactive long multiplication tutor">
+                            <h2 class="tool-title">Start a Long Multiplication Problem</h2>
+                            <div class="problem-setup">
+                                <div class="setup-area">
+                                    <div class="operand-pair">
+                                        <div class="setup-field">
+                                            <label for="ma">Multiplicand</label>
+                                            <input id="ma" inputmode="numeric" placeholder="Enter up to 8 digits" autocomplete="off">
+                                            <div class="setup-error" id="ma-error" aria-live="polite"></div>
+                                        </div>
+                                        <span>×</span>
+                                        <div class="setup-field">
+                                            <label for="mb">Multiplier</label>
+                                            <input id="mb" inputmode="numeric" placeholder="Enter up to 8 digits" autocomplete="off">
+                                            <div class="setup-error" id="mb-error" aria-live="polite"></div>
+                                        </div>
+                                    </div>
+                                    <button class="btn-start" id="start" type="button">Start Multiplication</button>
+                                </div>
+                                <p class="setup-message" id="msg" aria-live="polite"></p>
+                                <p class="setup-note">Whole numbers only. Up to 8 digits per number. The multiplier must be at least 1.</p>
+                            </div>
+
+                            <div class="workspace-shell">
+                                <div class="division-workspace multiplication-workspace" id="workspace" aria-live="polite"></div>
+                            </div>
+                            <div class="controls" id="controls" style="display:none;">
+                                <button class="btn-help" id="help" type="button"><span class="help-icon">?</span>Show Me One Step</button>
+                            </div>
+                            <div id="result-summary" class="result-summary" aria-live="polite"></div>
+                        </section>
+
+                        <section class="multiplication-content" aria-label="Long multiplication learning guide">
+                            <article class="content-card">
+                                <h2>How to Use This Long Multiplication Tutor</h2>
+                                <ol>
+                                    <li>
+                                        <h3>Enter Your Problem</h3>
+                                        <p>Enter a multiplicand and multiplier, then click Start Multiplication.</p>
+                                    </li>
+                                    <li>
+                                        <h3>Multiply One Digit at a Time</h3>
+                                        <p>Start with the ones digit of the multiplier. Follow the highlighted numbers and enter the complete product for each step.</p>
+                                    </li>
+                                    <li>
+                                        <h3>Work Through Carrying</h3>
+                                        <p>The tutor separates the digits of your product and shows any carry. When a carry needs to be added, work out the sum yourself.</p>
+                                    </li>
+                                    <li>
+                                        <h3>Build the Partial Products</h3>
+                                        <p>Complete one partial-product row before moving to the next digit of the multiplier. Each row follows the place value of that digit.</p>
+                                    </li>
+                                    <li>
+                                        <h3>Add the Partial Products</h3>
+                                        <p>When all partial products are complete, add them column by column. The tutor guides you through any additional carrying and displays the completed vertical multiplication when you finish.</p>
+                                    </li>
+                                </ol>
+                                <p>This step-by-step multiplication practice keeps each partial product aligned by place value. Need help? Select Show Me One Step to complete only your current step, then continue solving the problem yourself.</p>
+                            </article>
+
+                            <article class="content-card" aria-labelledby="carrying-works-title">
+                                <h2 id="carrying-works-title">See How Carrying Works</h2>
+                                <p>Instead of keeping carries in your head, follow each product as the tutor separates its digits and shows where the carry goes. You still do the arithmetic yourself.</p>
+                                <p class="carry-demo-math">39 × 9</p>
+                                <div class="carry-demo-grid" aria-label="Static carrying in multiplication example for 39 times 9">
+                                    <section class="carry-demo-step">
+                                        <h3>1. Multiply</h3>
+                                        <p class="carry-demo-math">9 × 9 = 81</p>
+                                        <p>Students calculate and enter the complete product.</p>
+                                    </section>
+                                    <section class="carry-demo-step">
+                                        <h3>2. Split and Carry</h3>
+                                        <p>The tutor places <span class="carry-demo-carry">1</span> in the ones column and carries <span class="carry-demo-carry">8</span> to the next column.</p>
+                                    </section>
+                                    <section class="carry-demo-step">
+                                        <h3>3. Add the Carry</h3>
+                                        <p class="carry-demo-math">3 × 9 = 27<br><span class="carry-demo-carry">8 + 7 = 15</span></p>
+                                        <p>The tutor places <span class="carry-demo-carry">5</span> in the tens column and shows the remaining digits for the next calculation.</p>
+                                    </section>
+                                    <section class="carry-demo-step">
+                                        <h3>4. Complete</h3>
+                                        <p class="carry-demo-math">2 + 1 = 3<br>39 × 9 = 351</p>
+                                        <p>The completed multiplication is 351.</p>
+                                    </section>
+                                </div>
+                            </article>
+
+                            <article class="content-card">
+                                <h2>Long Multiplication Example: 247 × 36</h2>
+                                <div class="example-equations" aria-label="Example partial products">
+                                    <span>247 × 6 = 1482</span>
+                                    <span>247 × 30 = 7410</span>
+                                    <span>1482 + 7410 = 8892</span>
+                                </div>
+                                <div class="static-vertical-example" aria-label="Vertical example">    247
+×    36
+-------
+   1482
+   7410
+-------
+   8892</div>
+                                <p>First, multiply 247 by 6 to get 1482. Then multiply 247 by 3 tens to get 7410. Add the two partial products to find the final answer, 8892.</p>
+                                <p>The 3 in 36 represents 3 tens, so the second partial product is shifted one place to the left.</p>
+                            </article>
+
+                            <article class="content-card">
+                                <h2>Tips for Learning Long Multiplication</h2>
+                                <ul>
+                                    <li>Start with a one-digit multiplier before trying larger problems.</li>
+                                    <li>Pay attention to the highlighted digits in each step.</li>
+                                    <li>Enter the complete product before working through carrying.</li>
+                                    <li>Keep each partial product aligned with its correct place value.</li>
+                                    <li>Use Show Me One Step when you get stuck.</li>
+                                    <li>Check your completed vertical multiplication when you finish.</li>
+                                </ul>
+                            </article>
+
+                            <article class="content-card">
+                                <h2>For Parents and Teachers</h2>
+                                <p>This tutor is designed for step-by-step practice with standard vertical multiplication. Students complete the calculations themselves instead of only seeing a final answer. The highlighted digits and guided prompts help students track the current multiplication, carrying in multiplication, partial products, and final addition. It can support classroom demonstrations, after-school practice, and at-home tutoring for multi-digit multiplication.</p>
+                                <p>Its guided format makes interactive multiplication practice practical for a short demonstration or independent work.</p>
+                            </article>
+
+                            <section class="content-card" aria-label="Long multiplication frequently asked questions">
+                                <h2>FAQ</h2>
+                                <h3>Does this tutor show every step?</h3>
+                                <p>Yes. Students work through each multiplication step, necessary carrying, each partial product, and the final addition.</p>
+
+                                <h3>How many digits can I enter?</h3>
+                                <p>Each number can have up to eight digits. The multiplicand can be 0–99,999,999, and the multiplier can be 1–99,999,999.</p>
+
+                                <h3>How does the tutor help with carrying?</h3>
+                                <p>Students first enter the complete product for the highlighted digits. The tutor splits the digits and shows the carry. If a carry needs to be added, the student completes that addition step.</p>
+
+                                <h3>Can I practice multiplication with zeros?</h3>
+                                <p>Yes. The tutor supports a multiplicand of zero, zeros inside either number, and zeros inside the multiplier. The multiplier itself cannot be zero.</p>
+
+                                <h3>What does Show Me One Step do?</h3>
+                                <p>Show Me One Step completes only the current step. It does not finish the whole problem at once.</p>
+
+                                <h3>Can I enter decimals or negative numbers?</h3>
+                                <p>No. This version supports non-negative whole numbers only. It does not support decimals, negative numbers, or scientific notation.</p>
+                            </section>
+
+                            <article class="content-card">
+                                <h2>What Is the NDED Long Multiplication Tutor?</h2>
+                                <p>The NDED Long Multiplication Tutor is a free interactive tool that helps students practice vertical multiplication step by step. Instead of showing the answer immediately, it lets students calculate each product, see how carrying works, build partial products, and complete the final addition themselves.</p>
+                            </article>
+
+                            <article class="content-card">
+                                <h2>Long Multiplication Tutor vs. Multiplication Calculator</h2>
+                                <p>A multiplication calculator gives you the result of a problem. The NDED Long Multiplication Tutor is designed for practice: you enter each product, work through carrying, and complete the partial products and final addition yourself.</p>
+                            </article>
+                        </section>
+                    </div>
+                </main>
+
+                <aside class="right-sidebar">
+                    <div class="question-box">
+                        <h2>Do you enjoy learning math?</h2>
+                        <button class="btn yes">Yes, I love math!</button>
+                        <button class="btn no">Math is challenging for me</button>
+                        <div class="response" id="response"></div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 NDED - Building Mathematical Confidence for Life. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initPoll();
+            initLongMultiplicationTutor();
+        });
+
+        function initPoll() {
+            const yesBtn = document.querySelector('.question-box .yes');
+            const noBtn = document.querySelector('.question-box .no');
+            const response = document.getElementById('response');
+            if(!yesBtn || !noBtn || !response) return;
+
+            yesBtn.addEventListener('click', () => {
+                response.textContent = "That's great! Math is an amazing tool for understanding the world!";
+                response.classList.add('show');
+            });
+
+            noBtn.addEventListener('click', () => {
+                response.textContent = "We're here to help! Our resources are designed to make math easier and more fun.";
+                response.classList.add('show');
+            });
+        }
+
+        function initLongMultiplicationTutor() {
+            const state = { steps: [], index: 0, problem: null };
+            const workspace = document.getElementById('workspace');
+            const startBtn = document.getElementById('start');
+            const helpBtn = document.getElementById('help');
+            const controls = document.getElementById('controls');
+            const summary = document.getElementById('result-summary');
+            const message = document.getElementById('msg');
+            const multiplicandInput = document.getElementById('ma');
+            const multiplierInput = document.getElementById('mb');
+            const multiplicandError = document.getElementById('ma-error');
+            const multiplierError = document.getElementById('mb-error');
+
+            const addStep = (step) => state.steps.push({ ...step, n: state.steps.length });
+
+            function el(tag, className, text, row, col) {
+                const node = document.createElement(tag);
+                node.className = className;
+                node.textContent = text;
+                node.style.gridRow = row;
+                node.style.gridColumn = col;
+                workspace.append(node);
+                return node;
+            }
+
+            function put(value, row, col, className = 'placed-answer-digit', data = {}) {
+                const node = el('div', className, String(value), row, col);
+                Object.entries(data).forEach(([key, val]) => {
+                    node.dataset[key] = String(val);
+                });
+                return node;
+            }
+
+            function line(row, left, right, data = {}) {
+                const node = el('div', 'work-line', '', row, `${left}/${right + 1}`);
+                Object.entries(data).forEach(([key, val]) => {
+                    node.dataset[key] = String(val);
+                });
+                return node;
+            }
+
+            function clearSetupMessage() {
+                message.textContent = '';
+            }
+
+            function showSetupMessage(text) {
+                message.textContent = text;
+            }
+
+            function normalizeIntegerText(value) {
+                const normalized = String(value).replace(/^0+(?=\d)/, '');
+                return normalized || '0';
+            }
+
+            function validateOperand(value, role, showEmpty = false) {
+                const text = value.trim();
+                const isMultiplier = role === 'multiplier';
+                const label = isMultiplier ? 'Multiplier' : 'Multiplicand';
+
+                if(text === '') {
+                    return {
+                        valid: false,
+                        empty: true,
+                        normalized: '',
+                        message: showEmpty ? `${label} is required.` : ''
+                    };
+                }
+
+                if(!/^\d+$/.test(text)) {
+                    return {
+                        valid: false,
+                        empty: false,
+                        normalized: '',
+                        message: 'Use whole digits only.'
+                    };
+                }
+
+                if(text.length > 8) {
+                    return {
+                        valid: false,
+                        empty: false,
+                        normalized: '',
+                        message: 'Use at most 8 digits.'
+                    };
+                }
+
+                const normalized = normalizeIntegerText(text);
+                if(isMultiplier && normalized === '0') {
+                    return {
+                        valid: false,
+                        empty: false,
+                        normalized,
+                        message: 'Use a multiplier from 1 to 99999999.'
+                    };
+                }
+
+                return { valid: true, empty: false, normalized, message: '' };
+            }
+
+            function setFieldError(input, errorNode, result) {
+                input.classList.toggle('input-error', Boolean(result.message));
+                input.setAttribute('aria-invalid', result.message ? 'true' : 'false');
+                errorNode.textContent = result.message;
+            }
+
+            function updateSetupValidation(showEmpty = false) {
+                const a = validateOperand(multiplicandInput.value, 'multiplicand', showEmpty);
+                const b = validateOperand(multiplierInput.value, 'multiplier', showEmpty);
+                setFieldError(multiplicandInput, multiplicandError, a);
+                setFieldError(multiplierInput, multiplierError, b);
+                startBtn.disabled = !(a.valid && b.valid);
+                if(a.valid && b.valid) clearSetupMessage();
+                return { a, b };
+            }
+
+            function digitArrayLsd(text) {
+                return [...normalizeIntegerText(text)].reverse().map((digit) => Number(digit));
+            }
+
+            function multiplyByDigitShifted(multiplicandText, digit, shift) {
+                const baseDigits = [...multiplicandText];
+                let carry = 0;
+                const result = [];
+
+                for(let i = baseDigits.length - 1; i >= 0; i--) {
+                    const product = Number(baseDigits[i]) * digit + carry;
+                    result.push(product % 10);
+                    carry = Math.floor(product / 10);
+                }
+
+                while(carry > 0) {
+                    result.push(carry % 10);
+                    carry = Math.floor(carry / 10);
+                }
+
+                while(result.length > 1 && result[result.length - 1] === 0) {
+                    result.pop();
+                }
+
+                if(digit !== 0) {
+                    for(let i = 0; i < shift; i++) result.unshift(0);
+                }
+
+                return result;
+            }
+
+            function digitArrayText(digits) {
+                return normalizeIntegerText(digits.slice().reverse().join(''));
+            }
+
+            function applyWorkingRows(partialCount, hasFinalAddition) {
+                const rows = ['var(--top-row)', 'var(--multiplier-row)', 'var(--line-row)'];
+                for(let partial = 0; partial < partialCount; partial++) {
+                    rows.push('var(--carry-row)', 'var(--temp-row)', 'var(--result-row)');
+                }
+                if(hasFinalAddition) {
+                    rows.push('var(--line-row)', 'var(--carry-row)', 'var(--result-row)');
+                }
+                rows.push('var(--hint-row)');
+                workspace.style.gridTemplateRows = rows.join(' ');
+            }
+
+            function buildProblem(aInput, bInput) {
+                state.steps = [];
+                state.index = 0;
+                workspace.innerHTML = '';
+                workspace.classList.remove('complete');
+                workspace.style.gridTemplateRows = '';
+                summary.classList.remove('show');
+                summary.innerHTML = '';
+
+                const digits = normalizeIntegerText(aInput);
+                const multiplierDigits = normalizeIntegerText(bInput);
+                const productText = (BigInt(digits) * BigInt(multiplierDigits)).toString();
+                const productLength = productText.length;
+                const maxTopLength = Math.max(digits.length, multiplierDigits.length);
+                const cols = Math.max(10, Math.max(maxTopLength, productLength) + 6);
+                const rightCol = cols - 2;
+                const leftCol = rightCol - digits.length + 1;
+                const multiplierLeftCol = rightCol - multiplierDigits.length + 1;
+                const lineLeftCol = Math.min(leftCol - 1, multiplierLeftCol - 1, rightCol - productLength);
+                workspace.style.gridTemplateColumns = `repeat(${cols}, minmax(40px, 1fr))`;
+                const minGridWidth = cols * 40 + 60;
+                workspace.style.minWidth = minGridWidth > 600 ? `${minGridWidth}px` : '';
+
+                [...digits].forEach((digit, i) => put(digit, 1, leftCol + i, 'operand-digit', { factor: 'multiplicand', index: i }));
+                put('×', 2, multiplierLeftCol - 1, 'operator-sign');
+                [...multiplierDigits].forEach((digit, i) => put(digit, 2, multiplierLeftCol + i, 'operand-digit', {
+                    factor: 'multiplier',
+                    index: i,
+                    partial: multiplierDigits.length - 1 - i
+                }));
+                line(3, lineLeftCol, rightCol);
+
+                const partials = [];
+                const partialCount = multiplierDigits.length;
+
+                for(let partial = 0; partial < partialCount; partial++) {
+                    const mult = Number(multiplierDigits[multiplierDigits.length - 1 - partial]);
+                    const partialDigits = multiplyByDigitShifted(digits, mult, partial);
+                    const carryRow = 4 + partial * 3;
+                    const tempRow = carryRow + 1;
+                    const resultRow = carryRow + 2;
+                    const unitCol = rightCol - partial;
+
+                    for(let shift = 0; shift < partial; shift++) {
+                        put(0, resultRow, rightCol - shift, 'placed-answer-digit', { output: 'partial', partial });
+                    }
+
+                    let carry = 0;
+                    for(let pos = 0; pos < digits.length; pos++) {
+                        const digit = Number(digits[digits.length - 1 - pos]);
+                        const raw = digit * mult;
+                        const col = unitCol - pos;
+                        const last = pos === digits.length - 1;
+                        const old = carry;
+
+                        addStep({
+                            kind: 'raw',
+                            answer: String(raw),
+                            digit,
+                            mult,
+                            raw,
+                            old,
+                            col,
+                            last,
+                            partial,
+                            multiplicandCol: rightCol - pos,
+                            multiplierCol: rightCol - partial,
+                            carryRow,
+                            tempRow,
+                            resultRow,
+                            formula: `${digit} × ${mult}`
+                        });
+
+                        if(old) {
+                            const sum = old + (raw % 10);
+                            addStep({
+                                kind: 'sum',
+                                answer: String(sum),
+                                raw,
+                                old,
+                                col,
+                                last,
+                                partial,
+                                carryRow,
+                                tempRow,
+                                resultRow,
+                                formula: `${old} + ${raw % 10}`
+                            });
+                            const parts = [Math.floor(raw / 10), Math.floor(sum / 10)].filter(Number);
+                            if(parts.length === 2) {
+                                addStep({
+                                    kind: 'combine',
+                                    answer: String(parts[0] + parts[1]),
+                                    parts,
+                                    col,
+                                    last,
+                                    partial,
+                                    carryRow,
+                                    tempRow,
+                                    resultRow,
+                                    formula: `${parts[0]} + ${parts[1]}`
+                                });
+                            }
+                            carry = parts.reduce((total, part) => total + part, 0);
+                        } else {
+                            carry = Math.floor(raw / 10);
+                        }
+                    }
+
+                    partials.push({
+                        digits: partialDigits,
+                        text: digitArrayText(partialDigits),
+                        resultRow,
+                        partial
+                    });
+                }
+
+                const hasFinalAddition = partialCount > 1;
+                const finalLineRow = 4 + partialCount * 3;
+                const addCarryRow = finalLineRow + 1;
+                const finalResultRow = finalLineRow + 2;
+
+                if(hasFinalAddition) {
+                    line(finalLineRow, lineLeftCol, rightCol, { role: 'finalLine' });
+                    let addCarry = 0;
+                    for(let pos = 0; pos < productLength; pos++) {
+                        const terms = partials.map((partial) => partial.digits[pos] || 0);
+                        const formulaTerms = addCarry ? [...terms, addCarry] : terms;
+                        const sum = terms.reduce((total, term) => total + term, addCarry);
+                        addStep({
+                            kind: 'add',
+                            answer: String(sum),
+                            col: rightCol - pos,
+                            carryRow: addCarryRow,
+                            resultRow: finalResultRow,
+                            formula: formulaTerms.join(' + '),
+                            last: pos === productLength - 1
+                        });
+                        addCarry = Math.floor(sum / 10);
+                    }
+                }
+
+                state.problem = {
+                    a: digits,
+                    b: multiplierDigits,
+                    partialCount,
+                    hasFinalAddition,
+                    partials,
+                    finalLineRow,
+                    finalResultRow,
+                    productText
+                };
+
+                applyWorkingRows(partialCount, hasFinalAddition);
+                const spacerRow = hasFinalAddition ? finalResultRow + 1 : 7 + (partialCount - 1) * 3;
+                el('div', 'hint-spacer', '', spacerRow, '1/-1');
+                const hint = document.createElement('div');
+                hint.className = 'formula-popover is-hidden';
+                hint.innerHTML = '<span class="formula-text"></span><button class="popover-help" type="button" aria-label="Show me one step">?</button>';
+                hint.querySelector('button').addEventListener('click', help);
+                workspace.append(hint);
+
+                controls.style.display = 'flex';
+                activate();
+            }
+
+            function render(step) {
+                const input = document.createElement('input');
+                input.id = `s${step.n}`;
+                input.className = `digit-input${step.kind === 'raw' ? ' full-product-input' : ' sum-input'}`;
+                input.style.gridRow = step.resultRow;
+                input.style.gridColumn = step.kind === 'raw' ? `${step.col - 1} / span 2` : (step.kind === 'combine' ? step.col - 1 : step.col);
+                input.dataset.answer = step.answer;
+                input.inputMode = 'numeric';
+                input.autocomplete = 'off';
+                input.disabled = true;
+                input.addEventListener('input', () => checkInput(input));
+                workspace.append(input);
+            }
+
+            function clearFocus() {
+                workspace.querySelectorAll('.is-focus-source').forEach((node) => node.classList.remove('is-focus-source'));
+            }
+
+            function clearFactorHighlights() {
+                workspace.querySelectorAll('.is-round-factor,.is-current-factor').forEach((node) => {
+                    node.classList.remove('is-round-factor', 'is-current-factor');
+                });
+            }
+
+            function updateFactorHighlights(step) {
+                clearFactorHighlights();
+                if(!step || step.partial === undefined || !['raw', 'sum', 'combine'].includes(step.kind)) return;
+
+                const multiplicandDigits = workspace.querySelectorAll('.operand-digit[data-factor="multiplicand"]');
+                const multiplierDigit = workspace.querySelector(`.operand-digit[data-factor="multiplier"][data-partial="${step.partial}"]`);
+
+                multiplicandDigits.forEach((node) => node.classList.add('is-round-factor'));
+                if(multiplierDigit) multiplierDigit.classList.add('is-round-factor');
+
+                if(step.kind !== 'raw') return;
+
+                const currentMultiplicandDigit = Array.from(multiplicandDigits).find((node) => (
+                    node.style.gridColumn === String(step.multiplicandCol)
+                ));
+                if(currentMultiplicandDigit) currentMultiplicandDigit.classList.add('is-current-factor');
+                if(multiplierDigit) multiplierDigit.classList.add('is-current-factor');
+            }
+
+            function clearColumnLayer(row, col, selector) {
+                workspace.querySelectorAll(selector).forEach((node) => {
+                    if(node.style.gridRow === String(row) && node.style.gridColumn === String(col)) node.remove();
+                });
+            }
+
+            function clearTemporaryWork() {
+                workspace.querySelectorAll('.carry-old,.carry-new,.temp-product-digit').forEach((node) => node.remove());
+            }
+
+            function findCarry(col, row) {
+                return Array.from(workspace.querySelectorAll('.carry-old')).find((node) => (
+                    node.style.gridColumn === String(col) && node.style.gridRow === String(row)
+                ));
+            }
+
+            function showRaw(step) {
+                const input = document.getElementById(`s${step.n}`);
+                if(input) input.remove();
+                clearFocus();
+
+                const ones = step.raw % 10;
+                const tens = Math.floor(step.raw / 10);
+
+                if(!step.old) {
+                    put(ones, step.resultRow, step.col, 'placed-answer-digit', { output: 'partial', partial: step.partial });
+                    if(tens) {
+                        if(step.last) put(tens, step.resultRow, step.col - 1, 'placed-answer-digit', { output: 'partial', partial: step.partial });
+                        else put(tens, step.carryRow, step.col - 1, 'carry-old');
+                    }
+                    return;
+                }
+
+                if(tens) put(tens, step.tempRow, step.col - 1, 'temp-product-digit');
+                put(ones, step.tempRow, step.col, 'temp-product-digit unit is-focus-source');
+                const oldCarry = findCarry(step.col, step.carryRow);
+                if(oldCarry) oldCarry.classList.add('is-focus-source');
+            }
+
+            function resolve(step) {
+                const input = document.getElementById(`s${step.n}`);
+                if(input) input.remove();
+                clearFocus();
+
+                if(step.kind === 'sum') {
+                    const result = Number(step.answer);
+                    const resultOnes = result % 10;
+                    const sumCarry = Math.floor(result / 10);
+                    const rawTens = Math.floor(step.raw / 10);
+                    const hasCombine = state.steps.slice(state.index + 1).some((next) => (
+                        next.kind === 'combine' && next.col === step.col && next.partial === step.partial
+                    ));
+
+                    put(resultOnes, step.resultRow, step.col, 'placed-answer-digit', { output: 'partial', partial: step.partial });
+                    clearColumnLayer(step.carryRow, step.col, '.carry-old');
+                    clearColumnLayer(step.tempRow, step.col, '.temp-product-digit');
+
+                    if(hasCombine) {
+                        clearColumnLayer(step.tempRow, step.col - 1, '.temp-product-digit');
+                        put(rawTens, step.tempRow, step.col - 1, 'temp-product-digit is-focus-source');
+                        put(sumCarry, step.carryRow, step.col - 1, 'carry-new is-focus-source');
+                        return;
+                    }
+
+                    clearColumnLayer(step.tempRow, step.col - 1, '.temp-product-digit');
+                    const nextCarry = rawTens + sumCarry;
+                    if(nextCarry) {
+                        if(step.last) put(nextCarry, step.resultRow, step.col - 1, 'placed-answer-digit', { output: 'partial', partial: step.partial });
+                        else put(nextCarry, step.carryRow, step.col - 1, 'carry-old');
+                    }
+                    return;
+                }
+
+                if(step.kind === 'combine') {
+                    clearColumnLayer(step.carryRow, step.col - 1, '.carry-new');
+                    clearColumnLayer(step.tempRow, step.col - 1, '.temp-product-digit');
+                    if(step.last) put(step.answer, step.resultRow, step.col - 1, 'placed-answer-digit', { output: 'partial', partial: step.partial });
+                    else put(step.answer, step.carryRow, step.col - 1, 'carry-old');
+                    return;
+                }
+
+                if(step.kind === 'add') {
+                    const result = Number(step.answer);
+                    const resultOnes = result % 10;
+                    const nextCarry = Math.floor(result / 10);
+
+                    clearColumnLayer(step.carryRow, step.col, '.carry-old');
+                    put(resultOnes, step.resultRow, step.col, 'placed-answer-digit', { output: 'final' });
+
+                    if(nextCarry) {
+                        if(step.last) put(nextCarry, step.resultRow, step.col - 1, 'placed-answer-digit', { output: 'final' });
+                        else put(nextCarry, step.carryRow, step.col - 1, 'carry-old');
+                    }
+                }
+            }
+
+            function checkInput(input) {
+                input.classList.remove('wrong');
+                if(input.value === input.dataset.answer) {
+                    const step = state.steps[Number(input.id.slice(1))];
+                    if(step.kind === 'raw') showRaw(step);
+                    else resolve(step);
+                    state.index++;
+                    activate();
+                } else if(input.value.length >= input.dataset.answer.length) {
+                    input.classList.add('wrong');
+                    setTimeout(() => {
+                        if(input.isConnected) input.value = '';
+                    }, 600);
+                }
+            }
+
+            function compactCompletedLayout() {
+                const problem = state.problem;
+                if(!problem.hasFinalAddition) {
+                    workspace.style.gridTemplateRows = '38px 38px 10px 38px';
+                    workspace.querySelectorAll('.placed-answer-digit').forEach((node) => {
+                        node.style.gridRow = 4;
+                    });
+                    return;
+                }
+
+                const rows = ['38px', '38px', '10px'];
+                for(let partial = 0; partial < problem.partialCount; partial++) {
+                    const targetRow = 4 + partial;
+                    workspace.querySelectorAll(`.placed-answer-digit[data-output="partial"][data-partial="${partial}"]`).forEach((node) => {
+                        node.style.gridRow = targetRow;
+                    });
+                    rows.push('38px');
+                }
+
+                const finalLineTargetRow = 4 + problem.partialCount;
+                const finalResultTargetRow = finalLineTargetRow + 1;
+                const finalLine = workspace.querySelector('.work-line[data-role="finalLine"]');
+                if(finalLine) finalLine.style.gridRow = finalLineTargetRow;
+                workspace.querySelectorAll('.placed-answer-digit[data-output="final"]').forEach((node) => {
+                    node.style.gridRow = finalResultTargetRow;
+                });
+                rows.push('10px', '38px');
+                workspace.style.gridTemplateRows = rows.join(' ');
+            }
+
+            function positionHint(input) {
+                const hint = workspace.querySelector('.formula-popover');
+                if(!hint || hint.classList.contains('is-hidden') || !input) return;
+                const pad = 10;
+                const width = hint.offsetWidth || 180;
+                const contentWidth = Math.max(workspace.scrollWidth, workspace.clientWidth);
+                const center = input.offsetLeft + input.offsetWidth / 2;
+                const left = Math.max(pad, Math.min(center - width / 2, contentWidth - width - pad));
+                hint.style.left = `${left}px`;
+                hint.style.top = `${input.offsetTop + input.offsetHeight + 9}px`;
+                hint.style.setProperty('--arrow-left', `${center - left}px`);
+
+                const shell = workspace.parentElement;
+                if(shell && shell.classList.contains('workspace-shell')) {
+                    const targetLeft = Math.max(0, Math.min(input.offsetLeft, left) - pad);
+                    const targetRight = Math.max(input.offsetLeft + input.offsetWidth, left + width) + pad;
+                    const viewLeft = shell.scrollLeft;
+                    const viewRight = viewLeft + shell.clientWidth;
+                    if(targetLeft < viewLeft) shell.scrollLeft = targetLeft;
+                    else if(targetRight > viewRight) shell.scrollLeft = targetRight - shell.clientWidth;
+                }
+            }
+
+            function activate() {
+                const hint = workspace.querySelector('.formula-popover');
+                if(state.index >= state.steps.length) {
+                    controls.style.display = 'none';
+                    if(hint) hint.classList.add('is-hidden');
+                    clearFactorHighlights();
+                    clearTemporaryWork();
+                    workspace.querySelectorAll('.hint-spacer').forEach((node) => node.remove());
+                    workspace.classList.add('complete');
+                    compactCompletedLayout();
+                    const problem = state.problem;
+                    summary.innerHTML = `<span class="result-summary-label">Correct!</span><span class="result-summary-equation">${problem.a} × ${problem.b} = ${problem.productText}</span>`;
+                    summary.classList.add('show');
+                    return;
+                }
+
+                const step = state.steps[state.index];
+                updateFactorHighlights(step);
+                let input = document.getElementById(`s${step.n}`);
+                if(!input) {
+                    render(step);
+                    input = document.getElementById(`s${step.n}`);
+                }
+
+                input.disabled = false;
+                input.focus();
+                hint.querySelector('.formula-text').textContent = step.formula;
+                hint.classList.remove('is-hidden');
+                positionHint(input);
+                requestAnimationFrame(() => positionHint(input));
+            }
+
+            function help() {
+                const input = document.getElementById(`s${state.index}`);
+                if(!input) return;
+                input.value = input.dataset.answer;
+                checkInput(input);
+            }
+
+            startBtn.addEventListener('click', () => {
+                const validation = updateSetupValidation(true);
+                if(!validation.a.valid) {
+                    showSetupMessage(validation.a.message || 'Use a whole-number multiplicand from 0 to 99999999.');
+                    return;
+                }
+                if(!validation.b.valid) {
+                    showSetupMessage(validation.b.message || 'Use a whole-number multiplier from 1 to 99999999.');
+                    return;
+                }
+                clearSetupMessage();
+                buildProblem(validation.a.normalized, validation.b.normalized);
+            });
+
+            helpBtn.addEventListener('click', help);
+            [multiplicandInput, multiplierInput].forEach((input) => input.addEventListener('input', () => updateSetupValidation(false)));
+            window.addEventListener('resize', () => positionHint(document.getElementById(`s${state.index}`)));
+            window.longMultiplicationTutor = { build: buildProblem, steps: () => state.steps, help };
+            updateSetupValidation(false);
+        }
+    </script>
+</body>
+
+</html>

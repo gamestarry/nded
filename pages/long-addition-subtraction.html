@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Practice long addition with carrying and long subtraction with borrowing through clear, step-by-step practice that helps students work one column at a time.">
+  <meta name="author" content="NDED">
+  <title>Long Addition and Subtraction Tutor – Step-by-Step Practice | NDED</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://nd-ed.org/pages/long-addition-subtraction">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "NDED Long Addition and Subtraction Tutor",
+    "url": "https://nd-ed.org/pages/long-addition-subtraction",
+    "description": "A free interactive tool that helps students practice long addition with carrying and long subtraction with borrowing, one step at a time.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "NDED",
+      "url": "https://nd-ed.org/"
+    }
+  }
+  </script>
+  <link rel="stylesheet" href="../css/template.css">
+  <style>
+    /* Long Subtraction Tutor: single production implementation. */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { overflow-x: hidden; }
+    header .main-title { margin-bottom: 0; }
+    .main-content { min-width: 0; }
+    .long-subtraction-page { gap: 1.5rem; overflow: hidden; min-width: 0; }
+    .subtraction-hero { max-width: 980px; margin: 0 auto .35rem; text-align: center; }
+    .subtraction-hero h1 {
+      color: var(--primary-color,#2f66d8);
+      font: 700 clamp(2rem,4vw,3.15rem)/1.15 'Raleway',sans-serif;
+      margin: 0 0 .65rem; overflow-wrap: anywhere;
+    }
+    .subtraction-hero p {
+      max-width: 760px; margin: 0 auto; color: #4a5568;
+      font-size: 1.06rem; text-align: center;
+    }
+    .subtraction-tool {
+      --primary: #2f66d8; --primary-dark: #2457bf; --primary-soft: #eff6ff;
+      --error: #ef4444; --teacher-bg: #fffaf0; --teacher-border: #f1dfb6;
+      --teacher-text: #7a5a1e; --ink: #172033; --muted: #64748b;
+      --line: #d9e1ec; --surface: #fff; --page: #f4f7fb;
+      width: 100%; max-width: 1040px; margin: 0 auto 1.8rem;
+      padding: 30px 24px 34px;
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+      color: var(--ink); background: var(--page);
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .subtraction-tool .tool-title {
+      width: 100%; margin: 0 0 14px; color: var(--primary-color,#2f66d8);
+      font-size: 1.22rem; text-align: center;
+    }
+    .problem-setup { width: 100%; margin: 0 auto 22px; }
+    .setup-area {
+      display: grid; grid-template-columns: auto max-content; align-items: end;
+      justify-content: center; gap: 12px; background: rgba(255,255,255,.96);
+      padding: 18px 20px; border: 1px solid #e7edf5; border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(42,61,92,.08);
+    }
+    .operand-pair {
+      display: grid; grid-template-columns: 180px auto 180px;
+      align-items: center; column-gap: 12px;
+    }
+    .setup-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .setup-field label { color: var(--muted); font-size: .82rem; font-weight: 750; }
+    .setup-field input {
+      width: 180px; height: 54px; padding: 8px 12px; font-size: 1.08rem;
+      font-weight: 500; text-align: center; color: var(--ink); background: #fbfdff;
+      border: 2px solid #dbe3ee; border-radius: 12px; outline: none;
+      transition: border-color .18s, box-shadow .18s, background .18s;
+    }
+    .setup-field input:focus {
+      border-color: #8fb2f2; box-shadow: 0 0 0 4px rgba(47,102,216,.10);
+      background: #fff;
+    }
+    .setup-field .setup-error {
+      min-height: 1.1rem; font-size: .76rem; font-weight: 650;
+      color: var(--error); line-height: 1.25;
+    }
+    .setup-field .setup-error:empty { visibility: hidden; }
+    .setup-field input.input-error {
+      border-color: var(--error); background: #fff8f8;
+      box-shadow: 0 0 0 4px rgba(220,38,38,.08);
+    }
+    .operand-pair > span {
+      font-size: 1.35rem; color: #4b5563;
+      font-weight: 700; align-self: center;
+    }
+    .btn-start, .btn-help {
+      font-family: inherit; border: 0; cursor: pointer;
+      transition: transform .16s, box-shadow .16s, background .16s;
+    }
+    .btn-start {
+      min-height: 54px; align-self: center; background: var(--primary);
+      color: white; padding: 0 26px; border-radius: 12px; font-size: 1.05rem;
+      font-weight: 700; box-shadow: 0 7px 16px rgba(47,102,216,.18);
+    }
+    .btn-start:hover:enabled { background: var(--primary-dark); transform: translateY(-1px); }
+    .btn-start:disabled {
+      cursor: not-allowed; background: #a8b5c8; opacity: .85; box-shadow: none;
+    }
+    .setup-message {
+      min-height: 1.35em; margin: 10px auto 6px;
+      text-align: center; color: var(--error); font-size: .88rem; font-weight: 650;
+    }
+    .setup-note {
+      max-width: 650px; margin: 0 auto; color: var(--muted);
+      font-size: .88rem; line-height: 1.5; text-align: center;
+    }
+    .work-instruction {
+      width: 100%; min-height: 1.5em; margin: 0 auto 12px;
+      color: #42628d; font-size: .92rem; font-weight: 600;
+      line-height: 1.5; text-align: center;
+    }
+    .work-instruction:empty { display: none; }
+    .workspace-shell {
+      width: 100%; max-width: 980px; margin: 0 auto;
+      background: var(--surface); border: 1px solid #e6ecf3;
+      border-radius: 18px; box-shadow: 0 16px 38px rgba(36,52,79,.09);
+      overflow-x: auto; overflow-y: visible;
+    }
+    .subtraction-workspace {
+      --guide-row: 66px; --borrow-row: 40px; --top-row: 42px; --second-row: 38px;
+      --line-row: 8px; --result-row: 50px; --hint-row: 58px;
+      display: grid; width: 100%; min-width: 0; padding: 17px 30px 24px;
+      grid-template-rows: var(--guide-row) var(--borrow-row) var(--top-row)
+        var(--second-row) var(--line-row) var(--result-row) var(--hint-row);
+      font: 2.2rem 'Courier New',Courier,monospace;
+      position: relative; background: transparent;
+    }
+    .operand-digit, .operator-sign, .placed-answer-digit, .borrow-overlay {
+      display: flex; align-items: center; justify-content: center;
+      justify-self: stretch; width: 100%; text-align: center;
+    }
+    .operand-digit {
+      position: relative; margin: 0; padding: 0; border: 0;
+      background: transparent; color: var(--ink); font: inherit;
+      cursor: default; border-radius: 10px;
+    }
+    .operand-digit.is-round-factor {
+      color: #315fae; background: rgba(49,95,174,.10);
+    }
+    .operand-digit.is-current-factor {
+      color: #1f4f9f; background: rgba(49,95,174,.16);
+      outline: 3px solid rgba(49,95,174,.58); outline-offset: -3px;
+      box-shadow: 0 0 0 3px rgba(255,255,255,.92); z-index: 8;
+    }
+    .operand-digit.is-source {
+      color: #1f4f9f; background: #e4eeff;
+      outline: 3px solid #6f94ce; outline-offset: -3px; z-index: 8;
+    }
+    .operand-digit.has-regroup::after {
+      content: ''; position: absolute; left: 15%; top: 50%; width: 70%;
+      height: 2px; background: #cc8189; border-radius: 1px;
+      transform: rotate(-38deg); opacity: .88; pointer-events: none;
+    }
+    .operator-sign { font-weight: 700; }
+    .placed-answer-digit {
+      align-self: center; color: var(--ink);
+      font-size: 2.2rem; line-height: 1;
+    }
+    /* Borrowed values belong ABOVE their original digits, never in the
+       answer row. The teaching prompt also stays next to that upper box. */
+    .borrow-overlay {
+      align-self: center; justify-self: center; width: max-content;
+      min-width: 34px; max-width: none; height: 31px; padding: 0 5px;
+      color: #315fae; background: #eaf2ff; border-radius: 8px;
+      font: 800 1.28rem/1 'Courier New',monospace;
+      z-index: 6; font-variant-numeric: tabular-nums;
+    }
+    .borrow-overlay.borrow-arrive {
+      animation: borrow-arrive .38s ease-out both;
+    }
+    @keyframes borrow-arrive {
+      from { opacity: 0; transform: translateX(-9px) scale(.88); }
+      to { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    .work-line {
+      border-bottom: 3px solid #2b2f36; height: 0; align-self: center;
+    }
+    .digit-input {
+      height: 40px; font: 500 1.8rem 'Courier New',Courier,monospace;
+      text-align: right; direction: ltr; padding: 0 9px 0 4px;
+      font-variant-numeric: tabular-nums; color: var(--ink);
+      border: 2px solid #9cbcf1; border-radius: 8px;
+      background: #f8fbff; outline: 0; z-index: 7; justify-self: center;
+      box-shadow: 0 0 0 4px rgba(47,102,216,.09);
+      transition: border-color .2s, background .2s, box-shadow .2s;
+    }
+    .digit-input:focus { border-color: #638ce0; }
+    .unit-answer-input { width: 46px; min-width: 46px; }
+    .borrow-wide-input { width: 70px; min-width: 70px; }
+    .borrow-entry { border-color: #6f94ce; background: #f5f9ff; }
+    .digit-input.wrong {
+      border-color: var(--error); background: #fff7f7;
+      box-shadow: 0 0 0 4px rgba(239,68,68,.08);
+      animation: shake .4s ease-in-out;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+    .hint-spacer {
+      grid-column: 1 / -1; height: var(--hint-row); pointer-events: none;
+    }
+    .formula-popover {
+      position: absolute; left: 0; top: 0; min-width: 118px;
+      max-width: min(250px,calc(100% - 16px));
+      padding: 9px 45px 9px 13px;
+      border: 1px solid var(--teacher-border); border-radius: 11px;
+      background: var(--teacher-bg); color: var(--teacher-text);
+      box-shadow: 0 8px 20px rgba(88,68,28,.10);
+      font: 650 .98rem/1.25 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+      text-align: center; z-index: 20; white-space: nowrap; pointer-events: auto;
+    }
+    .formula-popover.is-hidden { display: none; }
+    .formula-popover::before {
+      content: ''; position: absolute; top: -7px; left: var(--arrow-left,50%);
+      width: 12px; height: 12px; background: var(--teacher-bg);
+      border-left: 1px solid var(--teacher-border);
+      border-top: 1px solid var(--teacher-border);
+      transform: translateX(-50%) rotate(45deg);
+    }
+    .formula-popover::after {
+      content: '↑'; position: absolute; top: -20px;
+      left: var(--arrow-left,50%); transform: translateX(-50%);
+      color: var(--primary); font-size: .95rem; font-weight: 800;
+    }
+    .formula-popover.is-above::before {
+      top: auto; bottom: -7px;
+      border-left: 0; border-top: 0;
+      border-right: 1px solid var(--teacher-border);
+      border-bottom: 1px solid var(--teacher-border);
+    }
+    .formula-popover.is-above::after { content: '↓'; top: auto; bottom: -20px; }
+    .popover-help {
+      position: absolute; right: 9px; top: 50%; transform: translateY(-50%);
+      width: 32px; height: 32px; padding: 0;
+      border: 2px solid #7fa7e8; border-radius: 50%;
+      background: #fff; color: #2f66d8;
+      font: 800 1rem/1 system-ui; display: flex; align-items: center;
+      justify-content: center; cursor: pointer;
+      box-shadow: 0 5px 12px rgba(47,102,216,.10);
+    }
+    .popover-help:hover { background: var(--primary-soft); }
+    .controls { display: flex; justify-content: center; gap: 15px; margin-top: 18px; }
+    .btn-help {
+      min-height: 50px; background: #fff; color: #315fae;
+      border: 1px solid #cddcf3; padding: 0 24px;
+      border-radius: 12px; font-size: 1rem; font-weight: 700;
+      box-shadow: 0 7px 18px rgba(45,72,110,.07);
+    }
+    .btn-help:hover { background: var(--primary-soft); }
+    .help-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 21px; height: 21px; margin-right: 7px;
+      border: 1.7px solid currentColor; border-radius: 50%;
+      font-size: .82rem; font-weight: 800;
+    }
+    .step-feedback {
+      min-height: 1.35em; margin: 10px auto 0; color: #ad4250;
+      font-size: .88rem; text-align: center; font-weight: 600;
+    }
+    .result-summary {
+      display: none; width: min(100%,620px); margin: 18px auto 0;
+      padding: 12px 18px; color: var(--ink); text-align: center;
+      background: rgba(255,255,255,.9); border: 1px solid #dfe6ef;
+      border-radius: 12px; font-size: 1.15rem; font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+    .result-summary.show { display: block; }
+    .result-summary-label {
+      display: block; margin-bottom: 4px; color: var(--muted);
+      font-size: .82rem; letter-spacing: .02em; text-transform: uppercase;
+    }
+    .result-summary-equation { display: block; font-size: 1.18rem; }
+    .subtraction-workspace.complete {
+      grid-template-rows: 40px 40px 10px 40px;
+      padding-top: 20px; padding-bottom: 22px; align-items: center;
+    }
+    .subtraction-workspace.complete .work-line { align-self: center; }
+
+    /* Borrowing model: settle the small −1 explicitly before normal subtraction. A lending column
+       keeps a small -1 note until that column is handled. */
+    .borrow-debt {
+      align-self: end; justify-self: center; min-width: 28px; height: 24px;
+      padding: 2px 5px; color: #315fae; background: #f7faff;
+      border: 1px dashed #9db7ee; border-radius: 8px;
+      font: 800 .82rem/1 'Courier New',monospace;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9;
+    }
+    .borrow-pending {
+      width: 46px; min-width: 46px; height: 40px; justify-self: center;
+      display: flex; align-items: center; justify-content: center;
+      color: #5f79a8; background: #fbfdff;
+      border: 2px dashed #adc2e6; border-radius: 8px;
+      font: 700 1.45rem/1 'Courier New',monospace;
+      z-index: 7;
+    }
+    .popover-borrow {
+      min-height: 30px; margin-left: 8px; margin-right: 2px;
+      padding: 0 10px; border: 0; border-radius: 9px;
+      background: var(--primary); color: #fff; cursor: pointer;
+      font: 750 .82rem/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+      box-shadow: 0 5px 12px rgba(47,102,216,.16);
+      vertical-align: middle;
+    }
+    .popover-borrow:hover { background: var(--primary-dark); }
+    .popover-borrow.is-hidden { display: none; }
+    .formula-popover.has-borrow-action {
+      min-width: 205px; max-width: min(360px,calc(100% - 16px));
+      padding-right: 45px; display: flex; align-items: center;
+      justify-content: center; gap: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .borrow-overlay.borrow-arrive { animation: none; }
+      .digit-input.wrong { animation: none; }
+    }
+    @media (max-width: 1200px) {
+      .setup-area { grid-template-columns: 1fr; }
+      .operand-pair {
+        width: 100%; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
+      }
+      .operand-pair .setup-field input { width: 100%; }
+      .setup-area .btn-start { justify-self: center; }
+    }
+    @media (max-width: 600px) {
+      .long-subtraction-page { padding: 14px !important; }
+      .subtraction-tool { padding: 20px 6px 36px; }
+      .subtraction-hero h1 { font-size: 1.7rem; }
+      .subtraction-hero p { overflow-wrap: anywhere; }
+      .workspace-shell { width: calc(100% - 12px); overflow-x: auto; }
+      .setup-area { width: 100%; padding: 14px; }
+      .setup-area .btn-start { width: 100%; }
+      .subtraction-workspace {
+        --guide-row: 61px; --borrow-row: 37px; --top-row: 36px; --second-row: 34px;
+        --line-row: 7px; --result-row: 42px; --hint-row: 52px;
+        min-width: 510px; padding: 16px 20px 24px; font-size: 1.65rem;
+      }
+      .digit-input { height: 33px; font-size: 1.35rem; padding: 0 8px 0 3px; }
+      .unit-answer-input { width: 40px; min-width: 40px; }
+      .borrow-wide-input { width: 59px; min-width: 59px; }
+      .borrow-overlay { height: 28px; min-width: 28px; font-size: 1.08rem; }
+      .borrow-debt { height: 22px; min-width: 24px; font-size: .72rem; }
+      .borrow-pending { width: 40px; min-width: 40px; height: 33px; font-size: 1.2rem; }
+      .popover-borrow { min-height: 28px; padding: 0 8px; font-size: .76rem; }
+      .formula-popover {
+        font-size: .92rem; min-width: 104px; padding: 8px 42px 8px 12px;
+      }
+      .subtraction-workspace.complete { grid-template-rows: 34px 34px 10px 34px; }
+    }
+
+    .subtraction-content {
+      width: 100%; max-width: 980px; margin: 28px auto 0;
+      display: grid; gap: 22px;
+    }
+    .subtraction-content .content-card {
+      background: rgba(255,255,255,.96); border: 1px solid #e7edf5;
+      border-radius: 16px; padding: 24px;
+      box-shadow: 0 12px 30px rgba(42,61,92,.07);
+    }
+    .subtraction-content .content-card h2 {
+      margin: 0 0 14px; color: var(--primary-color,#2f66d8);
+      font-size: clamp(1.35rem,2.5vw,1.8rem); line-height: 1.25;
+    }
+    .subtraction-content .content-card h3 {
+      margin: 18px 0 8px; color: #172033; font-size: 1.05rem;
+    }
+    .subtraction-content .content-card p,
+    .subtraction-content .content-card li {
+      color: #4a5568; font-size: 1rem; line-height: 1.65;
+    }
+    .subtraction-content .content-card p { margin: 0 0 12px; }
+    .subtraction-content .content-card ol,
+    .subtraction-content .content-card ul { margin: 0; padding-left: 1.35rem; }
+    .subtraction-content .example-equations {
+      display: grid; gap: 7px; margin: 14px 0;
+      font-family: 'Courier New',Courier,monospace; color: #172033; font-size: 1.06rem;
+    }
+    .subtraction-content .static-vertical-example {
+      display: inline-block; margin: 10px 0 14px; padding: 14px 18px;
+      background: #fbfdff; border: 1px solid #e1e8f2; border-radius: 12px;
+      color: #172033; font: 700 1.12rem/1.35 'Courier New',Courier,monospace;
+      white-space: pre;
+    }
+    .subtraction-content .borrow-demo-grid {
+      display: grid; grid-template-columns: repeat(4,minmax(0,1fr));
+      gap: 12px; margin: 16px 0 8px;
+    }
+    .subtraction-content .borrow-demo-step {
+      min-width: 0; padding: 16px; background: #fbfdff;
+      border: 1px solid #e1e8f2; border-radius: 12px;
+    }
+    .subtraction-content .borrow-demo-step h3 {
+      margin: 0 0 9px; color: var(--primary-color,#2f66d8);
+    }
+    .subtraction-content .borrow-demo-step p:last-child { margin-bottom: 0; }
+    .subtraction-content .borrow-demo-math {
+      margin: 7px 0; color: #172033;
+      font: 700 1.03rem/1.45 'Courier New',Courier,monospace;
+      overflow-wrap: anywhere;
+    }
+    .subtraction-content .borrow-mark { color: #315fae; font-weight: 800; }
+    @media (max-width: 760px) {
+      .subtraction-content .borrow-demo-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    }
+    @media (max-width: 520px) {
+      .subtraction-content { width: calc(100vw - 24px); max-width: calc(100vw - 24px); margin-left: 0; margin-right: 0; }
+      .subtraction-content .borrow-demo-grid { grid-template-columns: 1fr; }
+      .subtraction-content .content-card { padding: 18px; }
+      .subtraction-content .content-card p,
+      .subtraction-content .content-card li { overflow-wrap: anywhere; }
+    }
+
+
+    /* Combined addition and subtraction tutor. Reuse the verified subtraction shell;
+       only the math engine and row layout switch by operation. */
+    .operation-switch {
+      display: flex; justify-content: center; gap: 8px; margin: 0 auto 14px;
+      padding: 5px; width: fit-content; max-width: 100%;
+      background: #eef3fa; border: 1px solid #dbe4f0; border-radius: 14px;
+    }
+    .operation-choice {
+      min-width: 138px; min-height: 44px; padding: 0 18px;
+      border: 0; border-radius: 10px; background: transparent; color: #53657d;
+      font: 750 .98rem/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+      cursor: pointer; transition: background .16s, color .16s, box-shadow .16s, transform .16s;
+    }
+    .operation-choice:hover { background: rgba(255,255,255,.7); }
+    .operation-choice.active {
+      color: #2457bf; background: #fff; box-shadow: 0 5px 14px rgba(45,72,110,.10);
+    }
+    .operation-choice .op-symbol { margin-right: 6px; font-size: 1.15em; }
+
+    /* Addition uses the same operand/highlight/popover language but a shorter working grid. */
+    .arithmetic-workspace.addition-mode {
+      --top-row: 38px; --second-row: 34px; --line-row: 6px; --carry-row: 20px;
+      --temp-row: 26px; --result-row: 42px; --hint-row: 48px;
+      grid-template-rows: var(--top-row) var(--second-row) var(--line-row)
+        var(--carry-row) var(--temp-row) var(--result-row) var(--hint-row);
+      padding: 20px 30px 22px;
+    }
+    .addition-mode .work-line { align-self: start; }
+    .addition-mode .carry-old {
+      display: flex; align-items: center; justify-content: center; justify-self: stretch;
+      align-self: end; width: 100%; color: #315fae;
+      font: 800 1.25rem/1 'Courier New',monospace; z-index: 5;
+    }
+    .addition-mode .temp-sum-digit {
+      display: flex; align-items: center; justify-content: center; justify-self: stretch;
+      align-self: center; width: 100%; color: #315fae;
+      font: 800 1.35rem/26px 'Courier New',monospace; z-index: 4;
+    }
+    .addition-mode .is-focus-source {
+      color: #315fae; text-decoration: underline; text-decoration-color: #f1dfb6;
+      text-decoration-thickness: 3px; text-underline-offset: 5px;
+    }
+    .addition-mode .full-sum-input { width: 100%; min-width: 0; padding-right: 12px; }
+    .addition-mode.complete {
+      grid-template-rows: 38px 38px 10px 38px;
+      padding-top: 20px; padding-bottom: 22px; align-items: center;
+    }
+    .addition-mode.complete .work-line { align-self: center; }
+
+    /* The subtraction class retains the verified layout. */
+    .arithmetic-workspace.subtraction-mode {
+      --guide-row: 66px; --borrow-row: 40px; --top-row: 42px; --second-row: 38px;
+      --line-row: 8px; --result-row: 50px; --hint-row: 58px;
+      grid-template-rows: var(--guide-row) var(--borrow-row) var(--top-row)
+        var(--second-row) var(--line-row) var(--result-row) var(--hint-row);
+      padding: 17px 30px 24px;
+    }
+
+    @media (max-width: 600px) {
+      .operation-switch { width: calc(100% - 12px); }
+      .operation-choice { min-width: 0; flex: 1 1 0; padding: 0 10px; }
+      .arithmetic-workspace.addition-mode {
+        --top-row: 34px; --second-row: 30px; --line-row: 6px; --carry-row: 18px;
+        --temp-row: 24px; --result-row: 36px; --hint-row: 44px;
+        min-width: 510px; padding: 18px 20px 20px; font-size: 1.65rem;
+      }
+      .addition-mode .carry-old { font-size: .95rem; }
+      .addition-mode .temp-sum-digit { font-size: 1.05rem; line-height: 30px; }
+      .addition-mode.complete { grid-template-rows: 34px 34px 10px 34px; }
+    }
+</style>
+</head>
+<body>
+  <header><div class="container"><div class="main-title"><span class="nded-text">NDED</span><span class="subtitle">building mathematical confidence for life.</span></div></div></header>
+  <div class="main-row-container"><div class="wide-container"><div class="main-row">
+    <aside class="left-sidebar"><h3 class="nav-title">Navigation</h3><div class="nav-buttons">
+      <a href="/" class="nav-button"><i class="fas fa-home"></i> Home</a>
+      <a href="/about-us" class="nav-button"><i class="fas fa-info-circle"></i> About us</a>
+      <a href="/#math-games-section" class="nav-button"><i class="fas fa-gamepad"></i> Math Games</a>
+      <a href="https://matrixcalculator.net/" target="_blank" rel="noopener noreferrer" class="nav-button external"><i class="fas fa-calculator"></i> Matrix Calculator</a>
+    </div></aside>
+
+    <main class="main-content"><div class="dynamic-content-container long-subtraction-page">
+      <section class="subtraction-hero">
+        <h1>Long Addition and Subtraction Tutor</h1>
+        <p>Practice long addition with carrying and long subtraction with borrowing, one column at a time. Choose a problem and begin your step-by-step practice.</p>
+      </section>
+
+      <section class="subtraction-tool arithmetic-tool" aria-label="Interactive long addition and subtraction tutor">
+        <h2 class="tool-title" id="tool-title">Start a Long Addition Problem</h2>
+        <div class="problem-setup">
+          <div class="operation-switch" role="group" aria-label="Choose operation">
+            <button class="operation-choice active" type="button" data-mode="add" aria-pressed="true"><span class="op-symbol">+</span>Addition</button>
+            <button class="operation-choice" type="button" data-mode="subtract" aria-pressed="false"><span class="op-symbol">−</span>Subtraction</button>
+          </div>
+          <div class="setup-area">
+            <div class="operand-pair">
+              <div class="setup-field">
+                <label for="na">First number</label>
+                <input id="na" inputmode="numeric" placeholder="Up to 8 digits" autocomplete="off">
+                <div class="setup-error" id="na-error" aria-live="polite"></div>
+              </div>
+              <span id="setup-operator">+</span>
+              <div class="setup-field">
+                <label for="nb">Second number</label>
+                <input id="nb" inputmode="numeric" placeholder="Up to 8 digits" autocomplete="off">
+                <div class="setup-error" id="nb-error" aria-live="polite"></div>
+              </div>
+            </div>
+            <button class="btn-start" id="start" type="button" disabled>Start Addition</button>
+          </div>
+          <p class="setup-message" id="msg" aria-live="polite"></p>
+          <p class="setup-note" id="setup-note">Non-negative whole numbers only. Up to 8 digits per number.</p>
+        </div>
+
+        <p class="work-instruction" id="work-instruction" aria-live="polite"></p>
+        <div class="workspace-shell">
+          <div class="subtraction-workspace arithmetic-workspace addition-mode" id="workspace" aria-label="Vertical arithmetic workspace"></div>
+        </div>
+        <div class="controls" id="controls" style="display:none">
+          <button class="btn-help" id="help" type="button"><span class="help-icon">?</span>Show Me One Step</button>
+        </div>
+        <p class="step-feedback" id="step-feedback" role="status" aria-live="polite"></p>
+        <div class="result-summary" id="result-summary" aria-live="polite"></div>
+      </section>
+
+      <section class="subtraction-content" aria-label="Long addition and subtraction learning guide">
+        <article class="content-card">
+          <h2>How to Use This Addition and Subtraction Tutor</h2>
+          <ol>
+            <li><h3>Choose an operation</h3><p>Select Addition or Subtraction, then enter two non-negative whole numbers.</p></li>
+            <li><h3>Start your problem</h3><p>Choose Start Addition or Start Subtraction to set up the numbers vertically.</p></li>
+            <li><h3>Work one column at a time</h3><p>Follow the prompt, do the current calculation, and enter your answer before moving on.</p></li>
+            <li><h3>Use help when needed</h3><p>Show Me One Step completes only the step you are on, so you can continue the rest of the problem yourself.</p></li>
+          </ol>
+        </article>
+
+        <article class="content-card">
+          <h2>Long Addition With Carrying</h2>
+          <p>In long addition, begin in the ones column and move left. For <strong>478 + 256</strong>, first add 8 + 6. The answer is 14, so write 4 in the ones place.</p>
+          <div class="example-equations" aria-label="Long addition example for 478 plus 256">
+            <span>8 + 6 = 14</span>
+            <span>7 + 5 = 12, then add the carry of 1</span>
+            <span>4 + 2 = 6, then add the carry of 1</span>
+          </div>
+          <p>When a column makes a two-digit total, the Tutor shows the carry as its own next step. First calculate the two digits in the current column; if the previous column made a carry, handle that carry separately when the Tutor asks. This keeps place value clear and helps students see why 478 + 256 = 734.</p>
+          <p>The Tutor does not jump straight to the final answer. It guides you through each addition and carry so you can do the thinking.</p>
+        </article>
+
+        <article class="content-card">
+          <h2>Long Subtraction With Borrowing</h2>
+          <p>In long subtraction, start at the ones column. When the top digit is too small to subtract the bottom digit, choose <strong>Borrow 1</strong>. Borrowing is also called regrouping, but this Tutor uses the clear action name Borrow 1.</p>
+          <p>After you borrow, the current column receives ten more ones. The column that lent the ten has a small <span class="borrow-mark">−1</span> above it. Finish the current column first. When you move left, the Tutor asks you to deal with that <span class="borrow-mark">−1</span> before you do the normal subtraction in the new column.</p>
+          <p>This one-column-at-a-time order makes each change visible. It is especially useful when a zero appears in a subtraction problem.</p>
+        </article>
+
+        <article class="content-card">
+          <h2>Subtraction With Borrowing Across Zeros</h2>
+          <p>Try <strong>1204 − 38</strong>. Write 38 as 0038 so the places line up. The ones column, 4 − 8, needs a borrow. Choose Borrow 1, finish 14 − 8 = 6, and leave the small <span class="borrow-mark">−1</span> above the tens column.</p>
+          <div class="borrow-demo-grid" aria-label="Step-by-step borrowing across zeros example for 1204 minus 38">
+            <section class="borrow-demo-step"><h3>Ones</h3><p class="borrow-demo-math">14 − 8 = 6</p><p>The ones column borrows and is completed first.</p></section>
+            <section class="borrow-demo-step"><h3>Tens</h3><p class="borrow-demo-math">0 − 1 needs a borrow<br>9 − 3 = 6</p><p>Handle the <span class="borrow-mark">−1</span>, then subtract in the tens column.</p></section>
+            <section class="borrow-demo-step"><h3>Hundreds</h3><p class="borrow-demo-math">0 − 1 needs a borrow<br>9 − 0 = 9</p><p>Again, settle the <span class="borrow-mark">−1</span> before the normal subtraction.</p></section>
+            <section class="borrow-demo-step"><h3>Thousands</h3><p class="borrow-demo-math">1 − 1 = 0<br>0 − 0 = 0</p><p>The leftmost column finishes after its <span class="borrow-mark">−1</span> is handled.</p></section>
+          </div>
+          <p>The answer is 1166. The Tutor does not treat this as one big borrow from the thousands place to the ones place. Instead, it shows the borrowing work one column at a time.</p>
+        </article>
+
+        <article class="content-card">
+          <h2>Tips for Addition and Subtraction Practice</h2>
+          <ul>
+            <li>Line up digits by place value before you start.</li>
+            <li>Begin with the ones column and move left one column at a time.</li>
+            <li>In addition, watch for a carry after you finish the two digits in a column.</li>
+            <li>In subtraction, use Borrow 1 as soon as the top digit is too small.</li>
+            <li>Use Show Me One Step if you are stuck, then take the next step yourself.</li>
+            <li>Check the completed problem and explain one carry or borrow in your own words.</li>
+          </ul>
+        </article>
+
+        <article class="content-card">
+          <h2>For Parents and Teachers</h2>
+          <p>This Tutor supports standard vertical addition and subtraction practice without giving away the whole answer. Students work through carrying and borrowing in the order they happen, while prompts keep attention on the current column.</p>
+          <p>Use it for a short class demonstration, guided small-group practice, or independent work at home. Ask students to say why they carried or borrowed before they enter the next answer.</p>
+        </article>
+
+        <section class="content-card" aria-label="Long addition and subtraction frequently asked questions">
+          <h2>FAQ</h2>
+          <h3>Does this tutor show every step?</h3><p>It guides students through every needed column, including carries in addition and borrowing steps in subtraction. Students still enter the work themselves.</p>
+          <h3>What is carrying in addition?</h3><p>Carrying happens when a column total is 10 or more. You write the ones digit in the current column and use the remaining ten in the next column.</p>
+          <h3>What is borrowing in subtraction?</h3><p>Borrowing means taking one ten, hundred, or larger place from the column to the left so the current column has enough to subtract.</p>
+          <h3>Is borrowing the same as regrouping?</h3><p>Yes. Both words describe changing a value into equivalent place-value parts. This Tutor calls the action Borrow 1.</p>
+          <h3>Can it handle borrowing across zeros?</h3><p>Yes. The Tutor handles it one column at a time, including the small <span class="borrow-mark">−1</span> that must be handled in the next column.</p>
+          <h3>How many digits can I enter?</h3><p>Each number can have up to eight digits.</p>
+          <h3>What does Show Me One Step do?</h3><p>It completes only the current step. It does not solve the entire problem for you.</p>
+          <h3>Are decimals or negative numbers supported?</h3><p>No. This version supports non-negative whole numbers only; decimals and negative numbers are not supported.</p>
+        </section>
+
+        <article class="content-card">
+          <h2>What Is the NDED Long Addition and Subtraction Tutor?</h2>
+          <p>The NDED Long Addition and Subtraction Tutor is a free interactive tool for practicing vertical arithmetic step by step. Students choose long addition with carrying or long subtraction with borrowing, then complete each column instead of simply receiving the answer.</p>
+        </article>
+
+        <article class="content-card">
+          <h2>Tutor vs. Addition and Subtraction Calculator</h2>
+          <p>An ordinary calculator gives a result right away. The NDED Tutor is for practice: students complete the carrying and borrowing steps themselves, one column at a time, with help available for only the current step.</p>
+        </article>
+      </section>
+    </div></main>
+
+    <aside class="right-sidebar"><div class="question-box"><h2>Do you enjoy learning math?</h2><button class="btn yes">Yes, I love math!</button><button class="btn no">Math is challenging for me</button><div class="response" id="response"></div></div></aside>
+  </div></div></div>
+  <footer><div class="container"><p>&copy; 2026 NDED - Building Mathematical Confidence for Life. All rights reserved.</p></div></footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initPoll();
+      initLongAdditionSubtractionTutor();
+    });
+
+    function initPoll() {
+      const yes = document.querySelector('.question-box .yes');
+      const no = document.querySelector('.question-box .no');
+      const response = document.getElementById('response');
+      if (!yes || !no || !response) return;
+      yes.addEventListener('click', () => {
+        response.textContent = "That's great! Math is an amazing tool for understanding the world!";
+        response.classList.add('show');
+      });
+      no.addEventListener('click', () => {
+        response.textContent = "We're here to help! Our resources are designed to make math easier and more fun.";
+        response.classList.add('show');
+      });
+    }
+
+    function initLongAdditionSubtractionTutor() {
+      const state = {
+        mode: 'add', steps: [], index: 0, problem: null,
+        visible: [], debts: [], generation: 0
+      };
+      const workspace = document.getElementById('workspace');
+      const shell = workspace.parentElement;
+      const firstInput = document.getElementById('na');
+      const secondInput = document.getElementById('nb');
+      const firstError = document.getElementById('na-error');
+      const secondError = document.getElementById('nb-error');
+      const startBtn = document.getElementById('start');
+      const helpBtn = document.getElementById('help');
+      const controls = document.getElementById('controls');
+      const summary = document.getElementById('result-summary');
+      const message = document.getElementById('msg');
+      const instruction = document.getElementById('work-instruction');
+      const feedback = document.getElementById('step-feedback');
+      const operatorSign = document.getElementById('setup-operator');
+      const setupNote = document.getElementById('setup-note');
+      const toolTitle = document.getElementById('tool-title');
+      const modeButtons = Array.from(document.querySelectorAll('.operation-choice'));
+
+      const normalize = text => String(text).replace(/^0+(?=\d)/, '') || '0';
+      const addStep = step => state.steps.push({ ...step, n: state.steps.length });
+      const columnName = pos => ['ones','tens','hundreds','thousands','ten-thousands','hundred-thousands','millions','ten-millions'][pos] || `10^${pos}`;
+
+      function el(tag, className, text, row, col, data = {}) {
+        const node = document.createElement(tag);
+        node.className = className;
+        node.textContent = String(text);
+        node.style.gridRow = row;
+        node.style.gridColumn = col;
+        Object.entries(data).forEach(([key, value]) => { node.dataset[key] = String(value); });
+        workspace.append(node);
+        return node;
+      }
+      const put = (text, row, col, className = 'placed-answer-digit', data = {}) =>
+        el('div', className, text, row, col, data);
+
+      function validate(input, label, showEmpty = false) {
+        const text = input.value.trim();
+        if (!text) return { valid: false, text: '', message: showEmpty ? `${label} is required.` : '' };
+        if (!/^\d+$/.test(text)) return { valid: false, text: '', message: 'Use whole digits only.' };
+        if (text.length > 8) return { valid: false, text: '', message: 'Use at most 8 digits.' };
+        return { valid: true, text: normalize(text), message: '' };
+      }
+
+      function validateSetup(showEmpty = false) {
+        const a = validate(firstInput, 'First number', showEmpty);
+        const b = validate(secondInput, 'Second number', showEmpty);
+        if (state.mode === 'subtract' && a.valid && b.valid && BigInt(a.text) < BigInt(b.text)) {
+          b.valid = false;
+          b.message = 'For subtraction, the second number cannot be larger than the first.';
+        }
+        for (const [input, error, result] of [[firstInput,firstError,a],[secondInput,secondError,b]]) {
+          error.textContent = result.message;
+          input.classList.toggle('input-error', Boolean(result.message));
+          input.setAttribute('aria-invalid', result.message ? 'true' : 'false');
+        }
+        startBtn.disabled = !(a.valid && b.valid);
+        if (a.valid && b.valid) message.textContent = '';
+        return { a, b };
+      }
+
+      function clearVisualState() {
+        state.generation++;
+        state.steps = [];
+        state.index = 0;
+        state.problem = null;
+        state.visible = [];
+        state.debts = [];
+        workspace.replaceChildren();
+        workspace.classList.remove('complete');
+        summary.classList.remove('show');
+        summary.replaceChildren();
+        instruction.textContent = '';
+        feedback.textContent = '';
+        controls.style.display = 'none';
+        shell.scrollLeft = 0;
+      }
+
+      function setMode(mode) {
+        if (!['add','subtract'].includes(mode)) return;
+        state.mode = mode;
+        clearVisualState();
+        const isAdd = mode === 'add';
+        modeButtons.forEach(button => {
+          const active = button.dataset.mode === mode;
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        operatorSign.textContent = isAdd ? '+' : '−';
+        startBtn.textContent = isAdd ? 'Start Addition' : 'Start Subtraction';
+        toolTitle.textContent = isAdd ? 'Start a Long Addition Problem' : 'Start a Long Subtraction Problem';
+        setupNote.textContent = isAdd
+          ? 'Non-negative whole numbers only. Up to 8 digits per number.'
+          : 'Non-negative whole numbers only. Up to 8 digits per number; the first must be greater than or equal to the second.';
+        workspace.className = `subtraction-workspace arithmetic-workspace ${isAdd ? 'addition-mode' : 'subtraction-mode'}`;
+        validateSetup(false);
+      }
+
+      function clearHighlights() {
+        workspace.querySelectorAll('.is-round-factor,.is-current-factor,.is-source').forEach(node =>
+          node.classList.remove('is-round-factor','is-current-factor','is-source'));
+      }
+      function markColumn(pos, strong = true) {
+        workspace.querySelectorAll(`.operand-digit[data-pos="${pos}"]`).forEach(node => {
+          node.classList.add('is-round-factor');
+          if (strong) node.classList.add('is-current-factor');
+        });
+      }
+      function focusOperands(step) {
+        clearHighlights();
+        if (!step) return;
+        markColumn(step.pos, true);
+        if (state.mode === 'subtract' && step.kind === 'borrow') {
+          const source = topDigit(step.source);
+          if (source) source.classList.add('is-source');
+        }
+      }
+      function clearFocus() {
+        workspace.querySelectorAll('.is-focus-source').forEach(node => node.classList.remove('is-focus-source'));
+      }
+      function clearLayer(row, col, selector) {
+        workspace.querySelectorAll(selector).forEach(node => {
+          if (node.style.gridRow === String(row) && node.style.gridColumn === String(col)) node.remove();
+        });
+      }
+      function findCarry(row, col) {
+        return Array.from(workspace.querySelectorAll('.carry-old')).find(node =>
+          node.style.gridRow === String(row) && node.style.gridColumn === String(col));
+      }
+
+      /* ---------- ADDITION ENGINE ---------- */
+      function buildAddition(aText, bText) {
+        clearVisualState();
+        state.mode = 'add';
+        workspace.className = 'subtraction-workspace arithmetic-workspace addition-mode';
+        const a = normalize(aText), b = normalize(bText);
+        const totalText = (BigInt(a) + BigInt(b)).toString();
+        const topLength = Math.max(a.length, b.length);
+        const cols = Math.max(10, Math.max(topLength, totalText.length) + 6);
+        const rightCol = cols - 2;
+        const aLeft = rightCol - a.length + 1;
+        const bLeft = rightCol - b.length + 1;
+        const lineLeft = Math.min(aLeft - 1, bLeft - 1, rightCol - totalText.length);
+        workspace.style.gridTemplateColumns = `repeat(${cols}, minmax(40px, 1fr))`;
+        const minGridWidth = cols * 40 + 60;
+        workspace.style.minWidth = minGridWidth > 600 ? `${minGridWidth}px` : '';
+
+        [...a].forEach((digit, i) => {
+          const pos = a.length - 1 - i;
+          put(digit, 1, aLeft + i, 'operand-digit', { operand: 'a', pos, original: digit });
+        });
+        put('+', 2, bLeft - 1, 'operator-sign');
+        [...b].forEach((digit, i) => {
+          const pos = b.length - 1 - i;
+          put(digit, 2, bLeft + i, 'operand-digit', { operand: 'b', pos });
+        });
+        el('div', 'work-line', '', 3, `${lineLeft}/${rightCol + 1}`);
+
+        let carry = 0;
+        for (let pos = 0; pos < topLength; pos++) {
+          const digitA = pos < a.length ? Number(a[a.length - 1 - pos]) : 0;
+          const digitB = pos < b.length ? Number(b[b.length - 1 - pos]) : 0;
+          const raw = digitA + digitB;
+          const col = rightCol - pos;
+          const last = pos === topLength - 1;
+          const old = carry;
+          addStep({ kind:'addRaw', pos, answer:String(raw), formula:`${digitA} + ${digitB}`, digitA, digitB, raw, old, col, last });
+          if (old) {
+            const sum = old + (raw % 10);
+            addStep({ kind:'addCarry', pos, answer:String(sum), formula:`${old} + ${raw % 10}`, raw, old, col, last });
+            carry = Math.floor(raw / 10) + Math.floor(sum / 10);
+          } else {
+            carry = Math.floor(raw / 10);
+          }
+        }
+        state.problem = { a, b, resultText: totalText, rightCol };
+        const spacer = el('div', 'hint-spacer', '', 7, '1/-1');
+        spacer.setAttribute('aria-hidden','true');
+        makeHint(false);
+        controls.style.display = 'flex';
+        instruction.textContent = 'Add from right to left, one column at a time.';
+        activate();
+      }
+
+      function renderAdditionInput(step) {
+        const input = document.createElement('input');
+        const twoCols = step.kind === 'addRaw' || Number(step.answer) >= 10;
+        input.id = 'active-answer';
+        input.className = `digit-input ${twoCols ? 'full-sum-input' : 'unit-answer-input'}`;
+        input.style.gridRow = 6;
+        input.style.gridColumn = twoCols ? `${step.col - 1} / span 2` : step.col;
+        input.dataset.answer = step.answer;
+        input.inputMode = 'numeric';
+        input.autocomplete = 'off';
+        input.setAttribute('aria-label', `${step.formula}: enter the answer`);
+        input.addEventListener('input', () => checkAdditionInput(input));
+        workspace.append(input);
+        return input;
+      }
+      function showAdditionRaw(step) {
+        document.getElementById('active-answer')?.remove();
+        clearFocus();
+        const ones = step.raw % 10;
+        const tens = Math.floor(step.raw / 10);
+        if (!step.old) {
+          put(ones, 6, step.col, 'placed-answer-digit', { output:'final', pos:step.pos });
+          if (tens) {
+            if (step.last) put(tens, 6, step.col - 1, 'placed-answer-digit', { output:'final', pos:step.pos + 1 });
+            else put(tens, 4, step.col - 1, 'carry-old');
+          }
+          return;
+        }
+        if (tens) put(tens, 5, step.col - 1, 'temp-sum-digit');
+        put(ones, 5, step.col, 'temp-sum-digit is-focus-source');
+        findCarry(4, step.col)?.classList.add('is-focus-source');
+      }
+      function resolveAdditionCarry(step) {
+        document.getElementById('active-answer')?.remove();
+        clearFocus();
+        clearLayer(4, step.col, '.carry-old');
+        clearLayer(5, step.col, '.temp-sum-digit');
+        clearLayer(5, step.col - 1, '.temp-sum-digit');
+        const sum = Number(step.answer);
+        put(sum % 10, 6, step.col, 'placed-answer-digit', { output:'final', pos:step.pos });
+        const nextCarry = Math.floor(step.raw / 10) + Math.floor(sum / 10);
+        if (nextCarry) {
+          if (step.last) put(nextCarry, 6, step.col - 1, 'placed-answer-digit', { output:'final', pos:step.pos + 1 });
+          else put(nextCarry, 4, step.col - 1, 'carry-old');
+        }
+      }
+      function checkAdditionInput(input) {
+        const step = state.steps[state.index];
+        if (!step || !['addRaw','addCarry'].includes(step.kind) || !input.isConnected) return;
+        input.classList.remove('wrong');
+        if (input.value === input.dataset.answer) {
+          if (step.kind === 'addRaw') showAdditionRaw(step);
+          else resolveAdditionCarry(step);
+          state.index++;
+          activate();
+        } else if (input.value.length >= input.dataset.answer.length) {
+          input.classList.add('wrong');
+          const incorrect = input.value;
+          const generation = state.generation;
+          setTimeout(() => {
+            if (generation === state.generation && input.isConnected && input.value === incorrect) {
+              input.value = '';
+              input.classList.remove('wrong');
+            }
+          }, 600);
+        }
+      }
+
+      /* ---------- SUBTRACTION ENGINE (unchanged teaching order) ---------- */
+      function topDigit(pos) {
+        return workspace.querySelector(`.operand-digit[data-operand="a"][data-pos="${pos}"]`);
+      }
+      function overlayDigit(pos) {
+        return workspace.querySelector(`.borrow-overlay[data-pos="${pos}"]`);
+      }
+      function debtDigit(pos) {
+        return workspace.querySelector(`.borrow-debt[data-pos="${pos}"]`);
+      }
+      function renderDebt(pos) {
+        state.debts[pos] = true;
+        if (debtDigit(pos)) return;
+        put('−1', 1, state.problem.rightCol - pos, 'borrow-debt', { pos });
+      }
+      function renderTopValue(pos, value) {
+        const original = topDigit(pos);
+        if (!original) return;
+        state.visible[pos] = Number(value);
+        original.classList.add('has-regroup');
+        original.setAttribute('aria-label', `${columnName(pos)} column: now ${value}, originally ${original.dataset.original}`);
+        overlayDigit(pos)?.remove();
+        put(value, 2, state.problem.rightCol - pos, 'borrow-overlay borrow-arrive', { pos });
+      }
+
+      function buildSubtraction(aText, bText) {
+        clearVisualState();
+        state.mode = 'subtract';
+        workspace.className = 'subtraction-workspace arithmetic-workspace subtraction-mode';
+        const a = normalize(aText), b = normalize(bText);
+        if (!/^\d{1,8}$/.test(a) || !/^\d{1,8}$/.test(b) || BigInt(a) < BigInt(b)) {
+          message.textContent = 'Use two whole numbers (up to 8 digits) with the first not smaller than the second.';
+          return;
+        }
+
+        const resultText = (BigInt(a) - BigInt(b)).toString();
+        const length = a.length;
+        const isPhone = window.matchMedia('(max-width: 600px)').matches;
+        const cols = isPhone ? Math.max(6, length + 4) : Math.max(10, length + 6);
+        const rightCol = cols - 2;
+        const aLeft = rightCol - a.length + 1;
+        const bLeft = rightCol - b.length + 1;
+        const lineLeft = Math.min(aLeft - 1, bLeft - 1, rightCol - resultText.length);
+        workspace.style.gridTemplateColumns = `repeat(${cols}, minmax(52px, 1fr))`;
+        const minGridWidth = cols * 52 + 60;
+        workspace.style.minWidth = isPhone ? `${minGridWidth}px` : (minGridWidth > 600 ? `${minGridWidth}px` : '');
+
+        const originalDigits = [...a].reverse().map(Number);
+        const work = originalDigits.slice();
+        const debt = Array(length).fill(false);
+        state.visible = originalDigits.slice();
+        state.debts = debt.slice();
+        state.problem = { a, b, resultText, length, rightCol, originalDigits };
+
+        [...a].forEach((digit, index) => {
+          const pos = a.length - 1 - index;
+          const digitNode = el('div', 'operand-digit', digit, 3, aLeft + index,
+            { operand: 'a', pos, original: digit });
+          digitNode.setAttribute('aria-label', `${columnName(pos)} column: ${digit}`);
+        });
+        put('−', 4, bLeft - 1, 'operator-sign');
+        [...b].forEach((digit, index) => {
+          const pos = b.length - 1 - index;
+          put(digit, 4, bLeft + index, 'operand-digit', { operand: 'b', pos });
+        });
+        el('div', 'work-line', '', 5, `${lineLeft}/${rightCol + 1}`);
+
+        for (let pos = 0; pos < length; pos++) {
+          const bottom = pos < b.length ? Number(b[b.length - 1 - pos]) : 0;
+          const col = rightCol - pos;
+
+          if (debt[pos]) {
+            const beforeDebt = work[pos] + 1;
+            if (work[pos] < 0) {
+              const source = pos + 1;
+              if (source >= length) throw new Error('Invalid subtraction: no adjacent column available for borrowing.');
+              const sourceBefore = work[source];
+              const sourceHadDebt = debt[source];
+              work[source] -= 1;
+              debt[source] = true;
+              work[pos] += 10;
+              addStep({
+                kind:'borrow', reason:'debt', pos, col, bottom,
+                currentBefore:beforeDebt, originalCurrent:originalDigits[pos],
+                received:beforeDebt + 10, after:work[pos], source,
+                sourceCol:rightCol - source, sourceBefore, sourceAfter:work[source], sourceHadDebt,
+                formula:`${beforeDebt} − 1`
+              });
+              addStep({ kind:'settle', pos, col, before:beforeDebt + 10,
+                answer:String(work[pos]), formula:`${beforeDebt + 10} − 1` });
+            } else {
+              addStep({ kind:'settle', pos, col, before:beforeDebt,
+                answer:String(work[pos]), formula:`${beforeDebt} − 1` });
+            }
+            debt[pos] = false;
+          }
+
+          if (work[pos] < bottom) {
+            const source = pos + 1;
+            if (source >= length) throw new Error('Invalid subtraction: no adjacent column available for borrowing.');
+            const currentBefore = work[pos];
+            const sourceBefore = work[source];
+            const sourceHadDebt = debt[source];
+            work[source] -= 1;
+            debt[source] = true;
+            work[pos] += 10;
+            addStep({
+              kind:'borrow', reason:'subtraction', pos, col, bottom,
+              currentBefore, originalCurrent:originalDigits[pos], after:work[pos], source,
+              sourceCol:rightCol - source, sourceBefore, sourceAfter:work[source], sourceHadDebt,
+              formula:`${currentBefore} − ${bottom}`
+            });
+          }
+
+          addStep({
+            kind:'subtract', pos, col, top:work[pos], bottom,
+            answer:String(work[pos] - bottom), formula:`${work[pos]} − ${bottom}`
+          });
+        }
+
+        const spacer = el('div', 'hint-spacer', '', 7, '1/-1');
+        spacer.setAttribute('aria-hidden','true');
+        makeHint(true);
+        controls.style.display = 'flex';
+        activate();
+      }
+
+      function renderSubtractionInput(step) {
+        const input = document.createElement('input');
+        input.id = 'active-answer';
+        input.className = `digit-input ${step.kind === 'settle' ? 'borrow-entry unit-answer-input' : 'unit-answer-input'}`;
+        input.style.gridRow = step.kind === 'settle' ? 2 : 6;
+        input.style.gridColumn = step.col;
+        input.inputMode = 'numeric';
+        input.autocomplete = 'off';
+        input.dataset.answer = step.answer;
+        input.setAttribute('aria-label', `${step.formula}: enter the answer`);
+        input.addEventListener('input', () => checkSubtractionInput(input));
+        workspace.append(input);
+        return input;
+      }
+      function renderBorrowPlaceholder(step) {
+        const pending = put('?', 6, step.col, 'borrow-pending', { role:'borrowPending' });
+        pending.setAttribute('aria-label', `${step.formula}: borrowing is needed before subtracting`);
+        return pending;
+      }
+      function commitBorrow(step) {
+        workspace.querySelector('.borrow-pending')?.remove();
+        renderDebt(step.source);
+        renderTopValue(step.pos, step.reason === 'debt' ? step.received : step.after);
+        state.visible[step.source] = step.sourceAfter;
+      }
+      function commitSettle(step) { renderTopValue(step.pos, step.answer); }
+      function commitSubtract(step) {
+        put(step.answer, 6, step.col, 'placed-answer-digit', { output:'final', pos:step.pos });
+      }
+      function checkSubtractionInput(input) {
+        const step = state.steps[state.index];
+        if (!step || !['settle','subtract'].includes(step.kind) || !input.isConnected) return;
+        input.classList.remove('wrong');
+        if (input.value === input.dataset.answer) {
+          input.remove();
+          feedback.textContent = '';
+          if (step.kind === 'settle') commitSettle(step);
+          else commitSubtract(step);
+          state.index++;
+          activate();
+        } else if (input.value.length >= input.dataset.answer.length) {
+          input.classList.add('wrong');
+          const incorrect = input.value;
+          const generation = state.generation;
+          setTimeout(() => {
+            if (generation === state.generation && input.isConnected && input.value === incorrect) {
+              input.value = '';
+              input.classList.remove('wrong');
+            }
+          }, 600);
+        }
+      }
+      function performBorrow() {
+        const step = state.steps[state.index];
+        if (!step || step.kind !== 'borrow') return;
+        commitBorrow(step);
+        feedback.textContent = '';
+        state.index++;
+        activate();
+      }
+
+      /* ---------- SHARED HINT / ACTIVATION / FINISH ---------- */
+      function makeHint(withBorrowButton) {
+        const hint = document.createElement('div');
+        hint.className = 'formula-popover is-hidden';
+        const formula = document.createElement('span');
+        formula.className = 'formula-text';
+        hint.append(formula);
+        if (withBorrowButton) {
+          const borrowAction = document.createElement('button');
+          borrowAction.type = 'button';
+          borrowAction.className = 'popover-borrow is-hidden';
+          borrowAction.textContent = 'Borrow 1';
+          borrowAction.addEventListener('click', performBorrow);
+          hint.append(borrowAction);
+        }
+        const hintHelp = document.createElement('button');
+        hintHelp.type = 'button';
+        hintHelp.className = 'popover-help';
+        hintHelp.setAttribute('aria-label','Show me one step');
+        hintHelp.textContent = '?';
+        hintHelp.addEventListener('click', help);
+        hint.append(hintHelp);
+        workspace.append(hint);
+      }
+
+      function positionHint(anchor) {
+        const hint = workspace.querySelector('.formula-popover');
+        if (!hint || hint.classList.contains('is-hidden') || !anchor) return;
+        hint.classList.remove('is-above');
+        const pad = 10;
+        const width = hint.offsetWidth || 210;
+        const contentWidth = Math.max(workspace.scrollWidth, workspace.clientWidth);
+        const center = anchor.offsetLeft + anchor.offsetWidth / 2;
+        const left = Math.max(pad, Math.min(center - width / 2, contentWidth - width - pad));
+        hint.style.left = `${left}px`;
+        hint.style.top = `${anchor.offsetTop + anchor.offsetHeight + 12}px`;
+        hint.style.setProperty('--arrow-left', `${center - left}px`);
+        const targetLeft = Math.max(0, Math.min(anchor.offsetLeft, left) - pad);
+        const targetRight = Math.max(anchor.offsetLeft + anchor.offsetWidth, left + width) + pad;
+        if (targetLeft < shell.scrollLeft) shell.scrollLeft = targetLeft;
+        else if (targetRight > shell.scrollLeft + shell.clientWidth) shell.scrollLeft = targetRight - shell.clientWidth;
+      }
+
+      function finishAddition() {
+        workspace.querySelector('.formula-popover')?.remove();
+        workspace.querySelectorAll('.carry-old,.temp-sum-digit,.hint-spacer').forEach(node => node.remove());
+        clearHighlights(); clearFocus();
+        workspace.classList.add('complete');
+        workspace.querySelectorAll('.placed-answer-digit[data-output="final"]').forEach(node => node.style.gridRow = 4);
+        controls.style.display = 'none';
+        instruction.textContent = '';
+        feedback.textContent = '';
+        const label = document.createElement('span'); label.className = 'result-summary-label'; label.textContent = 'Correct!';
+        const equation = document.createElement('span'); equation.className = 'result-summary-equation';
+        equation.textContent = `${state.problem.a} + ${state.problem.b} = ${state.problem.resultText}`;
+        summary.replaceChildren(label,equation); summary.classList.add('show');
+      }
+
+      function finishSubtraction() {
+        workspace.querySelector('.formula-popover')?.remove();
+        workspace.querySelectorAll('.borrow-overlay,.borrow-debt,.borrow-pending,.hint-spacer').forEach(node => node.remove());
+        clearHighlights();
+        workspace.querySelectorAll('.operand-digit.has-regroup').forEach(node => node.classList.remove('has-regroup'));
+        const keepLength = state.problem.resultText.length;
+        workspace.querySelectorAll('.placed-answer-digit[data-output="final"]').forEach(node => {
+          if (Number(node.dataset.pos) >= keepLength) node.remove();
+          else node.style.gridRow = 4;
+        });
+        workspace.querySelectorAll('.operand-digit[data-operand="a"]').forEach(node => {
+          node.setAttribute('aria-label', `${columnName(Number(node.dataset.pos))} column: ${node.dataset.original}`);
+          node.style.gridRow = 1;
+        });
+        workspace.querySelectorAll('.operand-digit[data-operand="b"],.operator-sign').forEach(node => node.style.gridRow = 2);
+        const line = workspace.querySelector('.work-line');
+        if (line) line.style.gridRow = 3;
+        workspace.classList.add('complete');
+        controls.style.display = 'none';
+        instruction.textContent = '';
+        feedback.textContent = '';
+        const label = document.createElement('span'); label.className = 'result-summary-label'; label.textContent = 'Correct!';
+        const equation = document.createElement('span'); equation.className = 'result-summary-equation';
+        equation.textContent = `${state.problem.a} − ${state.problem.b} = ${state.problem.resultText}`;
+        summary.replaceChildren(label,equation); summary.classList.add('show');
+      }
+
+      function activate() {
+        workspace.querySelector('#active-answer')?.remove();
+        workspace.querySelector('.borrow-pending')?.remove();
+        if (state.index >= state.steps.length) {
+          if (state.mode === 'add') finishAddition();
+          else finishSubtraction();
+          return;
+        }
+
+        const step = state.steps[state.index];
+        focusOperands(step);
+        const hint = workspace.querySelector('.formula-popover');
+        const formulaText = hint.querySelector('.formula-text');
+        formulaText.textContent = step.formula;
+        let anchor;
+
+        if (state.mode === 'add') {
+          instruction.textContent = step.kind === 'addCarry'
+            ? `Now add the carry: ${step.formula}.`
+            : `Calculate ${step.formula}.`;
+          anchor = renderAdditionInput(step);
+          anchor.focus();
+        } else {
+          const borrowButton = hint.querySelector('.popover-borrow');
+          hint.classList.toggle('has-borrow-action', step.kind === 'borrow');
+          if (borrowButton) borrowButton.classList.toggle('is-hidden', step.kind !== 'borrow');
+          if (step.kind === 'borrow') {
+            const sourceName = columnName(step.source).replace(/s$/, '');
+            instruction.textContent = step.reason === 'debt'
+              ? `${step.currentBefore} − 1 is not enough. Borrow 1 ${sourceName} from the next column on the left first.`
+              : `${step.currentBefore} is smaller than ${step.bottom}. Borrow 1 ${sourceName} from the next column on the left.`;
+            anchor = renderBorrowPlaceholder(step);
+          } else if (step.kind === 'settle') {
+            overlayDigit(step.pos)?.remove();
+            instruction.textContent = `First apply the small −1. Calculate ${step.formula}.`;
+            anchor = renderSubtractionInput(step);
+            anchor.focus();
+          } else {
+            instruction.textContent = `Now calculate ${step.formula}.`;
+            anchor = renderSubtractionInput(step);
+            anchor.focus();
+          }
+        }
+
+        hint.classList.remove('is-hidden');
+        positionHint(anchor);
+        requestAnimationFrame(() => positionHint(anchor));
+      }
+
+      function help() {
+        const step = state.steps[state.index];
+        if (!step) return;
+        if (state.mode === 'subtract' && step.kind === 'borrow') {
+          performBorrow();
+          return;
+        }
+        const input = document.getElementById('active-answer');
+        if (!input) return;
+        input.value = input.dataset.answer;
+        if (state.mode === 'add') checkAdditionInput(input);
+        else checkSubtractionInput(input);
+      }
+
+      startBtn.addEventListener('click', () => {
+        const {a,b} = validateSetup(true);
+        if (!a.valid || !b.valid) {
+          message.textContent = a.message || b.message;
+          return;
+        }
+        message.textContent = '';
+        if (state.mode === 'add') buildAddition(a.text,b.text);
+        else buildSubtraction(a.text,b.text);
+      });
+      helpBtn.addEventListener('click', help);
+      [firstInput,secondInput].forEach(input => input.addEventListener('input', () => validateSetup(false)));
+      modeButtons.forEach(button => button.addEventListener('click', () => setMode(button.dataset.mode)));
+      window.addEventListener('resize', () => {
+        const step = state.steps[state.index];
+        let anchor = null;
+        if (state.mode === 'subtract' && step?.kind === 'borrow') anchor = workspace.querySelector('.borrow-pending');
+        else anchor = workspace.querySelector('#active-answer');
+        positionHint(anchor);
+      });
+      window.longAdditionSubtractionTutor = {
+        setMode,
+        build: (a,b,mode=state.mode) => { setMode(mode); if (mode === 'add') buildAddition(a,b); else buildSubtraction(a,b); },
+        steps: () => state.steps.map(step => ({...step})),
+        help,
+        state: () => ({ mode:state.mode, index:state.index, problem:state.problem, debts:state.debts.slice() })
+      };
+      setMode('add');
+    }
+</script>
+</body>
+</html>
