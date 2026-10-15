@@ -67,6 +67,14 @@
               "name": "Long Division Tutor",
               "description": "Learn long division step by step with guided practice"
             }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "EducationalActivity",
+              "name": "Area Model Division Tutor",
+              "description": "Learn division with visual area models and flexible partial quotients"
+            }
           }
         ]
       }
@@ -2716,7 +2724,129 @@
             box-shadow: 0 4px 10px rgba(52, 152, 219, 0.14);
         }
 
+        .area-model-home-card {
+            grid-column: 1 / -1;
+            min-height: 0;
+            display: grid;
+            grid-template-columns: minmax(220px, 0.8fr) minmax(320px, 1.2fr);
+            gap: 1.1rem;
+            align-items: center;
+            background: #f0f7ff;
+            border-top-color: #6fa6df;
+        }
+
+        .area-model-home-copy {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-width: 0;
+        }
+
+        .area-model-home-copy .more-tutor-cta {
+            margin-top: 0.25rem;
+        }
+
+        .area-model-home-preview {
+            min-width: 0;
+            padding: 0.85rem;
+            background: #ffffff;
+            border: 1px solid #d7e6f5;
+            border-radius: 12px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 3px 8px rgba(70,112,158,.05);
+        }
+
+        .area-model-home-equation {
+            margin-bottom: 0.55rem;
+            color: #294766;
+            font: 800 1rem/1.2 system-ui, sans-serif;
+            text-align: center;
+        }
+
+        .area-model-mini-wrap {
+            display: grid;
+            grid-template-columns: 38px minmax(0, 1fr);
+            grid-template-rows: auto 28px;
+            gap: 5px 7px;
+            align-items: stretch;
+        }
+
+        .area-model-mini-side {
+            grid-column: 1;
+            grid-row: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 98px;
+            color: #315fae;
+            background: #f7faff;
+            border: 1px solid #dce8f6;
+            border-radius: 8px;
+            font-weight: 800;
+        }
+
+        .area-model-mini-rect {
+            grid-column: 2;
+            grid-row: 1;
+            display: flex;
+            min-height: 98px;
+            overflow: hidden;
+            border: 2px solid #385b86;
+            border-radius: 9px;
+        }
+
+        .area-model-mini-piece {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            min-width: 0;
+            color: #244f78;
+            background: #dceaff;
+            font-weight: 800;
+            line-height: 1.15;
+        }
+
+        .area-model-mini-piece:first-child {
+            flex: 120 1 0;
+            border-right: 2px solid rgba(56,91,134,.45);
+        }
+
+        .area-model-mini-piece:last-child {
+            flex: 36 1 0;
+            background: #e8f3ff;
+        }
+
+        .area-model-mini-piece small {
+            margin-top: 3px;
+            color: #58708a;
+            font-size: 0.68rem;
+        }
+
+        .area-model-mini-labels {
+            grid-column: 2;
+            grid-row: 2;
+            display: flex;
+            color: #315fae;
+            font-size: 0.76rem;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .area-model-mini-labels span:first-child { flex: 120 1 0; }
+        .area-model-mini-labels span:last-child { flex: 36 1 0; }
+
+        .area-model-home-result {
+            margin: 0.45rem 0 0;
+            color: #148257;
+            font-size: 0.84rem;
+            font-weight: 800;
+            text-align: center;
+        }
+
         @media (max-width: 900px) {
+            .area-model-home-card {
+                grid-template-columns: 1fr;
+            }
             .more-tutor-preview { height: 252px; min-height: 252px; }
             .more-preview-stage { width: 278px; height: 224px; }
             .more-preview-frame { transform: translateX(-50%) scale(1.6); }
@@ -2733,6 +2863,12 @@
 
             .more-tutors-grid { grid-template-columns: 1fr; }
             .more-tutor-card { min-height: 0; }
+            .area-model-home-card { grid-column: auto; }
+            .area-model-home-preview { padding: 0.65rem; }
+            .area-model-mini-wrap { grid-template-columns: 30px minmax(0,1fr); }
+            .area-model-mini-side, .area-model-mini-rect { min-height: 82px; }
+            .area-model-mini-piece { font-size: 0.78rem; }
+            .area-model-mini-piece small { font-size: 0.6rem; }
             .more-tutor-preview { height: 210px; min-height: 210px; }
             .more-preview-stage { width: 226px; height: 182px; }
             .more-preview-frame { transform: translateX(-50%) scale(1.3); }
@@ -2997,6 +3133,26 @@
                                 <p>Multiply, carry, and build each step yourself.</p>
                                 <a href="/pages/long-multiplication" class="more-tutor-cta">Open the Tutor &rarr;</a>
                             </article>
+                            <article class="more-tutor-card area-model-home-card">
+                                <div class="area-model-home-copy">
+                                    <div class="more-tutor-eyebrow">VISUAL STEP-BY-STEP TUTOR</div>
+                                    <h3>Area Model Division Tutor</h3>
+                                    <p>Break division into friendly multiplication facts and watch each partial quotient become a piece of the rectangle.</p>
+                                    <a href="/pages/area-model-division" class="more-tutor-cta">Open the Tutor &rarr;</a>
+                                </div>
+                                <div class="area-model-home-preview" aria-hidden="true">
+                                    <div class="area-model-home-equation">156 &divide; 12</div>
+                                    <div class="area-model-mini-wrap">
+                                        <div class="area-model-mini-side">12</div>
+                                        <div class="area-model-mini-rect">
+                                            <div class="area-model-mini-piece">120<small>12 &times; 10</small></div>
+                                            <div class="area-model-mini-piece">36<small>12 &times; 3</small></div>
+                                        </div>
+                                        <div class="area-model-mini-labels"><span>10</span><span>3</span></div>
+                                    </div>
+                                    <div class="area-model-home-result">10 + 3 = 13</div>
+                                </div>
+                            </article>
                         </div>
                     </section>
 
@@ -3152,7 +3308,7 @@
                                 internalize mathematical relationships more naturally and with less stress.</p>
 
                             <h3>Math Games and Learning Tools Overview</h3>
-                            <p>This site currently includes six interactive math games and learning tools, each focused on a specific
+                            <p>This site currently includes seven interactive math games and learning tools, each focused on a specific
                                 foundational skill.</p>
 
                             <div class="game-list">
@@ -3176,6 +3332,10 @@
                                     <h4><a href="/pages/long-division">Long Division Tutor</a></h4>
                                     <p>A step-by-step long division tool for practicing divide, multiply, subtract, and
                                         bring down with guided support.</p>
+                                </div>
+                                <div class="game-item">
+                                    <h4><a href="/pages/area-model-division">Area Model Division Tutor</a></h4>
+                                    <p>A visual division tutor that turns flexible partial quotients into rectangle pieces so learners can see how the quotient is built.</p>
                                 </div>
                                 <div class="game-item">
                                     <h4><a href="/pages/long-multiplication">Long Multiplication Tutor</a></h4>
