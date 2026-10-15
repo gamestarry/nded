@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const gameContainer = document.querySelector('.multiplication-game');
     const multiplier = parseInt(gameContainer.dataset.multiplier) || 2;
     
-    // 检测是否为9的乘法游戏
-    const isMultiplicationBy9 = multiplier === 9;
+    // 12 times table is the final level in this sequence
+    const finalMultiplier = 12;
+    const isFinalTable = multiplier === finalMultiplier;
     
     // 动态生成游戏状态
     let gameState = {
@@ -499,7 +500,7 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.innerHTML = `
             <h2 class="completion-title">🎉 Congratulations！ 🏆</h2>
             <div class="completion-message">
-                You've mastered<br><strong>Multiplication Tables 2–9</strong>
+                You've mastered<br><strong>Multiplication Tables 2–12</strong>
             </div>
             
             <div class="completion-buttons">
@@ -558,8 +559,8 @@ document.addEventListener('DOMContentLoaded', function() {
         answersContainer.innerHTML = '';
         equationsContainer.innerHTML = '';
         
-        // 如果是9的乘法游戏，初始化时就设置按钮文字
-        if (isMultiplicationBy9) {
+        // 如果是最后一关乘法游戏，初始化时就设置按钮文字
+        if (isFinalTable) {
             nextBtn.textContent = 'Table Complete';
         }
         
@@ -812,21 +813,22 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 更新完成计数器显示
     function updateCompletionCounter() {
-        completionCounter.textContent = 
-            `Complete 2 times to unlock next level (${gameState.completionCount}/2)`;
+        completionCounter.textContent = isFinalTable
+            ? `Complete 2 times to finish this table (${gameState.completionCount}/2)`
+            : `Complete 2 times to unlock next level (${gameState.completionCount}/2)`;
     }
     
     // 更新下一关按钮状态
     function updateNextButton() {
         // 完成2次练习后启用按钮
         if (gameState.completionCount >= gameState.maxCompletions) {
-            // 如果是9的乘法游戏，启用并显示Table Complete
-            if (isMultiplicationBy9) {
+            // 如果是最后一关乘法游戏，启用并显示Table Complete
+            if (isFinalTable) {
                 nextBtn.textContent = 'Table Complete';
                 nextBtn.classList.add('enabled');
                 nextBtn.disabled = false;
-            } else if (multiplier < 9) {
-                // 乘数小于9，启用并显示Next Level
+            } else if (multiplier < finalMultiplier) {
+                // 尚未到最后一关，启用并显示Next Level
                 nextBtn.textContent = 'Next Level';
                 nextBtn.classList.add('enabled');
                 nextBtn.disabled = false;
@@ -847,10 +849,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // 只有当按钮启用时才执行
         if (nextBtn.disabled) return;
         
-        // 如果是9的乘法游戏，显示完成弹窗
-        if (isMultiplicationBy9) {
+        // 如果是最后一关乘法游戏，显示完成弹窗
+        if (isFinalTable) {
             showCompletionMessage();
-        } else if (multiplier < 9) {
+        } else if (multiplier < finalMultiplier) {
             // 跳转到下一个乘数的页面
             const nextMultiplier = multiplier + 1;
             const nextPageUrl = `/pages/multiplication-by-${nextMultiplier}-game`;
