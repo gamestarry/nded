@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn area model division step by step with an interactive partial quotients tutor. Build division with rectangle areas, friendly multiples, and remainders.">
+  <meta name="author" content="NDED">
+  <title>Area Model Division Step by Step - Interactive Tutor | NDED</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://nd-ed.org/pages/area-model-division">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "NDED Area Model Division Tutor",
+    "url": "https://nd-ed.org/pages/area-model-division",
+    "description": "A free interactive tutor for learning area model division and partial quotients step by step.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "NDED",
+      "url": "https://nd-ed.org/"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="../css/template.css">
+  <link rel="stylesheet" href="../css/area-model-division.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="main-title">
+        <span class="nded-text">NDED</span>
+        <span class="subtitle">building mathematical confidence for life.</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-row-container">
+    <div class="wide-container">
+      <div class="main-row">
+        <aside class="left-sidebar">
+          <h3 class="nav-title">Navigation</h3>
+          <div class="nav-buttons">
+            <a href="/" class="nav-button"><i class="fas fa-home"></i> Home</a>
+            <a href="/about-us" class="nav-button"><i class="fas fa-info-circle"></i> About us</a>
+            <a href="/#math-games-section" class="nav-button"><i class="fas fa-gamepad"></i> Math Games</a>
+            <a href="https://matrixcalculator.net/" target="_blank" class="nav-button external"><i class="fas fa-calculator"></i> Matrix Calculator</a>
+          </div>
+        </aside>
+
+        <main class="main-content">
+          <div class="dynamic-content-container area-page">
+            <section class="area-hero" aria-labelledby="area-model-title">
+              <h1 id="area-model-title">Area Model Division Tutor</h1>
+              <p>Break a division problem into friendly multiplication facts. Each partial quotient becomes a piece of the rectangle, so you can see exactly where the quotient comes from.</p>
+            </section>
+
+            <section class="area-tool" aria-label="Interactive area model division tutor">
+              <h2 class="tool-title">Start an Area Model Division Problem</h2>
+
+              <div class="problem-setup">
+                <div class="setup-area">
+                  <div class="setup-field">
+                    <label for="dividend">Dividend</label>
+                    <input id="dividend" type="number" min="1" step="1" inputmode="numeric" placeholder="156">
+                  </div>
+
+                  <span class="divide-symbol">÷</span>
+
+                  <div class="setup-field">
+                    <label for="divisor">Divisor</label>
+                    <input id="divisor" type="number" min="1" step="1" inputmode="numeric" placeholder="12">
+                  </div>
+
+                  <button id="start" class="btn-start" type="button">Start Area Model</button>
+                </div>
+
+                <p id="setup-message" class="setup-message" aria-live="polite"></p>
+                <p class="setup-note">Positive whole numbers only. Try 156 ÷ 12 for a simple first example.</p>
+              </div>
+
+              <div id="workspace" class="workspace-shell">
+                <div class="equation-line">
+                  <span id="problem-text"></span>
+                  <span id="remaining-pill" class="remaining-pill"></span>
+                </div>
+
+                <div class="model-wrap" aria-label="Division area model">
+                  <div id="divisor-label" class="divisor-label"></div>
+                  <div id="area-model" class="area-model"></div>
+                  <div id="top-labels" class="top-labels" aria-label="Partial quotients"></div>
+                </div>
+
+                <div class="running-total">
+                  <span id="quotient-total">Partial quotient total: 0</span>
+                  <span id="area-total">Area used: 0</span>
+                </div>
+
+                <div class="step-panel">
+                  <p id="prompt" class="prompt"></p>
+
+                  <div class="chunk-entry">
+                    <label for="chunk-input">
+                      Choose a partial quotient
+                      <input id="chunk-input" type="number" min="1" step="1" inputmode="numeric" autocomplete="off" placeholder="e.g. 10">
+                    </label>
+                    <button id="add-chunk" class="btn-add" type="button">Add This Area</button>
+                  </div>
+
+                  <p id="step-feedback" class="step-feedback" aria-live="polite"></p>
+                  <div id="teacher-hint" class="teacher-hint"></div>
+
+                  <div class="controls">
+                    <button id="help" class="btn-help" type="button">
+                      <span class="help-icon" aria-hidden="true">?</span>Show Me One Step
+                    </button>
+                  </div>
+                </div>
+
+                <div id="result-summary" class="result-summary" aria-live="polite"></div>
+              </div>
+            </section>
+
+            <div class="learning-content">
+              <section>
+                <h2>What Is Area Model Division?</h2>
+                <p>Area model division uses the relationship between multiplication and division. One side of a rectangle is the divisor. The total area is the dividend. You break that area into smaller rectangles using multiplication facts you already know. The widths of those rectangles are partial quotients, and adding the widths gives the quotient.</p>
+              </section>
+
+              <section>
+                <h2>How to Explain Area Model Division to Students</h2>
+                <p>Instead of starting with “How many times does 12 go into 156?”, start with a friendlier question: <strong>“What multiple of 12 do you know that fits inside 156?”</strong> A student might choose 12 × 10 = 120. Draw that part of the rectangle, subtract the used area, and then ask the same question about what remains.</p>
+
+                <div class="example-grid">
+                  <div class="example-card">
+                    <h3>1. Take a friendly chunk</h3>
+                    <div class="mini-model">12 × 10 = 120</div>
+                    <p>Use a multiplication fact the student can see quickly.</p>
+                  </div>
+
+                  <div class="example-card">
+                    <h3>2. Find what remains</h3>
+                    <div class="mini-model">156 − 120 = 36</div>
+                    <p>The unused area becomes the next smaller problem.</p>
+                  </div>
+
+                  <div class="example-card">
+                    <h3>3. Add the widths</h3>
+                    <div class="mini-model">10 + 3 = 13</div>
+                    <p>Since 12 × 3 = 36, the two partial quotients make 13.</p>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <h2>Why Partial Quotients Help</h2>
+                <p>Students do not need to find the entire quotient in one leap. They can use ×10, ×5, ×2, or any other multiplication fact that fits. Different students can decompose the same problem differently and still arrive at the same answer. That flexibility is one reason the area model can be a useful bridge from multiplication to long division.</p>
+              </section>
+
+              <section>
+                <h2>Area Model Division and Long Division</h2>
+                <p>Both methods repeatedly remove groups of the divisor. Area model division makes those groups visible as rectangle pieces; long division records the same idea in a compact vertical algorithm. Once students understand the area model, it can be easier to explain what each quotient digit in long division represents.</p>
+                <p>Ready to compare methods? <a href="/pages/long-division">Try the NDED Long Division Tutor</a>.</p>
+              </section>
+
+              <section>
+                <h2>For Parents and Teachers</h2>
+                <ul>
+                  <li>Let students choose their own friendly partial quotient instead of insisting on the biggest possible one.</li>
+                  <li>Keep connecting every rectangle piece to a multiplication fact: divisor × partial quotient = area used.</li>
+                  <li>Ask “How much area is left?” after every piece.</li>
+                  <li>When the remainder is smaller than the divisor, explain why no more full groups fit.</li>
+                </ul>
+              </section>
+
+              <section>
+                <h2>FAQ</h2>
+
+                <h3>Does the student have to use ×10 first?</h3>
+                <p>No. Any positive whole-number partial quotient is accepted as long as its area fits inside the amount remaining.</p>
+
+                <h3>Does this tutor support remainders?</h3>
+                <p>Yes. When the unused amount is smaller than the divisor, the model marks it as the remainder and shows the final answer with R notation.</p>
+
+                <h3>Is area model division the same as partial quotients?</h3>
+                <p>They are closely related. The area model is a visual way to organize partial quotients by representing each chosen multiple as part of a rectangle.</p>
+              </section>
+            </div>
+          </div>
+        </main>
+
+        <aside class="right-sidebar">
+          <div class="question-box">
+            <h2>Do you enjoy learning math?</h2>
+            <button class="btn yes">Yes, I love math!</button>
+            <button class="btn no">Math is challenging for me</button>
+            <div class="response" id="response"></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 NDED - Building Mathematical Confidence for Life. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/area-model-division.js"></script>
+</body>
+</html>
