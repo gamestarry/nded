@@ -1788,3 +1788,78 @@ body {
         padding-left: 1.3rem;
     }
 }
+
+/* ====== Themes 10–12 ====== */
+.theme-10 .multiplication-game {
+    background: linear-gradient(135deg, rgba(154, 208, 236, 0.12), rgba(255, 255, 255, 0.95)) !important;
+}
+.theme-11 .multiplication-game {
+    background: linear-gradient(135deg, rgba(168, 230, 207, 0.12), rgba(255, 255, 255, 0.95)) !important;
+}
+.theme-12 .multiplication-game {
+    background: linear-gradient(135deg, rgba(205, 180, 219, 0.12), rgba(255, 255, 255, 0.95)) !important;
+}
+
+.theme-10 .home-btn-small,
+.theme-10 .answer,
+.theme-10 .equation-result.filled,
+.theme-10 #restart-btn {
+    background: linear-gradient(145deg, #9AD0EC, #5FA8D3) !important;
+    color: white;
+}
+.theme-11 .home-btn-small,
+.theme-11 .answer,
+.theme-11 .equation-result.filled,
+.theme-11 #restart-btn {
+    background: linear-gradient(145deg, #A8E6CF, #56C596) !important;
+    color: white;
+}
+.theme-12 .home-btn-small,
+.theme-12 .answer,
+.theme-12 .equation-result.filled,
+.theme-12 #restart-btn {
+    background: linear-gradient(145deg, #CDB4DB, #A06CD5) !important;
+    color: white;
+}
+
+.theme-10 .equation-number {
+    background: linear-gradient(145deg, rgba(154, 208, 236, 0.22), rgba(255, 255, 255, 0.9));
+    color: #337FA8;
+}
+.theme-11 .equation-number {
+    background: linear-gradient(145deg, rgba(168, 230, 207, 0.22), rgba(255, 255, 255, 0.9));
+    color: #268A66;
+}
+.theme-12 .equation-number {
+    background: linear-gradient(145deg, rgba(205, 180, 219, 0.22), rgba(255, 255, 255, 0.9));
+    color: #7B4FA3;
+}
+
+.theme-10 {
+    --drag-highlight-bg: rgba(154, 208, 236, 0.22);
+    --drag-highlight-border: rgba(95, 168, 211, 0.85);
+}
+.theme-11 {
+    --drag-highlight-bg: rgba(168, 230, 207, 0.22);
+    --drag-highlight-border: rgba(86, 197, 150, 0.85);
+}
+.theme-12 {
+    --drag-highlight-bg: rgba(205, 180, 219, 0.22);
+    --drag-highlight-border: rgba(160, 108, 213, 0.85);
+}
+
+.theme-10 .digit-specific-article .digit-logic h2,
+.theme-10 .digit-specific-article h3,
+.theme-10 .digit-specific-article .step-box {
+    border-color: #5FA8D3;
+}
+.theme-11 .digit-specific-article .digit-logic h2,
+.theme-11 .digit-specific-article h3,
+.theme-11 .digit-specific-article .step-box {
+    border-color: #56C596;
+}
+.theme-12 .digit-specific-article .digit-logic h2,
+.theme-12 .digit-specific-article h3,
+.theme-12 .digit-specific-article .step-box {
+    border-color: #A06CD5;
+}
