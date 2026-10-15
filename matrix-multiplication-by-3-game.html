@@ -1268,6 +1268,17 @@
             border-left: 5px solid #ffc107;
         }
 
+        .tip-box .matrix-formula {
+            font-family: "Cambria Math", "Times New Roman", serif;
+            font-size: 1.04em;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+
+        .tip-box .matrix-formula sub {
+            font-size: 0.72em;
+        }
+
         .seo-article-container .key-points {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -2137,8 +2148,12 @@
                                     <h3>Key Tips</h3>
                                     <ul>
                                         <li>Earn a star for each level completed</li>
-                                        <li>Matrix multiplication formula: C[row][col] = (A[row][0] × B[0][col]) +
-                                            (A[row][1] × B[1][col]) + (A[row][2] × B[2][col])</li>
+                                        <li>Matrix multiplication formula:
+                                            <span class="matrix-formula">C<sub>row,col</sub> =
+                                                A<sub>row,0</sub> × B<sub>0,col</sub> +
+                                                A<sub>row,1</sub> × B<sub>1,col</sub> +
+                                                A<sub>row,2</sub> × B<sub>2,col</sub></span>
+                                        </li>
                                         <li>Use "Restart Training" to reset progress anytime</li>
                                         <li>Reach Master Mode to unlock more tools and challenges</li>
                                     </ul>
