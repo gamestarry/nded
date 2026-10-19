@@ -707,6 +707,15 @@
             background-color: #CDB4DB;
         }
 
+        #multiplication-game .btn-mixed.active-style,
+        #multiplication-game .btn-mixed:hover {
+            background: linear-gradient(135deg, #76C8D2, #8F9FE8);
+        }
+
+        #multiplication-game .btn-mixed {
+            position: relative;
+        }
+
         #multiplication-game .footer {
             margin-top: 27px;
             /* 从30px减小到27px，缩小10% */
@@ -2987,6 +2996,10 @@
                                             <a href="/pages/multiplication-by-12-game" class="level-btn btn-12"
                                                 onclick="handleMultiplicationJump(event, this)">
                                                 <span>Table</span>12
+                                            </a>
+                                            <a href="/pages/mixed-practice-game" class="level-btn btn-mixed"
+                                                onclick="handleMultiplicationJump(event, this)">
+                                                <span>Mixed</span>2–12
                                             </a>
                                         </div>
 

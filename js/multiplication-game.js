@@ -504,11 +504,14 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             
             <div class="completion-buttons">
-                <button id="return-home-btn">
-                    🏠 Return to Home
+                <button id="mixed-practice-btn">
+                    🎯 Mixed Practice
                 </button>
                 <button id="practice-again-btn">
                     🔄 Practice Again
+                </button>
+                <button id="return-home-btn">
+                    🏠 Return to Home
                 </button>
             </div>
         `;
@@ -522,6 +525,11 @@ document.addEventListener('DOMContentLoaded', function() {
             overlay.classList.add('active');
         }, 10);
         
+        // 混合练习按钮事件
+        document.getElementById('mixed-practice-btn').addEventListener('click', function() {
+            window.location.href = "/pages/mixed-practice-game";
+        });
+
         // 返回首页按钮事件
         document.getElementById('return-home-btn').addEventListener('click', function() {
             window.location.href = "/";
