@@ -382,12 +382,10 @@ document.addEventListener('DOMContentLoaded', () => {
         summaryScore.textContent = `${correctCount} / ${ROUND_SIZE} correct`;
         missedList.innerHTML = '';
 
-        const headingIcon = reviewHeading.querySelector('.review-heading-icon');
         const headingText = reviewHeading.querySelector('strong');
 
         if (missedFacts.length === 0) {
             reviewHeading.classList.add('all-clear');
-            if (headingIcon) headingIcon.textContent = '✓';
             if (headingText) headingText.textContent = 'No Facts Need Review';
 
             const item = document.createElement('li');
@@ -396,28 +394,93 @@ document.addEventListener('DOMContentLoaded', () => {
             missedList.appendChild(item);
         } else {
             reviewHeading.classList.remove('all-clear');
-            if (headingIcon) headingIcon.textContent = '⚠';
             if (headingText) {
-                headingText.textContent = `${missedFacts.length} Fact${missedFacts.length === 1 ? '' : 's'} Need Another Look`;
+                headingText.textContent = `${missedFacts.length} Fact${missedFacts.length === 1 ? '' : 's'} to Review`;
+            }
+
+            function makeNumberChip(value) {
+                const chip = document.createElement('div');
+                chip.className = 'equation-number';
+                chip.textContent = value;
+                return chip;
+            }
+
+            function makeAnswerChip(value, unanswered = false) {
+                const chip = document.createElement('div');
+                chip.className = 'answer review-answer' + (unanswered ? ' unanswered' : '');
+                chip.textContent = unanswered ? '?' : value;
+                return chip;
+            }
+
+            function makeEquationCard(fact, answerValue, finalVersion = false) {
+                const card = document.createElement('div');
+                card.className = 'review-equation-card' + (finalVersion ? ' final' : '');
+
+                const multiplyText = document.createElement('span');
+                multiplyText.textContent = `× ${fact.b} =`;
+
+                card.append(
+                    makeNumberChip(fact.a),
+                    multiplyText,
+                    makeAnswerChip(answerValue, answerValue === null)
+                );
+
+                return card;
             }
 
             missedFacts.forEach(({ fact, submittedValue }) => {
                 const item = document.createElement('li');
 
-                const factLine = document.createElement('strong');
-                factLine.textContent = `${fact.a} × ${fact.b}`;
+                const yourLabel = document.createElement('p');
+                yourLabel.className = 'review-step-label';
+                yourLabel.textContent = 'Your answer';
 
-                const submittedLine = document.createElement('span');
-                submittedLine.className = 'answer-review submitted-answer';
-                submittedLine.textContent = submittedValue === null
-                    ? 'No answer ✕'
-                    : `Your answer: ${submittedValue} ✕`;
+                const yourRow = document.createElement('div');
+                yourRow.className = 'review-equation-row';
 
-                const correctLine = document.createElement('span');
-                correctLine.className = 'answer-review correct-answer';
-                correctLine.textContent = `Correct answer: ${fact.result} ✓`;
+                const wrongMark = document.createElement('span');
+                wrongMark.className = 'review-mark wrong';
+                wrongMark.setAttribute('aria-label', 'Incorrect');
+                wrongMark.textContent = '✕';
 
-                item.append(factLine, submittedLine, correctLine);
+                yourRow.append(
+                    makeEquationCard(fact, submittedValue),
+                    wrongMark
+                );
+
+                const correctRow = document.createElement('div');
+                correctRow.className = 'review-correct-row';
+
+                const correctText = document.createElement('span');
+                correctText.textContent = 'Correct answer is';
+
+                const correctMark = document.createElement('span');
+                correctMark.className = 'review-mark correct';
+                correctMark.setAttribute('aria-label', 'Correct');
+                correctMark.textContent = '✓';
+
+                correctRow.append(
+                    correctText,
+                    makeAnswerChip(fact.result),
+                    correctMark
+                );
+
+                const finalLabel = document.createElement('p');
+                finalLabel.className = 'review-final-label';
+                finalLabel.textContent = 'Remember the complete fact';
+
+                const finalRow = document.createElement('div');
+                finalRow.className = 'review-equation-row';
+                finalRow.appendChild(makeEquationCard(fact, fact.result, true));
+
+                item.append(
+                    yourLabel,
+                    yourRow,
+                    correctRow,
+                    finalLabel,
+                    finalRow
+                );
+
                 missedList.appendChild(item);
             });
         }
