@@ -179,7 +179,7 @@
 
         .theme-mixed .home-btn-small,
         .theme-mixed .mixed-answer,
-        .theme-mixed #fresh-start-btn {
+        .theme-mixed #check-answers-btn {
             background: linear-gradient(145deg, #76C8D2, #8F9FE8);
             color: #fff;
         }
@@ -187,12 +187,6 @@
         .theme-mixed .equation-number {
             background: linear-gradient(145deg, rgba(118, 200, 210, 0.22), rgba(255, 255, 255, 0.95));
             color: #376B78;
-        }
-
-        .theme-mixed .equation-result.filled {
-            background: linear-gradient(145deg, #76C8D2, #8F9FE8) !important;
-            color: #fff !important;
-            border-color: transparent !important;
         }
 
         .mixed-game .mixed-instruction {
@@ -210,10 +204,21 @@
             margin-top: 0.25rem;
         }
 
+        .mixed-game .answers-container {
+            min-height: 76px;
+            transition: background-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .mixed-game .answers-container.return-zone-active {
+            background: rgba(118, 200, 210, 0.12);
+            box-shadow: inset 0 0 0 2px rgba(118, 200, 210, 0.35), var(--clay-shadow);
+        }
+
         .mixed-answer {
             border: 0;
             cursor: grab;
             touch-action: manipulation;
+            flex: 0 0 auto;
         }
 
         .mixed-answer.selected {
@@ -221,25 +226,50 @@
             transform: translateY(-3px) scale(1.05);
         }
 
-        .mixed-answer.used {
-            opacity: 0.22;
-            cursor: default;
-            transform: scale(0.92);
-        }
-
-        .mixed-answer.wrong,
-        .mixed-game .equation-result.wrong {
-            animation: mixed-shake 0.42s ease;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.22) !important;
+        .mixed-answer.placed {
+            margin: 0;
         }
 
         .mixed-game .equation-result {
             appearance: none;
             -webkit-appearance: none;
+            cursor: pointer;
+            overflow: visible;
         }
 
-        .mixed-equation.solved {
-            opacity: 0.82;
+        .mixed-game .equation-result.filled {
+            border-style: solid;
+            border-color: rgba(118, 200, 210, 0.34);
+            background: rgba(255, 255, 255, 0.72);
+        }
+
+        .mixed-game .equation-result .mixed-answer {
+            width: 46px;
+            height: 46px;
+            font-size: 1.12rem;
+        }
+
+        .mixed-game .equation-result.result-correct {
+            border: 2px solid rgba(34, 197, 94, 0.78) !important;
+            background: rgba(34, 197, 94, 0.08) !important;
+        }
+
+        .mixed-game .equation-result.result-wrong {
+            border: 2px solid rgba(239, 68, 68, 0.78) !important;
+            background: rgba(239, 68, 68, 0.08) !important;
+        }
+
+        .mixed-game .equation-result.result-unanswered {
+            border: 2px dashed rgba(239, 68, 68, 0.62) !important;
+            background: rgba(239, 68, 68, 0.05) !important;
+        }
+
+        .mixed-equation.checked-correct {
+            box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.10), var(--clay-shadow);
+        }
+
+        .mixed-equation.checked-wrong {
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.10), var(--clay-shadow);
         }
 
         .mixed-equation-text {
@@ -277,22 +307,34 @@
             list-style: none;
             padding: 0;
             margin: 0.75rem auto;
-            max-width: 420px;
+            max-width: 460px;
             display: grid;
-            gap: 0.45rem;
+            gap: 0.55rem;
         }
 
         .missed-facts li {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
-            padding: 0.6rem 0.8rem;
-            text-align: center;
-            font-weight: 700;
+            padding: 0.7rem 0.85rem;
             color: #455468;
+            display: grid;
+            gap: 0.18rem;
+            text-align: left;
+        }
+
+        .missed-facts li strong {
+            font-size: 1rem;
+        }
+
+        .missed-facts li span {
+            font-size: 0.9rem;
+            color: #68778a;
         }
 
         .missed-facts .all-correct {
             color: #21876d;
+            text-align: center;
+            font-weight: 700;
         }
 
         #review-note {
@@ -309,7 +351,8 @@
         }
 
         .summary-actions button,
-        #fresh-start-btn {
+        #fresh-start-btn,
+        #check-answers-btn {
             border: 0;
             border-radius: 12px;
             padding: 0.75rem 1.1rem;
@@ -328,19 +371,17 @@
             color: #66758a;
         }
 
+        #check-answers-btn:disabled {
+            opacity: 0.65;
+            cursor: default;
+        }
+
         .mixed-path-card {
             background: #f8fafc;
             border-left: 4px solid #76C8D2;
             border-radius: 10px;
             padding: 1rem;
             margin: 0.8rem 0;
-        }
-
-        @keyframes mixed-shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-3px); }
         }
 
         @media (max-width: 560px) {
@@ -403,8 +444,8 @@
                                 </div>
                             </div>
 
-                            <div class="completion-counter" id="round-status">Round 1 · 0/10 solved</div>
-                            <p class="mixed-instruction">Drag an answer to a fact, or tap an answer and then tap the matching blank.</p>
+                            <div class="completion-counter" id="round-status">Round 1 · 0/10 placed</div>
+                            <p class="mixed-instruction">Place answers anywhere you think they belong. You can move them again or drag them back to the top before checking.</p>
 
                             <div class="answers-container" id="answers-container" aria-label="Answer cards"></div>
                             <div class="equations-container" id="equations-container" aria-label="Mixed multiplication facts"></div>
@@ -412,6 +453,7 @@
                             <div id="round-message" aria-live="polite"></div>
 
                             <div class="buttons-container">
+                                <button class="game-btn" id="check-answers-btn" type="button">Check Answers</button>
                                 <button class="game-btn" id="fresh-start-btn" type="button">Start Fresh</button>
                             </div>
 
@@ -430,8 +472,8 @@
                         <section class="two-rounds-section" aria-labelledby="adaptive-rounds-title">
                             <h2 id="adaptive-rounds-title">How Adaptive Rounds Work</h2>
                             <p><strong>10 facts per round:</strong> Practice a mixed set from the 2–12 times tables.</p>
-                            <p><strong>Mistakes come back:</strong> Any fact missed on the first try is carried into the next round.</p>
-                            <p><strong>Master it and move on:</strong> Get a review fact right next time and it leaves the review pool, making room for new facts.</p>
+                            <p><strong>Mistakes come back:</strong> Any fact that is wrong or unanswered when Check is pressed is carried into the next round.</p>
+                            <p><strong>Master it and move on:</strong> Get a review fact right when you check the next round and it leaves the review pool, making room for new facts.</p>
                         </section>
 
                         <div class="seo-articles-section">
@@ -454,12 +496,12 @@
 
                                     <div class="mixed-path-card">
                                         <h4>2. See Exactly What Was Missed</h4>
-                                        <p>At the end of the round, any fact that needed more than one attempt is listed clearly for review.</p>
+                                        <p>Press Check whenever you are ready. Wrong answers and unanswered facts are listed clearly for review.</p>
                                     </div>
 
                                     <div class="mixed-path-card">
                                         <h4>3. Meet Those Facts Again</h4>
-                                        <p>Missed facts are mixed into the next set of 10. Once a review fact is answered correctly on the first try, it leaves the review pool.</p>
+                                        <p>Missed or unanswered facts are mixed into the next set of 10. Once a review fact is correct when the next round is checked, it leaves the review pool.</p>
                                     </div>
                                 </section>
 
@@ -481,7 +523,7 @@
                                 <p>This mixed practice game is designed for the stage after students have already worked with individual times tables. It can be used as a quick fluency check, a math-center activity, or a short review at the start of class.</p>
 
                                 <h3>Why the Wrong Facts Return</h3>
-                                <p>A wrong answer does not simply disappear when the round ends. The fact is carried into the next round, giving the student another chance to retrieve it among new questions. This keeps review targeted without creating a long worksheet of repeated problems.</p>
+                                <p>When Check is pressed, wrong and unanswered facts are carried into the next round. Students can freely arrange answers before submitting, then get a clear result and a focused set of facts to revisit.</p>
 
                                 <h3>Suggested Use</h3>
                                 <ul>
@@ -501,12 +543,12 @@
 
                                 <div class="faq-item">
                                     <h3>What happens when a student gets a fact wrong?</h3>
-                                    <p>The student can try again until the answer is correct. That fact is also listed at the end of the round and returns in the next round for more practice.</p>
+                                    <p>The game does not correct answers while the student is working. When Check is pressed, a wrong answer is shown with the correct answer and that fact returns in the next round.</p>
                                 </div>
 
                                 <div class="faq-item">
                                     <h3>When does a missed fact stop repeating?</h3>
-                                    <p>When the fact returns in a later round and is answered correctly on the first try, it leaves the review pool.</p>
+                                    <p>When the fact returns in a later round and is correct when that round is checked, it leaves the review pool.</p>
                                 </div>
 
                                 <div class="faq-item">
