@@ -304,88 +304,138 @@
         }
 
         .review-heading {
-            margin: 1.05rem auto 0.55rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            color: #9A4F42;
-            font-size: 1.02rem;
-        }
-
-        .review-heading-icon {
-            width: 1.65rem;
-            height: 1.65rem;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: #FFF0E8;
-            color: #D86655;
-            font-size: 0.9rem;
-            line-height: 1;
+            margin: 1.1rem auto 0.5rem;
+            text-align: center;
+            color: #4B5C70;
+            font-size: 1.05rem;
         }
 
         .review-heading.all-clear {
             color: #287A5A;
         }
 
-        .review-heading.all-clear .review-heading-icon {
-            background: #E9F7F0;
-            color: #287A5A;
-        }
-
         .missed-facts {
             list-style: none;
             padding: 0;
-            margin: 0.75rem auto;
-            max-width: 500px;
-            display: grid;
-            gap: 0.7rem;
+            margin: 0.65rem auto 0.9rem;
+            max-width: 560px;
         }
 
         .missed-facts li {
-            background: linear-gradient(90deg, #FFF8F6 0%, #FFFFFF 78%);
-            border: 1px solid #F1D3CD;
-            border-left: 6px solid #E77B72;
-            border-radius: 12px;
-            padding: 0.85rem 1rem;
+            padding: 1rem 0 1.2rem;
             color: #455468;
-            display: grid;
-            gap: 0.42rem;
-            text-align: left;
         }
 
-        .missed-facts li strong {
-            font-size: 1.08rem;
-            color: #35455A;
+        .missed-facts li + li {
+            border-top: 1px solid rgba(91, 116, 146, 0.18);
         }
 
-        .missed-facts li .answer-review {
-            display: inline-flex;
-            align-items: center;
-            width: fit-content;
-            max-width: 100%;
-            border-radius: 999px;
-            padding: 0.28rem 0.6rem;
+        .review-step-label {
+            margin: 0 0 0.45rem;
+            color: #65758A;
             font-size: 0.9rem;
             font-weight: 700;
         }
 
-        .missed-facts li .submitted-answer {
-            background: #FDE9E6;
-            color: #B34E46;
+        .review-equation-row,
+        .review-correct-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            flex-wrap: wrap;
         }
 
-        .missed-facts li .correct-answer {
-            background: #E8F6EF;
-            color: #287A5A;
+        .review-equation-card {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.72rem 0.9rem;
+            border-radius: var(--clay-radius-md);
+            box-shadow: var(--clay-shadow);
+            border: 2px solid var(--border-white);
+            background: var(--bg-white-90);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #35455A;
+        }
+
+        .review-equation-card.final {
+            margin-top: 0.7rem;
+        }
+
+        .review-equation-card .equation-number {
+            width: 48px;
+            height: 48px;
+            font-size: 1.18rem;
+            flex: 0 0 auto;
+        }
+
+        .theme-mixed .review-answer {
+            width: 46px;
+            height: 46px;
+            flex: 0 0 auto;
+            cursor: default;
+            pointer-events: none;
+            background: linear-gradient(145deg, #76C8D2, #8F9FE8);
+            color: #fff;
+        }
+
+        .review-answer::before {
+            display: none;
+        }
+
+        .review-answer:hover {
+            transform: none;
+            box-shadow: var(--clay-shadow);
+        }
+
+        .review-answer.unanswered {
+            background: #EEF3F8;
+            color: #7B8898;
+            border-color: #FFFFFF;
+        }
+
+        .review-mark {
+            width: 2rem;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .review-mark.wrong {
+            color: #D9574F;
+        }
+
+        .review-mark.correct {
+            color: #24A36A;
+        }
+
+        .review-correct-row {
+            margin-top: 0.7rem;
+            font-size: 1rem;
+            color: #4F6074;
+        }
+
+        .review-correct-row .review-answer {
+            margin-left: 0.15rem;
+        }
+
+        .review-final-label {
+            margin: 0.9rem 0 0.35rem;
+            text-align: center;
+            color: #65758A;
+            font-size: 0.88rem;
+            font-weight: 700;
         }
 
         .missed-facts .all-correct {
-            background: #F1FAF6;
+            padding: 0.85rem 1rem;
             border: 1px solid #CFEBDD;
-            border-left: 6px solid #58A982;
+            border-radius: 12px;
+            background: #F1FAF6;
             color: #287A5A;
             text-align: center;
             font-weight: 700;
@@ -393,9 +443,33 @@
 
         #review-note {
             text-align: center;
-            color: #A06A24;
+            color: #5F7085;
             font-weight: 650;
-            margin: 0.85rem 0 1rem;
+            margin: 0.9rem 0 1rem;
+        }
+
+        @media (max-width: 560px) {
+            .review-equation-card {
+                padding: 0.62rem 0.72rem;
+                gap: 0.4rem;
+                font-size: 1.05rem;
+            }
+
+            .review-equation-card .equation-number {
+                width: 44px;
+                height: 44px;
+                font-size: 1.08rem;
+            }
+
+            .theme-mixed .review-answer {
+                width: 44px;
+                height: 44px;
+                font-size: 1.08rem;
+            }
+
+            .review-mark {
+                font-size: 1.7rem;
+            }
         }
 
         .summary-actions {
@@ -516,8 +590,7 @@
                                 <h2>Round Complete!</h2>
                                 <div class="summary-score" id="summary-score"></div>
                                 <div class="review-heading" id="review-heading">
-                                    <span class="review-heading-icon" aria-hidden="true">⚠</span>
-                                    <strong>Facts Need Another Look</strong>
+                                    <strong>Facts to Review</strong>
                                 </div>
                                 <ul class="missed-facts" id="missed-list"></ul>
                                 <p id="review-note"></p>
