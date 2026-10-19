@@ -303,44 +303,99 @@
             margin-bottom: 0.75rem;
         }
 
+        .review-heading {
+            margin: 1.05rem auto 0.55rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #9A4F42;
+            font-size: 1.02rem;
+        }
+
+        .review-heading-icon {
+            width: 1.65rem;
+            height: 1.65rem;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #FFF0E8;
+            color: #D86655;
+            font-size: 0.9rem;
+            line-height: 1;
+        }
+
+        .review-heading.all-clear {
+            color: #287A5A;
+        }
+
+        .review-heading.all-clear .review-heading-icon {
+            background: #E9F7F0;
+            color: #287A5A;
+        }
+
         .missed-facts {
             list-style: none;
             padding: 0;
             margin: 0.75rem auto;
-            max-width: 460px;
+            max-width: 500px;
             display: grid;
-            gap: 0.55rem;
+            gap: 0.7rem;
         }
 
         .missed-facts li {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 0.7rem 0.85rem;
+            background: linear-gradient(90deg, #FFF8F6 0%, #FFFFFF 78%);
+            border: 1px solid #F1D3CD;
+            border-left: 6px solid #E77B72;
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
             color: #455468;
             display: grid;
-            gap: 0.18rem;
+            gap: 0.42rem;
             text-align: left;
         }
 
         .missed-facts li strong {
-            font-size: 1rem;
+            font-size: 1.08rem;
+            color: #35455A;
         }
 
-        .missed-facts li span {
+        .missed-facts li .answer-review {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            max-width: 100%;
+            border-radius: 999px;
+            padding: 0.28rem 0.6rem;
             font-size: 0.9rem;
-            color: #68778a;
+            font-weight: 700;
+        }
+
+        .missed-facts li .submitted-answer {
+            background: #FDE9E6;
+            color: #B34E46;
+        }
+
+        .missed-facts li .correct-answer {
+            background: #E8F6EF;
+            color: #287A5A;
         }
 
         .missed-facts .all-correct {
-            color: #21876d;
+            background: #F1FAF6;
+            border: 1px solid #CFEBDD;
+            border-left: 6px solid #58A982;
+            color: #287A5A;
             text-align: center;
             font-weight: 700;
         }
 
         #review-note {
             text-align: center;
-            color: #637286;
-            margin: 0.75rem 0 1rem;
+            color: #A06A24;
+            font-weight: 650;
+            margin: 0.85rem 0 1rem;
         }
 
         .summary-actions {
@@ -460,7 +515,10 @@
                             <section class="round-summary" id="round-summary" hidden aria-live="polite">
                                 <h2>Round Complete!</h2>
                                 <div class="summary-score" id="summary-score"></div>
-                                <p style="text-align:center; margin-bottom:0.4rem;"><strong>Facts to review</strong></p>
+                                <div class="review-heading" id="review-heading">
+                                    <span class="review-heading-icon" aria-hidden="true">⚠</span>
+                                    <strong>Facts Need Another Look</strong>
+                                </div>
                                 <ul class="missed-facts" id="missed-list"></ul>
                                 <p id="review-note"></p>
                                 <div class="summary-actions">
