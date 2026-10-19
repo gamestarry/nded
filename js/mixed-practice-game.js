@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const summaryScore = document.getElementById('summary-score');
     const missedList = document.getElementById('missed-list');
     const reviewHeading = document.getElementById('review-heading');
+    const completeFactsReview = document.getElementById('complete-facts-review');
+    const completeFactsList = document.getElementById('complete-facts-list');
     const reviewNote = document.getElementById('review-note');
     const nextRoundBtn = document.getElementById('next-round-btn');
     const freshStartBtn = document.getElementById('fresh-start-btn');
@@ -24,6 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
         !summaryScore ||
         !missedList ||
         !reviewHeading ||
+        !completeFactsReview ||
+        !completeFactsList ||
         !reviewNote ||
         !nextRoundBtn ||
         !freshStartBtn
@@ -381,6 +385,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         summaryScore.textContent = `${correctCount} / ${ROUND_SIZE} correct`;
         missedList.innerHTML = '';
+        completeFactsList.innerHTML = '';
+        completeFactsReview.hidden = true;
 
         const headingText = reviewHeading.querySelector('strong');
 
@@ -465,24 +471,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     correctMark
                 );
 
-                const finalLabel = document.createElement('p');
-                finalLabel.className = 'review-final-label';
-                finalLabel.textContent = 'Remember the complete fact';
-
-                const finalRow = document.createElement('div');
-                finalRow.className = 'review-equation-row';
-                finalRow.appendChild(makeEquationCard(fact, fact.result, true));
-
                 item.append(
                     yourLabel,
                     yourRow,
-                    correctRow,
-                    finalLabel,
-                    finalRow
+                    correctRow
                 );
 
                 missedList.appendChild(item);
             });
+
+            missedFacts.forEach(({ fact }) => {
+                const row = document.createElement('div');
+                row.className = 'review-equation-row';
+                row.appendChild(makeEquationCard(fact, fact.result));
+                completeFactsList.appendChild(row);
+            });
+
+            completeFactsReview.hidden = false;
         }
 
         const carryCount = reviewPool.size;
