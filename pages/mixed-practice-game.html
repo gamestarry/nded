@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Practice mixed multiplication facts from 2 to 12 in adaptive 10-question rounds. Missed facts return in the next round for focused review.">
+    <meta name="keywords" content="mixed multiplication practice, multiplication facts 2-12, times tables review, multiplication fluency, adaptive math practice">
+    <meta name="author" content="NDED">
+    <title>Mixed Multiplication Practice 2–12 | NDED</title>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts for NDED styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="canonical" href="https://nd-ed.org/pages/mixed-practice-game">
+
+    <!-- 样式文件 -->
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- 调整游戏在模板中的显示 -->
+    <style>
+        /* 重置body样式，让模板接管 */
+        body {
+            background-color: #f9f9f9 !important;
+            justify-content: flex-start !important;
+            align-items: flex-start !important;
+            padding: 0 !important;
+        }
+
+        /* 游戏容器在模板中的样式调整 */
+        .main-content .multiplication-game {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(118, 200, 210, 0.14), rgba(205, 180, 219, 0.14), rgba(255, 255, 255, 0.96));
+            border: none;
+            box-shadow: none;
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 调整标题行 */
+        .title-row {
+            margin-top: 0;
+        }
+
+        /* 调整答案和算式容器在模板中的间距 */
+        .answers-container {
+            margin: 1rem 0;
+        }
+
+        .equations-container {
+            margin: 1rem 0;
+        }
+
+        /* 确保动态内容容器能够容纳游戏和文章 */
+        .dynamic-content-container {
+            padding: 1rem;
+            min-height: auto;
+        }
+
+        .two-rounds-section,
+        .table-chart-section,
+        .number-strategy-section,
+        .next-challenge-section {
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid var(--drag-highlight-border, rgba(52, 152, 219, 0.24));
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .two-rounds-section {
+            padding: 0.9rem 1rem;
+        }
+
+        .two-rounds-section h2,
+        .table-chart-section h2,
+        .number-strategy-section h2,
+        .next-challenge-section h2 {
+            margin-top: 0;
+        }
+
+        .two-rounds-section p,
+        .number-strategy-card p,
+        .next-challenge-section p {
+            margin-bottom: 0.55rem;
+        }
+
+        .times-chart-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.65rem;
+            margin-top: 1rem;
+        }
+
+        .chart-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            background: #f8fafc;
+            border: 1px solid rgba(52, 152, 219, 0.18);
+            border-radius: 8px;
+            padding: 0.7rem 0.85rem;
+        }
+
+        .chart-row.header {
+            background: var(--drag-highlight-bg, rgba(52, 152, 219, 0.12));
+            font-weight: 700;
+            color: #2c3e50;
+            grid-column: 1 / -1;
+        }
+
+        .chart-answer,
+        .strategy-fact {
+            font-weight: 800;
+            color: #2c3e50;
+        }
+
+        .number-strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .number-strategy-card {
+            background: #f8fafc;
+            border-left: 4px solid var(--drag-highlight-border, var(--secondary-color));
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .challenge-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.9rem;
+        }
+
+        .challenge-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 2px solid var(--drag-highlight-border, var(--secondary-color));
+            border-radius: var(--border-radius);
+            padding: 0.6rem 0.9rem;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .challenge-link:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        @media (max-width: 640px) {
+            .times-chart-grid,
+            .number-strategy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .challenge-links {
+                flex-direction: column;
+            }
+        }
+
+        /* Mixed practice theme */
+        .theme-mixed {
+            --drag-highlight-bg: rgba(118, 200, 210, 0.2);
+            --drag-highlight-border: rgba(118, 200, 210, 0.8);
+        }
+
+        .theme-mixed .home-btn-small,
+        .theme-mixed .mixed-answer,
+        .theme-mixed #fresh-start-btn {
+            background: linear-gradient(145deg, #76C8D2, #8F9FE8);
+            color: #fff;
+        }
+
+        .theme-mixed .equation-number {
+            background: linear-gradient(145deg, rgba(118, 200, 210, 0.22), rgba(255, 255, 255, 0.95));
+            color: #376B78;
+        }
+
+        .theme-mixed .equation-result.filled {
+            background: linear-gradient(145deg, #76C8D2, #8F9FE8) !important;
+            color: #fff !important;
+            border-color: transparent !important;
+        }
+
+        .mixed-game .mixed-instruction {
+            text-align: center;
+            color: #5f6f82;
+            margin: -0.15rem 0 0.7rem;
+            font-size: 0.96rem;
+        }
+
+        .mixed-game #round-message {
+            min-height: 1.5rem;
+            text-align: center;
+            color: #66758a;
+            font-size: 0.92rem;
+            margin-top: 0.25rem;
+        }
+
+        .mixed-answer {
+            border: 0;
+            cursor: grab;
+            touch-action: manipulation;
+        }
+
+        .mixed-answer.selected {
+            outline: 4px solid rgba(118, 200, 210, 0.28);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .mixed-answer.used {
+            opacity: 0.22;
+            cursor: default;
+            transform: scale(0.92);
+        }
+
+        .mixed-answer.wrong,
+        .mixed-game .equation-result.wrong {
+            animation: mixed-shake 0.42s ease;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.22) !important;
+        }
+
+        .mixed-game .equation-result {
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .mixed-equation.solved {
+            opacity: 0.82;
+        }
+
+        .mixed-equation-text {
+            white-space: nowrap;
+        }
+
+        .round-summary {
+            margin-top: 1.25rem;
+            padding: 1.2rem;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(118, 200, 210, 0.10), rgba(205, 180, 219, 0.12));
+            border: 1px solid rgba(118, 200, 210, 0.28);
+            box-shadow: 0 8px 24px rgba(57, 76, 96, 0.08);
+        }
+
+        .round-summary[hidden] {
+            display: none;
+        }
+
+        .round-summary h2 {
+            margin: 0 0 0.35rem;
+            color: #2D3748;
+            text-align: center;
+        }
+
+        .summary-score {
+            text-align: center;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #4A5568;
+            margin-bottom: 0.75rem;
+        }
+
+        .missed-facts {
+            list-style: none;
+            padding: 0;
+            margin: 0.75rem auto;
+            max-width: 420px;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .missed-facts li {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 0.6rem 0.8rem;
+            text-align: center;
+            font-weight: 700;
+            color: #455468;
+        }
+
+        .missed-facts .all-correct {
+            color: #21876d;
+        }
+
+        #review-note {
+            text-align: center;
+            color: #637286;
+            margin: 0.75rem 0 1rem;
+        }
+
+        .summary-actions {
+            display: flex;
+            justify-content: center;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+        }
+
+        .summary-actions button,
+        #fresh-start-btn {
+            border: 0;
+            border-radius: 12px;
+            padding: 0.75rem 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        #next-round-btn {
+            background: linear-gradient(145deg, #76C8D2, #8F9FE8);
+            color: #fff;
+            box-shadow: var(--clay-shadow);
+        }
+
+        #fresh-start-btn {
+            background: #eef3f8;
+            color: #66758a;
+        }
+
+        .mixed-path-card {
+            background: #f8fafc;
+            border-left: 4px solid #76C8D2;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 0.8rem 0;
+        }
+
+        @keyframes mixed-shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-3px); }
+        }
+
+        @media (max-width: 560px) {
+            .mixed-game .equations-container {
+                grid-template-columns: 1fr;
+            }
+
+            .mixed-game .equation {
+                padding: 0.75rem;
+            }
+        }
+
+    </style>
+</head>
+<body class="theme-mixed">
+    <!-- 页眉部分 -->
+    <header>
+        <div class="container">
+            <div class="main-title">
+                <span class="nded-text">NDED</span>
+                <span class="subtitle">building mathematical confidence for life.</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区域 -->
+    <div class="main-row-container">
+        <div class="wide-container">
+            <div class="main-row">
+                <!-- 左侧边栏 -->
+                <div class="left-sidebar">
+                    <h3 class="nav-title">Navigation</h3>
+                    <div class="nav-buttons">
+                        <a href="/" class="nav-button">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                        <a href="/about-us" class="nav-button">
+                            <i class="fas fa-info-circle"></i> About us
+                        </a>
+                        <a href="/" class="nav-button">
+                            <i class="fas fa-gamepad"></i> Math Games
+                        </a>
+                        <a href="https://matrixcalculator.net/" target="_blank" class="nav-button external">
+                            <i class="fas fa-calculator"></i> Matrix Calculator
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 主内容区域 -->
+                <div class="main-content">
+                    <div class="dynamic-content-container">
+                        <!-- 游戏部分 -->
+                        <div class="multiplication-game mixed-game">
+                            <div class="title-row">
+                                <div class="title-with-button">
+                                    <a href="/" class="home-btn-small" aria-label="Return to home">
+                                        <i class="fas fa-home"></i>
+                                    </a>
+                                    <h1>Mixed Multiplication Practice</h1>
+                                </div>
+                            </div>
+
+                            <div class="completion-counter" id="round-status">Round 1 · 0/10 solved</div>
+                            <p class="mixed-instruction">Drag an answer to a fact, or tap an answer and then tap the matching blank.</p>
+
+                            <div class="answers-container" id="answers-container" aria-label="Answer cards"></div>
+                            <div class="equations-container" id="equations-container" aria-label="Mixed multiplication facts"></div>
+
+                            <div id="round-message" aria-live="polite"></div>
+
+                            <div class="buttons-container">
+                                <button class="game-btn" id="fresh-start-btn" type="button">Start Fresh</button>
+                            </div>
+
+                            <section class="round-summary" id="round-summary" hidden aria-live="polite">
+                                <h2>Round Complete!</h2>
+                                <div class="summary-score" id="summary-score"></div>
+                                <p style="text-align:center; margin-bottom:0.4rem;"><strong>Facts to review</strong></p>
+                                <ul class="missed-facts" id="missed-list"></ul>
+                                <p id="review-note"></p>
+                                <div class="summary-actions">
+                                    <button id="next-round-btn" type="button">Next Round →</button>
+                                </div>
+                            </section>
+                        </div>
+
+                        <section class="two-rounds-section" aria-labelledby="adaptive-rounds-title">
+                            <h2 id="adaptive-rounds-title">How Adaptive Rounds Work</h2>
+                            <p><strong>10 facts per round:</strong> Practice a mixed set from the 2–12 times tables.</p>
+                            <p><strong>Mistakes come back:</strong> Any fact missed on the first try is carried into the next round.</p>
+                            <p><strong>Master it and move on:</strong> Get a review fact right next time and it leaves the review pool, making room for new facts.</p>
+                        </section>
+
+                        <div class="seo-articles-section">
+                            <article class="digit-specific-article">
+                                <section class="digit-logic">
+                                    <h2>Mixed Multiplication Practice from 2 to 12</h2>
+                                    <p>Knowing a times table in order is useful, but fluent recall means recognizing a multiplication fact without knowing which table is coming next. This game mixes facts from the 2 through 12 times tables in short, focused rounds.</p>
+                                </section>
+
+                                <hr>
+
+                                <section class="how-to-play">
+                                    <h3>🎯 Mistakes Become Your Next Practice</h3>
+                                    <p class="intro-sentence"><strong>Each round has only 10 questions, and the game remembers what needs another look.</strong></p>
+
+                                    <div class="mixed-path-card">
+                                        <h4>1. Solve 10 Mixed Facts</h4>
+                                        <p>The questions are drawn from multiplication facts with tables 2–12, so students cannot rely on a predictable sequence.</p>
+                                    </div>
+
+                                    <div class="mixed-path-card">
+                                        <h4>2. See Exactly What Was Missed</h4>
+                                        <p>At the end of the round, any fact that needed more than one attempt is listed clearly for review.</p>
+                                    </div>
+
+                                    <div class="mixed-path-card">
+                                        <h4>3. Meet Those Facts Again</h4>
+                                        <p>Missed facts are mixed into the next set of 10. Once a review fact is answered correctly on the first try, it leaves the review pool.</p>
+                                    </div>
+                                </section>
+
+                                <h3>Why Mixed Practice Matters</h3>
+                                <p>Working through one table at a time helps students notice patterns and build confidence. Mixed practice adds the next skill: retrieving a fact when there is no sequence to guide the answer.</p>
+                                <ul>
+                                    <li>Builds multiplication fact fluency across tables</li>
+                                    <li>Revisits difficult facts without turning the whole session into drill</li>
+                                    <li>Keeps rounds short enough for classroom warm-ups or independent practice</li>
+                                    <li>Uses mistakes as useful information about what to practice next</li>
+                                </ul>
+
+                                <h3>What Facts Are Included?</h3>
+                                <p>Questions use the 2–12 times tables with factors from 1 through 12. A round may include facts such as 4 × 7, 9 × 6, 11 × 8, or 12 × 12.</p>
+                            </article>
+
+                            <article class="for-teachers-section">
+                                <h2>For Teachers</h2>
+                                <p>This mixed practice game is designed for the stage after students have already worked with individual times tables. It can be used as a quick fluency check, a math-center activity, or a short review at the start of class.</p>
+
+                                <h3>Why the Wrong Facts Return</h3>
+                                <p>A wrong answer does not simply disappear when the round ends. The fact is carried into the next round, giving the student another chance to retrieve it among new questions. This keeps review targeted without creating a long worksheet of repeated problems.</p>
+
+                                <h3>Suggested Use</h3>
+                                <ul>
+                                    <li>Use one or two 10-question rounds as a warm-up</li>
+                                    <li>Ask students to notice which facts keep returning</li>
+                                    <li>Return to an individual times table when a pattern of difficulty appears</li>
+                                </ul>
+                            </article>
+
+                            <article class="faq-section">
+                                <h2>Frequently Asked Questions</h2>
+
+                                <div class="faq-item">
+                                    <h3>How many questions are in each round?</h3>
+                                    <p>Each round contains 10 mixed multiplication facts.</p>
+                                </div>
+
+                                <div class="faq-item">
+                                    <h3>What happens when a student gets a fact wrong?</h3>
+                                    <p>The student can try again until the answer is correct. That fact is also listed at the end of the round and returns in the next round for more practice.</p>
+                                </div>
+
+                                <div class="faq-item">
+                                    <h3>When does a missed fact stop repeating?</h3>
+                                    <p>When the fact returns in a later round and is answered correctly on the first try, it leaves the review pool.</p>
+                                </div>
+
+                                <div class="faq-item">
+                                    <h3>Is the game timed?</h3>
+                                    <p>No. The goal is accurate recall and useful repetition, not speed pressure.</p>
+                                </div>
+                            </article>
+
+                            <article class="next-challenge-section">
+                                <h2>Need to Review One Table?</h2>
+                                <p>Mixed practice is most useful after students know the individual tables. If one group of facts is still difficult, go back and practice that table on its own.</p>
+                                <div class="challenge-links">
+                                    <a href="/pages/multiplication-by-12-game" class="challenge-link">← Practice 12 Times Table</a>
+                                    <a href="/#math-games-section" class="challenge-link">Choose a Times Table</a>
+                                </div>
+                            </article>
+                        </div>
+                        <!-- SEO文章区域结束 -->
+                    </div>
+                </div>
+
+                <!-- 右侧边栏 -->
+                <div class="right-sidebar">
+                    <div class="question-box">
+                        <h2>Do you enjoy learning math?</h2>
+                        <button class="btn yes">Yes, I love math!</button>
+                        <button class="btn no">Math is challenging for me</button>
+                        <div class="response" id="response"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚部分 -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 NDED - Building Mathematical Confidence for Life. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 游戏逻辑 -->
+    <script src="../js/mixed-practice-game.js"></script>
+
+    <!-- 模板的JavaScript代码 -->
+    <script>
+        // 问答栏功能
+        function initPoll() {
+            const yesBtn = document.querySelector('.question-box .yes');
+            const noBtn = document.querySelector('.question-box .no');
+            const response = document.getElementById('response');
+
+            yesBtn.addEventListener('click', () => {
+                response.textContent = "That's great! Math is an amazing tool for understanding the world! 🧮";
+                response.classList.add('show');
+            });
+
+            noBtn.addEventListener('click', () => {
+                response.textContent = "We're here to help! Our resources are designed to make math easier and more fun. 👍";
+                response.classList.add('show');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化问答栏
+            initPoll();
+        });
+    </script>
+</body>
+</html>
