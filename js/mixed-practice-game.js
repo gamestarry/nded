@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const summary = document.getElementById('round-summary');
     const summaryScore = document.getElementById('summary-score');
     const missedList = document.getElementById('missed-list');
+    const reviewHeading = document.getElementById('review-heading');
     const reviewNote = document.getElementById('review-note');
     const nextRoundBtn = document.getElementById('next-round-btn');
     const freshStartBtn = document.getElementById('fresh-start-btn');
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         !summary ||
         !summaryScore ||
         !missedList ||
+        !reviewHeading ||
         !reviewNote ||
         !nextRoundBtn ||
         !freshStartBtn
@@ -380,18 +382,42 @@ document.addEventListener('DOMContentLoaded', () => {
         summaryScore.textContent = `${correctCount} / ${ROUND_SIZE} correct`;
         missedList.innerHTML = '';
 
+        const headingIcon = reviewHeading.querySelector('.review-heading-icon');
+        const headingText = reviewHeading.querySelector('strong');
+
         if (missedFacts.length === 0) {
+            reviewHeading.classList.add('all-clear');
+            if (headingIcon) headingIcon.textContent = '✓';
+            if (headingText) headingText.textContent = 'No Facts Need Review';
+
             const item = document.createElement('li');
             item.className = 'all-correct';
             item.textContent = 'Perfect round — no facts need to carry forward.';
             missedList.appendChild(item);
         } else {
+            reviewHeading.classList.remove('all-clear');
+            if (headingIcon) headingIcon.textContent = '⚠';
+            if (headingText) {
+                headingText.textContent = `${missedFacts.length} Fact${missedFacts.length === 1 ? '' : 's'} Need Another Look`;
+            }
+
             missedFacts.forEach(({ fact, submittedValue }) => {
                 const item = document.createElement('li');
-                const answerText = submittedValue === null
-                    ? 'No answer'
-                    : `Your answer: ${submittedValue}`;
-                item.innerHTML = `<strong>${fact.a} × ${fact.b}</strong><span>${answerText}</span><span>Correct answer: ${fact.result}</span>`;
+
+                const factLine = document.createElement('strong');
+                factLine.textContent = `${fact.a} × ${fact.b}`;
+
+                const submittedLine = document.createElement('span');
+                submittedLine.className = 'answer-review submitted-answer';
+                submittedLine.textContent = submittedValue === null
+                    ? 'No answer ✕'
+                    : `Your answer: ${submittedValue} ✕`;
+
+                const correctLine = document.createElement('span');
+                correctLine.className = 'answer-review correct-answer';
+                correctLine.textContent = `Correct answer: ${fact.result} ✓`;
+
+                item.append(factLine, submittedLine, correctLine);
                 missedList.appendChild(item);
             });
         }
