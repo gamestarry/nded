@@ -361,11 +361,7 @@
             color: #35455A;
         }
 
-        .review-equation-card.final {
-            margin-top: 0.7rem;
-        }
-
-        .review-equation-card .equation-number {
+                .review-equation-card .equation-number {
             width: 48px;
             height: 48px;
             font-size: 1.18rem;
@@ -423,12 +419,29 @@
             margin-left: 0.15rem;
         }
 
-        .review-final-label {
-            margin: 0.9rem 0 0.35rem;
+        .complete-facts-review {
+            margin: 1.15rem auto 0.2rem;
+            padding-top: 1rem;
+            max-width: 560px;
+            border-top: 1px solid rgba(91, 116, 146, 0.18);
+        }
+
+        .complete-facts-review[hidden] {
+            display: none;
+        }
+
+        .complete-facts-review h3 {
+            margin: 0 0 0.8rem;
             text-align: center;
-            color: #65758A;
-            font-size: 0.88rem;
-            font-weight: 700;
+            color: #35455A;
+            font-size: 1rem;
+        }
+
+        .complete-facts-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.7rem;
         }
 
         .missed-facts .all-correct {
@@ -593,6 +606,10 @@
                                     <strong>Facts to Review</strong>
                                 </div>
                                 <ul class="missed-facts" id="missed-list"></ul>
+                                <div class="complete-facts-review" id="complete-facts-review" hidden>
+                                    <h3>Remember these complete facts</h3>
+                                    <div class="complete-facts-list" id="complete-facts-list"></div>
+                                </div>
                                 <p id="review-note"></p>
                                 <div class="summary-actions">
                                     <button id="next-round-btn" type="button">Next Round →</button>
